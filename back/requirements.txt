@@ -3,7 +3,7 @@ fastapi==0.104.1
 uvicorn[standard]==0.24.0
 
 # Database
-sqlalchemy==2.0.23
+sqlalchemy==2.0.35
 psycopg2-binary
 alembic==1.12.1
 
@@ -35,3 +35,4 @@ python-dotenv
 black==23.11.0
 isort==5.12.0
 mypy==1.7.1
+passlib[bcrypt]==1.7.4

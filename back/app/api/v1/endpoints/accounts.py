@@ -196,12 +196,12 @@ def get_sync_status(
     )
 
 
-@router.delete("/{account_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{account_id}", response_model=None, status_code=status.HTTP_204_NO_CONTENT)
 def disconnect_account(
     account_id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
-) -> Any:
+) -> None:
     """Disconnect a social media account."""
     
     try:

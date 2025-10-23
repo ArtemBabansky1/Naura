@@ -281,12 +281,12 @@ def update_contact(
     return contact_data
 
 
-@router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{contact_id}", response_model=None, status_code=status.HTTP_204_NO_CONTENT)
 def delete_contact(
     contact_id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
-) -> Any:
+) -> None:
     """Archive (soft delete) a contact."""
     
     try:

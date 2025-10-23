@@ -1,7 +1,9 @@
 from typing import Optional, List
 from pydantic import Field, validator
 from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class Settings(BaseSettings):
     # Application
@@ -12,10 +14,10 @@ class Settings(BaseSettings):
     
     # Server
     HOST: str = Field(default="0.0.0.0")
-    PORT: int = Field(default=8000)
+    PORT: int = Field(default=8002)
     
     # CORS
-    ALLOWED_ORIGINS: List[str] = Field(default=["http://localhost:3000", "http://localhost:3001"])
+    ALLOWED_ORIGINS: List[str] = Field(default=["http://localhost:5173", "http://localhost:3000"])
     
     # Database
     DATABASE_URL: str = Field(...)
@@ -59,10 +61,10 @@ class Settings(BaseSettings):
     FROM_EMAIL: Optional[str] = Field(default=None)
     
     # File Storage
-    AWS_ACCESS_KEY_ID: Optional[str] = Field(default=None)
-    AWS_SECRET_ACCESS_KEY: Optional[str] = Field(default=None)
-    AWS_S3_BUCKET: Optional[str] = Field(default=None)
-    AWS_REGION: str = Field(default="us-east-1")
+    # AWS_ACCESS_KEY_ID: Optional[str] = Field(default=None)
+    # AWS_SECRET_ACCESS_KEY: Optional[str] = Field(default=None)
+    # AWS_S3_BUCKET: Optional[str] = Field(default=None)
+    # AWS_REGION: str = Field(default="us-east-1")
     
     # Celery
     CELERY_BROKER_URL: str = Field(...)
