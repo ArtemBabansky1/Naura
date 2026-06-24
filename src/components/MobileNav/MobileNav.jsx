@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
 import { lockScroll, unlockScroll } from '../../lib/scrollLock'
+import { APP_URL } from '../../lib/urls'
 import BurgerButton from './BurgerButton'
 import './MobileNav.css'
 
@@ -160,10 +161,10 @@ export default function MobileNav({ open, setOpen }) {
                   >
                     {i18n.language === 'en' ? 'RU' : 'EN'}
                   </button>
-                  <a href="#" className="mobile-nav__btn mobile-nav__btn--ghost" onClick={close}>
+                  <a href={APP_URL} className="mobile-nav__btn mobile-nav__btn--ghost" onClick={close}>
                     {t('nav.signIn')}
                   </a>
-                  <a href="#" className="mobile-nav__btn mobile-nav__btn--primary" onClick={close}>
+                  <a href={APP_URL} className="mobile-nav__btn mobile-nav__btn--primary" onClick={close}>
                     {t('nav.getStarted')}
                   </a>
                 </div>

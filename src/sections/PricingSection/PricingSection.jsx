@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion, useReducedMotion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
+import { APP_URL } from '../../lib/urls'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'
 import './PricingSection.css'
 
@@ -87,7 +88,7 @@ function PlanCard({ plan }) {
         </ul>
       </div>
 
-      <a href="#" className="pricing-card__cta pricing-card__cta--ghost">
+      <a href={APP_URL} className="pricing-card__cta pricing-card__cta--ghost">
         {t(`${base}.cta`)}
       </a>
     </motion.article>

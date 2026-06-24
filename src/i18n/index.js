@@ -13,6 +13,7 @@ import enPricing from './locales/en/pricing.json'
 import enFaq from './locales/en/faq.json'
 import enCta from './locales/en/cta.json'
 import enFooter from './locales/en/footer.json'
+import enSupport from './locales/en/support.json'
 
 import ruCommon from './locales/ru/common.json'
 import ruHero from './locales/ru/hero.json'
@@ -25,14 +26,15 @@ import ruPricing from './locales/ru/pricing.json'
 import ruFaq from './locales/ru/faq.json'
 import ruCta from './locales/ru/cta.json'
 import ruFooter from './locales/ru/footer.json'
+import ruSupport from './locales/ru/support.json'
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
-      en: { common: enCommon, hero: enHero, features: enFeatures, howItWorks: enHowItWorks, communities: enCommunities, telegram: enTelegram, aiAgents: enAiAgents, pricing: enPricing, faq: enFaq, cta: enCta, footer: enFooter },
-      ru: { common: ruCommon, hero: ruHero, features: ruFeatures, howItWorks: ruHowItWorks, communities: ruCommunities, telegram: ruTelegram, aiAgents: ruAiAgents, pricing: ruPricing, faq: ruFaq, cta: ruCta, footer: ruFooter },
+      en: { common: enCommon, hero: enHero, features: enFeatures, howItWorks: enHowItWorks, communities: enCommunities, telegram: enTelegram, aiAgents: enAiAgents, pricing: enPricing, faq: enFaq, cta: enCta, footer: enFooter, support: enSupport },
+      ru: { common: ruCommon, hero: ruHero, features: ruFeatures, howItWorks: ruHowItWorks, communities: ruCommunities, telegram: ruTelegram, aiAgents: ruAiAgents, pricing: ruPricing, faq: ruFaq, cta: ruCta, footer: ruFooter, support: ruSupport },
     },
     fallbackLng: 'en',
     supportedLngs: ['en', 'ru'],

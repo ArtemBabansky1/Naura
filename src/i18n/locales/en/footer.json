@@ -3,6 +3,6 @@
     "heading": "Product",
     "links": { "home": "Home", "businessCards": "Business Cards", "communities": "For Communities", "blog": "Blog" }
   },
-  "contacts": { "heading": "Contacts", "email": "naura.io@naura.io", "telegram": "TG: @naura_crm" },
-  "legal": { "privacy": "Privacy Policy", "terms": "Terms of Use", "copyright": "© 2026 Naura Cards. All rights reserved." }
+  "contacts": { "heading": "Contacts", "email": "naura.io@naura.io", "telegram": "TG: @naura_sp" },
+  "legal": { "privacy": "Privacy Policy", "terms": "Terms of Use", "faq": "FAQ", "support": "Support", "copyright": "© 2026 Naura Cards. All rights reserved." }
 }

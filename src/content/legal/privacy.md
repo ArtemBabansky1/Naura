@@ -1,8 +1,8 @@
 # Privacy Policy
 
-*Last updated: March 23, 2026*
+*Last Updated on March 23, 2026*
 
-This Privacy Policy ("the Policy") describes how naura.io and app.naura.io collect, use, and disclose information, and what choices you have with respect to the information.
+This Privacy Policy ("The Policy") describes how naura.io and app.naura.io collect, use, and disclose information, and what choices you have with respect to the information.
 
 When we refer to "Naura", we mean Naura and its wholly owned subsidiaries, if any.
 
@@ -10,7 +10,7 @@ When we refer to "Naura", we mean Naura and its wholly owned subsidiaries, if an
 
 Naura ("Naura" or "we") respects your privacy and is committed to protecting it. Please read this Privacy Policy carefully to understand how Naura collects and uses your personal information and data. The Policy covers all Personal Information that we receive from various sources, as outlined below. By using or accessing Naura's Website, including Naura.io, or app.naura.io or other-related interaction through the App (the "Service(s)"), in any way, or by engaging in transactions with Naura through any other means, you acknowledge that you accept the practices and policies outlined in the Policy, and you hereby consent to our collection, use and disclosure of your information in the manner described herein. If you do not agree with the Policy, please do not use this Service or transact business with Naura.
 
-Under the Policy, "Personal Information" may include any information that can be used to identify or locate you, such as your name, address, IP address, mailing address, contact information, email address or phone number, and other information you may provide to us. Both federal and state laws in the United States define Personal Information, as do the laws of other countries and jurisdictions. The Policy is intended to include the most expansive definition that applies to you. Please recognize that your rights related to Personal Information, and how Personal Information is defined, differ somewhat from state to state and country to country.
+Under the Policy, "Personal Information" may include any information that can be used to identify or locate you, such as your name, address, IP address, mailing address, contact information, email address or phone number, and other information you may provide to us. Both federal and state laws in the United States define Personal Information or Personal Information, as do the laws of other countries and jurisdictions. The Policy is intended to include the most expansive definition that applies to you. Please recognize that your rights related to Personal Information, and how Personal Information is defined, differ somewhat from state to state and country to country.
 
 ## Changes to Privacy Policy
 
@@ -31,7 +31,7 @@ It does not apply to information collected by:
 
 Please read this policy carefully to understand our practices regarding your Personal Information and how Naura will treat such information. If you do not agree with Naura's policies and practices, you must not use the Service.
 
-By accessing or using the Service, you agree to this Privacy Policy. The Policy may change at any time. Your continued use of the Service after Naura makes changes is deemed to be acceptance of those changes. It is your responsibility to check the Policy periodically for updates. If you are registering an account or using the services on behalf of an individual or entity other than yourself, you admit that you are authorized by such individual or entity to agree to this Privacy Policy on such individual's or entity's behalf.
+By accessing or using the Service, you agree to this Privacy Policy. The Policy may change at any time. Your continued use of the Service after Naura makes changes is deemed to be acceptance of those changes. It is your responsibility to check the Policy periodically for updates. If you are registering an account or using the services on behalf of an individual or entity other than yourself, you admit that you are authorized by such individual or entity to agree to this Privacy Policy on such individual's or entity's behalf. Your use of the Service is also subject to our [Terms of Use](/terms).
 
 ## Information We Collect About You and How We Collect It
 
@@ -116,7 +116,7 @@ Naura uses information that Naura collects about you or that you provide to us, 
 - In any other way we may describe when you provide the information.
 - For any other purpose, with your consent.
 
-## Storage of Personal Information After "Deletion" and Disclosure of Your Information
+## Storage of Personal Information after "deletion" and Disclosure of Your Information
 
 Naura stores all Traffic Data and review postings indefinitely, even after "deletion", and may archive such information elsewhere. However, upon "deletion", such data is anonymized and no longer contains any personally identifiable information. Naura stores all Personal Information until you request that Naura modify or delete it, in which case Naura may still retain certain Personal Information for the reasons described herein.
 
@@ -137,8 +137,8 @@ You may choose not to provide Naura with any Personal Information. In such an ev
 Naura may also disclose your Personal Information:
 
 - To comply with any court order, law or legal process, including to respond to any government or regulatory request.
-- To enforce or apply our terms of use and other agreements.
-- If Naura believes disclosure is necessary or appropriate to protect the rights, property, or safety of Naura, Naura's customers or others. This includes exchanging information with other companies and organizations for the purposes of fraud protection and credit risk reduction.
+- To enforce or apply our [Terms of Use](/terms) and other agreements.
+- If Naura believes disclosure is necessary or appropriate to protect the rights, property, or safety of Naura., Naura's customers or others. This includes exchanging information with other companies and organizations for the purposes of fraud protection and credit risk reduction.
 - To respond to claims that any posting or other content violates the rights of third-parties.
 
 **No personal information, mobile number, or messaging consent information will be shared with third parties or affiliates for marketing or promotional purposes.**
@@ -223,7 +223,7 @@ Naura stores all information in state-of-the-art physical storage facilities and
 
 However, no electronic data transmission can be guaranteed to be secure from access by unintended recipients and Naura will not be responsible for any breach of security unless this breach is due to its negligence. Although we are committed to employing reasonable technology in order to protect the security of our Service, even with the best technology, no Service is 100% secure. In transacting business with us through our Service, you assume the risk inherent in transacting business online.
 
-To offer our Service, products and services to you, Naura relies on plugins and services from third parties such as internet service providers, email service providers and plugins, credit card processors, and third-party data storage. To the extent these providers have access to your Personal Information, we will require that they are legally or contractually committed to comply with applicable privacy laws. In the case of credit card processors, we require that they be PCI DSS-compliant. However, we cannot guarantee with certainty that the computer systems and storage systems whereon these services are offered will not be accessed by unauthorized parties. This is a risk inherent in providing any information or, or conducting any business, online. In transacting business with us through our Service, you assume the risk inherent in transacting business online.
+To offer our Service, products and services to you, Naura relies on plugins and services from third parties such as internet service providers, email service providers and plugins, credit card processors, and third-party data storage. To the extent these providers have access to your Personal Information, we will require that they are legally or contractually committed to comply with applicable privacy laws, In the case of credit card processors, we require that they be PCI DSS-compliant. However, we cannot guarantee with certainty that the computer systems and storage systems whereon these services are offered will not be accessed by unauthorized parties. This is a risk inherent in providing any information or, or conducting any business, online. In transacting business with us through our Service, you assume the risk inherent in transacting business online.
 
 ## Links to Other Services
 
@@ -233,8 +233,8 @@ The Service may contain links to third party Services to which Naura has no affi
 
 If you have any questions, concerns, or requests regarding this Privacy Policy or the handling of your Personal Information, please do not hesitate to contact us. We are committed to addressing your inquiries in a timely and transparent manner.
 
-For general inquiries related to privacy, data access, corrections, or opt-out requests, please contact us at [dpo@naura.io](mailto:dpo@naura.io). This is the primary point of contact for all matters concerning your rights and choices as described in this Privacy Policy.
+For general inquiries related to privacy, data access, corrections, or opt-out requests, please contact us at: [dpo@naura.io](mailto:dpo@naura.io). This is the primary point of contact for all matters concerning your rights and choices as described in this Privacy Policy.
 
-If your inquiry involves a formal legal claim, dispute, or complaint in connection with this Privacy Policy, please address it separately to our legal team at [law@naura.io](mailto:law@naura.io). Please use this address exclusively for matters of a legal nature, including but not limited to formal complaints, notices of violation, or requests involving litigation.
+If your inquiry involves a formal legal claim, dispute, or complaint in connection with this Privacy Policy, please address it separately to our legal team at: [law@naura.io](mailto:law@naura.io). Please use this address exclusively for matters of a legal nature, including but not limited to formal complaints, notices of violation, or requests involving litigation.
 
 Naura endeavors to respond to all standard privacy-related requests within 30 calendar days of receipt. This timeframe applies to requests that are not of an urgent or critical nature, such as routine access requests, correction requests, or general inquiries. Where a request is determined to be urgent or critical, including matters involving potential data breaches, immediate risk to personal safety, or time-sensitive legal obligations, will make every reasonable effort to respond in the shortest time possible, prioritizing such matters accordingly.

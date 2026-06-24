@@ -3,6 +3,7 @@ import HeroGraph from './HeroGraph'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'
 import BurgerButton from '../../components/MobileNav/BurgerButton'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
+import { APP_URL } from '../../lib/urls'
 import './HeroSection.css'
 
 // Naura wordmark (was naura-logo.svg) — inline so it ships with the JS, no request.
@@ -56,8 +57,8 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
             <button type="button" className="hero-nav__lang" onClick={toggleLang} aria-label="Switch language">
               {i18n.language === 'en' ? 'RU' : 'EN'}
             </button>
-            <a href="#" className="hero-nav__btn hero-nav__btn--secondary">{t('nav.signIn')}</a>
-            <a href="#" className="hero-nav__btn hero-nav__btn--primary">{t('nav.getStarted')}</a>
+            <a href={APP_URL} className="hero-nav__btn hero-nav__btn--secondary">{t('nav.signIn')}</a>
+            <a href={APP_URL} className="hero-nav__btn hero-nav__btn--primary">{t('nav.getStarted')}</a>
           </div>
 
           {/* Static burger (≤1199) — scrolls away with the hero, like the desktop
@@ -82,10 +83,10 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
             {t('subtitle')}
           </p>
           <div className="hero-content__cta">
-            <a href="#" className="btn-hero btn-hero--primary">
+            <a href={APP_URL} className="btn-hero btn-hero--primary">
               {t('cta.startFree')}
             </a>
-            <button type="button" className="btn-hero btn-hero--ghost">
+            <a href={APP_URL} className="btn-hero btn-hero--ghost">
               <svg
                 className="btn-hero__icon"
                 aria-hidden="true"
@@ -98,7 +99,7 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
                 <path d="M6.5 5.5L11 8L6.5 10.5V5.5Z" fill="currentColor" />
               </svg>
               {t('cta.seeDemo')}
-            </button>
+            </a>
           </div>
         </div>
 

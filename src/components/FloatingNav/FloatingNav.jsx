@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
+import { APP_URL } from '../../lib/urls'
 import './FloatingNav.css'
 
 /**
@@ -61,10 +62,10 @@ export default function FloatingNav() {
         </button>
 
         {/* Two buttons */}
-        <a href="#" className="float-nav__btn float-nav__btn--ghost" tabIndex={tab}>
+        <a href={APP_URL} className="float-nav__btn float-nav__btn--ghost" tabIndex={tab}>
           {t('nav.signIn')}
         </a>
-        <a href="#" className="float-nav__btn" tabIndex={tab}>
+        <a href={APP_URL} className="float-nav__btn" tabIndex={tab}>
           {t('nav.getStarted')}
         </a>
       </div>

@@ -87,8 +87,7 @@
   color: var(--text-primary);
 }
 
-/* The legal links are <button>s that open the in-page legal sheet. The reset
- * already strips border/background/padding; just left-align like the anchors. */
+/* Legal links sit in the same column as product links. */
 .footer-legal .footer-link {
   text-align: left;
 }

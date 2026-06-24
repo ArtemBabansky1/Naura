@@ -1,0 +1,16 @@
+{
+  "pageTitle": "Support — Naura",
+  "eyebrow": "Support",
+  "headline": "We're here to help",
+  "intro": "If you have any questions, contact us by email <email>{{email}}</email> or fill the form below. You can also check our <faq>FAQ</faq> for quick answers.",
+  "formHeading": "Send us a message",
+  "form": {
+    "nameLabel": "Your name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "submit": "Send message",
+    "submitting": "Sending…",
+    "success": "Your message has been sent successfully. We'll get back to you soon.",
+    "error": "Something went wrong. Please try again."
+  }
+}

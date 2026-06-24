@@ -6,10 +6,11 @@
   /* Horizontal padding = the shared container gutter (--gutter), so the hero
    * stage's edge lines up with every other section's content edge at all
    * breakpoints (100u ≥1200, then 40 / 30 / 20 stepping down). */
-  padding-block: calc(50 * var(--u));
-  padding-inline: var(--gutter);
+  /* padding-block: calc(50 * var(--u)); */
+  /* padding-inline: var(--gutter); */
   min-height: 100dvh;   /* dvh, not vh — survives the mobile URL-bar collapse */
   box-sizing: border-box;
+  min-width: 100dvw;
 }
 
 @media (max-width: 1199.98px) {
@@ -46,10 +47,10 @@
 .hero-stage {
   position: relative;
   width: 100%;
-  height: calc(100dvh - calc(100 * var(--u)));
-  min-height: calc(600 * var(--u));
-  border-radius: var(--section-radius);
-  border: var(--card-border-subtle);
+  height: 100dvh;
+  /* min-height: calc(600 * var(--u)); */
+  border-radius: 0;
+  border: none;
   overflow: hidden;
   background: var(--bg-surface);
 }

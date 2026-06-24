@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { motion, useReducedMotion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
+import { TELEGRAM_BOT_URL } from '../../lib/urls'
 import PhoneShowcase from './PhoneShowcase'
 import './TelegramSection.css'
 
@@ -120,8 +121,15 @@ export default function TelegramSection() {
         </motion.div>
 
         <motion.div className="telegram-actions" variants={fadeUp}>
-          <a href="#" className="telegram-btn telegram-btn--primary">{t('cta.openBot')}</a>
-          <a href="#" className="telegram-btn telegram-btn--ghost">{t('cta.howItStores')}</a>
+          <a
+            href={TELEGRAM_BOT_URL}
+            className="telegram-btn telegram-btn--primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('cta.openBot')}
+          </a>
+          <a href="/privacy" className="telegram-btn telegram-btn--ghost">{t('cta.howItStores')}</a>
         </motion.div>
       </motion.div>
     </section>

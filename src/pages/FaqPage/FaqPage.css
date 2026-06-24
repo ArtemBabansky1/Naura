@@ -1,0 +1,41 @@
+.faq-page {
+  max-width: 52rem;
+}
+
+.faq-page__header {
+  margin-bottom: var(--space-50);
+}
+
+.faq-page__eyebrow {
+  display: block;
+  color: var(--text-muted);
+}
+
+.faq-page__title {
+  margin: var(--space-10) 0 0;
+  color: var(--text-primary);
+}
+
+.faq-page__contact {
+  margin: var(--space-20) 0 0;
+  max-width: 52ch;
+  color: var(--text-list);
+  line-height: var(--leading-normal);
+}
+
+.faq-page__link {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity var(--duration-fast) var(--ease-in-out);
+}
+
+.faq-page__link:hover {
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-page__link {
+    transition: none;
+  }
+}

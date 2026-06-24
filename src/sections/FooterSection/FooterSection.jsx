@@ -1,8 +1,9 @@
-import { useRef } from 'react'
-import { useTranslation } from 'react-i18next'
-import './FooterSection.css'
+import { useRef } from "react"
+import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+import "./FooterSection.css"
 
-export default function FooterSection({ onOpenLegal }) {
+export default function FooterSection() {
   const { t } = useTranslation('footer')
   const sectionRef = useRef(null)
 
@@ -63,13 +64,15 @@ export default function FooterSection({ onOpenLegal }) {
             <h3 className="footer-col__heading">{t('contacts.heading')}</h3>
             <ul className="footer-col__list">
               <li><a href="mailto:hello@naura.io" className="footer-link">{t('contacts.email')}</a></li>
-              <li><a href="https://t.me/naura_crm" className="footer-link">{t('contacts.telegram')}</a></li>
+              <li><a href="https://t.me/@naura_sp" className="footer-link">{t('contacts.telegram')}</a></li>
             </ul>
           </div>
 
           <ul className="footer-col__list footer-legal">
-            <li><button type="button" className="footer-link" onClick={() => onOpenLegal?.('privacy')}>{t('legal.privacy')}</button></li>
-            <li><button type="button" className="footer-link" onClick={() => onOpenLegal?.('terms')}>{t('legal.terms')}</button></li>
+            <li><Link to="/faq" className="footer-link">{t("legal.faq")}</Link></li>
+            <li><Link to="/support" className="footer-link">{t("legal.support")}</Link></li>
+            <li><Link to="/privacy" className="footer-link">{t("legal.privacy")}</Link></li>
+            <li><Link to="/terms" className="footer-link">{t("legal.terms")}</Link></li>
           </ul>
 
           <p className="footer-copy text-body-sm">{t('legal.copyright')}</p>

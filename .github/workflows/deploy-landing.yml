@@ -1,0 +1,80 @@
+name: Deploy landing site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REMOTE_PATH: /var/www/naura.io/landing
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy landing site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build static site
+        run: bun run build
+
+      - name: Package build output
+        run: tar czf landing-dist.tar.gz -C dist .
+
+      - name: Copy build to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 187.77.183.28
+          username: root
+          password: ${{ secrets.HOST_PASSWORD }}
+          source: "landing-dist.tar.gz"
+          target: "/tmp/"
+
+      - name: Deploy static files on server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          REMOTE_PATH: ${{ env.REMOTE_PATH }}
+        with:
+          host: 187.77.183.28
+          username: root
+          password: ${{ secrets.HOST_PASSWORD }}
+          envs: REMOTE_PATH
+          script: |
+            set -e
+
+            STAGE="/tmp/naura-landing-deploy-$$"
+            mkdir -p "$STAGE" "$REMOTE_PATH"
+
+            tar xzf /tmp/landing-dist.tar.gz -C "$STAGE"
+            rsync -a --delete "$STAGE/" "$REMOTE_PATH/"
+
+            rm -rf "$STAGE" /tmp/landing-dist.tar.gz
+
+      - name: Verify deployment
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          REMOTE_PATH: ${{ env.REMOTE_PATH }}
+        with:
+          host: 187.77.183.28
+          username: root
+          password: ${{ secrets.HOST_PASSWORD }}
+          envs: REMOTE_PATH
+          script: |
+            set -e
+
+            if [ ! -f "$REMOTE_PATH/index.html" ]; then
+              echo "❌ index.html missing in $REMOTE_PATH"
+              exit 1
+            fi
+
+            echo "✅ Static landing deployed to $REMOTE_PATH"
+            ls -la "$REMOTE_PATH" | head -20

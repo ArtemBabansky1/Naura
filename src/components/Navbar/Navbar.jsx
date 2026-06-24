@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { APP_URL } from '../../lib/urls'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -24,8 +25,8 @@ export default function Navbar() {
           <button type="button" className="navbar__lang text-body-sm" onClick={toggleLang} aria-label="Switch language">
             {i18n.language === 'en' ? 'RU' : 'EN'}
           </button>
-          <a href="#" className="navbar__btn navbar__btn--secondary text-body-sm">{t('cta.signIn')}</a>
-          <a href="#" className="navbar__btn navbar__btn--primary text-body-sm">{t('cta.getStarted')}</a>
+          <a href={APP_URL} className="navbar__btn navbar__btn--secondary text-body-sm">{t('cta.signIn')}</a>
+          <a href={APP_URL} className="navbar__btn navbar__btn--primary text-body-sm">{t('cta.getStarted')}</a>
         </div>
       </div>
     </header>
