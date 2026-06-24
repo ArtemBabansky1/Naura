@@ -1,0 +1,169 @@
+/*
+ * TYPOGRAPHY — Naura landing page
+ *
+ * Font: Vela Sans GX (variable font)
+ *   Place the .woff2 file at: src/assets/fonts/VelaSansGX.woff2
+ *   Weight range 100–900 assumed for variable font.
+ *   TODO: verify actual wght axis from the .woff2 file.
+ *
+ * Secondary: Inter (used in pricing UI, falls back to system Inter)
+ */
+
+@layer base {
+
+  /* ============================================================
+   * @font-face: Vela Sans GX (variable font)
+   * ============================================================ */
+
+  @font-face {
+    font-family: 'Vela Sans GX';
+    src: url('/fonts/VelaSans-GX.woff2') format('woff2-variations');
+    font-weight: 100 900;   /* TODO: confirm wght axis in .woff2 */
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+                   U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122,
+                   U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+
+  /* ============================================================
+   * TYPOGRAPHIC CLASSES
+   *
+   * Blocks use these classes or reference tokens directly.
+   * All sizes use clamp() from tokens.css for fluid scaling.
+   * ============================================================ */
+
+  /* Display / Hero H1 — 36–80px / SemiBold / lh 1.2 */
+  /* Usage: hero headline, final CTA */
+  .text-display {
+    font-family: var(--font-primary);
+    font-size: var(--text-display);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* H2: Section heading — 28–50px / SemiBold / lh 1.2 */
+  /* Figma: "Find experts your friends actually know." */
+  .text-h2 {
+    font-family: var(--font-primary);
+    font-size: var(--text-h2);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* H3: Card heading — 20–30px / SemiBold / lh 1.2 */
+  /* Figma: feature card headings */
+  .text-h3 {
+    font-family: var(--font-primary);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* H4: FAQ questions — 18–25px / Medium / lh 1.2 */
+  .text-h4 {
+    font-family: var(--font-primary);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* Body Large — 16–20px / Regular / lh 1.3 */
+  /* Figma: "Privacy by default", community feature labels */
+  .text-body-lg {
+    font-family: var(--font-primary);
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* Body — 16px / Regular / lh 1.3 */
+  /* Figma: card descriptions, nav links */
+  .text-body {
+    font-family: var(--font-primary);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* Body UI — 16px / Regular / lh 1.25 / tight tracking */
+  /* Figma: navbar links, tracking -0.15px @ 16px */
+  .text-body-ui {
+    font-family: var(--font-primary);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    line-height: 1.25;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  /* Body Small — 12px / Regular / lh 1.3 */
+  /* Figma: footer links, small nav buttons */
+  .text-body-sm {
+    font-family: var(--font-primary);
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* Caption — 10px / Regular / lh 1.3 */
+  /* Figma: graph node labels, meta info */
+  .text-caption {
+    font-family: var(--font-primary);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* Section label / eyebrow — 16px / Regular / muted color */
+  /* Figma: "what naura does", "MCP for AI agents" */
+  .text-label {
+    font-family: var(--font-primary);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-normal);
+    color: var(--text-muted);
+    letter-spacing: var(--tracking-none);
+  }
+
+  /* Pricing display number — 36–80px / Medium */
+  /* Figma: "€9", "€29" — 80px / Medium / lh 36px / +0.4px tracking */
+  .text-price {
+    font-family: var(--font-primary);
+    font-size: var(--text-display);
+    font-weight: var(--weight-medium);
+    line-height: 0.45;
+    letter-spacing: 0.005em;
+  }
+
+  /* Pricing plan name — 16–20px / Bold */
+  /* Figma: "Pro", "Team", "Free" — 20px / Bold / lh 28px / -0.45px tracking */
+  .text-plan {
+    font-family: var(--font-primary);
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-bold);
+    line-height: 1.4;
+    letter-spacing: -0.022em;
+  }
+
+  /* ============================================================
+   * BREAKPOINTS
+   * clamp() handles most scaling. Add manual overrides only when needed.
+   * ============================================================ */
+
+  @media (max-width: 768px) {
+    .text-display,
+    .text-h2 {
+      text-wrap: balance;
+    }
+  }
+
+}

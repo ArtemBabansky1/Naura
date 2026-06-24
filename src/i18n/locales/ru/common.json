@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "ariaLabel": "Основная навигация",
+    "businessCards": "Визитки",
+    "communities": "Для сообществ",
+    "blog": "Блог",
+    "about": "О нас"
+  },
+  "cta": {
+    "signIn": "Войти",
+    "getStarted": "Начать",
+    "startFree": "Начать бесплатно",
+    "seeDemo": "Посмотреть за 90 секунд",
+    "startPro": "Подключить Pro",
+    "getEarlyAccess": "Получить ранний доступ",
+    "seeProduct": "Смотреть продукт",
+    "open": "Открыть",
+    "send": "Отправить",
+    "askForIntro": "Попросить интро",
+    "openBot": "Открыть в Telegram"
+  }
+}

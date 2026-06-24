@@ -1,0 +1,8 @@
+{
+  "product": {
+    "heading": "Продукт",
+    "links": { "home": "Главная", "businessCards": "Визитки", "communities": "Для сообществ", "blog": "Блог" }
+  },
+  "contacts": { "heading": "Контакты", "email": "naura.io@naura.io", "telegram": "TG: @naura_crm" },
+  "legal": { "privacy": "Политика конфиденциальности", "terms": "Условия использования", "copyright": "© 2026 Naura Cards. Все права защищены." }
+}

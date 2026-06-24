@@ -1,0 +1,12 @@
+{
+  "eyebrow": "for ai agents",
+  "headline": "Your contacts, now an API",
+  "headlineAccent": "for your AI.",
+  "subtitle": "Naura ships an MCP server. Plug it into Claude Code, Cursor, or any agent runtime — and your network becomes context the model can search, plan with, and act on.",
+  "privacyBadges": ["Privacy by default", "No data resale", "End-to-end encrypted", "You own your graph", "GDPR-compliant"],
+  "capabilities": {
+    "read": { "label": "Read", "description": "Query your graph by name, tag, city, role, last-spoke." },
+    "plan": { "label": "Plan", "description": "Ask for warm-intro paths and have the agent rank them." },
+    "act":  { "label": "Act",  "description": "Draft messages, schedule follow-ups, push to Calendar." }
+  }
+}

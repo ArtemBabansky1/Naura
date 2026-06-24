@@ -1,0 +1,31 @@
+{
+  "eyebrow": "FAQ",
+  "headline": "Quick answers.",
+  "contact": "Can't find what you're looking for? Email hello@naura.io — we read every one.",
+  "items": [
+    {
+      "question": "Is it free?",
+      "answer": "Yes. The Free plan is free forever — no card required — with up to 250 contacts, basic reminders and one business card. During beta, early users get Pro free for the first 6 months."
+    },
+    {
+      "question": "How is this different from a phone address book?",
+      "answer": "Your phone stores numbers. Naura understands relationships — it auto-tags contacts, remembers the context of how you met, and surfaces who you should reconnect with, so you can search your whole network instead of only the names you happen to remember."
+    },
+    {
+      "question": "What's the handshake feature?",
+      "answer": "Handshake finds the warmest path to anyone you want to reach. Naura maps the connections across your network and shows who can make the introduction — so you get to the right person through someone they already trust."
+    },
+    {
+      "question": "Does the Telegram bot work without a Naura account?",
+      "answer": "No — the bot is tied to your Naura workspace. Once you sign up you can add contacts, drop voice notes and set reminders straight from Telegram, and everything syncs back to your account automatically."
+    },
+    {
+      "question": "Is my data private?",
+      "answer": "Your network is yours. Contacts are encrypted, never sold and never shared. You decide what's stored, and you can export or permanently delete everything at any time."
+    },
+    {
+      "question": "Web app or mobile?",
+      "answer": "Naura runs in any browser today — both desktop and mobile web — plus a Telegram bot and MCP access for AI tools like Claude and Cursor. Native apps are on the way."
+    }
+  ]
+}

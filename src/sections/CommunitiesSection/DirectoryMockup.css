@@ -1,0 +1,173 @@
+/* DirectoryMockup — proportions mirror the old directory.svg (viewBox 536×425):
+ * a browser-window member directory. Fills the .communities-visual panel.
+ * Tokens only; all spacing multiples of 5. */
+.dir-mock {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+  padding: var(--space-30) var(--space-25) var(--space-25);
+  border-radius: var(--card-radius);
+  background: rgba(0, 0, 0, 0.6);   /* 60% — lets the purple glow read through */
+  border: var(--card-border-subtle);
+  overflow: clip;
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+}
+
+/* ── Window chrome bar ── */
+.dir-mock__chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-15);
+}
+
+.dir-mock__dots {
+  display: inline-flex;
+  gap: var(--space-5);
+  flex-shrink: 0;
+}
+
+.dir-mock__dots i {
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  border-radius: var(--radius-pill);
+  background: var(--text-muted);
+}
+
+.dir-mock__title {
+  padding: var(--space-5) var(--space-15);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-body-sm);
+  color: var(--text-list);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Filter toolbar ── */
+.dir-mock__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+}
+
+/* Shared pill — outline default, purple when .is-active */
+.dir-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-5) var(--space-15);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-body-sm);
+  line-height: 1.2;
+  color: var(--text-list);
+  white-space: nowrap;
+}
+
+.dir-pill.is-active {
+  background: var(--bg-accent);
+  border-color: transparent;
+  color: var(--text-on-accent);
+}
+
+/* ── 2×2 member grid ── */
+.dir-mock__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--space-10);
+  min-height: 0;
+}
+
+.dir-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  align-content: start;
+  gap: var(--space-10);
+  padding: var(--space-20);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-20);
+  background: rgba(0, 0, 0, 0.6);   /* 60% — lets the purple glow read through */
+  min-width: 0;
+}
+
+.dir-card__pic {
+  grid-row: 1;
+  grid-column: 1;
+  display: block;
+}
+
+.dir-card__avatar {
+  width: calc(42 * var(--u));
+  height: calc(42 * var(--u));
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  display: block;
+}
+
+.dir-card__id {
+  grid-row: 1;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.dir-card__name {
+  font-size: var(--text-body);
+  line-height: 1.2;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dir-card__role {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.dir-card__pills {
+  grid-row: 3;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+  margin-top: auto;
+  min-width: 0;
+}
+
+/* Tablet & below: 3 columns can't breathe in the narrowed panel — drop to 2,
+ * rows flow naturally (this grid lives inside overflow:clip so it never affects
+ * page scroll, but 2-col keeps the cards legible). */
+@media (max-width: 767.98px) {
+  .dir-mock__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+/* Small phones (<550): the panel is too tight for the full roster — keep only
+ * the first row of the 2-column grid (the top 2 cards) and hide the rest. */
+@media (max-width: 549.98px) {
+  .dir-card:nth-child(n+3) {
+    display: none;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .dir-card {
+    padding: var(--space-15);
+  }
+  .dir-card__role {
+    display: none;
+  }
+}

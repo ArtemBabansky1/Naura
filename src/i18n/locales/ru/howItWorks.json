@@ -1,0 +1,24 @@
+{
+  "eyebrow": "как это работает",
+  "headline": "Четыре шага. Дальше работает в фоне.",
+  "steps": {
+    "step01": { "number": "01", "title": "Создайте карточку", "description": "Войдите через Google или Apple. Визитка соберётся сама." },
+    "step02": { "number": "02", "title": "Импортируйте всех", "description": "Телефон, Telegram, LinkedIn, CSV. Массово в один тап. Naura уберёт дубли." },
+    "step03": { "number": "03", "title": "ИИ тегирует и упорядочивает", "description": "Роли, интересы, города, когда познакомились. Можно править. Всё ваше." },
+    "step04": { "number": "04", "title": "Поиск · напоминания · вопросы", "description": "Найдите путь. Получите подсказку. Спросите свою сеть прямо из чата." }
+  },
+  "labels": {
+    "colleagues": "Коллеги",
+    "family": "Семья",
+    "friends": "Друзья",
+    "neighbors": "Соседи"
+  },
+  "card": {
+    "name": "Marcus Bennett",
+    "role": "CTO Vertex Labs",
+    "phone": "+1 (415) 872-0364",
+    "site": "vertexlabs.io",
+    "telegram": "https://t.me/Marcus_Bennett",
+    "email": "marcus.bennett.dev@gmail.com"
+  }
+}

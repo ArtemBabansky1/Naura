@@ -1,0 +1,207 @@
+/* CommunitiesSection — "For communities" (4th block).
+ * Semantic tokens only. All multiples of 5.
+ *
+ * Frame = outer bordered card, calc(40 * var(--u)) padding on all content.
+ * Left column: header → bullets (calc(60 * var(--u)) below header) → buttons (pinned bottom).
+ * Right panel: 50% of frame width, clips a mockup that bleeds 20% past its edge.
+ */
+
+/* ── Outer frame ──────────────────────────────────────────────────────── */
+.communities-frame {
+  position: relative;
+  display: flex;
+  gap: var(--space-40);
+  padding: var(--space-40);
+  border: var(--card-border-subtle);
+  border-radius: var(--card-radius);
+  overflow: clip;
+  /* Black base; the animation (pressed to the right) provides the purple glow.
+   * Cards on top are semi-transparent so it reads through them. */
+  background-color: var(--bg-card);
+}
+
+/* UnicornStudio animation as the frame background, masked so it hugs the right
+   edge and the left stays pure black. */
+.communities-unicorn {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 20%, #000 70%);
+  mask-image: linear-gradient(to right, transparent 20%, #000 70%);
+}
+
+/* This frame crops a darker region of the scene — brighten so the purple pops. */
+.communities-unicorn canvas {
+  filter: invert(1) grayscale(1) brightness(1.8) contrast(1.08);
+}
+
+/* ── Left column ──────────────────────────────────────────────────────── */
+.communities-left {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header — same spacing logic as prior blocks: eyebrow→title 10, title→subtitle 20 */
+.communities-header__eyebrow {
+  display: block;
+}
+
+.communities-header__title {
+  margin: var(--space-10) 0 0;
+  color: var(--text-primary);
+  white-space: pre-line;   /* honour the \n break in the headline */
+}
+
+.communities-header__subtitle {
+  margin: var(--space-20) 0 0;
+  max-width: 46ch;
+  color: var(--text-list);
+}
+
+/* Bullets — calc(60 * var(--u)) from the heading group, in 2 rows of 2
+ * (directory / events on row 1, ask-for-intro / admin controls on row 2).
+ * Each row is its own flex line so pills size to content with a fixed calc(20 * var(--u))
+ * gap, instead of aligning to a shared grid column. */
+.communities-bullets {
+  margin: var(--space-60) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.communities-bullets__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+}
+
+.communities-pill {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding: var(--space-15) var(--space-20);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-20);
+  background: transparent;
+  color: var(--text-list);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.communities-pill__title {
+  font-size: var(--text-body);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+/* Gray calc(12 * var(--u)) caption under each title */
+.communities-pill__sub {
+  font-size: var(--text-body-sm);
+  line-height: 1.2;
+  color: var(--text-muted);
+}
+
+/* Buttons — pinned to the bottom of the column */
+.communities-actions {
+  margin-top: auto;
+  padding-top: var(--space-80);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-15);
+}
+
+.communities-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--btn-cta-py) var(--btn-cta-px);
+  border: 1px solid transparent;
+  border-radius: var(--btn-cta-radius);
+  font-family: inherit;
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: box-shadow var(--duration-fast) var(--ease-in-out),
+    border-color var(--duration-fast) var(--ease-in-out);
+}
+
+/* "For organizers" — purple shadow behind on hover (from Hero primary) */
+.communities-btn--primary {
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+}
+
+.communities-btn--primary:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+/* "See the product" — purple outline appears on hover (from Hero ghost) */
+.communities-btn--ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.communities-btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+/* Phones: let a long RU label wrap rather than overflow the viewport. */
+@media (max-width: 479.98px) {
+  .communities-btn {
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* ── Right visual — the directory mockup.
+ * Width is a FIXED fraction of the frame; height stretches to the text column.
+ *
+ * The previous `flex:0 0 auto` + `aspect-ratio` derived the panel WIDTH from its
+ * stretched HEIGHT, which formed a feedback loop with the text column:
+ *   narrower text → taller text → taller panel → wider panel → narrower text …
+ * On some widths below 1199px this diverged to thousands of px and collapsed the
+ * text column (min-width:0) to zero, so the copy vanished and the frame ballooned.
+ * Driving width from the container instead of from height breaks the loop. */
+.communities-visual {
+  position: relative;
+  z-index: 1;
+  align-self: stretch;
+  flex: 0 0 48%;
+  min-width: 0;
+  border-radius: var(--card-radius);
+  overflow: clip;
+}
+
+/* ── Responsive — stack the mockup beneath the text column ────────────── */
+@media (max-width: 900px) {
+  .communities-frame {
+    flex-direction: column;
+  }
+
+  /* Full width, height follows the mockup's own content (no fixed ratio →
+   * nothing to clip when the cards reflow to 2 columns on small screens). */
+  .communities-visual {
+    flex: 0 0 auto;
+    align-self: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .communities-frame {
+    padding: var(--space-20);
+  }
+}

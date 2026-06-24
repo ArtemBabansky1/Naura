@@ -1,0 +1,23 @@
+/*
+ * STYLES ENTRY POINT — Naura landing page
+ *
+ * Import in: src/main.tsx → import './styles/index.css'
+ *
+ * Layer order (cascade, lowest → highest specificity):
+ *   1. reset     — normalize browser defaults
+ *   2. tokens    — CSS custom properties on :root
+ *   3. base      — html/body/element defaults + typography
+ *   4. utilities — layout helpers, animation utilities
+ *
+ * Imports use layer() assignment so cascade order is
+ * explicit and deterministic regardless of file order.
+ */
+
+@layer reset, tokens, base, utilities;
+
+@import './reset.css'      layer(reset);
+@import './tokens.css'     layer(tokens);
+@import './breakpoints.css';             /* documentation only, no layer styles */
+@import './typography.css' layer(base);
+@import './base.css'       layer(base);
+@import './utilities.css'  layer(utilities);

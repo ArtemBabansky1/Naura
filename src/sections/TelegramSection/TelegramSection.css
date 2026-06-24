@@ -1,0 +1,221 @@
+/* TelegramSection — "Your CRM lives where your conversations do" (5th block).
+ * Centered header, a cursor-reactive 3D phone, four scattered callouts, CTA row.
+ * Semantic tokens only; all values multiples of 5.
+ */
+
+/* ── Header — same spacing logic as prior blocks (eyebrow → title calc(10 * var(--u))) ── */
+.telegram-header {
+  text-align: center;
+}
+
+.telegram-header__eyebrow {
+  display: block;
+}
+
+.telegram-header__title {
+  margin: var(--space-10) auto 0;
+  max-width: 20ch;
+  color: var(--text-primary);
+}
+
+/* ── Stage: phone centered in flow, callouts absolutely scattered ─────── */
+.telegram-stage {
+  position: relative;
+  margin-top: var(--space-40);
+  /* shared phone width — callouts anchor to the phone edges via this */
+  --phone-w: clamp(calc(220 * var(--u)), 22vw, calc(300 * var(--u)));
+}
+
+/* Footprint the callouts anchor to (phone aspect ≈ 0.462). The WebGL canvas
+   overscans this box so the rotating phone has room without resizing the layout
+   the callouts depend on. */
+.telegram-phone {
+  position: relative;
+  width: var(--phone-w);
+  height: calc(var(--phone-w) / 0.462);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D canvas — centred over the footprint, ~1.62× larger for rotation/tilt room.
+   Non-interactive and beneath the callouts. */
+.telegram-phone__canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 162%;
+  height: 162%;
+  transform: translate(-50%, -50%);
+  display: block;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Static fallback (reduced-motion / no WebGL): the flat phone, centred. */
+.telegram-phone picture {
+  display: contents;
+}
+
+.telegram-phone__img {
+  width: var(--phone-w);
+  height: auto;
+  display: block;
+}
+
+/* ── Callouts — left-aligned, narrow wrap, scattered on different X/Y so
+ *    they cluster near the phone rather than sitting on one axis. ──────── */
+.telegram-feature {
+  position: absolute;
+  width: max-content;
+  z-index: 2;
+}
+
+/* Scroll-scrubbed entrance: hide the callouts up front so they don't flash at
+   rest before GSAP tucks them behind the phone. Scoped to exactly the cases the
+   JS animates them (desktop + motion allowed); otherwise they stay visible. */
+@media (min-width: 690px) and (prefers-reduced-motion: no-preference) {
+  .telegram-feature {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+}
+
+.telegram-feature__title {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.telegram-feature__desc {
+  margin: var(--space-10) 0 0;
+  color: var(--text-muted);
+  line-height: var(--leading-normal);
+  white-space: pre-line; /* honour the \n line breaks from i18n */
+}
+
+/* Anchored to the phone edges: half the phone width + a fixed gap.
+ * Left group = right-aligned text sitting left of the phone;
+ * right group = left-aligned text sitting right of the phone. */
+.telegram-feature--askGraph {
+  top: 24%;
+  right: calc(50% + var(--phone-w) / 2 + var(--space-50)); /* calc(50 * var(--u)) from phone */
+  text-align: right;
+}
+
+.telegram-feature--voiceNotes {
+  top: 60%;
+  right: calc(50% + var(--phone-w) / 2 + var(--space-20)); /* calc(20 * var(--u)) from phone */
+  text-align: right;
+}
+
+.telegram-feature--forwardSave {
+  top: 14%;
+  left: calc(50% + var(--phone-w) / 2 + var(--space-20)); /* calc(20 * var(--u)) from phone */
+  text-align: left;
+}
+
+.telegram-feature--noAccount {
+  top: 56%;
+  left: calc(50% + var(--phone-w) / 2 + var(--space-50)); /* calc(50 * var(--u)) from phone */
+  text-align: left;
+}
+
+/* ── CTA row ──────────────────────────────────────────────────────────── */
+.telegram-actions {
+  margin-top: var(--space-40);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-15);
+}
+
+.telegram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--btn-cta-py) var(--btn-cta-px);
+  border: 1px solid transparent;
+  border-radius: var(--btn-cta-radius);
+  font-family: inherit;
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: box-shadow var(--duration-fast) var(--ease-in-out),
+    border-color var(--duration-fast) var(--ease-in-out);
+}
+
+/* "Open Bot" — purple shadow behind on hover (from prior blocks) */
+.telegram-btn--primary {
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+}
+
+.telegram-btn--primary:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+/* "How it stores data" — purple outline on hover */
+.telegram-btn--ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.telegram-btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+/* Phones keep the base CTA behaviour: each button hugs its content on a single
+ * line; the row wraps a button to the next line only when both no longer fit the
+ * width (no full-width stretch). */
+
+/* ── Responsive — drop the scatter; phone on top, callouts in a 2-up grid ── */
+@media (max-width: 689px) {
+  .telegram-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-20);
+    row-gap: var(--space-40);
+    justify-items: center;
+    align-items: start;
+  }
+
+  /* Phone spans the full width above the 2-column callout grid. */
+  .telegram-phone {
+    order: -1;
+    grid-column: 1 / -1;
+  }
+
+  /* Less overscan when the section stacks, so the phone doesn't crowd the
+     header/callouts above it. */
+  .telegram-phone__canvas {
+    width: 132%;
+    height: 132%;
+  }
+
+  .telegram-feature {
+    position: static;
+    inset: auto;
+    width: auto;
+    max-width: 30ch;
+    text-align: center;
+  }
+}
+
+/* ── Phone — collapse the callouts to a single column ─────────────────── */
+@media (max-width: 479.98px) {
+  .telegram-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced-motion users get no cursor tilt */
+@media (prefers-reduced-motion: reduce) {
+  .telegram-phone__img {
+    transition: none;
+  }
+}

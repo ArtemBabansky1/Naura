@@ -1,0 +1,37 @@
+{
+  "headline": "Ваша сеть — ваш капитал. Заставьте её работать.",
+  "subtitle": "Naura — персональный CRM, который запоминает всех, с кем вы познакомились, организует их с помощью ИИ и находит тёплые знакомства через вашу сеть — в браузере, в Telegram и как MCP-сервер для ваших агентов.",
+  "cta": {
+    "startFree": "Начать бесплатно",
+    "seeDemo": "Посмотреть за 90 секунд"
+  },
+  "nav": {
+    "businessCards": "Визитки",
+    "communities": "Сообщества",
+    "blog": "Блог",
+    "about": "О нас",
+    "signIn": "Войти",
+    "getStarted": "Начать",
+    "ariaLabel": "Главная навигация",
+    "menuOpen": "Открыть меню",
+    "menuClose": "Закрыть меню",
+    "menuTitle": "Меню"
+  },
+  "contact": {
+    "you": "Вы",
+    "frontendDev": "Frontend Dev",
+    "backendDev": "Backend Dev",
+    "qaEngineer": "QA-инженер",
+    "uiDesigner": "UI-дизайнер",
+    "cloudArchitect": "Облачный архитектор",
+    "cybersecurity": "Кибербезопасность",
+    "fullStackDev": "Fullstack Dev",
+    "scrumMaster": "Scrum Master",
+    "productManager": "Product Manager",
+    "mlEngineer": "ML-инженер",
+    "dataScientist": "Data Scientist",
+    "techLead": "Tech Lead",
+    "devOpsEngineer": "DevOps-инженер",
+    "mobileDev": "Мобильный Dev"
+  }
+}

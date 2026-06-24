@@ -1,0 +1,232 @@
+/* PricingSection — "Simple. The way pricing should be." (7th block).
+ * Centered header, three plan cards (Pro featured), a cursor-reactive glow
+ * under the cards, footnote. Semantic tokens only; values multiples of 5.
+ */
+
+/* ── Header — eyebrow → title calc(10 * var(--u)), title → beta calc(20 * var(--u)) (prior-block logic) ─ */
+.pricing-header {
+  text-align: center;
+}
+
+.pricing-header__eyebrow {
+  display: block;
+}
+
+.pricing-header__title {
+  margin: var(--space-10) auto 0;
+  max-width: 16ch;
+  color: var(--text-primary);
+}
+
+.pricing-header__beta {
+  margin: var(--space-20) auto 0;
+  color: var(--text-muted);
+}
+
+/* ── Cards grid ───────────────────────────────────────────────────────── */
+.pricing-cards {
+  position: relative;
+  margin: var(--space-60) auto 0;
+  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+  align-items: stretch; /* all cards share the same (tallest) height */
+}
+
+/* Glow under the cards — reacts to the cursor (parallax drift) */
+.pricing-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: calc(985 * var(--u));
+  max-width: 90%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.pricing-glow svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+  will-change: transform;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────── */
+.pricing-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--card-padding);
+  border: var(--card-border-subtle);
+  border-radius: var(--card-radius);
+  background: var(--bg-card);
+}
+
+/* Featured Pro card — SAME size as the others, just shifted up calc(50 * var(--u))
+ * (both its top and bottom edges sit calc(50 * var(--u)) higher than the neighbours). */
+.pricing-card--featured {
+  z-index: 2;
+  transform: translateY(calc(-1 * var(--space-50)));
+  border-color: var(--border-accent);
+  background-color: var(--bg-card);
+  /* Purple glow offset toward the cursor (vars set in JS); falls back to a
+     centered glow before any pointer movement / with reduced motion. */
+  box-shadow: var(--glow-x, 0px) var(--glow-y, 0px) calc(18 * var(--u)) var(--glow-spread, calc(3 * var(--u)))
+    rgba(131, 65, 248, var(--glow-alpha, 0.17));
+  overflow: clip;
+}
+
+/* UnicornStudio animation as the featured card's background (replaces the SVG).
+   Clipped to the rounded card by its overflow; content sits above (z-index). */
+.pricing-unicorn {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* The card crops a small (darker) region of the scene, so brighten this
+   instance to keep the #8341F8 purple as vivid as the hero. */
+.pricing-unicorn canvas {
+  filter: invert(1) grayscale(1) brightness(1.9) contrast(1.08);
+}
+
+.pricing-card__body {
+  position: relative;
+  z-index: 1;
+  /* Guaranteed calc(20 * var(--u)) breathing room so features never touch the CTA
+   * (the CTA's margin-top:auto fills any extra space above this). */
+  margin-bottom: var(--space-20);
+}
+
+.pricing-card__name {
+  display: block;
+  color: var(--text-primary);
+}
+
+/* Price */
+.pricing-card__price {
+  margin-top: var(--space-15);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-10);
+}
+
+.pricing-card__amount {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.pricing-card__period {
+  color: var(--text-muted);
+}
+
+.pricing-card--featured .pricing-card__period {
+  color: var(--text-list);
+}
+
+/* Feature list */
+.pricing-card__features {
+  margin: var(--space-30) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+}
+
+.pricing-card__feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  color: var(--text-list);
+}
+
+.pricing-check {
+  flex-shrink: 0;
+  color: var(--accent-primary);
+}
+
+.pricing-card--featured .pricing-check {
+  color: var(--text-primary);
+}
+
+/* ── CTA ──────────────────────────────────────────────────────────────── */
+.pricing-card__cta {
+  position: relative; /* keep above the featured card's animation layer */
+  z-index: 1;
+  margin-top: auto; /* pinned to the bottom so CTAs align across equal-height cards */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--btn-cta-py) var(--btn-cta-px);
+  border: 1px solid transparent;
+  border-radius: var(--btn-cta-radius);
+  font-family: inherit;
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: box-shadow var(--duration-fast) var(--ease-in-out),
+    border-color var(--duration-fast) var(--ease-in-out);
+}
+
+/* purple filled — shadow on hover (from prior blocks) */
+.pricing-card__cta--primary {
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+}
+
+.pricing-card__cta--primary:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+/* dark/ghost — purple outline on hover */
+.pricing-card__cta--ghost {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.pricing-card__cta--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+/* Phones: let a long RU CTA label wrap rather than overflow the card. */
+@media (max-width: 479.98px) {
+  .pricing-card__cta {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* ── Footnote ─────────────────────────────────────────────────────────── */
+.pricing-note {
+  margin: var(--space-40) auto 0;
+  max-width: 50ch;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .pricing-cards {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: calc(420 * var(--u));
+    margin-inline: auto;
+  }
+
+  .pricing-card--featured {
+    transform: none;
+  }
+}

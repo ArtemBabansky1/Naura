@@ -1,0 +1,23 @@
+﻿{
+  "eyebrow": "Pricing",
+  "headline": "Simple. The way pricing should be.",
+  "betaBadge": "Beta access — Pro free for 6 months for early users",
+  "note": "All plans · cancel anytime · no card on Free · prices in EUR, VAT extra where applicable",
+  "plans": {
+    "free": {
+      "name": "Free", "price": "€0", "period": "/ forever",
+      "features": ["Up to 250 contacts","Basic reminders","1 business card","Web + mobile web","Community support"],
+      "cta": "Start free"
+    },
+    "pro": {
+      "name": "Pro", "price": "€9", "period": "/ month",
+      "features": ["Unlimited contacts","AI tags + smart organize","Handshake search","MCP access (Claude, Cursor)","Telegram bot · voice notes","5 business cards"],
+      "cta": "Start pro"
+    },
+    "team": {
+      "name": "Team", "price": "€19", "period": "/ user / month",
+      "features": ["Everything in Pro","Workspaces + events","Admin & roles","CSV import · bulk ops","Priority support","Branded subdomain"],
+      "cta": "Start team"
+    }
+  }
+}

@@ -1,3 +1,22 @@
-.claude
-back/.env
-back/__pycache__
+node_modules
+dist
+.env
+.env.local
+.DS_Store
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Generated PDF exports
+/pdf/
+
+# Raw 3D model sources (multi-100MB OBJ exports — exceed GitHub's file limit;
+# the optimized gltf output lives in src/assets/3d/)
+/model-src/
+
+# llm-council session artifacts (not part of the site)
+council-*.html
+council-*.md

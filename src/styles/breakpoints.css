@@ -1,0 +1,62 @@
+/*
+ * BREAKPOINTS — Naura landing page
+ *
+ * Strategy: desktop-first, max-width queries (1920 → 390).
+ * Breakpoint tokens are declared in tokens.css: --bp-xl/lg/md/sm/xs.
+ *
+ * ┌──────────┬────────┬──────────────────────────────────────────────────┐
+ * │ Name     │ Width  │ Behaviour                                        │
+ * ├──────────┼────────┼──────────────────────────────────────────────────┤
+ * │ xl       │ 1920px │ Figma source frame. Full grid, 100px margins.    │
+ * │ lg (base)│ 1440px │ Primary desktop. Margins ~80px. Most common.     │
+ * │ md       │ 1280px │ Laptop. Padding 60px. 3→2 column grid collapse.  │
+ * │ sm       │  768px │ Tablet. All bento grids go single-column. 40px.  │
+ * │ xs       │  390px │ Mobile. 20px padding. Full-width cards.          │
+ * └──────────┴────────┴──────────────────────────────────────────────────┘
+ *
+ * GRID SCALING LOGIC:
+ *
+ *   ≥1280px   3-col bento: [328px] + [676px] + [676px] or reversed
+ *             Gap: 20px. Total: 1720px. Mirrors Figma layout exactly.
+ *
+ *   1280–769px  2-col bento: full-width + half-width stacks
+ *             Grid collapses to 2 columns; small cards go full-width.
+ *
+ *   ≤768px    1-col stack. Cards go 100% width, stack vertically.
+ *             Bento grid reverts to a simple flex column.
+ *
+ *   ≤390px    Single column, 20px padding, full-width cards.
+ *             No multi-column at all.
+ *
+ * TYPOGRAPHY SCALING:
+ *
+ *   Font sizes use clamp() from tokens.css — no per-breakpoint
+ *   font-size overrides are needed. Scale is continuous between
+ *   390px (min) and 1440px (max reference).
+ *
+ *   The only manual overrides at breakpoints are:
+ *   - text-wrap: balance for large headings on tablet
+ *   - line-height tweaks for pricing display on mobile
+ *
+ * SECTION PADDING SCALING (used in utilities.css .container):
+ *
+ *   1920px:  100px  (--space-100 / --grid-margin)
+ *   1440px:   80px  (--space-80)
+ *   1280px:   60px  (--space-60)
+ *   768px:    40px  (--space-40)
+ *   390px:    20px  (--space-20)
+ *
+ * USAGE REFERENCE (copy-paste ready):
+ *
+ *   Below desktop base (1440px):
+ *   @media (max-width: 1440px) { ... }
+ *
+ *   Laptop and below (1280px):
+ *   @media (max-width: 1280px) { ... }
+ *
+ *   Tablet and below (768px):
+ *   @media (max-width: 768px)  { ... }
+ *
+ *   Mobile only (390px):
+ *   @media (max-width: 390px)  { ... }
+ */

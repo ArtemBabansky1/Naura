@@ -1,0 +1,423 @@
+/* FeaturesSection — "what naura does" bento grid.
+ * Uses ONLY semantic tokens from src/styles/tokens.css.
+ * Card mockups (inline SVGs) live in src/assets/features/. */
+
+.features-section {
+  background: var(--bg-page);
+}
+
+/* ── Centered header ─────────────────────────────────────────── */
+.features-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: calc(760 * var(--u));
+  margin: 0 auto var(--space-75);
+}
+
+/* heading → eyebrow (above): calc(10 * var(--u)) · heading → subtitle (below): calc(20 * var(--u)) */
+.features-header__eyebrow {
+  color: var(--text-muted);
+  margin-bottom: var(--space-10);
+}
+
+.features-header__title {
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.features-header__subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  max-width: calc(560 * var(--u));
+  text-wrap: pretty;
+  margin-top: var(--space-20);
+}
+
+/* ── Bento grid: two rows with mirrored column widths ─────────── */
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-row-gap);
+}
+
+.features-row {
+  display: grid;
+  gap: var(--grid-gap);
+  align-items: stretch;
+}
+
+/* fr tracks distribute leftover (after the calc(20 * var(--u)) gaps) at exactly
+ * the Figma 676 / 328 ratio → pixel-accurate at calc(1720 * var(--u)) content. */
+.features-row--a {
+  grid-template-columns: minmax(0, 676fr) minmax(0, 676fr) minmax(0, 328fr);
+}
+.features-row--b {
+  grid-template-columns: minmax(0, 328fr) minmax(0, 676fr) minmax(0, 676fr);
+}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+.feature-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: calc(500 * var(--u));
+  padding: var(--card-padding);
+  --media-scale: 1;          /* decorative SVGs scale; 0.7 below 1200 (narrower cards) */
+  border: var(--card-border-subtle);
+  border-radius: var(--card-radius);
+  background: var(--bg-card);
+  overflow: clip;            /* clip mockups that bleed past the card edges */
+  isolation: isolate;
+  transition: border-color var(--duration-base) var(--ease-in-out),
+              transform var(--duration-base) var(--ease-out-expo);
+}
+
+.feature-card:hover {
+  border-color: var(--border-default);
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+/* ── Text block (sits above the mockup) ──────────────────────── */
+.feature-card__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: calc(460 * var(--u));
+}
+
+.feature-card--sm .feature-card__body { max-width: 100%; }
+
+/* heading → label (above): calc(10 * var(--u)) · heading → description (below): calc(20 * var(--u)) */
+.feature-card__label {
+  color: var(--text-muted);
+  margin-bottom: var(--space-10);
+}
+
+.feature-card__tagline {
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.feature-card__desc {
+  color: var(--text-list);
+  text-wrap: pretty;
+  margin-top: var(--space-20);
+}
+
+/* ── contactGraph: no mockup — the description becomes a large,
+ * low-emphasis statement anchored to the bottom of the card. ──── */
+.feature-card--contactGraph .feature-card__body {
+  flex: 1;                /* fill the card so the desc can sit at the bottom */
+}
+.feature-card--contactGraph .feature-card__desc {
+  font-size: var(--text-h3);          /* match the heading typography */
+  line-height: var(--leading-tight);
+  margin-top: auto;                   /* push to the bottom of the card */
+  opacity: 0.6;                       /* 60% */
+}
+
+/* ── Decorative graphic — absolutely positioned, anchored to a card
+ * edge and sized to bleed past it. The card's `overflow: clip` trims
+ * whatever spills out, so each shape reads as pressed into a corner. */
+.feature-card__media {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;                /* revealed on scroll-in */
+}
+.feature-card__media svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Chain (handshake): centred horizontally, resting near the bottom. */
+.feature-card--media-chain .feature-card__media {
+  left: var(--card-padding);
+  right: var(--card-padding);
+  bottom: var(--space-50);
+  display: flex;
+  justify-content: center;
+}
+.feature-card--media-chain .feature-card__media svg {
+  width: min(100%, calc(520 * var(--u) * var(--media-scale)));
+}
+
+/* Mark (workspaces): big ring anchored bottom-centre, bleeding down.
+ * Centred via margin (not transform) so the reveal keyframe is free. */
+.feature-card--media-mark .feature-card__media {
+  left: 50%;
+  bottom: 0;
+  width: calc(360 * var(--u) * var(--media-scale));
+  margin-left: calc(-1 * var(--space-80));   /* −calc(80 * var(--u)): centred (−180) shifted +calc(100 * var(--u)) right */
+}
+
+/* Corner — bottom-right (telegram "2", reminders curve). */
+.feature-card--media-corner-br .feature-card__media {
+  right: calc(-1 * var(--space-20));
+  bottom: calc(-1 * var(--space-20));
+}
+.feature-card--telegramBot .feature-card__media { width: calc(190 * var(--u) * var(--media-scale)); }
+.feature-card--reminders .feature-card__media {
+  width: calc(400 * var(--u) * var(--media-scale));
+  right: 0;
+  bottom: 0;
+}
+
+/* Corner — bottom-left (mcp asterisk): dark, subtle, bleeding off-edge.
+ * Kept in flow so the gap below the copy is a fixed calc(30 * var(--u)); the tall
+ * asterisk then spills past the bottom edge and is clipped. */
+.feature-card--media-corner-bl .feature-card__media {
+  position: relative;
+  margin-top: var(--space-30);                 /* calc(30 * var(--u)) gap under the description */
+  margin-left: calc(-1 * var(--space-50));     /* bleed past the left edge */
+  width: calc(320 * var(--u) * var(--media-scale));
+}
+
+/* ── Graphic reveal — slides up + fades in from behind the clipped
+ * card edge when the card enters view. ─────────────────────────── */
+@keyframes mediaReveal {
+  from { opacity: 0; transform: translateY(calc(80 * var(--u))); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.feature-card.is-inview .feature-card__media {
+  animation: mediaReveal var(--duration-enter) var(--ease-out-expo) both;
+  will-change: transform;
+}
+
+/* ── Circle chips (reminders) — small low-emphasis pills sitting in
+ * the lower-left, hinting at the relationship groups Naura tracks. */
+.feature-card__chips {
+  position: absolute;
+  z-index: 1;
+  left: calc(var(--space-200) + var(--space-30));    /* calc(230 * var(--u)) — shifted right toward the graphic */
+  bottom: var(--space-100);                          /* calc(100 * var(--u)) */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-15);
+}
+.feature-card__chip {
+  padding: var(--space-20) var(--space-40);          /* ~30% smaller than 30/60 */
+  border-radius: calc(9999 * var(--u)) calc(9999 * var(--u)) 0 calc(9999 * var(--u));             /* sharp bottom-right corner */
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: var(--text-list);
+}
+.feature-card__chip:first-child { margin-left: calc(var(--space-60) + var(--space-30)); } /* Family +calc(90 * var(--u)) */
+.feature-card__chip:last-child { margin-left: var(--space-30); }
+
+/* ── Handshake chain — sequenced "light-up" choreography ─────────────────────
+ * Resting state: circles desaturated (a gray tint of each node's own purple),
+ * connectors gray, labels hidden. On scroll-in each node lights up in turn, the
+ * connector to the next fills left→right, then that node lights — and each
+ * node's text (initial + name + sub) appears as it lights. Replaces the generic
+ * media slide-in for this card only. Static (final) under reduced motion. */
+.feature-card--handshake .feature-card__media { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-card--handshake.is-inview .feature-card__media { animation: none; }
+
+  /* resting (off) states. Initials (Y/AS/SC) are NOT animated — they stay
+     visible on the gray circles from the start. */
+  .feature-card--handshake .hsc-dot {
+    filter: saturate(0.12) brightness(0.5);
+    transition: filter 0.6s var(--ease-in-out);
+  }
+  .feature-card--handshake .hsc-name,
+  .feature-card--handshake .hsc-sub {
+    opacity: 0;
+    transition: opacity 0.55s var(--ease-in-out);
+  }
+  /* connector reveal masks — a clip rect scaled from its left edge, so the
+     line (solid white fill, or the gray dashes) loads in left->right. */
+  .feature-card--handshake .hsc-wipe {
+    transform: scaleX(0);
+    transform-box: view-box;
+    transition: transform 0.65s var(--ease-in-out);
+  }
+  .feature-card--handshake .hsc-wipe--solid  { transform-origin: calc(99 * var(--u)) calc(48 * var(--u)); }
+  .feature-card--handshake .hsc-wipe--dashed { transform-origin: calc(307 * var(--u)) calc(48 * var(--u)); }
+
+  /* lit sequence — Stage 1 (You) */
+  .feature-card--handshake.is-inview .hsc-stage--1 .hsc-dot  { filter: none; transition-delay: 0.10s; }
+  .feature-card--handshake.is-inview .hsc-stage--1 .hsc-name { opacity: 1;   transition-delay: 0.30s; }
+  /* solid connector fills gray -> white */
+  .feature-card--handshake.is-inview .hsc-wipe--solid        { transform: scaleX(1); transition-delay: 0.55s; }
+  /* Stage 2 (Anna) */
+  .feature-card--handshake.is-inview .hsc-stage--2 .hsc-dot  { filter: none; transition-delay: 1.15s; }
+  .feature-card--handshake.is-inview .hsc-stage--2 .hsc-name { opacity: 1;   transition-delay: 1.35s; }
+  .feature-card--handshake.is-inview .hsc-stage--2 .hsc-sub  { opacity: 1;   transition-delay: 1.40s; }
+  /* dashed connector: gray dashes load in */
+  .feature-card--handshake.is-inview .hsc-wipe--dashed       { transform: scaleX(1); transition-delay: 1.65s; }
+  /* Stage 3 (Series-A fintech CFO) */
+  .feature-card--handshake.is-inview .hsc-stage--3 .hsc-dot  { filter: none; transition-delay: 2.25s; }
+  .feature-card--handshake.is-inview .hsc-stage--3 .hsc-name { opacity: 1;   transition-delay: 2.45s; }
+  .feature-card--handshake.is-inview .hsc-stage--3 .hsc-sub  { opacity: 1;   transition-delay: 2.50s; }
+}
+
+/* ── Telegram "2" — slides in from off the right edge and settles ────────────
+ * Replaces the generic slide-up reveal for this card: the numeral rests off the
+ * container's right edge (clipped) and glides to its place on scroll-in. Static
+ * (at rest) under reduced motion. */
+.feature-card--telegramBot .feature-card__media { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-card--telegramBot .feature-card__media {
+    transform: translateX(125%);          /* parked off the right edge, clipped */
+    transition: transform var(--duration-enter) var(--ease-in-out) 0.5s; /* 0.5s delay, ease-in-out glide */
+  }
+  .feature-card--telegramBot.is-inview .feature-card__media {
+    animation: none;                       /* drop the generic slide-up reveal */
+    transform: translateX(0);              /* glide into its resting place */
+  }
+}
+
+/* ── MCP asterisk (Claude mark) — flies up from below with a 30° twist ───────
+ * Same delay/progression as the Telegram "2": parked below the card edge and
+ * rotated, then glides up and untwists into place on scroll-in. */
+.feature-card--mcpAgents .feature-card__media { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-card--mcpAgents .feature-card__media {
+    transform: translateY(120%) rotate(90deg);   /* parked below, twisted, clipped */
+    transition: transform var(--duration-enter) var(--ease-in-out) 0.5s;
+  }
+  .feature-card--mcpAgents.is-inview .feature-card__media {
+    animation: none;                              /* drop the generic slide-up reveal */
+    transform: translateY(0) rotate(0deg);        /* fly up + untwist into place */
+  }
+}
+
+/* ── Workspaces "person" icon (RemindersCurve) — the front person flies up
+ * from below first; then the right background part slides out from behind it.
+ * Same delay/speed family as the others (no rotation here). ─────────────────── */
+.feature-card--workspaces .feature-card__media { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-card--workspaces.is-inview .feature-card__media { animation: none; }
+
+  .feature-card--workspaces .rc-front,
+  .feature-card--workspaces .rc-bg {
+    transform-box: view-box;
+    transition: transform var(--duration-enter) var(--ease-in-out),
+                opacity var(--duration-enter) var(--ease-in-out);
+  }
+  /* front person — parked below the card edge, flies up first */
+  .feature-card--workspaces .rc-front {
+    transform: translateY(calc(280 * var(--u)));
+    transition-delay: 0.5s;
+  }
+  /* right background part — parked behind the front icon (shifted left + hidden),
+     then slides out to the right from under it, a beat later */
+  .feature-card--workspaces .rc-bg {
+    transform: translateX(calc(-95 * var(--u)));
+    opacity: 0;
+    transition-delay: 1.3s;
+  }
+  .feature-card--workspaces.is-inview .rc-front { transform: translateY(0); }
+  .feature-card--workspaces.is-inview .rc-bg    { transform: translateX(0); opacity: 1; }
+}
+
+/* ── Reminders ring (WorkspacesMark) — three-stage choreography ──────────────
+ * 1. the gray ring slides in diagonally from the bottom-right corner;
+ * 2. the two purple arcs travel along the ring's axis into place — they start on
+ *    the OPPOSITE side (rotated 180deg about the ring centre) so they're off the
+ *    canvas to begin with, then sweep around;
+ * 3. the Family / Friends chips fly in from the left, fading 0 -> 1. */
+.feature-card--reminders .feature-card__media { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-card--reminders.is-inview .feature-card__media { animation: none; }
+
+  /* Stage 1 — gray ring slides in from the corner (the whole graphic moves; the
+     arcs are still rotated off-screen, so only the ring reads as sliding in). */
+  .feature-card--reminders .feature-card__media {
+    transform: translate(calc(240 * var(--u)), calc(240 * var(--u)));
+    transition: transform var(--duration-enter) var(--ease-in-out) 0.5s;
+  }
+  .feature-card--reminders.is-inview .feature-card__media { transform: translate(0, 0); }
+
+  /* Stage 2 — purple arcs sweep along the ring (rotate about the ring centre). */
+  .feature-card--reminders .wm-arc {
+    transform-box: view-box;
+    transform-origin: calc(354.6 * var(--u)) calc(354.6 * var(--u));          /* ring centre, viewBox units */
+    transition: transform var(--duration-enter) var(--ease-in-out);
+  }
+  .feature-card--reminders .wm-arc--1 { transform: rotate(180deg); transition-delay: 1.30s; }
+  .feature-card--reminders .wm-arc--2 { transform: rotate(180deg); transition-delay: 1.45s; }
+  .feature-card--reminders.is-inview .wm-arc--1 { transform: rotate(0deg); }
+  .feature-card--reminders.is-inview .wm-arc--2 { transform: rotate(0deg); }
+
+  /* Stage 3 — chips fly in from the left, fading in. */
+  .feature-card--reminders .feature-card__chip {
+    transform: translateX(calc(-30 * var(--u)));
+    opacity: 0;
+    transition: transform var(--duration-slow) var(--ease-in-out),
+                opacity var(--duration-slow) var(--ease-in-out);
+  }
+  .feature-card--reminders .feature-card__chip:first-child { transition-delay: 2.30s; }
+  .feature-card--reminders .feature-card__chip:last-child  { transition-delay: 2.45s; }
+  .feature-card--reminders.is-inview .feature-card__chip { transform: translateX(0); opacity: 1; }
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
+/* Below the zoom range (<1199): flatten both bento rows into one uniform
+ * 2-column grid. display:contents drops the row wrappers from layout, so all
+ * six cards — md and sm alike — flow 2-per-row instead of the desktop bento. */
+@media (max-width: 1199px) {
+  .features-grid {
+    display: grid;
+    /* minmax(0,1fr) lets the tracks shrink below their content's min-content
+     * width. Plain 1fr (= minmax(auto,1fr)) let a card's min-content blow the
+     * grid wider than the viewport on narrow phones, cutting the right column
+     * off the screen. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--grid-row-gap) var(--grid-gap);
+  }
+  .features-row {
+    display: contents;
+  }
+  .feature-card {
+    height: calc(460 * var(--u));
+    --media-scale: 0.7;       /* decorative SVGs 30% smaller on narrower cards */
+  }
+
+  /* Family/Friends chips → clear of the (now smaller, bottom-right) graphic:
+     anchor them to the lower-left and drop the desktop staircase offsets so the
+     pills no longer sit on top of the ring/arcs. */
+  .feature-card__chips {
+    left: var(--card-padding);
+  }
+  .feature-card__chip:first-child,
+  .feature-card__chip:last-child {
+    margin-left: 0;
+  }
+}
+
+/* Tablet & below: let cards grow to fit their content. */
+@media (max-width: 768px) {
+  .features-header { margin-bottom: var(--space-50); }
+  .feature-card {
+    height: auto;
+    min-height: calc(460 * var(--u));
+  }
+}
+
+/* Phones: a 2-up grid leaves each content-heavy card too narrow — stack to one
+ * readable column. */
+@media (max-width: 479.98px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card { transition: none; }
+  .feature-card:hover { transform: none; }
+  .feature-card__media { opacity: 1; animation: none; }
+}

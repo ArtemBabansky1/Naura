@@ -1,0 +1,184 @@
+/* AiAgentsSection — "Your contacts, now an API for your AI." (6th block).
+ * Two clipped panels side by side:
+ *   left  — copy + three glow orbs (Read / Plan / Act) that bleed past the
+ *           bottom edge and are cut by the card (overflow: clip).
+ *   right — MCP terminal + agent transcript stacked; the transcript bleeds
+ *           past the bottom and is clipped by the card.
+ * Semantic tokens only; all discrete sizes are multiples of 5.
+ */
+
+.ai-agents-section {
+  background: var(--bg-page);
+}
+
+.ai-agents-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+  align-items: stretch; /* both panels share the same (tallest) height */
+}
+
+/* ── Shared panel shell ───────────────────────────────────────────────── */
+.ai-panel {
+  position: relative;
+  min-height: clamp(calc(440 * var(--u)), 34vw, calc(560 * var(--u)));
+  padding: var(--space-40);
+  box-sizing: border-box;
+  border: var(--card-border-subtle);
+  border-radius: var(--card-radius);
+  background: var(--bg-card);
+  overflow: clip; /* the circles / transcript bleed past the edge and are cut */
+}
+
+/* ── Left panel: copy ─────────────────────────────────────────────────── */
+/* Plain block: only the eyebrow sits in flow, so the headline follows it
+ * directly (the privacy block is taken out of flow below). */
+.ai-intro__eyebrow {
+  display: block;
+}
+
+/* Top-right corner of the panel, lines left-aligned. Absolutely positioned so
+ * its height never pushes the headline down the card. */
+.ai-intro__privacy {
+  position: absolute;
+  top: var(--space-40);
+  right: var(--space-40);
+  text-align: left;
+  z-index: 2;
+}
+
+.ai-intro__privacy-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+}
+
+.ai-intro__privacy-list {
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  color: var(--text-muted);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+}
+
+.ai-intro__title {
+  /* tight eyebrow → title gap */
+  margin: var(--space-5) 0 0;
+  max-width: 14ch;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.ai-intro__accent {
+  color: var(--accent-primary);
+}
+
+.ai-intro__subtitle {
+  margin: var(--space-20) 0 0;
+  max-width: 42ch;
+  color: rgba(255, 255, 255, 0.6);
+  text-wrap: pretty;
+}
+
+/* ── Left panel: capability orbs ──────────────────────────────────────── */
+/* Container is a positioned band near the bottom; orbs are absolutely placed
+ * so they overlap horizontally. Lifted enough that every description clears
+ * the clipped bottom edge while the glows still kiss it for a subtle bleed. */
+.ai-orbs {
+  position: absolute;
+  inset-inline: 0;
+  bottom: calc(-1 * var(--space-5));
+  height: 60%;
+  pointer-events: none;
+}
+
+.ai-orb {
+  position: absolute;
+  aspect-ratio: 1;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+.ai-orb__glow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+
+.ai-orb__text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 68%;
+  text-align: center;
+}
+
+.ai-orb__label {
+  color: var(--text-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+
+.ai-orb__desc {
+  color: rgba(255, 255, 255, 0.7);
+  /* 3 points smaller than body-sm (12 → 9), scaled with --u like the rest. */
+  font-size: calc(var(--text-body-sm) - calc(3 * var(--u)));
+  line-height: var(--leading-normal);
+}
+
+/* Read (left), Plan (centre, bigger + a hair higher), Act (right).
+ * Boxes share their vertical edges (31% and 69%) so the circles just touch
+ * but never overlap. */
+.ai-orb--read { width: 31%; left: 0%;  bottom: -8%; }
+.ai-orb--plan { width: 38%; left: 31%; bottom: -5%; }
+.ai-orb--act  { width: 31%; left: 69%; bottom: -8%; }
+
+/* ── Right panel: live terminal chat ──────────────────────────────────── */
+/* The AgentTerminal fills the card edge-to-edge and manages its own insets,
+ * so the demo panel drops its padding. */
+.ai-panel--demo {
+  padding: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .ai-agents-grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-row-gap);
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-panel {
+    padding: var(--space-30);
+    min-height: clamp(calc(420 * var(--u)), 90vw, calc(520 * var(--u)));
+  }
+  /* Keep the privacy block pinned top-right (like desktop); shrink it so it
+   * fits beside the headline at narrow widths instead of stacking on the left. */
+  .ai-intro__privacy {
+    top: var(--space-30);
+    right: var(--space-30);
+  }
+  .ai-intro__privacy-title {
+    font-size: var(--text-body-sm);
+  }
+  .ai-intro__privacy-list {
+    font-size: var(--text-caption);
+  }
+  /* Headline stays narrow on the left so the privacy block clears it. */
+  .ai-intro__title {
+    max-width: 12ch;
+  }
+}

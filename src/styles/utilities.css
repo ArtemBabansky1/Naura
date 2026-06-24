@@ -1,0 +1,164 @@
+/*
+ * UTILITIES — minimal layout and accessibility helpers.
+ * Only utilities needed across multiple blocks.
+ */
+
+@layer utilities {
+
+  /* ============================================================
+   * CONTAINER
+   *
+   * Centered content with scaled horizontal padding.
+   * Max-width = Figma frame (1920px). Content area = 1720px.
+   * Padding steps match breakpoints in breakpoints.css.
+   * ============================================================ */
+
+  /* Single source of horizontal alignment for EVERY section. Reads only the
+   * unified --gutter / --content-max tokens (tokens.css), whose values switch
+   * at the 1200 zoom boundary:
+   *   >=1200px : min(100% - 2*calc(100*--u), calc(1720*--u)) — provably equal
+   *              to the old `max-width:1920*--u; padding:100*--u` band, so the
+   *              desktop layout is unchanged.
+   *   <1200px  : min(100% - 2*{40|30|20}px, 1200px) — centred relational band.
+   * Sections must NOT set their own horizontal margin/padding; they wrap
+   * content in .container so all guides line up. */
+  .container {
+    width: min(100% - 2 * var(--gutter), var(--content-max));
+    margin-inline: auto;
+  }
+
+
+  /* ============================================================
+   * CONTENT WIDTH — for inner content that must not exceed 1720px */
+
+  .content-width {
+    max-width: var(--grid-content);
+    margin-inline: auto;
+  }
+
+
+  /* ============================================================
+   * VISUALLY HIDDEN — accessible off-screen text */
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .visually-hidden:focus,
+  .visually-hidden:active {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+
+  /* ============================================================
+   * ANIMATION — will-change helpers for GSAP / Framer Motion.
+   *
+   * Apply only to actively-animating elements.
+   * Remove after animation to free compositing layers.
+   *
+   * Usage in JS:
+   *   el.classList.add('will-change-transform')
+   *   onComplete: el.classList.remove('will-change-transform')
+   * ============================================================ */
+
+  .will-change-transform { will-change: transform; }
+  .will-change-opacity   { will-change: opacity; }
+  .will-change-both      { will-change: transform, opacity; }
+
+  /* GPU compositing hint for scroll-parallax containers */
+  .gpu-layer {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe-only { display: none !important; }
+    .will-change-transform,
+    .will-change-opacity,
+    .will-change-both { will-change: auto; }
+  }
+
+
+  /* ============================================================
+   * BENTO GRID HELPERS
+   *
+   * Base for the landing page bento layout.
+   * Per-section grids define template-areas and column variations.
+   *
+   * Module sizes from Figma (exact):
+   *   1-col card: 328px
+   *   2-col card: 676px (= 328×2 + 20px gap)
+   *   Gap:         20px
+   * ============================================================ */
+
+  .bento-grid {
+    display: grid;
+    gap: var(--grid-gap);
+    row-gap: var(--grid-row-gap);
+  }
+
+  /* 3-column: [sm][md][md] or [md][md][sm] */
+  .bento-grid--3col {
+    grid-template-columns: var(--grid-col-sm) var(--grid-col-md) var(--grid-col-md);
+  }
+
+  /* Collapse to 2 columns only below the zoom range — inside [1200,1920] the
+   * 3-col bento just scales (columns are --u-based) instead of reflowing.
+   * Sub-pixel max so it never overlaps the min-width:1200 zoom layer. */
+  @media (max-width: 1199.98px) {
+    .bento-grid--3col {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .bento-grid--3col {
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  /* ============================================================
+   * SECTION RHYTHM — vertical padding between page sections */
+
+  /* Each section owns the gap ABOVE it (top only) so every block-to-block
+   * boundary is exactly one --section-gap, never the sum of two paddings. */
+  .section {
+    padding-top: var(--section-gap);
+  }
+
+  @media (max-width: 767.98px) {
+    .section { padding-top: var(--space-120); }
+  }
+
+  @media (max-width: 479.98px) {
+    .section { padding-top: var(--space-80); }
+  }
+
+
+  /* ============================================================
+   * TEXT UTILITIES */
+
+  .text-balance  { text-wrap: balance; }
+  .text-pretty   { text-wrap: pretty; }
+  .text-center   { text-align: center; }
+  .text-left     { text-align: left; }
+
+  .color-primary { color: var(--text-primary); }
+  .color-muted   { color: var(--text-muted); }
+  .color-accent  { color: var(--accent-primary); }
+
+}

@@ -1,0 +1,37 @@
+﻿{
+  "eyebrow": "what naura does",
+  "headline": "Find experts your friends actually know.",
+  "subtitle": "Ask your network privately. Naura traces a warm path through 1–7 handshakes — no public post, no anonymous reviews.",
+  "cards": {
+    "contactGraph": {
+      "title": "Smart contact graph",
+      "tagline": "Auto-tagged the moment you save them.",
+      "description": "Type a sentence, drop a card, forward a message — Naura pulls out role, company, interests and adds them to the right circles."
+    },
+    "handshake": {
+      "title": "Handshake search",
+      "tagline": "Find anyone, 1–⁠7 handshakes away.",
+      "description": "\"Find me a Series-A fintech CFO.\" Naura traces warm paths through people you actually know — and ranks them by reply odds."
+    },
+    "telegramBot": {
+      "title": "Telegram bot",
+      "tagline": "Save a contact in 2 seconds.",
+      "description": "Forward any message. Send a voice note. It transcribes, tags, and stores it in your graph."
+    },
+    "mcpAgents": {
+      "title": "MCP for AI agents",
+      "tagline": "\"Naura, who do I know in Berlin?\"",
+      "description": "Plug Naura into Claude Code, Cursor, or any MCP-capable agent. Your graph becomes an API the agent can reason over."
+    },
+    "workspaces": {
+      "title": "Workspaces",
+      "tagline": "Directories for clubs & communities.",
+      "description": "Private member directories, events, ask-for-intro buttons. Naura runs the rails so organizers don't."
+    },
+    "reminders": {
+      "title": "Reminders",
+      "tagline": "Nudges that respect the relationship.",
+      "description": "Naura knows the cadence each person needs — close friends weekly, ex-coworkers quarterly — and surfaces them when it makes sense."
+    }
+  }
+}

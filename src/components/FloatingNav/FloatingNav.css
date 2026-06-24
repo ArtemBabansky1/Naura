@@ -1,0 +1,147 @@
+/* ── Floating nav — fixed, flies in from below on scroll-up ────────────────── */
+.float-nav {
+  position: fixed;
+  left: 50%;
+  bottom: calc(30 * var(--u));
+  z-index: 100;
+  /* Hidden: pushed fully below the viewport edge. */
+  transform: translateX(-50%) translateY(calc(100% + calc(30 * var(--u))));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--duration-enter) var(--ease-out-expo),
+    opacity var(--duration-enter) var(--ease-in-out);
+  will-change: transform;
+}
+
+.float-nav--visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Four separate shapes butted together — no gap. */
+.float-nav__row {
+  --float-nav-h: calc(60 * var(--u));
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── Left rectangle (logo + links) ─────────────────────────────────────────── */
+.float-nav__bar {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--navbar-gap);
+  height: var(--float-nav-h);
+  padding: 0 var(--space-40) 0 var(--space-30);
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.float-nav__logo {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.float-nav__logo-img {
+  height: calc(18 * var(--u));
+  width: auto;
+  display: block;
+}
+
+.float-nav__links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--navbar-gap);
+}
+
+.float-nav__link {
+  color: var(--text-primary);
+  font-size: var(--text-nav);
+  opacity: 0.85;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--duration-fast) var(--ease-in-out);
+}
+.float-nav__link:hover { opacity: 1; }
+
+/* ── Circle — language toggle (ghost: black + gray border) ────────────────── */
+.float-nav__lang {
+  flex: none;
+  width: var(--float-nav-h);
+  height: var(--float-nav-h);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: calc(15 * var(--u));
+  font-weight: var(--weight-semibold);
+  font-family: inherit;
+  line-height: 1;
+  transition: border-color var(--duration-fast) var(--ease-in-out);
+}
+.float-nav__lang:hover { border-color: var(--text-primary); }
+
+/* ── Two buttons (solid purple) ───────────────────────────────────────────── */
+.float-nav__btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: var(--float-nav-h);
+  padding: 0 calc(28 * var(--u));
+  border-radius: var(--radius-pill);
+  font-size: calc(15 * var(--u));
+  font-family: inherit;
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+  transition: opacity var(--duration-fast) var(--ease-in-out), box-shadow var(--duration-fast) var(--ease-in-out);
+}
+.float-nav__btn:hover { opacity: 0.88; box-shadow: var(--shadow-glow); }
+
+/* Ghost variant — black fill + gray border (Sign in). */
+.float-nav__btn--ghost {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+.float-nav__btn--ghost:hover {
+  opacity: 1;
+  box-shadow: none;
+  border-color: var(--text-primary);
+}
+
+/* Reduced motion: fade only, no slide. */
+@media (prefers-reduced-motion: reduce) {
+  .float-nav {
+    transform: translateX(-50%) translateY(0);
+    transition: opacity var(--duration-enter) var(--ease-in-out);
+  }
+}
+
+/* At ≤1199 the FloatingNav is retired entirely — the persistent fixed burger
+ * (MobileNav) is the single nav entry point for tablet + phone, so nothing here
+ * competes with it or leaves nav links unreachable. */
+@media (max-width: 1199.98px) {
+  .float-nav {
+    display: none;
+  }
+}

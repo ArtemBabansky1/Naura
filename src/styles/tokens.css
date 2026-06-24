@@ -1,0 +1,379 @@
+/*
+ * DESIGN TOKENS — Naura landing page
+ * Source: Figma file yMAUPbPKCr689lOOWHywQ8, frame "Page / Landing" (6655:14)
+ *
+ * Hierarchy:
+ *   PRIMITIVES  — raw values, prefixed --color-base-*, --space-*, etc.
+ *   SEMANTICS   — named aliases, prefixed --bg-*, --text-*, --border-*, etc.
+ *
+ * Block-level components use ONLY semantic tokens.
+ * Primitives are referenced only inside this file.
+ *
+ * ALL sizes are multiples of 5. Base unit = 5px.
+ */
+
+@layer tokens {
+  :root {
+
+    /* ============================================================
+     * GLOBAL SCALE LEVER  ("design pixel")
+     *
+     * The whole layout is authored against a 1920px reference frame.
+     * `--u` is one design pixel: 1px below the zoom range, and a
+     * viewport-proportional length at ≥1200px so the entire page scales
+     * uniformly (like zoom) without any transform — keeping the pinned
+     * scroll, Lenis and WebGL scenes intact.
+     *
+     * Every scalable size is expressed as `calc(N * var(--u))`, so N still
+     * reads as its 1920-px value. The ≥1200 override lives at the bottom of
+     * this file. Below 1200px --u = 1px → existing responsive layout is
+     * untouched.
+     * ============================================================ */
+    --u: 1px;
+
+    /* ============================================================
+     * PRIMITIVES: COLOR
+     * All values verified from Figma fills/strokes.
+     * ============================================================ */
+
+    --color-base-black:        #000000;
+    --color-base-white:        #ffffff;
+
+    /* Grays — muted text & borders (Figma: r=0.325, g=0.325, b=0.325 → 83/255 ≈ #535353) */
+    --color-base-gray-100:     #cad5e2;   /* pricing feature list text */
+    --color-base-gray-200:     #90a1b9;   /* pricing "/ month" meta text */
+    --color-base-gray-600:     #464646;   /* sign-in button text */
+    --color-base-gray-800:     #535353;   /* borders, muted labels */
+    --color-base-gray-800-30:  rgba(83, 83, 83, 0.3);   /* transparent border/label */
+    --color-base-black-50:     rgba(0, 0, 0, 0.5);      /* glassmorphism bg */
+
+    /* Purple accent (Figma exact: #8642ff) */
+    --color-base-purple-500:   #8642ff;
+    --color-base-purple-glow:  rgba(134, 66, 255, 0.5); /* glow shadow */
+
+    /* Graph category accents — sampled from Figma "How it works" graph nodes
+       (file tWvEkbKCSQHiQE3QAZqdwv, node 227:548). Used only by the contact-graph
+       visualization to color-code relationship clusters. */
+    --color-base-cyan-500:     #00c9f6;   /* Family */
+    --color-base-green-500:    #00d93a;   /* Neighbors */
+    --color-base-pink-500:     #fa0179;   /* Friends */
+    --color-base-blue-500:     #0800f8;   /* extra cluster (step 04) */
+    --color-base-yellow-500:   #e0ff00;   /* extra cluster (step 04) */
+
+
+    /* ============================================================
+     * PRIMITIVES: SPACING  (all multiples of 5, base unit = 5px)
+     * ============================================================ */
+
+    --space-5:    calc(5   * var(--u));
+    --space-10:   calc(10  * var(--u));
+    --space-15:   calc(15  * var(--u));
+    --space-20:   calc(20  * var(--u));   /* base inter-element unit / card column gap */
+    --space-25:   calc(25  * var(--u));   /* card row gap (Figma: 23px → 25px) */
+    --space-30:   calc(30  * var(--u));
+    --space-40:   calc(40  * var(--u));
+    --space-50:   calc(50  * var(--u));
+    --space-60:   calc(60  * var(--u));
+    --space-75:   calc(75  * var(--u));   /* sub-block gap (Figma: 74px → 75px) */
+    --space-80:   calc(80  * var(--u));
+    --space-100:  calc(100 * var(--u));   /* page horizontal margin at 1920px */
+    --space-120:  calc(120 * var(--u));
+    --space-160:  calc(160 * var(--u));
+    --space-200:  calc(200 * var(--u));
+    --space-255:  calc(255 * var(--u));   /* Hero → Features gap (exact from Figma) */
+    --space-300:  calc(300 * var(--u));   /* How It Works → Communities gap (Figma: 301px) */
+
+
+    /* ============================================================
+     * PRIMITIVES: BORDER RADIUS  (multiples of 5)
+     * ============================================================ */
+
+    --radius-5:    calc(5  * var(--u));
+    --radius-10:   calc(10 * var(--u));
+    --radius-15:   calc(15 * var(--u));   /* glassmorphism contact nodes (~13px → 15px) */
+    --radius-20:   calc(20 * var(--u));   /* navbar buttons */
+    --radius-25:   calc(25 * var(--u));
+    --radius-30:   calc(30 * var(--u));   /* feature cards, pricing cards — Figma exact */
+    --radius-40:   calc(40 * var(--u));   /* hero section overflow-clip — Figma exact */
+    --radius-50:   calc(50 * var(--u));   /* CTA pill buttons — Figma exact */
+    --radius-pill: 9999px;
+
+
+    /* ============================================================
+     * PRIMITIVES: TYPOGRAPHY
+     * ============================================================ */
+
+    --font-primary:   'Vela Sans GX', system-ui, sans-serif;
+    --font-secondary: 'Inter', system-ui, sans-serif;
+
+    /* Variable font weight axis (verify actual range in .woff2 file) */
+    --weight-regular:   400;  /* Figma: "Regular" */
+    --weight-medium:    500;  /* Figma: "Medium"  */
+    --weight-semibold:  600;  /* Figma: "SemiBold" */
+    --weight-bold:      700;  /* Figma: "Bold" */
+
+    /* Line heights */
+    --leading-tight:  1.2;   /* headings — Figma: 120% */
+    --leading-normal: 1.3;   /* body — Figma: 130% */
+
+    /* Letter spacing */
+    --tracking-tight:  -0.019em;  /* Figma: -0.15px @ 16px = -0.0094em; rounding up */
+    --tracking-none:    0em;
+
+    /* Raw font size primitives */
+    --font-size-10:  calc(10 * var(--u));
+    --font-size-12:  calc(12 * var(--u));
+    --font-size-16:  calc(16 * var(--u));
+    --font-size-20:  calc(20 * var(--u));
+    --font-size-25:  calc(25 * var(--u));
+    --font-size-30:  calc(30 * var(--u));
+    --font-size-50:  calc(50 * var(--u));
+    --font-size-80:  calc(80 * var(--u));
+
+
+    /* ============================================================
+     * PRIMITIVES: EFFECTS
+     * ============================================================ */
+
+    --blur-glass:  calc(7 * var(--u));   /* glassmorphism backdrop-filter blur (Figma: 7.273px) */
+    --blur-sm:     calc(4 * var(--u));   /* smaller contact nodes (Figma: 4.453px) */
+    --blur-xs:     calc(2 * var(--u));   /* almost-opaque nodes (Figma: 1.5px → 2px) */
+
+    --shadow-glow: 0px 0px calc(30 * var(--u)) 0px var(--color-base-purple-glow);
+
+    /* Animation easing */
+    --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Animation durations */
+    --duration-fast:  150ms;
+    --duration-base:  300ms;
+    --duration-slow:  600ms;
+    --duration-enter: 800ms;
+
+
+    /* ============================================================
+     * PRIMITIVES: LAYOUT GRID
+     *
+     * Figma "Page / Landing" frame: 1920px total
+     *   Page margins:   100px each side
+     *   Content area:   1720px
+     *   Column gap:     20px (exact, confirmed from card positions)
+     *   Card row gap:   23px (→ 25px, rounded to 5)
+     *
+     * Bento grid modules:
+     *   1 col = 328px  (small card, Figma exact)
+     *   2 col = 676px  (328 × 2 + 20 gap = 676, Figma exact)
+     *   Full row: 328 + 20 + 676 + 20 + 676 = 1720 ✓
+     * ============================================================ */
+
+    --grid-margin:    calc(100  * var(--u));   /* page left/right margin at 1920px */
+    --grid-gap:       calc(20   * var(--u));    /* column gap */
+    --grid-row-gap:   calc(25   * var(--u));    /* row gap between bento rows */
+    --grid-col-sm:    calc(328  * var(--u));   /* 1-unit bento column */
+    --grid-col-md:    calc(676  * var(--u));   /* 2-unit bento column */
+    --grid-content:   calc(1720 * var(--u));  /* max content width */
+    --grid-max:       calc(1920 * var(--u));  /* frame width in Figma */
+
+
+    /* ============================================================
+     * PRIMITIVES: BREAKPOINTS  (canonical — for JS matchMedia + docs)
+     *
+     * Media queries can't read CSS vars, so these only MIRROR the literal
+     * widths used in @media. The split at 1200 is the zoom boundary:
+     *   >=1200px  proportional zoom layer (--u = 1vw/19.2) — DO NOT touch.
+     *   <1200px   relational layer (--u = 1px) — all responsive work lives here.
+     * Sub-pixel max-width (x.98) so a min/max pair never both match at the
+     * integer boundary (avoids the "both fire at exactly 1200/1024/768" bug).
+     * ============================================================ */
+    --bp-laptop:  1200px;   /* zoom boundary */
+    --bp-c:       1024px;   /* small desktop / laptop   1024–1199 */
+    --bp-b:        768px;   /* tablet                    768–1023 */
+    --bp-a:        480px;   /* large mobile              <768     */
+    --bp-xs:       390px;   /* small mobile                       */
+
+
+    /* ============================================================
+     * SEMANTIC TOKENS: COLOR
+     * Blocks reference ONLY these. Swap this section for light theme.
+     * ============================================================ */
+
+    --bg-page:          var(--color-base-black);
+    --bg-surface:       var(--color-base-black);
+    --bg-surface-glass: var(--color-base-black-50);
+    --bg-card:          var(--color-base-black);
+    --bg-accent:        var(--color-base-purple-500);
+    --bg-btn-primary:   var(--color-base-purple-500);
+    --bg-btn-secondary: var(--color-base-white);
+
+    --text-primary:    var(--color-base-white);
+    --text-muted:      var(--color-base-gray-800);
+    --text-subtle:     var(--color-base-gray-800-30);
+    --text-list:       var(--color-base-gray-100);
+    --text-meta:       var(--color-base-gray-200);
+    --text-on-light:   var(--color-base-gray-600);
+    --text-on-accent:  var(--color-base-white);
+
+    --border-default:  var(--color-base-gray-800);
+    --border-subtle:   var(--color-base-gray-800-30);
+    --border-accent:   var(--color-base-purple-500);
+
+    --accent-primary:  var(--color-base-purple-500);
+    --accent-glow:     var(--color-base-purple-glow);
+
+    /* Contact-graph node categories — keyed to match graphConfig node.c values.
+       Component resolves a node color as var(--graph-c-<category>). */
+    --graph-c-gray:    var(--color-base-gray-800);    /* unclassified field node */
+    --graph-c-purple:  var(--color-base-purple-500);  /* you / Colleagues */
+    --graph-c-cyan:    var(--color-base-cyan-500);     /* Family */
+    --graph-c-green:   var(--color-base-green-500);    /* Neighbors */
+    --graph-c-pink:    var(--color-base-pink-500);     /* Friends */
+    --graph-c-blue:    var(--color-base-blue-500);
+    --graph-c-yellow:  var(--color-base-yellow-500);
+    --graph-edge:      rgba(255, 255, 255, 0.18);      /* faint connector lines */
+
+
+    /* ============================================================
+     * SEMANTIC TOKENS: TYPOGRAPHY  (RESPONSIVE via clamp)
+     *
+     * Fluid type scale: desktop 1440px → mobile 390px.
+     * slope = (max − min) / (1440 − 390) = Δ / 1050
+     *
+     * role         min     max      slope      intercept
+     * display      36px    80px     4.19vw     20px
+     * h2           28px    50px     2.10vw     20px
+     * h3           20px    30px     0.95vw     16px
+     * h4           18px    25px     0.67vw     15px
+     * body-lg      16px    20px     0.38vw     15px
+     * body, sm, caption — fixed (no fluid scaling needed)
+     * ============================================================ */
+
+    --text-display:  clamp(2.25rem,  4.19vw + 1.25rem, 5rem);       /* 36–80px */
+    --text-h2:       clamp(1.75rem,  2.10vw + 1.25rem, 3.125rem);   /* 28–50px */
+    --text-h3:       clamp(1.25rem,  0.95vw + 1.00rem, 1.875rem);   /* 20–30px */
+    --text-h4:       clamp(1.125rem, 0.67vw + 0.9375rem, 1.5625rem);/* 18–25px */
+    --text-body-lg:  clamp(1rem,     0.38vw + 0.9375rem, 1.25rem);  /* 16–20px */
+    --text-body:     1rem;        /* 16px — fixed */
+    --text-body-sm:  0.75rem;     /* 12px — fixed */
+    --text-caption:  0.625rem;    /* 10px — fixed */
+    --text-nav:      1rem;        /* 16px — nav links */
+    --text-btn-sm:   0.75rem;     /* 12px — navbar small buttons */
+    --text-price:    var(--text-display);  /* €9 display in pricing */
+
+
+    /* ============================================================
+     * SEMANTIC TOKENS: LAYOUT RHYTHM
+     * ============================================================ */
+
+    --section-gap:        var(--space-200); /* uniform gap between all blocks (200px) */
+    --section-gap-inner:  var(--space-75);  /* sub-blocks within section */
+    --section-padding-x:  var(--grid-margin); /* horizontal page padding at 1920px */
+
+    /* ── UNIFIED CONTAINER GUIDES (single source of truth) ──────────────
+     * ONE name, value switches at the 1200 zoom boundary:
+     *   >=1200px : calc(100*--u) / calc(1720*--u) — NUMERICALLY identical to
+     *              the legacy 100px page margin + 1720 content band (zero
+     *              desktop regression by construction). Set in the @media
+     *              (min-width:1200px) block at the bottom of this file.
+     *   <1200px  : stepped, all multiples of 5 (40 → 30 → 20). Set here +
+     *              in the sub-1200 media blocks below.
+     * Every section's horizontal alignment derives from .container, which
+     * reads ONLY these two tokens — no per-section margins. */
+    --gutter:       var(--space-40);   /* 40px — C tier (1024–1199) */
+    --content-max:  var(--bp-laptop);  /* 1200px — relational cap below zoom */
+
+    --card-padding:       var(--space-40);  /* inner padding (Figma: 39px → 40px) */
+    --card-padding-top:   var(--space-40);  /* card top padding (Figma: 36px → 40px) */
+    --card-gap-inner:     var(--space-30);  /* gap: heading group ↔ body text */
+    --card-gap-sm:        var(--space-20);  /* gap within heading group */
+
+    --navbar-height:      var(--space-80);
+    --navbar-padding-x:   var(--space-40);  /* Figma: 40px from frame edge */
+    --navbar-gap:         var(--space-40);  /* between nav link items */
+
+
+    /* ============================================================
+     * SEMANTIC TOKENS: COMPONENTS
+     * ============================================================ */
+
+    /* Cards */
+    --card-radius:         var(--radius-30);
+    --card-border:         1px solid var(--border-default);
+    --card-border-subtle:  1px solid var(--border-subtle);
+    --card-shadow:         var(--shadow-glow);  /* featured/highlighted card */
+
+    /* Hero section */
+    --section-radius:      var(--radius-40);
+
+    /* CTA buttons (hero: px=20, py=15, font=16, radius=pill) */
+    --btn-cta-px:      var(--space-20);
+    --btn-cta-py:      var(--space-15);
+    --btn-cta-font:    var(--text-body);
+    --btn-cta-radius:  var(--radius-pill);
+
+    /* Nav buttons (px=15, py≈7→5px, font=12, radius=20) */
+    --btn-nav-px:      var(--space-15);
+    --btn-nav-py:      var(--space-5);     /* Figma: 7px → 5px */
+    --btn-nav-font:    var(--text-btn-sm);
+    --btn-nav-radius:  var(--radius-20);
+
+    /* Glassmorphism contact nodes */
+    --glass-bg:     var(--bg-surface-glass);
+    --glass-blur:   var(--blur-glass);
+    --glass-border: 1px solid var(--border-subtle);
+    --glass-radius: var(--radius-15);
+
+  }
+
+  /* ============================================================
+   * ZOOM RANGE (≥1200px) — uniform proportional scaling
+   *
+   * One design pixel becomes viewport-proportional (1920 reference:
+   * 1vw / 19.2 = 1px at 1920px). Every `calc(N * var(--u))` token now
+   * scales linearly with width: identical look at 1920, shrunk to ~0.625×
+   * at 1200, and growing past 1920. Below 1200px this block is inactive,
+   * so the existing responsive/mobile layout is untouched.
+   *
+   * The fluid clamp() type is replaced here with the same linear scale so
+   * text tracks spacing exactly (its 1920 max size × --u).
+   * ============================================================ */
+  @media (min-width: 1200px) {
+    :root {
+      --u: calc(1vw / 19.2);
+
+      --text-display:  calc(80 * var(--u));
+      --text-h2:       calc(50 * var(--u));
+      --text-h3:       calc(30 * var(--u));
+      --text-h4:       calc(25 * var(--u));
+      --text-body-lg:  calc(20 * var(--u));
+      --text-body:     calc(16 * var(--u));
+      --text-body-sm:  calc(12 * var(--u));
+      --text-caption:  calc(10 * var(--u));
+      --text-nav:      calc(16 * var(--u));
+      --text-btn-sm:   calc(12 * var(--u));
+
+      /* Container guides → proportional zoom values. At 1920 these equal the
+       * legacy 100px margin and 1720 content band exactly; they scale with --u
+       * down to 1200, so the desktop layout is byte-for-byte unchanged. */
+      --gutter:        calc(100  * var(--u));
+      --content-max:   calc(1720 * var(--u));
+    }
+  }
+
+  /* ============================================================
+   * SUB-1200 RELATIONAL GUTTERS  (stepped, all multiples of 5)
+   *
+   * Only ever match below the zoom boundary, so they can never affect
+   * >=1200. Sub-pixel maxes pair cleanly with min-width:1200 above.
+   *   C tier 1024–1199 : 40px (the :root default — no query needed)
+   *   B tier  768–1023 : 30px
+   *   A tier   <768    : 20px
+   * ============================================================ */
+  @media (max-width: 1023.98px) {
+    :root { --gutter: var(--space-30); }
+  }
+  @media (max-width: 767.98px) {
+    :root { --gutter: var(--space-20); }
+  }
+}

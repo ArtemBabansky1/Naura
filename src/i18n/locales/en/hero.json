@@ -1,0 +1,37 @@
+﻿{
+  "headline": "Your network is your net worth. Make it actually work.",
+  "subtitle": "Naura is a closed network of verified personal recommendations. Save everyone you meet, organize them with AI, and find warm intros through your handshake graph — on the web, inside Telegram, and as an MCP server for your AI agents.",
+  "cta": {
+    "startFree": "Start free",
+    "seeDemo": "See it in 90 seconds"
+  },
+  "nav": {
+    "businessCards": "Business cards",
+    "communities": "Communities",
+    "blog": "Blog",
+    "about": "About",
+    "signIn": "Sign in",
+    "getStarted": "Get started",
+    "ariaLabel": "Main navigation",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "menuTitle": "Menu"
+  },
+  "contact": {
+    "you": "You",
+    "frontendDev": "Frontend Dev",
+    "backendDev": "Backend Dev",
+    "qaEngineer": "QA Engineer",
+    "uiDesigner": "UI Designer",
+    "cloudArchitect": "Cloud Architect",
+    "cybersecurity": "Cybersecurity",
+    "fullStackDev": "Full Stack Dev",
+    "scrumMaster": "Scrum Master",
+    "productManager": "Product Manager",
+    "mlEngineer": "ML Engineer",
+    "dataScientist": "Data Scientist",
+    "techLead": "Tech Lead",
+    "devOpsEngineer": "DevOps Engineer",
+    "mobileDev": "Mobile Dev"
+  }
+}

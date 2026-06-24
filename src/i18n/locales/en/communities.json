@@ -1,0 +1,25 @@
+{
+  "eyebrow": "For communities",
+  "headline": "Got a community?\nNaura runs the directory.",
+  "subtitle": "Private member directory. Events with RSVPs. \"Ask for intro\" baked into every profile. Organizers stop being the bottleneck — members find each other.",
+  "features": {
+    "directory": "Member-facing directory",
+    "events": "Events & RSVPs",
+    "askIntro": "Ask-for-intro",
+    "adminControls": "Admin controls",
+    "forOrganizers": "For organizers"
+  },
+  "subtitles": {
+    "directory": "Custom fields, tags, search.",
+    "events": "Native, no Luma juggling.",
+    "askIntro": "Members request warm intros from each other.",
+    "adminControls": "Roles, invites, branded subdomain."
+  },
+  "seeProduct": "See the product",
+  "descriptions": {
+    "directory": "A searchable, member-facing directory — roles, tags, and bios in one place. Members find each other without going through you.",
+    "events": "Create events with RSVPs and automatic reminders. See who's attending before the doors open.",
+    "askIntro": "Members request warm intros from each other — instead of cold outreach, members leverage shared trust to open doors that would otherwise remain closed.",
+    "adminControls": "Approve new members, assign roles, and moderate the directory from a single organizer dashboard."
+  }
+}

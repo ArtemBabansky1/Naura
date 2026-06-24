@@ -1,0 +1,22 @@
+﻿{
+  "nav": {
+    "ariaLabel": "Main navigation",
+    "businessCards": "Business Cards",
+    "communities": "For Communities",
+    "blog": "Blog",
+    "about": "About Us"
+  },
+  "cta": {
+    "signIn": "Sign In",
+    "getStarted": "Get Started",
+    "startFree": "Start free",
+    "seeDemo": "See it in 90 seconds",
+    "startPro": "Start pro",
+    "getEarlyAccess": "Get early access",
+    "seeProduct": "See the product",
+    "open": "Open",
+    "send": "Send",
+    "askForIntro": "Ask for Intro",
+    "openBot": "Open in Telegram"
+  }
+}

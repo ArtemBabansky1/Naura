@@ -1,0 +1,24 @@
+{
+  "eyebrow": "how it works",
+  "headline": "Four steps. Then it works in the background.",
+  "steps": {
+    "step01": { "number": "01", "title": "Create your card", "description": "Sign up with Google or Apple. Your business card builds itself." },
+    "step02": { "number": "02", "title": "Import everyone", "description": "Phone, Telegram, LinkedIn, CSV. Bulk in one tap. Naura dedupes." },
+    "step03": { "number": "03", "title": "AI tags & organizes", "description": "Roles, interests, cities, when you met. Editable. Yours." },
+    "step04": { "number": "04", "title": "Search · remind · ask", "description": "Find a path. Get nudged. Ask your network from the chat bar." }
+  },
+  "labels": {
+    "colleagues": "Colleagues",
+    "family": "Family",
+    "friends": "Friends",
+    "neighbors": "Neighbors"
+  },
+  "card": {
+    "name": "Marcus Bennett",
+    "role": "CTO Vertex Labs",
+    "phone": "+1 (415) 872-0364",
+    "site": "vertexlabs.io",
+    "telegram": "https://t.me/Marcus_Bennett",
+    "email": "marcus.bennett.dev@gmail.com"
+  }
+}

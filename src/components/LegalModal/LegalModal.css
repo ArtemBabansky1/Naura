@@ -1,0 +1,175 @@
+/* LegalModal — a full-height legal sheet that slides up from the bottom.
+ * Mirrors the footer panel (width, border, top-rounding) and is anchored flush
+ * to the bottom (square bottom corners). 100px gap to the top of the viewport,
+ * footer-style side gutters. Semantic tokens only; values multiples of 5. */
+
+.legal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  /* 100px to the top edge, footer gutters on the sides, flush at the bottom. */
+  padding: var(--space-100) var(--space-40) 0;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* The panel — like the footer: dark, subtle border, rounded top, square bottom. */
+.legal-panel {
+  position: relative;
+  width: 100%;
+  max-width: var(--grid-content); /* footer width */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg-page);
+  border: 1px solid var(--border-subtle);
+  border-bottom: none;
+  border-radius: var(--radius-40) var(--radius-40) 0 0;
+  overflow: hidden;
+}
+
+/* Close (×) — top-right, footer-style outline that lights up on hover. */
+.legal-panel__close {
+  position: absolute;
+  top: var(--space-30);
+  right: var(--space-30);
+  z-index: 1;
+  width: calc(40 * var(--u));
+  height: calc(40 * var(--u));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  transition: border-color var(--duration-fast) var(--ease-in-out),
+    color var(--duration-fast) var(--ease-in-out);
+}
+.legal-panel__close:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* Scrollable content region. data-lenis-prevent (set on the element) keeps wheel
+ * scrolling native inside the sheet while Lenis is paused behind it. */
+.legal-panel__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-80) var(--space-100) var(--space-60);
+}
+
+/* ── Document typography ──────────────────────────────────────────────── */
+.legal-doc {
+  max-width: none; /* text fills the full container width; margins from body padding */
+}
+
+.legal-doc__title {
+  margin: 0 0 var(--space-15);
+  padding-right: calc(60 * var(--u)); /* clear of the close button */
+  color: var(--text-primary);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+}
+
+.legal-doc__heading {
+  margin: var(--space-50) 0 var(--space-15);
+  color: var(--text-primary);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+}
+
+.legal-doc__subheading {
+  margin: var(--space-30) 0 var(--space-10);
+  color: var(--text-primary);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+}
+
+.legal-doc__p {
+  margin: 0 0 var(--space-15);
+  color: var(--text-list);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+}
+
+.legal-doc__list {
+  margin: 0 0 var(--space-15);
+  padding-left: var(--space-25);
+  list-style: disc;
+}
+/* Nested lists (e.g. CCPA rights) get a tighter top gap and a different marker. */
+.legal-doc__list .legal-doc__list {
+  margin: var(--space-10) 0 0;
+  list-style: circle;
+}
+
+.legal-doc__item {
+  margin-bottom: var(--space-10);
+  color: var(--text-list);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+}
+.legal-doc__item::marker {
+  color: var(--accent-primary);
+}
+
+.legal-doc__strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* Notes — effective dates, "applies to X residents only" lines. */
+.legal-doc__note {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.legal-doc__link {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity var(--duration-fast) var(--ease-in-out);
+}
+.legal-doc__link:hover {
+  opacity: 0.8;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .legal-panel__body {
+    padding: var(--space-60) var(--space-40) var(--space-40);
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-overlay {
+    padding: var(--space-100) var(--space-20) 0;
+  }
+  .legal-panel__close {
+    top: var(--space-20);
+    right: var(--space-20);
+  }
+  .legal-panel__body {
+    padding: var(--space-50) var(--space-20) var(--space-30);
+  }
+  .legal-doc__title {
+    padding-right: calc(50 * var(--u));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legal-panel__close,
+  .legal-doc__link {
+    transition: none;
+  }
+}

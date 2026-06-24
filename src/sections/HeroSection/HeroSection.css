@@ -1,0 +1,395 @@
+﻿/* ── Outer wrapper ────────────────────────────────────────────────────────── */
+/* ≥calc(1200 * var(--u)): full width with calc(100 * var(--u)) side padding. Below calc(1200 * var(--u)) the side padding
+ * scales down so the stage keeps breathing room on smaller screens. */
+.hero-section {
+  background: #000;
+  /* Horizontal padding = the shared container gutter (--gutter), so the hero
+   * stage's edge lines up with every other section's content edge at all
+   * breakpoints (100u ≥1200, then 40 / 30 / 20 stepping down). */
+  padding-block: calc(50 * var(--u));
+  padding-inline: var(--gutter);
+  min-height: 100dvh;   /* dvh, not vh — survives the mobile URL-bar collapse */
+  box-sizing: border-box;
+}
+
+@media (max-width: 1199.98px) {
+  /* No contact web below 1200 → make the stage a column and let the content
+   * grow to fill it, vertically centring the headline + subtitle + CTAs instead
+   * of top-aligning them. Horizontal centring is already handled (text-align +
+   * margin auto + centred flex items). */
+  .hero-stage {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding-block: calc(40 * var(--u));
+  }
+}
+
+@media (max-width: 479.98px) {
+  .hero-section {
+    padding-block: calc(30 * var(--u));
+  }
+}
+
+/* ── Stage ────────────────────────────────────────────────────────────────── */
+.hero-stage {
+  position: relative;
+  width: 100%;
+  height: calc(100dvh - calc(100 * var(--u)));
+  min-height: calc(600 * var(--u));
+  border-radius: var(--section-radius);
+  border: var(--card-border-subtle);
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+/* ── UnicornStudio interactive background — fills the stage, under content.
+   Recolor lives in the shared UnicornScene styles; this only positions it. */
+.hero-unicorn {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ── Hero nav (static inside stage, not fixed) ────────────────────────────── */
+.hero-nav {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: var(--space-40) var(--navbar-padding-x) 0;
+}
+
+.hero-nav__logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  justify-self: start;
+}
+
+.hero-nav__logo-img {
+  height: calc(18 * var(--u));
+  width: auto;
+  display: block;
+}
+
+.hero-nav__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navbar-gap);
+}
+
+.hero-nav__link {
+  color: var(--text-primary);
+  font-size: var(--text-nav);
+  opacity: 0.8;
+  text-decoration: none;
+  transition: opacity var(--duration-fast) var(--ease-in-out);
+}
+.hero-nav__link:hover { opacity: 1; }
+
+.hero-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  justify-self: end;
+}
+
+.hero-nav__lang {
+  background: var(--color-base-white);
+  border: 1px solid transparent;
+  color: var(--color-base-gray-600);
+  width: calc(45 * var(--u));
+  height: calc(45 * var(--u));
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: calc(15 * var(--u));
+  font-weight: var(--weight-semibold);
+  font-family: inherit;
+  line-height: 1;
+  transition: opacity var(--duration-fast) var(--ease-in-out), box-shadow var(--duration-fast) var(--ease-in-out);
+}
+.hero-nav__lang:hover {
+  opacity: 0.88;
+  box-shadow: 0px 0px calc(30 * var(--u)) 0px rgba(255, 255, 255, 0.35);
+}
+
+.hero-nav__btn {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(14 * var(--u)) calc(24 * var(--u));
+  border-radius: var(--radius-pill);
+  font-size: calc(15 * var(--u));
+  font-family: inherit;
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: opacity var(--duration-fast) var(--ease-in-out), box-shadow var(--duration-fast) var(--ease-in-out);
+}
+.hero-nav__btn--secondary { color: var(--text-on-light); background: var(--bg-btn-secondary); }
+.hero-nav__btn--primary   { color: var(--text-on-accent); background: var(--bg-btn-primary); }
+.hero-nav__btn--secondary:hover { opacity: 0.88; box-shadow: 0px 0px calc(30 * var(--u)) 0px rgba(255, 255, 255, 0.35); }
+.hero-nav__btn--primary:hover   { opacity: 0.88; box-shadow: var(--shadow-glow); }
+
+/* ── Hero content ─────────────────────────────────────────────────────────── */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: calc(1000 * var(--u));
+  padding: calc(50 * var(--u)) calc(40 * var(--u)) 0;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-content__headline {
+  color: var(--text-primary);
+  margin: 0 0 calc(20 * var(--u));
+  /* Below 1200px: fluid clamp (30% under --text-display, 25–56px).
+   * Zoom range: linear with --u (1920 = 56px) so it tracks the page. */
+  font-size: clamp(1.6rem, 2.9vw + 0.875rem, 3.5rem);
+  line-height: var(--leading-tight);
+  font-weight: var(--weight-bold);
+}
+
+@media (min-width: 1200px) {
+  .hero-content__headline {
+    font-size: calc(56 * var(--u));
+  }
+}
+
+.hero-content__subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 auto calc(40 * var(--u));
+  max-width: calc(700 * var(--u));
+  font-size: calc(16 * var(--u));
+  line-height: 1.65;
+}
+
+.hero-content__cta {
+  display: flex;
+  align-items: center;
+  gap: calc(15 * var(--u));
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── CTA buttons ──────────────────────────────────────────────────────────── */
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  padding: var(--btn-cta-py, calc(14 * var(--u))) var(--btn-cta-px, calc(24 * var(--u)));
+  border-radius: var(--btn-cta-radius, calc(100 * var(--u)));
+  font-family: inherit;
+  font-size: calc(15 * var(--u));
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 150ms ease, box-shadow 150ms ease, border-color 150ms ease, color 150ms ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  background: none;
+}
+
+.btn-hero--primary {
+  background: var(--bg-btn-primary);
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-hero--primary:hover {
+  opacity: 0.88;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-hero--ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.btn-hero--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+.btn-hero__icon {
+  flex-shrink: 0;
+}
+
+/* ── Graph overlay ────────────────────────────────────────────────────────── */
+.hero-graph {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-graph__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Node anchor — handles absolute %; GSAP targets the inner .graph-node ── */
+.graph-node-anchor {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ── Node card ────────────────────────────────────────────────────────────── */
+.graph-node {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  padding: calc(6 * var(--u)) calc(10 * var(--u)) calc(6 * var(--u)) calc(6 * var(--u));
+  border-radius: var(--glass-radius, calc(12 * var(--u)));
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur, calc(7 * var(--u))));
+  -webkit-backdrop-filter: blur(var(--glass-blur, calc(7 * var(--u))));
+  white-space: nowrap;
+  filter: blur(var(--node-filter-blur, 0px));
+  pointer-events: auto;
+  cursor: default;
+  transition: box-shadow 200ms ease;
+}
+
+.graph-node:not(.graph-node--depth-0):hover {
+  box-shadow: 0 0 0 1px var(--accent-primary);
+  cursor: pointer;
+}
+
+/* Scale per depth is applied by GSAP entrance animation */
+
+.graph-node--depth-0 {
+  background: rgba(15, 15, 15, 0.92);
+}
+
+/* ── Avatar ───────────────────────────────────────────────────────────────── */
+/* <picture> wrapper is layout-transparent so the <img> stays the direct flex
+   child of .graph-node and all the avatar rules below apply unchanged. */
+.graph-node picture {
+  display: contents;
+}
+
+.graph-node__avatar {
+  width: calc(30 * var(--u));
+  height: calc(30 * var(--u));
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+}
+
+.graph-node--depth-0 .graph-node__avatar {
+  width: calc(40 * var(--u));
+  height: calc(40 * var(--u));
+}
+
+/* ── Name + role ──────────────────────────────────────────────────────────── */
+.graph-node__info {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--u));
+}
+
+.graph-node__name {
+  font-size: calc(12 * var(--u));
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.graph-node__role {
+  font-size: calc(10 * var(--u));
+  color: var(--text-subtle);
+  line-height: 1.2;
+}
+
+.graph-node--depth-0 .graph-node__name {
+  font-size: calc(14 * var(--u));
+}
+
+.graph-node--depth-0 .graph-node__role {
+  font-size: calc(12 * var(--u));
+}
+
+/* ── ≤1199 → burger nav ───────────────────────────────────────────────────────
+ * Hide the desktop centre links + action buttons; the nav becomes logo (left) +
+ * static burger (right), aligned to the navbar padding inside the stage. The
+ * burger scrolls away with the hero; a floating one (MobileNav) flies in on
+ * scroll-up. MUST sit after the base .hero-nav rules — an earlier media block
+ * has equal specificity and loses the cascade. */
+@media (max-width: 1199.98px) {
+  .hero-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hero-nav__links,
+  .hero-nav__actions {
+    display: none;
+  }
+
+  .hero-nav__burger {
+    flex: none;
+  }
+}
+
+/* ── Mobile (<768) — burger takes over; web is removed (not rendered) ─────────
+ * The stage grows to fit its content instead of locking to one viewport height
+ * (no contact web to fill it), so the headline + CTAs are never clipped. */
+@media (max-width: 767.98px) {
+  .hero-stage {
+    height: auto;
+    min-height: calc(100dvh - calc(80 * var(--u)));
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-nav {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    padding: var(--space-30) var(--space-20) 0;
+  }
+
+  .hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Side padding is the edge gap for the (full-width) subtitle + headline.
+     * Tripled from --space-10 → --space-30 for more breathing room from edges. */
+    padding: var(--space-40) var(--space-30) var(--space-60);
+  }
+
+  /* Buttons stay hug (content width), centred; they wrap to a new line via the
+   * base flex-wrap if both don't fit, never stretching to fill the row. */
+  .hero-content__cta .btn-hero {
+    flex: 0 0 auto;
+  }
+}

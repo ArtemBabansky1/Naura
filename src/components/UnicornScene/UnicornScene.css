@@ -1,0 +1,31 @@
+/* Shared UnicornStudio recolor. The source scene renders blue-on-white; we
+   flatten it to luminance (invert + grayscale) and tint it to our exact purple
+   via a multiply overlay, keeping the background black. Positioning is supplied
+   by the consumer's class (e.g. .hero-unicorn, .cta-unicorn). */
+.unicorn-scene {
+  background: var(--color-base-black);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.unicorn-scene canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  filter: invert(1) grayscale(1) brightness(1.25) contrast(1.05);
+}
+
+.unicorn-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #8341f8;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Paused scenes produce no frames; drop the compositor hint when idle. */
+.unicorn-scene.is-paused canvas {
+  will-change: auto;
+}
