@@ -1,16 +1,18 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
+import { PageSeo } from "../PageSeo/PageSeo"
 import Container from "../Container/Container"
 import "./PageShell.css"
 
-export const PageShell = ({ title, children }) => {
+export const PageShell = ({ title, description, path, jsonLd, children }) => {
   useEffect(() => {
-    document.title = title
     window.scrollTo(0, 0)
-  }, [title])
+  }, [path])
 
   return (
     <div className="page-shell">
+      <PageSeo title={title} description={description} path={path} jsonLd={jsonLd} />
+
       <header className="page-shell__header">
         <Container className="page-shell__header-inner">
           <Link to="/" className="page-shell__logo" aria-label="Back to Naura home">

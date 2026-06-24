@@ -9,7 +9,11 @@ export const SupportPage = () => {
   const { t } = useTranslation("support")
 
   return (
-    <PageShell title={t("pageTitle")}>
+    <PageShell
+      title={t("pageTitle")}
+      description={t("metaDescription")}
+      path="/support"
+    >
       <div className="support-page">
         <header className="support-page__header">
           <span className="support-page__eyebrow text-label">{t("eyebrow")}</span>

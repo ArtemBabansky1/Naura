@@ -1,4 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { PageSeo } from "../../components/PageSeo/PageSeo"
+import { buildWebsiteJsonLd, HOME_SEO } from "../../lib/seo"
 import HeroSection from "../../sections/HeroSection"
 import FloatingNav from "../../components/FloatingNav/FloatingNav"
 import MobileNav from "../../components/MobileNav/MobileNav"
@@ -30,15 +33,18 @@ function RefreshOnMount({ children }) {
 
 export const LandingPage = () => {
   useSmoothScroll()
+  const { t } = useTranslation("hero")
 
   const [navOpen, setNavOpen] = useState(false)
 
-  useEffect(() => {
-    document.title = "Naura — Your network, actually working"
-  }, [])
-
   return (
     <>
+      <PageSeo
+        title={HOME_SEO.title}
+        description={t("subtitle")}
+        path="/"
+        jsonLd={buildWebsiteJsonLd()}
+      />
       <FloatingNav />
       <MobileNav open={navOpen} setOpen={setNavOpen} />
 

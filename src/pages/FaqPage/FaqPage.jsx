@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom"
+import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PageShell } from "../../components/PageShell/PageShell"
 import { FaqAccordion } from "../../components/FaqAccordion/FaqAccordion"
+import { buildFaqJsonLd } from "../../lib/seo"
 import { SUPPORT_EMAIL } from "../../lib/urls"
 import "./FaqPage.css"
 
 export const FaqPage = () => {
   const { t } = useTranslation("faq")
+  const items = t("items", { returnObjects: true })
+  const faqJsonLd = useMemo(() => buildFaqJsonLd(items), [items])
 
   return (
-    <PageShell title={t("pageTitle")}>
+    <PageShell
+      title={t("pageTitle")}
+      description={t("metaDescription")}
+      path="/faq"
+      jsonLd={faqJsonLd}
+    >
       <div className="faq-page">
         <header className="faq-page__header">
           <span className="faq-page__eyebrow text-label">{t("eyebrow")}</span>

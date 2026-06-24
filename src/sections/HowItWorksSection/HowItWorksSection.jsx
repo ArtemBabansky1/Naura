@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
 import { createWeb, LABELS } from './webGraph'
+import { HiwScrollStepLayer, useHiwScrollProgress } from './HiwScrollMotion'
 import './HowItWorksSection.css'
 
 const STEP_KEYS = ['step01', 'step02', 'step03', 'step04']
@@ -158,10 +159,10 @@ export default function HowItWorksSection() {
   const sectionRef = useRef(null)
   const scrollerRef = useRef(null)
   const pinRef = useRef(null)
-  const textRefs = useRef([])
   const dotsRef = useRef(null)
   const linesRef = useRef(null)
   const labelsRef = useRef(null)
+  const scrollProgress = useHiwScrollProgress()
 
   // Reduced-motion + below the desktop zoom boundary → plain stacked steps.
   // REACTIVE (not frozen at mount): crossing the boundary — by resizing OR by
@@ -189,27 +190,15 @@ export default function HowItWorksSection() {
     const pin = pinRef.current
     const dotsG = dotsRef.current
     const linesG = linesRef.current
-    const texts = textRefs.current.filter(Boolean)
     if (!scroller || !pin || !dotsG || !linesG) return
 
     const { render, destroy } = createWeb(dotsG, linesG)
     const labelsG = labelsRef.current
 
-    const setActive = (p) => {
-      const a = clamp(Math.round(p), 0, STEPS - 1)
-      texts.forEach((el, i) => el.classList.toggle('is-active', i === a))
-    }
-    // Group labels belong to step 3 (p=2) only — fade with distance from it.
     const setLabels = (p) => {
       if (labelsG) labelsG.style.opacity = String(clamp(1 - Math.abs(p - 2), 0, 1))
     }
 
-    // ScrollTrigger pins the panel and drives the morph from scroll progress.
-    // Lenis is wired into ScrollTrigger globally (useSmoothScroll), so progress
-    // tracks the eased scroll position. invalidateOnRefresh re-measures start/end
-    // after lazy sections + fonts change the document height; anticipatePin
-    // avoids the unpinned flash smooth scroll otherwise exposes.
-    // (CSS position:sticky is unusable here — body has overflow-x:hidden.)
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: scroller,
@@ -222,15 +211,15 @@ export default function HowItWorksSection() {
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = self.progress * (STEPS - 1)
+          scrollProgress.set(p)
           render(p)
-          setActive(p)
           setLabels(p)
         },
       })
     }, sectionRef)
 
+    scrollProgress.set(0)
     render(0)
-    setActive(0)
     setLabels(0)
 
     // This section mounts lazily; its own creation just changed the document
@@ -241,7 +230,7 @@ export default function HowItWorksSection() {
       ctx.revert()
       destroy()
     }
-  }, [staticMode])
+  }, [staticMode, scrollProgress])
 
   // ── Reduced motion / mobile: stacked static steps ─────────────────────────
   if (staticMode) {
@@ -276,13 +265,14 @@ export default function HowItWorksSection() {
           <div className="hiw-inner container">
           <div className="hiw-text-col">
             {STEP_KEYS.map((key, i) => (
-              <div
-                className={`hiw-text${i === 0 ? ' is-active' : ''}`}
+              <HiwScrollStepLayer
                 key={key}
-                ref={(el) => { textRefs.current[i] = el }}
+                index={i}
+                lastIndex={STEPS - 1}
+                progress={scrollProgress}
               >
                 <StepText index={i} />
-              </div>
+              </HiwScrollStepLayer>
             ))}
           </div>
 

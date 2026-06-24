@@ -71,13 +71,8 @@
 .hiw-text {
   grid-area: 1 / 1;
   align-self: center;
-  opacity: 0;
-  transition: opacity var(--duration-base) var(--ease-out-expo);
   pointer-events: none;
-}
-.hiw-text.is-active {
-  opacity: 1;
-  pointer-events: auto;
+  transform-origin: left center;
 }
 
 .hiw-graph-col {
@@ -255,6 +250,12 @@
 .is-static .hiw-graph-svg {
   width: min(100%, calc(460 * var(--u)));
   margin-inline: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hiw-text {
+    transform: none !important;
+  }
 }
 
 @media (max-width: 767.98px) {

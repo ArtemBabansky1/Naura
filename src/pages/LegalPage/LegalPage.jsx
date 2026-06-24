@@ -1,30 +1,22 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
+import { PageSeo } from "../../components/PageSeo/PageSeo"
 import { LegalDocument } from "../../components/LegalDocument/LegalDocument"
 import Container from "../../components/Container/Container"
+import { LEGAL_SEO } from "../../lib/seo"
 import "./LegalPage.css"
 
-const PAGE_META = {
-  privacy: {
-    title: "Privacy Policy — Naura",
-    label: "Privacy Policy",
-  },
-  terms: {
-    title: "Terms of Use — Naura",
-    label: "Terms of Use",
-  },
-}
-
 export const LegalPage = ({ doc }) => {
-  const meta = PAGE_META[doc]
+  const meta = LEGAL_SEO[doc]
 
   useEffect(() => {
-    document.title = meta.title
     window.scrollTo(0, 0)
-  }, [meta.title])
+  }, [doc])
 
   return (
     <div className="legal-page">
+      <PageSeo title={meta.title} description={meta.description} path={`/${doc}`} />
+
       <header className="legal-page__header">
         <Container className="legal-page__header-inner">
           <Link to="/" className="legal-page__logo" aria-label="Back to Naura home">

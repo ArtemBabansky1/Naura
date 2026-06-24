@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#000"/>
+  <circle cx="900" cy="120" r="280" fill="#8642FF" fill-opacity="0.12"/>
+  <circle cx="1050" cy="520" r="220" fill="#8642FF" fill-opacity="0.08"/>
+  <path d="M96 360V180h38.4c0 0-.12 86.4-.12 134.4 28.8-22.8 81.6-57.6 134.4-86.4 38.4-21.6 76.8-33.6 110.4-33.6 28.8 0 51.6 10.8 67.2 26.4 15.6 15.6 24 37.2 24 61.2v90H432v-105.6c-1.2-15.6-7.2-30-18-39.6-10.8-10.8-26.4-16.8-46.8-16.8-30 0-62.4 9.6-98.4 25.2-36 14.4-69.6 36-97.2 57.6H96z" fill="#8642FF"/>
+  <text x="96" y="470" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="600">Your network, actually working</text>
+  <text x="96" y="530" fill="#90a1b9" font-family="system-ui, -apple-system, sans-serif" font-size="28">Personal CRM with AI - naura.io</text>
+</svg>
