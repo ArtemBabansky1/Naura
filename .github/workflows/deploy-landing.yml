@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - ".github/workflows/deploy-landing.yml"
   workflow_dispatch:
 
 env:
