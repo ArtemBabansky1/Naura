@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/deploy-landing.yml"
   workflow_dispatch:
 
 env:
@@ -55,7 +57,15 @@ jobs:
             mkdir -p "$STAGE" "$REMOTE_PATH"
 
             tar xzf /tmp/landing-dist.tar.gz -C "$STAGE"
-            rsync -a --delete "$STAGE/" "$REMOTE_PATH/"
+
+            if [ ! -f "$STAGE/index.html" ]; then
+              echo "❌ Build archive missing index.html"
+              rm -rf "$STAGE"
+              exit 1
+            fi
+
+            find "$REMOTE_PATH" -mindepth 1 -delete
+            cp -a "$STAGE"/. "$REMOTE_PATH/"
 
             rm -rf "$STAGE" /tmp/landing-dist.tar.gz
 
