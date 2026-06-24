@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { LocaleLink } from '../../components/LocaleLink/LocaleLink'
 import { motion, useReducedMotion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
@@ -129,7 +130,7 @@ export default function TelegramSection() {
           >
             {t('cta.openBot')}
           </a>
-          <a href="/privacy" className="telegram-btn telegram-btn--ghost">{t('cta.howItStores')}</a>
+          <LocaleLink to="/privacy" className="telegram-btn telegram-btn--ghost">{t('cta.howItStores')}</LocaleLink>
         </motion.div>
       </motion.div>
     </section>

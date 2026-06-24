@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
+import { useLocale } from '../../hooks/useLocale'
 import { APP_URL } from '../../lib/urls'
 import './FloatingNav.css'
 
@@ -11,11 +12,12 @@ import './FloatingNav.css'
  */
 export default function FloatingNav() {
   const { t, i18n } = useTranslation('hero')
+  const { switchLocale } = useLocale()
   const isVisible = useRevealOnScrollUp('hero')
   const tab = isVisible ? 0 : -1
 
   function toggleLang() {
-    i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en')
+    switchLocale()
   }
 
   return (

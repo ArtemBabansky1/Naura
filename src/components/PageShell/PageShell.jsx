@@ -1,6 +1,6 @@
 import { useEffect } from "react"
-import { Link } from "react-router-dom"
 import { PageSeo } from "../PageSeo/PageSeo"
+import { LocaleLink } from "../LocaleLink/LocaleLink"
 import Container from "../Container/Container"
 import "./PageShell.css"
 
@@ -15,12 +15,12 @@ export const PageShell = ({ title, description, path, jsonLd, children }) => {
 
       <header className="page-shell__header">
         <Container className="page-shell__header-inner">
-          <Link to="/" className="page-shell__logo" aria-label="Back to Naura home">
+          <LocaleLink to="/" className="page-shell__logo" aria-label="Back to Naura home">
             Naura
-          </Link>
-          <Link to="/" className="page-shell__back text-body-sm">
+          </LocaleLink>
+          <LocaleLink to="/" className="page-shell__back text-body-sm">
             ← Back to home
-          </Link>
+          </LocaleLink>
         </Container>
       </header>
 
@@ -31,10 +31,10 @@ export const PageShell = ({ title, description, path, jsonLd, children }) => {
       <footer className="page-shell__footer">
         <Container className="page-shell__footer-inner">
           <nav className="page-shell__nav" aria-label="Site">
-            <Link to="/faq" className="page-shell__nav-link text-body-sm">FAQ</Link>
-            <Link to="/support" className="page-shell__nav-link text-body-sm">Support</Link>
-            <Link to="/privacy" className="page-shell__nav-link text-body-sm">Privacy Policy</Link>
-            <Link to="/terms" className="page-shell__nav-link text-body-sm">Terms of Use</Link>
+            <LocaleLink to="/faq" className="page-shell__nav-link text-body-sm">FAQ</LocaleLink>
+            <LocaleLink to="/support" className="page-shell__nav-link text-body-sm">Support</LocaleLink>
+            <LocaleLink to="/privacy" className="page-shell__nav-link text-body-sm">Privacy Policy</LocaleLink>
+            <LocaleLink to="/terms" className="page-shell__nav-link text-body-sm">Terms of Use</LocaleLink>
           </nav>
           <p className="page-shell__copy text-body-sm">© 2026 Naura Cards. All rights reserved.</p>
         </Container>

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
+import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
 import { PageShell } from "../../components/PageShell/PageShell"
 import { FaqAccordion } from "../../components/FaqAccordion/FaqAccordion"
 import { buildFaqJsonLd } from "../../lib/seo"
@@ -29,9 +29,9 @@ export const FaqPage = () => {
               {SUPPORT_EMAIL}
             </a>
             {" — "}
-            <Link to="/support" className="faq-page__link">
+            <LocaleLink to="/support" className="faq-page__link">
               {t("pageContactLink")}
-            </Link>
+            </LocaleLink>
           </p>
         </header>
 

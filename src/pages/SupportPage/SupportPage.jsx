@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
 import { useTranslation, Trans } from "react-i18next"
+import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
 import { PageShell } from "../../components/PageShell/PageShell"
 import { SupportForm } from "../../components/SupportForm/SupportForm"
 import { SUPPORT_EMAIL } from "../../lib/urls"
@@ -30,7 +30,7 @@ export const SupportPage = () => {
                     className="support-page__link"
                   />
                 ),
-                faq: <Link to="/faq" className="support-page__link" />,
+                faq: <LocaleLink to="/faq" className="support-page__link" />,
               }}
             />
           </p>

@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
+import { useLocale } from '../../hooks/useLocale'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
 import { lockScroll, unlockScroll } from '../../lib/scrollLock'
 import { APP_URL } from '../../lib/urls'
@@ -32,13 +33,14 @@ const LINKS = [
  */
 export default function MobileNav({ open, setOpen }) {
   const { t, i18n } = useTranslation('hero')
+  const { switchLocale } = useLocale()
   const isBelowDesktop = useMediaQuery(BELOW_DESKTOP_QUERY)
   const isRevealed = useRevealOnScrollUp('hero')
   const prefersReduced = useReducedMotion()
   const panelRef = useRef(null)
 
   function toggleLang() {
-    i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en')
+    switchLocale()
   }
 
   function close() {

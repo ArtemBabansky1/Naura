@@ -1,17 +1,17 @@
 import { useRef } from "react"
-import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
 import "./FooterSection.css"
 
 export default function FooterSection() {
-  const { t } = useTranslation('footer')
+  const { t } = useTranslation("footer")
   const sectionRef = useRef(null)
 
   const productLinks = [
-    { key: 'home', href: '#hero' },
-    { key: 'businessCards', href: '#features' },
-    { key: 'communities', href: '#communities' },
-    { key: 'blog', href: '#' },
+    { key: "home", href: "#hero" },
+    { key: "businessCards", href: "#features" },
+    { key: "communities", href: "#communities" },
+    { key: "blog", href: "#" },
   ]
 
   return (
@@ -49,8 +49,8 @@ export default function FooterSection() {
             </svg>
           </div>
 
-          <nav className="footer-col footer-col--product" aria-label={t('product.heading')}>
-            <h3 className="footer-col__heading">{t('product.heading')}</h3>
+          <nav className="footer-col footer-col--product" aria-label={t("product.heading")}>
+            <h3 className="footer-col__heading">{t("product.heading")}</h3>
             <ul className="footer-col__list">
               {productLinks.map(({ key, href }) => (
                 <li key={key}>
@@ -61,21 +61,21 @@ export default function FooterSection() {
           </nav>
 
           <div className="footer-col footer-col--contacts">
-            <h3 className="footer-col__heading">{t('contacts.heading')}</h3>
+            <h3 className="footer-col__heading">{t("contacts.heading")}</h3>
             <ul className="footer-col__list">
-              <li><a href="mailto:hello@naura.io" className="footer-link">{t('contacts.email')}</a></li>
-              <li><a href="https://t.me/@naura_sp" className="footer-link">{t('contacts.telegram')}</a></li>
+              <li><a href="mailto:hello@naura.io" className="footer-link">{t("contacts.email")}</a></li>
+              <li><a href="https://t.me/@naura_sp" className="footer-link">{t("contacts.telegram")}</a></li>
             </ul>
           </div>
 
           <ul className="footer-col__list footer-legal">
-            <li><Link to="/faq" className="footer-link">{t("legal.faq")}</Link></li>
-            <li><Link to="/support" className="footer-link">{t("legal.support")}</Link></li>
-            <li><Link to="/privacy" className="footer-link">{t("legal.privacy")}</Link></li>
-            <li><Link to="/terms" className="footer-link">{t("legal.terms")}</Link></li>
+            <li><LocaleLink to="/faq" className="footer-link">{t("legal.faq")}</LocaleLink></li>
+            <li><LocaleLink to="/support" className="footer-link">{t("legal.support")}</LocaleLink></li>
+            <li><LocaleLink to="/privacy" className="footer-link">{t("legal.privacy")}</LocaleLink></li>
+            <li><LocaleLink to="/terms" className="footer-link">{t("legal.terms")}</LocaleLink></li>
           </ul>
 
-          <p className="footer-copy text-body-sm">{t('legal.copyright')}</p>
+          <p className="footer-copy text-body-sm">{t("legal.copyright")}</p>
         </div>
       </div>
     </footer>

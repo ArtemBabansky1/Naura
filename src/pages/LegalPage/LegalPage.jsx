@@ -1,6 +1,6 @@
 import { useEffect } from "react"
-import { Link } from "react-router-dom"
 import { PageSeo } from "../../components/PageSeo/PageSeo"
+import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
 import { LegalDocument } from "../../components/LegalDocument/LegalDocument"
 import Container from "../../components/Container/Container"
 import { LEGAL_SEO } from "../../lib/seo"
@@ -19,12 +19,12 @@ export const LegalPage = ({ doc }) => {
 
       <header className="legal-page__header">
         <Container className="legal-page__header-inner">
-          <Link to="/" className="legal-page__logo" aria-label="Back to Naura home">
+          <LocaleLink to="/" className="legal-page__logo" aria-label="Back to Naura home">
             Naura
-          </Link>
-          <Link to="/" className="legal-page__back text-body-sm">
+          </LocaleLink>
+          <LocaleLink to="/" className="legal-page__back text-body-sm">
             ← Back to home
-          </Link>
+          </LocaleLink>
         </Container>
       </header>
 
@@ -37,12 +37,12 @@ export const LegalPage = ({ doc }) => {
       <footer className="legal-page__footer">
         <Container className="legal-page__footer-inner">
           <nav className="legal-page__nav" aria-label="Legal">
-            <Link to="/privacy" className="legal-page__nav-link text-body-sm">
+            <LocaleLink to="/privacy" className="legal-page__nav-link text-body-sm">
               Privacy Policy
-            </Link>
-            <Link to="/terms" className="legal-page__nav-link text-body-sm">
+            </LocaleLink>
+            <LocaleLink to="/terms" className="legal-page__nav-link text-body-sm">
               Terms of Use
-            </Link>
+            </LocaleLink>
           </nav>
           <p className="legal-page__copy text-body-sm">© 2026 Naura Cards. All rights reserved.</p>
         </Container>

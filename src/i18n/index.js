@@ -1,6 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
+import { getLocaleFromPath } from '../lib/locale'
 
 import enCommon from './locales/en/common.json'
 import enHero from './locales/en/hero.json'
@@ -28,8 +29,17 @@ import ruCta from './locales/ru/cta.json'
 import ruFooter from './locales/ru/footer.json'
 import ruSupport from './locales/ru/support.json'
 
+const languageDetector = new LanguageDetector()
+languageDetector.addDetector({
+  name: 'pathLang',
+  lookup() {
+    if (typeof window === 'undefined') return undefined
+    return getLocaleFromPath(window.location.pathname)
+  },
+})
+
 i18n
-  .use(LanguageDetector)
+  .use(languageDetector)
   .use(initReactI18next)
   .init({
     resources: {
@@ -40,7 +50,7 @@ i18n
     supportedLngs: ['en', 'ru'],
     defaultNS: 'common',
     interpolation: { escapeValue: false },
-    detection: { order: ['localStorage', 'navigator'], caches: ['localStorage'] },
+    detection: { order: ['pathLang', 'localStorage', 'navigator'], caches: ['localStorage'] },
   })
 
 export default i18n

@@ -1,18 +1,20 @@
 import { useTranslation } from 'react-i18next'
+import { useLocale } from '../../hooks/useLocale'
 import { APP_URL } from '../../lib/urls'
 import './Navbar.css'
 
 export default function Navbar() {
   const { t, i18n } = useTranslation('common')
+  const { localePath, switchLocale } = useLocale()
 
   function toggleLang() {
-    i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en')
+    switchLocale()
   }
 
   return (
     <header className="navbar" role="banner">
       <div className="container navbar__inner">
-        <a href="/" className="navbar__logo" aria-label="Naura home">Naura</a>
+        <a href={localePath('/')} className="navbar__logo" aria-label="Naura home">Naura</a>
 
         <nav className="navbar__nav" aria-label={t('nav.ariaLabel')}>
           <a href="#features" className="navbar__link text-body-ui">{t('nav.businessCards')}</a>

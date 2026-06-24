@@ -60,16 +60,33 @@ const upsertJsonLd = (data) => {
   el.textContent = JSON.stringify(data)
 }
 
+import { withLocalePath } from "./locale"
+
+const upsertAlternate = (hreflang, href) => {
+  if (!href) return
+  let el = document.head.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`)
+  if (!el) {
+    el = document.createElement("link")
+    el.setAttribute("rel", "alternate")
+    el.setAttribute("hreflang", hreflang)
+    document.head.appendChild(el)
+  }
+  el.setAttribute("href", href)
+}
+
 export const applyPageSeo = ({
   title,
   description,
   path = "",
+  logicalPath = "/",
   image = DEFAULT_OG_IMAGE,
   locale = "en",
   noindex = false,
   jsonLd = null,
 }) => {
   const url = `${SITE_URL}${path}`
+  const enPath = withLocalePath(logicalPath, "en")
+  const ruPath = withLocalePath(logicalPath, "ru")
 
   document.title = title
 
@@ -92,6 +109,9 @@ export const applyPageSeo = ({
   upsertMeta("name", "twitter:image", image)
 
   upsertLink("canonical", url)
+  upsertAlternate("en", `${SITE_URL}${enPath}`)
+  upsertAlternate("ru", `${SITE_URL}${ruPath}`)
+  upsertAlternate("x-default", `${SITE_URL}${enPath}`)
   upsertJsonLd(jsonLd)
 }
 

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useLocale } from '../../hooks/useLocale'
 import HeroGraph from './HeroGraph'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'
 import BurgerButton from '../../components/MobileNav/BurgerButton'
@@ -22,6 +23,7 @@ function NauraWordmark() {
 
 export default function HeroSection({ menuOpen, onMenuToggle }) {
   const { t, i18n } = useTranslation('hero')
+  const { localePath, switchLocale } = useLocale()
 
   // Below the 1200 boundary (tablet + phone) the contact-web "паутина" is
   // removed entirely — not hidden. Not mounting HeroGraph tears down its GSAP
@@ -30,7 +32,7 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
   const isBelowDesktop = useMediaQuery(BELOW_DESKTOP_QUERY)
 
   function toggleLang() {
-    i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en')
+    switchLocale()
   }
 
   // Break the headline after the first sentence so "net worth." stays on line one
@@ -44,7 +46,7 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
 
         {/* Static nav inside the stage — not a fixed header */}
         <div className="hero-nav">
-          <a href="/" className="hero-nav__logo" aria-label="Naura home">
+          <a href={localePath('/')} className="hero-nav__logo" aria-label="Naura home">
             <NauraWordmark />
           </a>
           <nav className="hero-nav__links" aria-label={t('nav.ariaLabel')}>
