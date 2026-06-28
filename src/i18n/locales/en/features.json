@@ -1,37 +1,38 @@
 ﻿{
   "eyebrow": "what naura does",
   "headline": "Find experts your friends actually know.",
-  "subtitle": "Ask your network privately. Naura traces a warm path through 1–7 handshakes — no public post, no anonymous reviews.",
+  "subtitle": "No more scouring communities or\u00A0asking everyone you know. One search in\u00A0Naura instantly shows which of\u00A0your contacts can reach the\u00A0person you need.",
   "cards": {
     "contactGraph": {
-      "title": "Smart contact graph",
-      "tagline": "Auto-tagged the moment you save them.",
-      "description": "Type a sentence, drop a card, forward a message — Naura pulls out role, company, interests and adds them to the right circles."
+      "title": "Organization",
+      "tagline": "Your contacts, finally in\u00A0order.",
+      "description": "Everything sorted into groups and\u00A0tags. No heavy CRM required — you build your own interaction chains for\u00A0client work, networking, or\u00A0just keeping in\u00A0touch."
     },
     "handshake": {
       "title": "Handshake search",
       "tagline": "Find anyone, 1–⁠7 handshakes away.",
-      "description": "\"Find me a Series-A fintech CFO.\" Naura traces warm paths through people you actually know — and ranks them by reply odds."
+      "description": "\"I need a\u00A0B2B digital marketer in\u00A0Dubai.\" Naura searches your network up\u00A0to\u00A07 handshakes and\u00A0shows who can introduce you."
     },
     "telegramBot": {
       "title": "Telegram bot",
-      "tagline": "Save a contact in 2 seconds.",
-      "description": "Forward any message. Send a voice note. It transcribes, tags, and stores it in your graph."
+      "tagline": "Save a\u00A0contact in\u00A02 seconds.",
+      "description": "Forward the\u00A0bot a\u00A0message from the\u00A0person you want to\u00A0save, and\u00A0they're added to\u00A0your contacts automatically. And\u00A0you can record a\u00A0meeting note as\u00A0a\u00A0voice message."
     },
     "mcpAgents": {
-      "title": "MCP for AI agents",
-      "tagline": "\"Naura, who do I know in Berlin?\"",
-      "description": "Plug Naura into Claude Code, Cursor, or any MCP-capable agent. Your graph becomes an API the agent can reason over."
+      "title": "MCP for\u00A0AI agents",
+      "tagline": "\"Naura, who do I know in\u00A0Berlin?\"",
+      "description": "Plug Naura into Claude Code, Cursor, or\u00A0any MCP-capable agent. Your graph becomes an\u00A0API the\u00A0agent can reason over."
     },
     "workspaces": {
       "title": "Workspaces",
-      "tagline": "Directories for clubs & communities.",
-      "description": "Private member directories, events, ask-for-intro buttons. Naura runs the rails so organizers don't."
+      "tagline": "Directories for\u00A0clubs & communities.",
+      "description": "Private member directories, events, base of\u00A0knowledge. Naura handles the\u00A0infrastructure so\u00A0organizers don't have to."
     },
     "reminders": {
       "title": "Reminders",
-      "tagline": "Nudges that respect the relationship.",
-      "description": "Naura knows the cadence each person needs — close friends weekly, ex-coworkers quarterly — and surfaces them when it makes sense."
+      "tagline": "Stay in\u00A0touch on\u00A0time.",
+      "description": "Set your own reminders about interactions and\u00A0never miss a\u00A0birthday. Naura nudges you when it's time to\u00A0reach out.",
+      "chips": ["Friends", "Clients"]
     }
   }
 }

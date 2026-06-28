@@ -5,7 +5,7 @@
     "askGraph":    { "title": "Ask your graph",    "description": "\"Who do I know in\nBerlin?\" inline." },
     "forwardSave": { "title": "Forward → save",     "description": "Any message becomes\na contact + note." },
     "voiceNotes":  { "title": "Voice notes",        "description": "Transcribed, tagged, attached\nto people." },
-    "noAccount":   { "title": "No account needed",  "description": "Try it in the bot. Sync later." }
+    "noAccount":   { "title": "No account needed",  "description": "Try it in\u00A0the\u00A0bot. Sync later." }
   },
   "cta": {
     "openBot": "Open Bot",

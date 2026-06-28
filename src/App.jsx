@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { LocaleSync } from "./components/LocaleSync/LocaleSync"
+import { DemoModalProvider } from "./components/DemoModal/DemoModalContext"
 import { LandingPage } from "./pages/LandingPage/LandingPage"
 import { LegalPage } from "./pages/LegalPage/LegalPage"
 import { SupportPage } from "./pages/SupportPage/SupportPage"
@@ -30,15 +31,17 @@ export default function App() {
     <BrowserRouter>
       <LocaleSync />
       <DocumentLang />
-      <Routes>
-        {ROUTES.map(({ path, element }) => (
-          <Route key={path} path={path} element={element} />
-        ))}
-        {ROUTES.map(({ path, element }) => {
-          const ruPath = path === "/" ? "/ru" : `/ru${path}`
-          return <Route key={ruPath} path={ruPath} element={element} />
-        })}
-      </Routes>
+      <DemoModalProvider>
+        <Routes>
+          {ROUTES.map(({ path, element }) => (
+            <Route key={path} path={path} element={element} />
+          ))}
+          {ROUTES.map(({ path, element }) => {
+            const ruPath = path === "/" ? "/ru" : `/ru${path}`
+            return <Route key={ruPath} path={ruPath} element={element} />
+          })}
+        </Routes>
+      </DemoModalProvider>
     </BrowserRouter>
   )
 }

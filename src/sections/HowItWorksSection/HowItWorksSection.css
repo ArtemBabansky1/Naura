@@ -71,6 +71,7 @@
 .hiw-text {
   grid-area: 1 / 1;
   align-self: center;
+  position: relative; /* containing block for step 01's floating card */
   pointer-events: none;
   transform-origin: left center;
 }
@@ -207,6 +208,18 @@
   width: auto;
   height: 100%;
   max-width: none;
+}
+
+/* Step 01's card floats out of flow so all four step layers share the same
+ * (text-only) height. Equal heights → the layers coincide when stacked in the
+ * grid cell, so cross-fading steps line up instead of crossing at offset
+ * positions (a short step centred inside the tall step-01 row used to land over
+ * step 01's card). The card hangs below step 01's text and fades with its layer. */
+.how-it-works-section.is-scroll .hiw-card {
+  position: absolute;
+  top: calc(100% + var(--space-40));
+  left: 0;
+  margin-top: 0;
 }
 
 /* Web graph: node fills, edge strokes and glow are all set inline by webGraph.js

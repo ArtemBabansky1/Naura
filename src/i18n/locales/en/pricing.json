@@ -1,12 +1,12 @@
 ﻿{
   "eyebrow": "Pricing",
-  "headline": "Simple. The way pricing should be.",
-  "betaBadge": "Beta access — Pro free for 6 months for early users",
-  "note": "All plans · cancel anytime · no card on Free · prices in EUR, VAT extra where applicable",
+  "headline": "Simple. The\u00A0way pricing should be.",
+  "betaBadge": "Beta access — Pro free for\u00A06 months for\u00A0early users",
+  "note": "All plans · cancel anytime · no card on\u00A0Free · prices in\u00A0EUR, VAT extra where applicable",
   "plans": {
     "free": {
       "name": "Free", "price": "€0", "period": "/ forever",
-      "features": ["Up to 250 contacts","Basic reminders","1 business card","Web + mobile web","Community support"],
+      "features": ["Up\u00A0to\u00A0250 contacts","Basic reminders","1 business card","Web + mobile web","Community support"],
       "cta": "Start free"
     },
     "pro": {
@@ -16,7 +16,7 @@
     },
     "team": {
       "name": "Team", "price": "€19", "period": "/ user / month",
-      "features": ["Everything in Pro","Workspaces + events","Admin & roles","CSV import · bulk ops","Priority support","Branded subdomain"],
+      "features": ["Everything in\u00A0Pro","Workspaces + events","Admin & roles","CSV import · bulk ops","Priority support","Branded subdomain"],
       "cta": "Start team"
     }
   }

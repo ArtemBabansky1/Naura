@@ -20,14 +20,17 @@
      *
      * The whole layout is authored against a 1920px reference frame.
      * `--u` is one design pixel: 1px below the zoom range, and a
-     * viewport-proportional length at ≥1200px so the entire page scales
-     * uniformly (like zoom) without any transform — keeping the pinned
-     * scroll, Lenis and WebGL scenes intact.
+     * viewport-proportional length at ≥1200px so the LAYOUT (spacing, radii,
+     * grid, gutters) scales uniformly (like zoom) without any transform —
+     * keeping the pinned scroll, Lenis and WebGL scenes intact.
      *
-     * Every scalable size is expressed as `calc(N * var(--u))`, so N still
-     * reads as its 1920-px value. The ≥1200 override lives at the bottom of
-     * this file. Below 1200px --u = 1px → existing responsive layout is
-     * untouched.
+     * Every scalable LAYOUT size is expressed as `calc(N * var(--u))`, so N
+     * still reads as its 1920-px value. TYPOGRAPHY is the deliberate
+     * exception: the --text-* tokens use fluid clamp() at every width (they
+     * are NOT re-bound to --u in the ≥1200 block), so text caps at its design
+     * size instead of zooming on large screens. The ≥1200 override lives at
+     * the bottom of this file. Below 1200px --u = 1px → existing responsive
+     * layout is untouched.
      * ============================================================ */
     --u: 1px;
 
@@ -327,31 +330,27 @@
   }
 
   /* ============================================================
-   * ZOOM RANGE (≥1200px) — uniform proportional scaling
+   * ZOOM RANGE (≥1200px) — proportional LAYOUT scaling, fluid TYPE
    *
    * One design pixel becomes viewport-proportional (1920 reference:
-   * 1vw / 19.2 = 1px at 1920px). Every `calc(N * var(--u))` token now
-   * scales linearly with width: identical look at 1920, shrunk to ~0.625×
-   * at 1200, and growing past 1920. Below 1200px this block is inactive,
-   * so the existing responsive/mobile layout is untouched.
+   * 1vw / 19.2 = 1px at 1920px). Every `calc(N * var(--u))` token —
+   * spacing, radii, grid columns, gutters — scales linearly with width:
+   * identical look at 1920, shrunk to ~0.625× at 1200, growing past 1920.
+   * Below 1200px this block is inactive, so the responsive/mobile layout
+   * is untouched.
    *
-   * The fluid clamp() type is replaced here with the same linear scale so
-   * text tracks spacing exactly (its 1920 max size × --u).
+   * TYPOGRAPHY is intentionally NOT zoom-scaled here. The semantic
+   * --text-* tokens keep their base clamp() values (defined above) at every
+   * width, so copy scales fluidly and CAPS at its design size instead of
+   * ballooning with the viewport on large/ultrawide screens. Net effect at
+   * ≥1200px: the layout still zooms as one piece, but text follows the
+   * fluid clamp scale (continuous through the 1200 boundary — no jump).
+   * At 1920 each clamp max equals its old `N × --u` size, so the reference
+   * frame is unchanged; only the 1200–1900 mid-range and >1920 differ.
    * ============================================================ */
   @media (min-width: 1200px) {
     :root {
       --u: calc(1vw / 19.2);
-
-      --text-display:  calc(80 * var(--u));
-      --text-h2:       calc(50 * var(--u));
-      --text-h3:       calc(30 * var(--u));
-      --text-h4:       calc(25 * var(--u));
-      --text-body-lg:  calc(20 * var(--u));
-      --text-body:     calc(16 * var(--u));
-      --text-body-sm:  calc(12 * var(--u));
-      --text-caption:  calc(10 * var(--u));
-      --text-nav:      calc(16 * var(--u));
-      --text-btn-sm:   calc(12 * var(--u));
 
       /* Container guides → proportional zoom values. At 1920 these equal the
        * legacy 100px margin and 1720 content band exactly; they scale with --u
@@ -359,6 +358,19 @@
       --gutter:        calc(100  * var(--u));
       --content-max:   calc(1720 * var(--u));
     }
+  }
+
+  /* ============================================================
+   * BODY TYPE STEP-DOWN (≤1600px)
+   *
+   * On 1600px-and-narrower screens, body copy drops 16px → 14px. Now that
+   * type follows clamp() (no longer zoom-shrinking with the layout), dense
+   * text blocks — card descriptions, paragraphs, the hero subtitle — would
+   * otherwise sit too large against the still-zoomed containers in the
+   * 1200–1600 range. Above 1600px → 16px. Applies down through mobile.
+   * ============================================================ */
+  @media (max-width: 1600px) {
+    :root { --text-body: 0.875rem; }   /* 14px */
   }
 
   /* ============================================================

@@ -5,8 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
 import { useLocale } from '../../hooks/useLocale'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
+import { useDemoModal } from '../DemoModal/DemoModalContext'
 import { lockScroll, unlockScroll } from '../../lib/scrollLock'
-import { APP_URL } from '../../lib/urls'
+import { APP_URL, MEETS_URL } from '../../lib/urls'
 import BurgerButton from './BurgerButton'
 import './MobileNav.css'
 
@@ -14,8 +15,8 @@ import './MobileNav.css'
 const LINKS = [
   { href: '#features', key: 'nav.businessCards' },
   { href: '#communities', key: 'nav.communities' },
-  { href: '#', key: 'nav.blog' },
-  { href: '#', key: 'nav.about' },
+  { href: MEETS_URL, key: 'nav.meets' },
+  { href: '#ai-agents', key: 'nav.mcp' },
 ]
 
 /**
@@ -34,6 +35,7 @@ const LINKS = [
 export default function MobileNav({ open, setOpen }) {
   const { t, i18n } = useTranslation('hero')
   const { switchLocale } = useLocale()
+  const { openDemo } = useDemoModal()
   const isBelowDesktop = useMediaQuery(BELOW_DESKTOP_QUERY)
   const isRevealed = useRevealOnScrollUp('hero')
   const prefersReduced = useReducedMotion()
@@ -166,9 +168,16 @@ export default function MobileNav({ open, setOpen }) {
                   <a href={APP_URL} className="mobile-nav__btn mobile-nav__btn--ghost" onClick={close}>
                     {t('nav.signIn')}
                   </a>
-                  <a href={APP_URL} className="mobile-nav__btn mobile-nav__btn--primary" onClick={close}>
-                    {t('nav.getStarted')}
-                  </a>
+                  <button
+                    type="button"
+                    className="mobile-nav__btn mobile-nav__btn--primary"
+                    onClick={() => {
+                      close()
+                      openDemo()
+                    }}
+                  >
+                    {t('nav.getDemo')}
+                  </button>
                 </div>
               </motion.div>
             </motion.div>

@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "playwright test",
-    "pdf": "node scripts/generate-pdfs.mjs"
+    "pdf": "node scripts/generate-pdfs.mjs",
+    "typography": "node scripts/typography.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.18.0",

@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import { useLocale } from '../../hooks/useLocale'
+import { useDemoModal } from '../../components/DemoModal/DemoModalContext'
 import HeroGraph from './HeroGraph'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'
 import BurgerButton from '../../components/MobileNav/BurgerButton'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
-import { APP_URL } from '../../lib/urls'
+import { APP_URL, MEETS_URL } from '../../lib/urls'
 import './HeroSection.css'
 
 // Naura wordmark (was naura-logo.svg) — inline so it ships with the JS, no request.
@@ -24,6 +25,7 @@ function NauraWordmark() {
 export default function HeroSection({ menuOpen, onMenuToggle }) {
   const { t, i18n } = useTranslation('hero')
   const { localePath, switchLocale } = useLocale()
+  const { openDemo } = useDemoModal()
 
   // Below the 1200 boundary (tablet + phone) the contact-web "паутина" is
   // removed entirely — not hidden. Not mounting HeroGraph tears down its GSAP
@@ -52,15 +54,15 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
           <nav className="hero-nav__links" aria-label={t('nav.ariaLabel')}>
             <a href="#features" className="hero-nav__link">{t('nav.businessCards')}</a>
             <a href="#communities" className="hero-nav__link">{t('nav.communities')}</a>
-            <a href="#" className="hero-nav__link">{t('nav.blog')}</a>
-            <a href="#" className="hero-nav__link">{t('nav.about')}</a>
+            <a href={MEETS_URL} className="hero-nav__link">{t('nav.meets')}</a>
+            <a href="#ai-agents" className="hero-nav__link">{t('nav.mcp')}</a>
           </nav>
           <div className="hero-nav__actions">
             <button type="button" className="hero-nav__lang" onClick={toggleLang} aria-label="Switch language">
               {i18n.language === 'en' ? 'RU' : 'EN'}
             </button>
             <a href={APP_URL} className="hero-nav__btn hero-nav__btn--secondary">{t('nav.signIn')}</a>
-            <a href={APP_URL} className="hero-nav__btn hero-nav__btn--primary">{t('nav.getStarted')}</a>
+            <button type="button" className="hero-nav__btn hero-nav__btn--primary" onClick={openDemo}>{t('nav.getDemo')}</button>
           </div>
 
           {/* Static burger (≤1199) — scrolls away with the hero, like the desktop
@@ -86,22 +88,11 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
           </p>
           <div className="hero-content__cta">
             <a href={APP_URL} className="btn-hero btn-hero--primary">
-              {t('cta.startFree')}
+              {t('cta.getStarted')}
             </a>
-            <a href={APP_URL} className="btn-hero btn-hero--ghost">
-              <svg
-                className="btn-hero__icon"
-                aria-hidden="true"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <circle cx="8" cy="8" r="7.5" stroke="currentColor" strokeOpacity="0.4" />
-                <path d="M6.5 5.5L11 8L6.5 10.5V5.5Z" fill="currentColor" />
-              </svg>
-              {t('cta.seeDemo')}
-            </a>
+            <button type="button" className="btn-hero btn-hero--ghost" onClick={openDemo}>
+              {t('cta.seeHowItWorks')}
+            </button>
           </div>
         </div>
 

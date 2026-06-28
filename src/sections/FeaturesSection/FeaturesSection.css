@@ -61,7 +61,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: calc(500 * var(--u));
+  /* min-height, not height: the 500u baseline holds at 1920 (where the design
+   * was tuned), but in the 1200–1900 zoom range — where type follows clamp and
+   * no longer shrinks with --u — the card GROWS to fit its copy instead of
+   * clipping it. align-items:stretch on the row keeps siblings the same height. */
+  min-height: calc(500 * var(--u));
   padding: var(--card-padding);
   --media-scale: 1;          /* decorative SVGs scale; 0.7 below 1200 (narrower cards) */
   border: var(--card-border-subtle);
@@ -167,12 +171,14 @@
 }
 
 /* Corner — bottom-left (mcp asterisk): dark, subtle, bleeding off-edge.
- * Kept in flow so the gap below the copy is a fixed calc(30 * var(--u)); the tall
- * asterisk then spills past the bottom edge and is clipped. */
+ * ABSOLUTE (anchored bottom-left, bleeding past both edges, clipped) — like
+ * every other card graphic — so it never adds to the card's height. It was
+ * previously in-flow (position: relative), which was harmless under the old
+ * fixed height but inflated the card by ~320px once cards became min-height,
+ * stretching the whole bottom bento row. */
 .feature-card--media-corner-bl .feature-card__media {
-  position: relative;
-  margin-top: var(--space-30);                 /* calc(30 * var(--u)) gap under the description */
-  margin-left: calc(-1 * var(--space-50));     /* bleed past the left edge */
+  left: calc(-1 * var(--space-50));            /* bleed past the left edge */
+  bottom: calc(-100 * var(--u));               /* bleed past the bottom edge */
   width: calc(320 * var(--u) * var(--media-scale));
 }
 
@@ -188,12 +194,14 @@
   will-change: transform;
 }
 
-/* ── Circle chips (reminders) — small low-emphasis pills sitting in
- * the lower-left, hinting at the relationship groups Naura tracks. */
+/* ── Circle chips (reminders) — two low-emphasis pills (Friends / Clients)
+ * stacked so they hug the ring's left edge: the upper pill sits further right
+ * (where the ring crests) and the lower pill steps left toward the arc's tip,
+ * so the pair traces the circle's radius. */
 .feature-card__chips {
   position: absolute;
   z-index: 1;
-  left: calc(var(--space-200) + var(--space-30));    /* calc(230 * var(--u)) — shifted right toward the graphic */
+  left: calc(var(--space-200) + var(--space-50));    /* calc(250 * var(--u)) — nudged right to meet the ring */
   bottom: var(--space-100);                          /* calc(100 * var(--u)) */
   display: flex;
   flex-direction: column;
@@ -207,8 +215,10 @@
   border: none;
   color: var(--text-list);
 }
-.feature-card__chip:first-child { margin-left: calc(var(--space-60) + var(--space-30)); } /* Family +calc(90 * var(--u)) */
-.feature-card__chip:last-child { margin-left: var(--space-30); }
+/* Two-pill staircase along the ring: Friends (top) indented right to meet the
+ * crest of the arc, Clients (bottom) stepped left toward the arc's tip. */
+.feature-card__chip:first-child { margin-left: calc(var(--space-60) + var(--space-30)); } /* +calc(90 * var(--u)) */
+.feature-card__chip:last-child  { margin-left: var(--space-30); }                         /* +calc(30 * var(--u)) */
 
 /* ── Handshake chain — sequenced "light-up" choreography ─────────────────────
  * Resting state: circles desaturated (a gray tint of each node's own purple),
@@ -360,6 +370,7 @@
                 opacity var(--duration-slow) var(--ease-in-out);
   }
   .feature-card--reminders .feature-card__chip:first-child { transition-delay: 2.30s; }
+  .feature-card--reminders .feature-card__chip:nth-child(2) { transition-delay: 2.375s; }
   .feature-card--reminders .feature-card__chip:last-child  { transition-delay: 2.45s; }
   .feature-card--reminders.is-inview .feature-card__chip { transform: translateX(0); opacity: 1; }
 }
@@ -383,7 +394,7 @@
     display: contents;
   }
   .feature-card {
-    height: calc(460 * var(--u));
+    min-height: calc(460 * var(--u));
     --media-scale: 0.7;       /* decorative SVGs 30% smaller on narrower cards */
   }
 
@@ -394,8 +405,38 @@
     left: var(--card-padding);
   }
   .feature-card__chip:first-child,
+  .feature-card__chip:nth-child(2),
   .feature-card__chip:last-child {
     margin-left: 0;
+  }
+}
+
+/* ── 2-column adaptive view (480–1199): art-direct the Telegram + MCP pair ────
+ * Swap them so MCP sits in the LEFT column (its Claude mark bleeds off the
+ * left, screen-side card edge) and Telegram sits RIGHT. Both decorative
+ * graphics go absolute so neither adds height — the two cards then rest at the
+ * same min-height and read as equal height. */
+@media (min-width: 480px) and (max-width: 1199px) {
+  .feature-card--mcpAgents   { grid-column: 1; grid-row: 2; }
+  .feature-card--telegramBot { grid-column: 2; grid-row: 2; }
+
+  /* Telegram "2": lift it up close under the copy (≈⅓ the old gap) and let only
+   * a sliver bleed past the right edge, so more of the numeral is visible. */
+  .feature-card--telegramBot .feature-card__media {
+    top: calc(225 * var(--u));
+    bottom: auto;
+    right: calc(-10 * var(--u));
+  }
+
+  /* MCP Claude mark: drop the in-flow corner-bl treatment for an absolute one —
+   * bleed ~30% off the LEFT (screen-side) card edge and lift it toward the top. */
+  .feature-card--mcpAgents .feature-card__media {
+    position: absolute;
+    margin: 0;
+    top: calc(110 * var(--u));
+    left: calc(-70 * var(--u));
+    right: auto;
+    bottom: auto;
   }
 }
 

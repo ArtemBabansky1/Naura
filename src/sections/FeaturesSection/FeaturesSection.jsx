@@ -109,7 +109,7 @@ const ROW_A = [
 const ROW_B = [
   { key: 'mcpAgents',  Graphic: McpIllustration, size: 'sm', media: 'corner-bl' },
   { key: 'workspaces', Graphic: RemindersCurve,  size: 'md', media: 'mark' },
-  { key: 'reminders',  Graphic: WorkspacesMark,  size: 'md', media: 'corner-br', chips: ['Family', 'Friends'] },
+  { key: 'reminders',  Graphic: WorkspacesMark,  size: 'md', media: 'corner-br', chips: true },
 ]
 
 function FeatureCard({ card }) {
@@ -117,6 +117,7 @@ function FeatureCard({ card }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, amount: 0.3 })
   const base = `cards.${card.key}`
+  const chips = card.chips ? t(`${base}.chips`, { returnObjects: true }) : null
 
   return (
     <motion.article
@@ -136,9 +137,9 @@ function FeatureCard({ card }) {
         <p className="feature-card__desc text-body">{t(`${base}.description`)}</p>
       </div>
 
-      {card.chips && (
+      {Array.isArray(chips) && chips.length > 0 && (
         <div className="feature-card__chips" aria-hidden="true">
-          {card.chips.map((chip) => (
+          {chips.map((chip) => (
             <span key={chip} className="feature-card__chip text-body">{chip}</span>
           ))}
         </div>

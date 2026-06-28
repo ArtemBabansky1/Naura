@@ -27,8 +27,6 @@ export default function CtaSection() {
         viewport={viewportConfig}
         variants={staggerContainer(0.1)}
       >
-        <motion.span className="cta-badge" variants={fadeUp}>{t('badge')}</motion.span>
-
         <motion.h2 className="cta-headline" variants={fadeUp}>{t('headline')}</motion.h2>
 
         <motion.p className="cta-subtitle text-body" variants={fadeUp}>{t('subtitle')}</motion.p>

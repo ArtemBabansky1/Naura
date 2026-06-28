@@ -44,7 +44,7 @@ export const LegalPage = ({ doc }) => {
               Terms of Use
             </LocaleLink>
           </nav>
-          <p className="legal-page__copy text-body-sm">© 2026 Naura Cards. All rights reserved.</p>
+          <p className="legal-page__copy text-body-sm">© 2026 Naura. All rights reserved.</p>
         </Container>
       </footer>
     </div>

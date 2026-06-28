@@ -1,17 +1,17 @@
 {
   "pageTitle": "Support — Naura",
-  "metaDescription": "Contact Naura support by email or message form. Get help with your account, contacts, and product questions.",
+  "metaDescription": "Contact Naura support by\u00A0email or\u00A0message form. Get help with your account, contacts, and\u00A0product questions.",
   "eyebrow": "Support",
-  "headline": "We're here to help",
-  "intro": "If you have any questions, contact us by email <email>{{email}}</email> or fill the form below. You can also check our <faq>FAQ</faq> for quick answers.",
-  "formHeading": "Send us a message",
+  "headline": "We're here to\u00A0help",
+  "intro": "If you have any questions, contact us by\u00A0email <email>{{email}}</email> or\u00A0fill the\u00A0form below. You can also check our <faq>FAQ</faq> for\u00A0quick answers.",
+  "formHeading": "Send us a\u00A0message",
   "form": {
     "nameLabel": "Your name",
     "emailLabel": "Email",
     "messageLabel": "Message",
     "submit": "Send message",
     "submitting": "Sending…",
-    "success": "Your message has been sent successfully. We'll get back to you soon.",
+    "success": "Your message has been sent successfully. We'll get back to\u00A0you soon.",
     "error": "Something went wrong. Please try again."
   }
 }

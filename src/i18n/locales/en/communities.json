@@ -1,13 +1,13 @@
 {
-  "eyebrow": "For communities",
-  "headline": "Got a community?\nNaura runs the directory.",
-  "subtitle": "Private member directory. Events with RSVPs. \"Ask for intro\" baked into every profile. Organizers stop being the bottleneck — members find each other.",
+  "eyebrow": "For\u00A0communities",
+  "headline": "Got a\u00A0community? Members find each other.",
+  "subtitle": "A\u00A0private member directory, events with RSVPs, and\u00A0an\u00A0'ask for\u00A0intro' button on\u00A0every profile. Set it up\u00A0once — the\u00A0community runs itself.",
   "features": {
     "directory": "Member-facing directory",
     "events": "Events & RSVPs",
     "askIntro": "Ask-for-intro",
     "adminControls": "Admin controls",
-    "forOrganizers": "For organizers"
+    "forOrganizers": "For\u00A0organizers"
   },
   "subtitles": {
     "directory": "Custom fields, tags, search.",
@@ -15,11 +15,11 @@
     "askIntro": "Members request warm intros from each other.",
     "adminControls": "Roles, invites, branded subdomain."
   },
-  "seeProduct": "See the product",
+  "seeProduct": "See the\u00A0product",
   "descriptions": {
-    "directory": "A searchable, member-facing directory — roles, tags, and bios in one place. Members find each other without going through you.",
-    "events": "Create events with RSVPs and automatic reminders. See who's attending before the doors open.",
-    "askIntro": "Members request warm intros from each other — instead of cold outreach, members leverage shared trust to open doors that would otherwise remain closed.",
-    "adminControls": "Approve new members, assign roles, and moderate the directory from a single organizer dashboard."
+    "directory": "A\u00A0searchable, member-facing directory — roles, tags, and\u00A0bios in\u00A0one place. Members find each other without going through you.",
+    "events": "Create events with RSVPs and\u00A0automatic reminders. See who's attending before the\u00A0doors open.",
+    "askIntro": "Members request warm intros from each other — instead of\u00A0cold outreach, members leverage shared trust to\u00A0open doors that would otherwise remain closed.",
+    "adminControls": "Approve new members, assign roles, and\u00A0moderate the\u00A0directory from a\u00A0single organizer dashboard."
   }
 }

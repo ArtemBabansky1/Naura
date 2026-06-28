@@ -1,0 +1,351 @@
+/* "Get a demo" pop-up. Form left, pitch right, legal links along the bottom.
+ * Dark, layered surface — tokens only (see src/styles/tokens.css). */
+
+.demo-modal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-40) var(--space-20);
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+.demo-modal__panel {
+  position: relative;
+  width: min(100%, calc(980 * var(--u)));
+  margin: auto;
+  padding: clamp(var(--space-30), 3vw, var(--space-50));
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(134, 66, 255, 0.16), transparent 55%),
+    #0b0b0c;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  box-shadow: 0 calc(40 * var(--u)) calc(120 * var(--u)) rgba(0, 0, 0, 0.6);
+}
+
+/* ── Close ─────────────────────────────────────────────────────────────────── */
+.demo-modal__close {
+  position: absolute;
+  top: var(--space-20);
+  right: var(--space-20);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--u));
+  height: calc(36 * var(--u));
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-meta);
+  transition: color var(--duration-fast) var(--ease-in-out), background var(--duration-fast) var(--ease-in-out);
+}
+.demo-modal__close:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Layout: form | pitch ──────────────────────────────────────────────────── */
+.demo-modal__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(var(--space-30), 3vw, var(--space-50));
+  align-items: start;
+}
+
+.demo-modal__info-col {
+  align-self: center;
+  padding-left: clamp(0px, 1vw, var(--space-20));
+}
+
+.demo-modal__title {
+  margin: 0;
+  font-size: var(--text-h2);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.demo-modal__subtitle {
+  margin: var(--space-20) 0 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  color: var(--text-meta);
+}
+
+.demo-modal__bullets {
+  margin: var(--space-30) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+}
+
+.demo-modal__bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-list);
+}
+
+.demo-modal__check {
+  flex-shrink: 0;
+  margin-top: calc(2 * var(--u));
+  color: var(--accent-primary);
+}
+
+/* ── Form ──────────────────────────────────────────────────────────────────── */
+.demo-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.demo-form__banner {
+  margin: 0;
+  padding: var(--space-15) var(--space-20);
+  border-radius: var(--radius-15);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background: rgba(255, 80, 80, 0.1);
+  border: 1px solid rgba(255, 80, 80, 0.35);
+}
+
+.demo-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.demo-form__label {
+  font-size: var(--text-body-sm);
+  color: var(--text-meta);
+}
+
+.demo-form__req {
+  color: var(--accent-primary);
+}
+
+.demo-form__optional {
+  color: var(--text-muted);
+}
+
+.demo-form__input {
+  width: 100%;
+  padding: var(--space-15) var(--space-20);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-15);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  transition: border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.demo-form__input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.demo-form__input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Browser autofill paints its own light background — force the dark field back. */
+.demo-form__input:-webkit-autofill,
+.demo-form__input:-webkit-autofill:hover,
+.demo-form__input:-webkit-autofill:focus,
+.demo-form__input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--text-primary);
+  caret-color: var(--text-primary);
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-page) inset;
+  box-shadow: 0 0 0 1000px var(--bg-page) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ── Custom select (native option lists can't be styled) ───────────────────── */
+.form-select {
+  position: relative;
+}
+
+.form-select__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-10);
+  width: 100%;
+  text-align: left;
+}
+.form-select__button.is-open {
+  border-color: var(--accent-primary);
+}
+.form-select__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.form-select__button.is-placeholder .form-select__value {
+  color: var(--text-muted);
+}
+.form-select__chevron {
+  flex-shrink: 0;
+  color: var(--text-meta);
+  transition: transform var(--duration-fast) var(--ease-in-out);
+}
+.form-select__button.is-open .form-select__chevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown panel — same rounding + dark surface as the fields. */
+.form-select__list {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + var(--space-5));
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: var(--space-5);
+  list-style: none;
+  background: var(--bg-page);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-15);
+  box-shadow: 0 calc(24 * var(--u)) calc(60 * var(--u)) rgba(0, 0, 0, 0.55);
+  max-height: calc(280 * var(--u));
+  overflow-y: auto;
+}
+.form-select__option {
+  padding: var(--space-10) var(--space-15);
+  border-radius: calc(10 * var(--u));
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.form-select__option.is-muted {
+  color: var(--text-muted);
+}
+.form-select__option.is-active {
+  background: rgba(134, 66, 255, 0.16);
+}
+.form-select__option.is-selected {
+  color: var(--accent-primary);
+}
+
+.demo-form__submit {
+  align-self: stretch;
+  margin-top: var(--space-5);
+  padding: var(--btn-cta-py) var(--btn-cta-px);
+  border-radius: var(--btn-cta-radius);
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  transition: opacity var(--duration-fast) var(--ease-in-out), box-shadow var(--duration-fast) var(--ease-in-out);
+}
+.demo-form__submit:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: var(--shadow-glow);
+}
+.demo-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.demo-form__consent {
+  margin: 0;
+  font-size: var(--text-body-xs, calc(12 * var(--u)));
+  line-height: var(--leading-normal);
+  color: var(--text-muted);
+}
+
+/* ── Success state ─────────────────────────────────────────────────────────── */
+.demo-modal__success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-15);
+  padding: var(--space-20) 0;
+}
+.demo-modal__success-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(48 * var(--u));
+  height: calc(48 * var(--u));
+  border-radius: var(--radius-pill);
+  background: rgba(134, 66, 255, 0.14);
+  border: 1px solid rgba(134, 66, 255, 0.35);
+  color: var(--accent-primary);
+}
+.demo-modal__success-badge .demo-modal__check {
+  width: 22px;
+  height: 22px;
+  margin-top: 0;
+}
+.demo-modal__success-title {
+  margin: 0;
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.demo-modal__success-body {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  color: var(--text-meta);
+}
+
+/* ── Bottom links ──────────────────────────────────────────────────────────── */
+.demo-modal__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-20) var(--space-30);
+  margin-top: clamp(var(--space-30), 3vw, var(--space-40));
+  padding-top: var(--space-20);
+  border-top: 1px solid var(--border-subtle);
+}
+.demo-modal__link {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-in-out);
+}
+.demo-modal__link:hover {
+  color: var(--text-primary);
+}
+
+/* ── Mobile: single column, pitch first ────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  .demo-modal__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-30);
+  }
+  .demo-modal__info-col {
+    order: -1;
+    align-self: start;
+    padding-left: 0;
+  }
+  /* Keep the heading clear of the close button on the single-column layout. */
+  .demo-modal__title {
+    padding-right: calc(40 * var(--u));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-modal__close,
+  .demo-form__input,
+  .demo-form__submit,
+  .demo-modal__link {
+    transition: none;
+  }
+}

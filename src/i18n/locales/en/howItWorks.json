@@ -1,11 +1,11 @@
 {
   "eyebrow": "how it works",
-  "headline": "Four steps. Then it works in the background.",
+  "headline": "Four steps. Then your network works for\u00A0you.",
   "steps": {
-    "step01": { "number": "01", "title": "Create your card", "description": "Sign up with Google or Apple. Your business card builds itself." },
-    "step02": { "number": "02", "title": "Import everyone", "description": "Phone, Telegram, LinkedIn, CSV. Bulk in one tap. Naura dedupes." },
-    "step03": { "number": "03", "title": "AI tags & organizes", "description": "Roles, interests, cities, when you met. Editable. Yours." },
-    "step04": { "number": "04", "title": "Search · remind · ask", "description": "Find a path. Get nudged. Ask your network from the chat bar." }
+    "step01": { "number": "01", "title": "Create your card", "description": "Fill out\u00A0a\u00A0short form, pick a\u00A0design — and\u00A0your sleek digital business card is ready." },
+    "step02": { "number": "02", "title": "Add your contacts", "description": "Import your existing contacts — from phone, Telegram, LinkedIn, or\u00A0Google. Naura removes duplicates." },
+    "step03": { "number": "03", "title": "Connect", "description": "Once you're connected on\u00A0Naura, you never have to\u00A0fill in\u00A0or\u00A0update a\u00A0contact's details. But\u00A0your private notes about the\u00A0person stay right alongside." },
+    "step04": { "number": "04", "title": "Build your social capital", "description": "Now no connection gets lost, and\u00A0your circle points you to\u00A0new ones. The\u00A0full power of\u00A0networking is in\u00A0your hands." }
   },
   "labels": {
     "colleagues": "Colleagues",

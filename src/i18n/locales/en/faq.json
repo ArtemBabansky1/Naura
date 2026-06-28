@@ -2,34 +2,34 @@
   "eyebrow": "FAQ",
   "headline": "Quick answers.",
   "pageTitle": "FAQ — Naura",
-  "metaDescription": "Answers about Naura pricing, privacy, Telegram bot, handshake intros, and how the personal CRM works.",
+  "metaDescription": "Answers about Naura pricing, privacy, Telegram bot, handshake intros, and\u00A0how the\u00A0personal CRM works.",
   "pageContact": "Can't find what you're looking for? Email",
   "pageContactLink": "contact support",
   "contact": "Can't find what you're looking for? Email hello@naura.io — we read every one.",
   "items": [
     {
       "question": "Is it free?",
-      "answer": "Yes. The Free plan is free forever — no card required — with up to 250 contacts, basic reminders and one business card. During beta, early users get Pro free for the first 6 months."
+      "answer": "Yes. The\u00A0Free plan is free forever — no card required — with up\u00A0to\u00A0250 contacts, basic reminders and\u00A0one business card. During beta, early users get Pro free for\u00A0the\u00A0first 6 months."
     },
     {
-      "question": "How is this different from a phone address book?",
-      "answer": "Your phone stores numbers. Naura understands relationships — it auto-tags contacts, remembers the context of how you met, and surfaces who you should reconnect with, so you can search your whole network instead of only the names you happen to remember."
+      "question": "How is this different from a\u00A0phone address book?",
+      "answer": "Your phone stores numbers. Naura understands relationships — it auto-tags contacts, remembers the\u00A0context of\u00A0how you met, and\u00A0surfaces who you should reconnect with, so\u00A0you can search your whole network instead of\u00A0only the\u00A0names you happen to\u00A0remember."
     },
     {
-      "question": "What's the handshake feature?",
-      "answer": "Handshake finds the warmest path to anyone you want to reach. Naura maps the connections across your network and shows who can make the introduction — so you get to the right person through someone they already trust."
+      "question": "What's the\u00A0handshake feature?",
+      "answer": "Handshake finds the\u00A0warmest path to\u00A0anyone you want to\u00A0reach. Naura maps the\u00A0connections across your network and\u00A0shows who can make the\u00A0introduction — so\u00A0you get to\u00A0the\u00A0right person through someone they already trust."
     },
     {
-      "question": "Does the Telegram bot work without a Naura account?",
-      "answer": "No — the bot is tied to your Naura workspace. Once you sign up you can add contacts, drop voice notes and set reminders straight from Telegram, and everything syncs back to your account automatically."
+      "question": "Does the\u00A0Telegram bot work without a\u00A0Naura account?",
+      "answer": "No — the\u00A0bot is tied to\u00A0your Naura workspace. Once you sign up\u00A0you can add contacts, drop voice notes and\u00A0set reminders straight from Telegram, and\u00A0everything syncs back to\u00A0your account automatically."
     },
     {
       "question": "Is my data private?",
-      "answer": "Your network is yours. Contacts are encrypted, never sold and never shared. You decide what's stored, and you can export or permanently delete everything at any time."
+      "answer": "Your network is yours. Contacts are encrypted, never sold and\u00A0never shared. You decide what's stored, and\u00A0you can export or\u00A0permanently delete everything at\u00A0any time."
     },
     {
-      "question": "Web app or mobile?",
-      "answer": "Naura runs in any browser today — both desktop and mobile web — plus a Telegram bot and MCP access for AI tools like Claude and Cursor. Native apps are on the way."
+      "question": "Web app or\u00A0mobile?",
+      "answer": "Naura runs in\u00A0any browser today — both desktop and\u00A0mobile web — plus a\u00A0Telegram bot and\u00A0MCP access for\u00A0AI tools like Claude and\u00A0Cursor. Native apps are on\u00A0the\u00A0way."
     }
   ]
 }

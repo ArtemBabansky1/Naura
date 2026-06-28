@@ -1,12 +1,12 @@
 {
-  "eyebrow": "for ai agents",
-  "headline": "Your contacts, now an API",
-  "headlineAccent": "for your AI.",
-  "subtitle": "Naura ships an MCP server. Plug it into Claude Code, Cursor, or any agent runtime — and your network becomes context the model can search, plan with, and act on.",
-  "privacyBadges": ["Privacy by default", "No data resale", "End-to-end encrypted", "You own your graph", "GDPR-compliant"],
+  "eyebrow": "for\u00A0ai agents",
+  "headline": "Your contacts, now an\u00A0API",
+  "headlineAccent": "for\u00A0your AI.",
+  "subtitle": "Naura ships an\u00A0MCP server. Plug it into Claude Code, Cursor, or\u00A0any agent runtime — and\u00A0your network becomes context the\u00A0model can search, plan with, and\u00A0act on.",
+  "privacyBadges": ["Privacy by\u00A0default", "No data resale", "End-to-end encrypted", "You own your graph", "GDPR-compliant"],
   "capabilities": {
-    "read": { "label": "Read", "description": "Query your graph by name, tag, city, role, last-spoke." },
-    "plan": { "label": "Plan", "description": "Ask for warm-intro paths and have the agent rank them." },
-    "act":  { "label": "Act",  "description": "Draft messages, schedule follow-ups, push to Calendar." }
+    "read": { "label": "Read", "description": "Query your graph by\u00A0name, tag, city, role, last-spoke." },
+    "plan": { "label": "Plan", "description": "Ask for\u00A0warm-intro paths and\u00A0have the\u00A0agent rank them." },
+    "act":  { "label": "Act",  "description": "Draft messages, schedule follow-ups, push to\u00A0Calendar." }
   }
 }

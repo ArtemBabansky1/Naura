@@ -36,7 +36,7 @@ export const PageShell = ({ title, description, path, jsonLd, children }) => {
             <LocaleLink to="/privacy" className="page-shell__nav-link text-body-sm">Privacy Policy</LocaleLink>
             <LocaleLink to="/terms" className="page-shell__nav-link text-body-sm">Terms of Use</LocaleLink>
           </nav>
-          <p className="page-shell__copy text-body-sm">© 2026 Naura Cards. All rights reserved.</p>
+          <p className="page-shell__copy text-body-sm">© 2026 Naura. All rights reserved.</p>
         </Container>
       </footer>
     </div>

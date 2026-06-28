@@ -43,23 +43,9 @@
   align-items: center;
 }
 
-/* Badge pill */
-.cta-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-10) var(--space-20);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: var(--text-list);
-  font-family: var(--font-primary);
-  font-size: var(--text-body-sm);
-  line-height: 1;
-}
-
 /* Headline — mirrors the hero scale for visual consistency.
- * Below 1200px: fluid clamp. In the zoom range: linear with --u (1920 = 56px)
- * so it tracks the rest of the page instead of out-scaling it. */
+ * Fluid clamp at every width, capped at 3.5rem (56px, the 1920 design size),
+ * so it scales with the viewport but never zooms past its design size. */
 .cta-headline {
   margin: var(--space-30) 0 0;
   max-width: 14ch;
@@ -71,7 +57,9 @@
 
 @media (min-width: 1200px) {
   .cta-headline {
-    font-size: calc(56 * var(--u));
+    /* Wider on desktop so the headline reads as two balanced lines, not three. */
+    max-width: 20ch;
+    text-wrap: balance;
   }
 }
 

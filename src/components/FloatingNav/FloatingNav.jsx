@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
 import { useLocale } from '../../hooks/useLocale'
-import { APP_URL } from '../../lib/urls'
+import { useDemoModal } from '../DemoModal/DemoModalContext'
+import { APP_URL, MEETS_URL } from '../../lib/urls'
 import './FloatingNav.css'
 
 /**
@@ -13,6 +14,7 @@ import './FloatingNav.css'
 export default function FloatingNav() {
   const { t, i18n } = useTranslation('hero')
   const { switchLocale } = useLocale()
+  const { openDemo } = useDemoModal()
   const isVisible = useRevealOnScrollUp('hero')
   const tab = isVisible ? 0 : -1
 
@@ -47,8 +49,8 @@ export default function FloatingNav() {
           <nav className="float-nav__links" aria-label={t('nav.ariaLabel')}>
             <a href="#features" className="float-nav__link">{t('nav.businessCards')}</a>
             <a href="#communities" className="float-nav__link">{t('nav.communities')}</a>
-            <a href="#" className="float-nav__link">{t('nav.blog')}</a>
-            <a href="#" className="float-nav__link">{t('nav.about')}</a>
+            <a href={MEETS_URL} className="float-nav__link">{t('nav.meets')}</a>
+            <a href="#ai-agents" className="float-nav__link">{t('nav.mcp')}</a>
           </nav>
         </div>
 
@@ -67,9 +69,9 @@ export default function FloatingNav() {
         <a href={APP_URL} className="float-nav__btn float-nav__btn--ghost" tabIndex={tab}>
           {t('nav.signIn')}
         </a>
-        <a href={APP_URL} className="float-nav__btn" tabIndex={tab}>
-          {t('nav.getStarted')}
-        </a>
+        <button type="button" className="float-nav__btn" tabIndex={tab} onClick={openDemo}>
+          {t('nav.getDemo')}
+        </button>
       </div>
     </div>
   )

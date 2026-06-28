@@ -1,0 +1,39 @@
+{
+  "ariaLabel": "Request a\u00A0demo",
+  "title": "Get a\u00A0tailored demo",
+  "subtitle": "See how Naura turns the\u00A0people you already know into a\u00A0living, searchable network — and\u00A0how it can work for\u00A0your team.",
+  "bullets": [
+    "A\u00A0zero-pressure walkthrough of\u00A0Naura on\u00A0your real use cases.",
+    "Warm intros, AI tags and\u00A0reminders — on\u00A0the\u00A0web, in\u00A0Telegram, and\u00A0as\u00A0an\u00A0MCP server.",
+    "We'll talk through your goals and\u00A0where Naura fits."
+  ],
+  "form": {
+    "fullName": "Full name",
+    "email": "Work email",
+    "phone": "Phone",
+    "howHeard": "How did you hear about us?",
+    "optional": "optional",
+    "howHeardPlaceholder": "Select…",
+    "options": {
+      "search": "Search engine",
+      "social": "Social media",
+      "friend": "Friend or\u00A0colleague",
+      "telegram": "Telegram",
+      "article": "Article or\u00A0blog",
+      "other": "Other"
+    },
+    "submit": "Request demo",
+    "submitting": "Sending…",
+    "consent": "By\u00A0submitting, you agree to\u00A0our Privacy Policy. We'll only use your details to\u00A0reach out\u00A0about a\u00A0demo.",
+    "errorRequired": "Please fill in\u00A0all required fields.",
+    "errorEmail": "Please enter a\u00A0valid email address.",
+    "successTitle": "Thank you!",
+    "successBody": "We've got your request and\u00A0will be in\u00A0touch shortly."
+  },
+  "links": {
+    "terms": "Terms of\u00A0Use",
+    "privacy": "Privacy Policy",
+    "faq": "FAQ"
+  },
+  "close": "Close"
+}
