@@ -158,6 +158,23 @@
     grid-template-columns: 1fr;
     gap: var(--grid-row-gap);
   }
+
+  /* Single column: the panel is now tall and narrow, so the bottom-bleed orb
+   * band would sit *under* the flowing copy and the long (esp. RU) subtitle
+   * collides with the Read/Plan/Act captions. Drop the orbs into normal flow
+   * beneath the subtitle instead — the panel grows to fit both, so nothing
+   * overlaps regardless of copy length. `padding-bottom` (a % of width) gives
+   * the band real height in flow while its children stay absolutely placed. */
+  .ai-orbs {
+    position: relative;
+    inset-inline: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: calc(420 * var(--u));
+    height: 0;
+    padding-bottom: 42%;
+    margin: var(--space-40) auto 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -165,11 +182,13 @@
     padding: var(--space-30);
     min-height: clamp(calc(420 * var(--u)), 90vw, calc(520 * var(--u)));
   }
-  /* Keep the privacy block pinned top-right (like desktop); shrink it so it
-   * fits beside the headline at narrow widths instead of stacking on the left. */
+  /* At phone widths there isn't room for the big headline and the privacy
+   * block side by side, so the absolutely-pinned block collided with the
+   * headline. Drop it into normal flow instead — it stacks under the eyebrow,
+   * above the headline, and the headline can use the full width. */
   .ai-intro__privacy {
-    top: var(--space-30);
-    right: var(--space-30);
+    position: static;
+    margin-top: var(--space-20);
   }
   .ai-intro__privacy-title {
     font-size: var(--text-body-sm);
@@ -177,8 +196,46 @@
   .ai-intro__privacy-list {
     font-size: var(--text-caption);
   }
-  /* Headline stays narrow on the left so the privacy block clears it. */
   .ai-intro__title {
-    max-width: 12ch;
+    max-width: none;
+  }
+
+  /* Phones: drop the overlapping orb glows and their centred captions. Render
+   * each capability as a plain left-aligned heading + description, stacked in
+   * one column. */
+  .ai-orbs {
+    position: static;
+    width: auto;
+    max-width: none;
+    height: auto;
+    padding-bottom: 0;
+    margin: var(--space-30) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-30);
+    pointer-events: auto;
+  }
+  /* `.ai-orbs`-scoped so these beat the desktop `.ai-orb--read/plan/act`
+   * width/left/bottom (which otherwise keep the box narrow and the centred
+   * label indented while the description overflows). */
+  .ai-orbs .ai-orb,
+  .ai-orbs .ai-orb--read,
+  .ai-orbs .ai-orb--plan,
+  .ai-orbs .ai-orb--act {
+    position: static;
+    width: auto;
+    left: auto;
+    bottom: auto;
+    aspect-ratio: auto;
+    display: block;
+  }
+  .ai-orb__glow {
+    display: none;
+  }
+  .ai-orbs .ai-orb__text {
+    width: 100%;
+    max-width: none;
+    text-align: left;
+    align-items: flex-start;
   }
 }

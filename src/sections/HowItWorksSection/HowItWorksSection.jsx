@@ -137,21 +137,16 @@ function WebSnapshot({ stage }) {
   )
 }
 
-// Scroll-morph (pinned) lives ONLY where the desktop pinned-graph CSS layout
-// exists: >=1200px, the zoom boundary defined in tokens.css. Below it — and for
-// reduced motion — render plain stacked static steps. Querying the SAME boundary
-// the CSS uses guarantees JS mode and CSS layout can never disagree (the old
-// 768px JS threshold vs 1199px CSS threshold left a band where JS pinned a panel
-// the CSS had already reflowed).
-const SCROLL_QUERY = '(min-width: 1200px)'
+// Scroll-morph (pinned) runs at EVERY width. The graph lives in the grid (second
+// column on desktop/tablet, stacked under the text on mobile), so it never
+// overflows its track — it's a definite 100vh tall and shrinks with its box via
+// preserveAspectRatio "meet". Only reduced-motion falls back to plain stacked
+// static steps.
 const REDUCED_QUERY = '(prefers-reduced-motion: reduce)'
 
 const readStaticMode = () => {
   if (typeof window === 'undefined') return false
-  return (
-    window.matchMedia(REDUCED_QUERY).matches ||
-    !window.matchMedia(SCROLL_QUERY).matches
-  )
+  return window.matchMedia(REDUCED_QUERY).matches
 }
 
 export default function HowItWorksSection() {
@@ -172,16 +167,11 @@ export default function HowItWorksSection() {
   const [staticMode, setStaticMode] = useState(readStaticMode)
 
   useEffect(() => {
-    const scrollMq = window.matchMedia(SCROLL_QUERY)
     const reducedMq = window.matchMedia(REDUCED_QUERY)
-    const sync = () => setStaticMode(reducedMq.matches || !scrollMq.matches)
-    scrollMq.addEventListener('change', sync)
+    const sync = () => setStaticMode(reducedMq.matches)
     reducedMq.addEventListener('change', sync)
-    sync() // resync in case the width changed between first render and this effect
-    return () => {
-      scrollMq.removeEventListener('change', sync)
-      reducedMq.removeEventListener('change', sync)
-    }
+    sync() // resync in case the setting changed between first render and this effect
+    return () => reducedMq.removeEventListener('change', sync)
   }, [])
 
   useLayoutEffect(() => {

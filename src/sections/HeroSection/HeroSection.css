@@ -169,10 +169,23 @@
   margin: 0 0 calc(20 * var(--u));
   /* Fluid clamp at every width: 25–56px. Continuous through the 1200 zoom
    * boundary and capped at 3.5rem (56px, the 1920 design size), so the
-   * headline never zooms past its design size on large/ultrawide screens. */
-  font-size: clamp(1.6rem, 2.9vw + 0.875rem, 3.5rem);
+   * headline never zooms past its design size on large/ultrawide screens.
+   * Two extra caps keep each non-wrapping sentence on one line so the headline
+   * is always exactly two lines (and therefore stays centred — an overflowing
+   * line can't be centred): `4.6vw` covers phones (container ≈ viewport), and
+   * `58u` covers desktop, where the 1000u content box shrinks with --u faster
+   * than the viewport does. */
+  font-size: min(clamp(1.6rem, 2.9vw + 0.875rem, 3.5rem), 4.6vw, calc(58 * var(--u)));
   line-height: var(--leading-tight);
   font-weight: var(--weight-bold);
+}
+
+/* Each sentence is its own line and never wraps — guarantees the two-line
+ * headline. The font-size floor above keeps the longest line within the
+ * content width at every viewport. */
+.hero-content__headline-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .hero-content__subtitle {

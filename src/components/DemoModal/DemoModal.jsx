@@ -145,7 +145,7 @@ export function DemoModal({ open, onClose }) {
   return createPortal(
     <AnimatePresence>
       {open && (
-        <motion.div className="demo-modal__overlay" onClick={onClose} {...overlayMotion}>
+        <motion.div className="demo-modal__overlay" onClick={onClose} data-lenis-prevent {...overlayMotion}>
           <motion.div
             ref={panelRef}
             className="demo-modal__panel"

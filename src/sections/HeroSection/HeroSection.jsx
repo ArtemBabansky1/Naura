@@ -80,8 +80,8 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
 
         <div className="hero-content">
           <h1 className="hero-content__headline">
-            {headlineLead}.<br />
-            {headlineTail}
+            <span className="hero-content__headline-line">{headlineLead}.</span>
+            <span className="hero-content__headline-line">{headlineTail}</span>
           </h1>
           <p className="hero-content__subtitle">
             {t('subtitle')}

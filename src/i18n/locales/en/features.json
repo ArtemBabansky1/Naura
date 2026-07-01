@@ -11,7 +11,12 @@
     "handshake": {
       "title": "Handshake search",
       "tagline": "Find anyone, 1–⁠7 handshakes away.",
-      "description": "\"I need a\u00A0B2B digital marketer in\u00A0Dubai.\" Naura searches your network up\u00A0to\u00A07 handshakes and\u00A0shows who can introduce you."
+      "description": "\"I need a\u00A0B2B digital marketer in\u00A0Dubai.\" Naura searches your network up\u00A0to\u00A07 handshakes and\u00A0shows who can introduce you.",
+      "chain": {
+        "you": { "initial": "Y", "name": "You" },
+        "anna": { "initial": "AS", "name": "Anna", "sub": "1 handshake" },
+        "target": { "initial": "HM", "name": "Head of Marketing", "sub": "2 handshakes" }
+      }
     },
     "telegramBot": {
       "title": "Telegram bot",

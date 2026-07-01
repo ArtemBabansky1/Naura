@@ -228,10 +228,14 @@
  * media slide-in for this card only. Static (final) under reduced motion. */
 .feature-card--handshake .feature-card__media { opacity: 1; }
 
+/* Chain labels are live <text> (localized via i18n), so they inherit the brand
+   font rather than baked-in vector outlines. */
+.feature-card--handshake .hsc text { font-family: var(--font-primary); }
+
 @media (prefers-reduced-motion: no-preference) {
   .feature-card--handshake.is-inview .feature-card__media { animation: none; }
 
-  /* resting (off) states. Initials (Y/AS/SC) are NOT animated — they stay
+  /* resting (off) states. Initials (Y/AS/HM) are NOT animated — they stay
      visible on the gray circles from the start. */
   .feature-card--handshake .hsc-dot {
     filter: saturate(0.12) brightness(0.5);
@@ -263,7 +267,7 @@
   .feature-card--handshake.is-inview .hsc-stage--2 .hsc-sub  { opacity: 1;   transition-delay: 1.40s; }
   /* dashed connector: gray dashes load in */
   .feature-card--handshake.is-inview .hsc-wipe--dashed       { transform: scaleX(1); transition-delay: 1.65s; }
-  /* Stage 3 (Series-A fintech CFO) */
+  /* Stage 3 (Head of Marketing) */
   .feature-card--handshake.is-inview .hsc-stage--3 .hsc-dot  { filter: none; transition-delay: 2.25s; }
   .feature-card--handshake.is-inview .hsc-stage--3 .hsc-name { opacity: 1;   transition-delay: 2.45s; }
   .feature-card--handshake.is-inview .hsc-stage--3 .hsc-sub  { opacity: 1;   transition-delay: 2.50s; }

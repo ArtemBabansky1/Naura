@@ -191,23 +191,54 @@
   overflow: visible;
 }
 
-/* Scroll mode only: lift the graph out of the centered grid and pin it to the
- * viewport's right side — full pin height (100vh) minus calc(100 * var(--u)) top/bottom, and
- * calc(100 * var(--u)) from the right edge. Square via aspect-ratio (height-driven). */
-.how-it-works-section.is-scroll .hiw-pin { position: relative; }
-
+/* Scroll mode: the graph stays in the grid's second column (grid tracks never
+ * overlap, so it can never bleed over the text column) and is EXACTLY one
+ * viewport tall. The SVG's preserveAspectRatio="xMidYMid meet" auto-fits the web
+ * to the SMALLER of its box's width/height — full screen height on wide
+ * viewports, shrinking with the column on narrower ones (never overlapping text).
+ *
+ * The column height is a DEFINITE 100vh (not %): a square SVG sized width:100%
+ * reports a width-derived intrinsic height (= its width), and in an auto grid row
+ * that inflated the row past the viewport on wide/ultrawide screens — pushing the
+ * web taller than 100vh and shoving its centre far below the middle. Pinning the
+ * height to 100vh (+ min-height:0) removes that feedback entirely. */
 .how-it-works-section.is-scroll .hiw-graph-col {
-  position: absolute;
-  top: var(--space-50);
-  right: var(--space-100);
-  bottom: var(--space-50);
-  justify-content: flex-end;
+  height: 100vh;
+  min-height: 0;
 }
 
 .how-it-works-section.is-scroll .hiw-graph-svg {
-  width: auto;
+  width: 100%;
   height: 100%;
   max-width: none;
+}
+
+/* ── Stacked scroll mode (mobile + portrait tablets, <1024) ────────────────── */
+/* Same pinned scroll-morph as desktop, but the grid collapses to one column so
+ * the text sits ABOVE the morphing web. The whole stack is centred in the pinned
+ * viewport; the web animates through its four stages as you scroll (the point of
+ * the "make it animate on mobile too" fix). Beside-text at these widths would
+ * squeeze the web into a tiny right column — stacking keeps it large and clear. */
+@media (max-width: 1023.98px) {
+  .how-it-works-section.is-scroll .hiw-inner {
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    gap: var(--space-30);
+    text-align: center;
+  }
+  .how-it-works-section.is-scroll .hiw-graph-col {
+    height: auto;
+  }
+  .how-it-works-section.is-scroll .hiw-graph-svg {
+    width: min(100%, 55vh);
+    height: auto;
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+  .how-it-works-section.is-scroll .hiw-num,
+  .how-it-works-section.is-scroll .hiw-desc {
+    margin-inline: auto;
+  }
 }
 
 /* Step 01's card floats out of flow so all four step layers share the same
@@ -295,11 +326,9 @@
   }
 }
 
-/* Below the desktop zoom boundary (>=1200) the section renders its stacked
- * static layout (see the JS staticMode switch), which drops step 01's business
- * card so the steps read as a plain vertical list. The former .is-scroll reflow
- * rules that lived here became dead once scroll mode stopped rendering below
- * 1200 — only this card-hide still applies (to the static markup). */
+/* Below 1200px there isn't room for step 01's floating business card beside the
+ * graph (scroll mode, 768–1199) or in the stacked list (static, <768), so hide
+ * it. The four step layers stay equal-height (text only) either way. */
 @media (max-width: 1199.98px) {
   .how-it-works-section .hiw-card {
     display: none;
