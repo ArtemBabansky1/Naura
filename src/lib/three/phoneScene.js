@@ -105,13 +105,13 @@ function gradientEnvTexture() {
   return tex
 }
 
-export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135 } = {}) {
+export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135, maxPixelRatio = 2 } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' })
   renderer.setClearAlpha(0)
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.0
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPixelRatio))
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 1000)

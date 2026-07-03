@@ -183,6 +183,22 @@ export function createWeb(dotsG, linesG) {
   const nodes = buildNodes()
   const conns = buildConns()
 
+  // render() runs on every scroll frame while the section is pinned. Two rules
+  // keep it cheap enough for phones:
+  //   1. every write goes through a per-element last-value cache — plateaus
+  //      (where a property doesn't change between stages) cost zero DOM writes;
+  //   2. per-node drop-shadow glows are desktop-only — SVG filters are the most
+  //      expensive paint here and phones repaint the whole graph every frame.
+  const enableGlow =
+    typeof window === 'undefined' ||
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+  const setAttr = (el, cache, key, value) => {
+    if (cache[key] === value) return
+    cache[key] = value
+    el.setAttribute(key, value)
+  }
+
   const lineEls = conns.map(() => {
     const el = document.createElementNS(NS, 'line')
     el.setAttribute('stroke', GRAY)
@@ -192,6 +208,7 @@ export function createWeb(dotsG, linesG) {
     linesG.appendChild(el)
     return el
   })
+  const lineCaches = conns.map(() => ({}))
 
   const dotEls = nodes.map((n) => {
     const el = document.createElementNS(NS, 'circle')
@@ -204,6 +221,7 @@ export function createWeb(dotsG, linesG) {
     dotsG.appendChild(el)
     return el
   })
+  const dotCaches = nodes.map(() => ({}))
 
   function render(p) {
     const si = clamp(Math.floor(p), 0, 2)
@@ -216,18 +234,25 @@ export function createWeb(dotsG, linesG) {
       const A = nodes[i][Ka]
       const B = nodes[i][Kb]
       const el = dotEls[i]
-      el.setAttribute('cx', lerp(A.x, B.x, t).toFixed(2))
-      el.setAttribute('cy', lerp(A.y, B.y, t).toFixed(2))
-      el.setAttribute('r', lerp(A.r, B.r, t).toFixed(2))
-      el.setAttribute('fill', lerpHex(A.col, B.col, t))
-      el.setAttribute('fill-opacity', lerp(A.op, B.op, t).toFixed(3))
-      const cur = (t < 0.5 ? A : B).col
-      el.style.filter =
-        cur === ACCENT
-          ? 'drop-shadow(0 0 6px rgba(134,66,255,.8))'
-          : cur !== GRAY
-            ? `drop-shadow(0 0 4px ${cur})`
-            : ''
+      const cache = dotCaches[i]
+      setAttr(el, cache, 'cx', lerp(A.x, B.x, t).toFixed(2))
+      setAttr(el, cache, 'cy', lerp(A.y, B.y, t).toFixed(2))
+      setAttr(el, cache, 'r', lerp(A.r, B.r, t).toFixed(2))
+      setAttr(el, cache, 'fill', A.col === B.col ? A.col : lerpHex(A.col, B.col, t))
+      setAttr(el, cache, 'fill-opacity', lerp(A.op, B.op, t).toFixed(3))
+      if (enableGlow) {
+        const cur = (t < 0.5 ? A : B).col
+        const f =
+          cur === ACCENT
+            ? 'drop-shadow(0 0 6px rgba(134,66,255,.8))'
+            : cur !== GRAY
+              ? `drop-shadow(0 0 4px ${cur})`
+              : ''
+        if (cache.filter !== f) {
+          cache.filter = f
+          el.style.filter = f
+        }
+      }
     }
 
     for (let i = 0; i < conns.length; i++) {
@@ -235,20 +260,21 @@ export function createWeb(dotsG, linesG) {
       const NA = nodes[a]
       const NB = nodes[b]
       const el = lineEls[i]
+      const cache = lineCaches[i]
       const Aa = NA[Ka]
       const Ab = NA[Kb]
       const Ba = NB[Ka]
       const Bb = NB[Kb]
-      el.setAttribute('x1', lerp(Aa.x, Ab.x, t).toFixed(2))
-      el.setAttribute('y1', lerp(Aa.y, Ab.y, t).toFixed(2))
-      el.setAttribute('x2', lerp(Ba.x, Bb.x, t).toFixed(2))
-      el.setAttribute('y2', lerp(Ba.y, Bb.y, t).toFixed(2))
+      setAttr(el, cache, 'x1', lerp(Aa.x, Ab.x, t).toFixed(2))
+      setAttr(el, cache, 'y1', lerp(Aa.y, Ab.y, t).toFixed(2))
+      setAttr(el, cache, 'x2', lerp(Ba.x, Bb.x, t).toFixed(2))
+      setAttr(el, cache, 'y2', lerp(Ba.y, Bb.y, t).toFixed(2))
       // Step-1-only edges fade out over the first half of the scroll so step 2
       // shows only the hub spokes; all others use the normal stage lerp.
       const op = conns[i].fast
         ? ops[0] * (1 - clamp(p / 0.5, 0, 1))
         : lerp(ops[si], ops[sj], t)
-      el.setAttribute('stroke-opacity', op.toFixed(3))
+      setAttr(el, cache, 'stroke-opacity', op.toFixed(3))
     }
   }
 

@@ -38,5 +38,10 @@ export function useMediaQuery(query) {
 /** Canonical breakpoint helpers — mirror the --bp-* tokens / @media literals. */
 export const MOBILE_QUERY = '(max-width: 767.98px)'
 
+/** Touch-primary devices (phones/tablets): no hover, coarse pointer. Used to
+ * skip desktop-only JS (Lenis smooth wheel, WebGL phone, cursor effects) —
+ * a device class, not a viewport width, so it never flips on resize. */
+export const TOUCH_DEVICE_QUERY = '(hover: none) and (pointer: coarse)'
+
 /** Everything below the 1200 zoom boundary (tablet + phone). */
 export const BELOW_DESKTOP_QUERY = '(max-width: 1199.98px)'

@@ -148,6 +148,17 @@
     .section { padding-top: var(--space-80); }
   }
 
+  /* Communities→Telegram, Telegram→AiAgents, AiAgents→Faq: content-heavy
+   * mockups (cards, phone showcase, terminal) sit close to the next
+   * section's eyebrow on phones — double the gap above these three. */
+  @media (max-width: 479.98px) {
+    .telegram-section,
+    .ai-agents-section,
+    .faq-section {
+      padding-top: var(--space-160);
+    }
+  }
+
 
   /* ============================================================
    * TEXT UTILITIES */

@@ -75,6 +75,9 @@ const CMD_SPEED = 5
 const USER_SPEED = 11
 const CLAUDE_SPEED = 5
 const JITTER = 9 // human-typing irregularity
+// One React update per tick (typing several chars at once), not per keystroke —
+// per-char setState at 5-11ms churned the main thread while the page scrolls.
+const TYPE_TICK = 35
 
 const TYPED_KINDS = ['cmd', 'user', 'claude']
 const CURSOR_KINDS = ['cmd', 'user', 'claude', 'prompt']
@@ -155,11 +158,15 @@ async function playStep(step, signal, setItems) {
     }
 
     const speed = step.kind === 'user' ? USER_SPEED : step.kind === 'claude' ? CLAUDE_SPEED : CMD_SPEED
-    for (let i = 1; i <= len; i++) {
+    // Same chars-per-second pace as the old per-char loop, batched per tick.
+    const perTick = Math.max(1, Math.round(TYPE_TICK / speed))
+    let typed = 0
+    while (typed < len) {
       if (signal.cancelled) return
-      patchLast(setItems, { typed: i })
+      typed = Math.min(len, typed + perTick)
+      patchLast(setItems, { typed })
       const jitter = step.kind === 'claude' ? 0 : Math.random() * JITTER
-      await sleep(speed + jitter, signal)
+      await sleep(TYPE_TICK + jitter, signal)
     }
     patchLast(setItems, { done: true })
     return

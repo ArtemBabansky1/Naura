@@ -1,4 +1,4 @@
-﻿{
+{
   "eyebrow": "what naura does",
   "headline": "Find experts your friends actually know.",
   "subtitle": "No more scouring communities or\u00A0asking everyone you know. One search in\u00A0Naura instantly shows which of\u00A0your contacts can reach the\u00A0person you need.",
@@ -15,7 +15,7 @@
       "chain": {
         "you": { "initial": "Y", "name": "You" },
         "anna": { "initial": "AS", "name": "Anna", "sub": "1 handshake" },
-        "target": { "initial": "HM", "name": "Head of Marketing", "sub": "2 handshakes" }
+        "target": { "initial": "HM", "name": "Head of\u00A0Marketing", "sub": "2 handshakes" }
       }
     },
     "telegramBot": {

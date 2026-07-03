@@ -5,12 +5,23 @@ import './UnicornScene.css'
 const PROJECT_ID = 'QET53i7Em2t5mYoTrh1z'
 const SCRIPT_SRC =
   'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.5/dist/unicornStudio.umd.js'
+// Subresource integrity of the pinned v2.2.5 file. If the CDN ever serves
+// different bytes the script is rejected and the static recolored panel
+// remains — the same graceful path as a network failure.
+const SCRIPT_SRI =
+  'sha384-RQIWpb6gOCKUM6FJriP7gCoBKzJPE9AZgwNQZBXx5S2affJZ7ogxC4+YnTPnxq33'
 
 // Render resolution scale (0.25–1) and frame cap. The scene is a slow ambient
 // background, so a reduced scale + ~30fps cap saves fill-rate with no visible
-// change. Tune here once for all instances.
+// change. Tune here once for all instances. Touch devices (fill-rate-bound
+// mobile GPUs, sharp DPR) drop further — the recolored, blurred-ambient scene
+// hides the resolution completely, and scrolling stops competing with it.
 const RENDER_SCALE = 0.75
 const RENDER_FPS = 30
+const RENDER_SCALE_TOUCH = 0.5
+const RENDER_FPS_TOUCH = 24
+
+const TOUCH_QUERY = '(hover: none) and (pointer: coarse)'
 
 // Start init / resume render this far before the element enters the viewport;
 // pause once it's this far past. Multiple of 5 per design system.
@@ -40,6 +51,8 @@ function loadEngine() {
     }
     const script = document.createElement('script')
     script.src = SCRIPT_SRC
+    script.integrity = SCRIPT_SRI
+    script.crossOrigin = 'anonymous'
     script.async = true
     script.setAttribute('data-unicorn-studio', '')
     script.addEventListener('load', () => resolve(window.UnicornStudio))
@@ -51,7 +64,10 @@ function loadEngine() {
 }
 
 // requestIdleCallback with a safe fallback for Safari / older browsers.
-function scheduleIdle(fn, timeout = 200) {
+// The timeout is generous: during flick-scrolling the main thread has no idle
+// slots, and a forced 200ms deadline used to land the heavy WebGL init right
+// in the middle of a scroll gesture.
+function scheduleIdle(fn, timeout = 1000) {
   if (typeof window.requestIdleCallback === 'function') {
     return { type: 'idle', id: window.requestIdleCallback(fn, { timeout }) }
   }
@@ -132,6 +148,7 @@ export default function UnicornScene({ className = '', eager = false }) {
 
     // Deferred, idle-time init of THIS element only (addScene, not init, so we
     // never re-scan or re-init sibling instances).
+    const isTouchDevice = window.matchMedia(TOUCH_QUERY).matches
     const startScene = () => {
       idleHandle = scheduleIdle(() => {
         if (cancelled) return
@@ -141,8 +158,8 @@ export default function UnicornScene({ className = '', eager = false }) {
             return us.addScene({
               element: el,
               projectId: PROJECT_ID,
-              scale: RENDER_SCALE,
-              fps: RENDER_FPS,
+              scale: isTouchDevice ? RENDER_SCALE_TOUCH : RENDER_SCALE,
+              fps: isTouchDevice ? RENDER_FPS_TOUCH : RENDER_FPS,
               lazyLoad: true,
             })
           })

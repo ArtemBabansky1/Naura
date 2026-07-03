@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { ScrollTrigger } from '../../lib/gsap'
+import { TOUCH_DEVICE_QUERY } from '../../hooks/useMediaQuery'
 import { createScreenCanvas } from './phoneScreen'
 import glbUrl from '../../assets/3d/iphone-black.glb?url'
 import iphoneAvif from '../../assets/telegram/iphone.avif'
@@ -23,6 +24,8 @@ function hasWebGL() {
  * rotating to face the viewer, screen showing the redrawn directory UI). Falls
  * back to the flat image for reduced-motion users and browsers without WebGL.
  * three.js + the screen texture load lazily, only once this mounts in view.
+ * Touch devices keep the 3D phone but run it cheaper: lower device-pixel cap
+ * and no cursor-tilt listener (there is no cursor to follow).
  */
 export default function PhoneShowcase() {
   const prefersReduced = useReducedMotion()
@@ -48,6 +51,8 @@ export default function PhoneShowcase() {
     let tiltFrame = 0
     let onMove = null
 
+    const isTouchDevice = window.matchMedia(TOUCH_DEVICE_QUERY).matches
+
     async function init() {
       const [{ createPhoneScene }, screen] = await Promise.all([
         import('../../lib/three/phoneScene'),
@@ -55,7 +60,13 @@ export default function PhoneShowcase() {
       ])
       if (cancelled) return
 
-      scene = createPhoneScene(canvas, { turnAwayDeg: 135 })
+      // Phones: cap the backing-store resolution harder. Mobile GPUs are
+      // fill-rate-bound and their DPR is 2.6-3; ×2 would render ~4× the pixels
+      // of ×1.5 for no visible gain on a ~330px-wide phone model.
+      scene = createPhoneScene(canvas, {
+        turnAwayDeg: 135,
+        maxPixelRatio: isTouchDevice ? 1.5 : 2,
+      })
 
       const sizeToBox = () => {
         const r = canvas.getBoundingClientRect()
@@ -94,19 +105,22 @@ export default function PhoneShowcase() {
       io.observe(wrap)
 
       // Cursor parallax tilt (same falloff feel as the old flat phone).
-      onMove = (e) => {
-        cancelAnimationFrame(tiltFrame)
-        tiltFrame = requestAnimationFrame(() => {
-          if (!scene) return
-          const r = canvas.getBoundingClientRect()
-          const dx = e.clientX - (r.left + r.width / 2)
-          const dy = e.clientY - (r.top + r.height / 2)
-          const dist = Math.hypot(dx, dy) || 1
-          const fall = FALLOFF / (FALLOFF + dist)
-          scene.setTilt((-dy / dist) * MAX_TILT * fall, (dx / dist) * MAX_TILT * fall)
-        })
+      // Pointless on touch devices — no cursor — so don't even subscribe.
+      if (!isTouchDevice) {
+        onMove = (e) => {
+          cancelAnimationFrame(tiltFrame)
+          tiltFrame = requestAnimationFrame(() => {
+            if (!scene) return
+            const r = canvas.getBoundingClientRect()
+            const dx = e.clientX - (r.left + r.width / 2)
+            const dy = e.clientY - (r.top + r.height / 2)
+            const dist = Math.hypot(dx, dy) || 1
+            const fall = FALLOFF / (FALLOFF + dist)
+            scene.setTilt((-dy / dist) * MAX_TILT * fall, (dx / dist) * MAX_TILT * fall)
+          })
+        }
+        window.addEventListener('mousemove', onMove)
       }
-      window.addEventListener('mousemove', onMove)
     }
 
     init()

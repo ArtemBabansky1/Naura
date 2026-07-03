@@ -2,22 +2,30 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from '../lib/gsap'
 import { registerLenis } from '../lib/scrollLock'
+import { scheduleScrollRefresh } from '../lib/scrollRefresh'
+import { TOUCH_DEVICE_QUERY } from './useMediaQuery'
 
 /**
  * Site-wide smooth (inertial) scrolling via Lenis, wired to GSAP ScrollTrigger
  * so pinned/scrubbed triggers read Lenis's eased scroll position (not the raw
  * native scrollY) and stay measured against the real document height.
- * Disabled automatically when the user prefers reduced motion.
+ *
+ * Desktop-only: on touch devices Lenis doesn't smooth anyway (syncTouch off),
+ * but its non-passive touchstart/touchmove listeners on window force every
+ * finger move through the main thread before the compositor may scroll — the
+ * root cause of janky finger-scrolling. There we keep native scrolling and let
+ * ScrollTrigger drive itself. Also disabled under prefers-reduced-motion.
  */
 export function useSmoothScroll() {
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) {
-      // No Lenis, but ensure native-scroll triggers measure the final layout
-      // once everything (lazy chunks, fonts) has settled.
-      const onLoad = () => ScrollTrigger.refresh()
+    const isTouchDevice = window.matchMedia(TOUCH_DEVICE_QUERY).matches
+    if (prefersReduced || isTouchDevice) {
+      // No Lenis: native scroll feeds ScrollTrigger directly. Still re-measure
+      // triggers once everything (lazy chunks, fonts) has settled.
+      const onLoad = () => scheduleScrollRefresh()
       window.addEventListener('load', onLoad)
-      ScrollTrigger.refresh()
+      scheduleScrollRefresh()
       return () => window.removeEventListener('load', onLoad)
     }
 
@@ -40,8 +48,9 @@ export function useSmoothScroll() {
     gsap.ticker.lagSmoothing(0)
 
     // Recompute every trigger's start/end after the first layout settles and on
-    // window load (covers fonts + late reflow from lazy sections).
-    const refresh = () => ScrollTrigger.refresh()
+    // window load (covers fonts + late reflow from lazy sections). Coalesced
+    // through the shared scheduler with the per-section mount refreshes.
+    const refresh = () => scheduleScrollRefresh()
     window.addEventListener('load', refresh)
 
     // Initial settle: rAF twice so lazy/Suspense content + fonts get a frame.

@@ -451,6 +451,13 @@
     height: auto;
     min-height: calc(460 * var(--u));
   }
+
+  /* contactGraph desc: drop the desktop "large statement" treatment —
+   * read as a normal card description on mobile. */
+  .feature-card--contactGraph .feature-card__desc {
+    font-size: var(--text-body);
+    line-height: var(--leading-normal);
+  }
 }
 
 /* Phones: a 2-up grid leaves each content-heavy card too narrow — stack to one
@@ -458,6 +465,29 @@
 @media (max-width: 479.98px) {
   .features-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* contactGraph: the desc's margin-top:auto stretches to fill the full
+   * min-height, leaving a large gap under the tagline — shrink the card so
+   * that gap reads ~⅓ of its previous size. */
+  .feature-card--contactGraph {
+    min-height: calc(305 * var(--u));
+  }
+
+  /* telegramBot / mcpAgents: their decorative graphic is absolutely
+   * positioned (out of flow), so the shared 460u min-height leaves a tall
+   * empty gap below the description — shrink to ~half. */
+  .feature-card--telegramBot {
+    min-height: calc(345 * var(--u));
+  }
+  .feature-card--mcpAgents {
+    min-height: calc(335 * var(--u));
+  }
+
+  /* reminders: nudge the "Friends" chip further right, off the card's left
+   * edge, to clear the ring graphic underneath it. */
+  .feature-card--reminders .feature-card__chip:first-child {
+    margin-left: var(--space-30);
   }
 }
 

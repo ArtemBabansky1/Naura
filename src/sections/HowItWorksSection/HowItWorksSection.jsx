@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
+import { scheduleScrollRefresh } from '../../lib/scrollRefresh'
 import { createWeb, LABELS } from './webGraph'
 import { HiwScrollStepLayer, useHiwScrollProgress } from './HiwScrollMotion'
 import './HowItWorksSection.css'
@@ -213,8 +214,8 @@ export default function HowItWorksSection() {
     setLabels(0)
 
     // This section mounts lazily; its own creation just changed the document
-    // height. Refresh so this trigger (and any created earlier) re-measure now.
-    ScrollTrigger.refresh()
+    // height. Refresh (coalesced) so this trigger and earlier ones re-measure.
+    scheduleScrollRefresh()
 
     return () => {
       ctx.revert()

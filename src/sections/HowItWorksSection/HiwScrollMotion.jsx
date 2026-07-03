@@ -1,5 +1,8 @@
 import { useMemo, useRef } from "react"
-import { motion, useMotionValue, useMotionValueEvent, useTransform } from "motion/react"
+// framer-motion (not "motion/react") — the rest of the app already ships
+// framer-motion; importing the same APIs from the "motion" package bundled a
+// second full copy of the animation engine into this section's chunk.
+import { motion, useMotionValue, useMotionValueEvent, useTransform } from "framer-motion"
 
 const SLIDE = 24
 const SCALE_REST = 0.96
@@ -48,7 +51,11 @@ export const HiwScrollStepLayer = ({ index, progress, lastIndex, children }) => 
 
   useMotionValueEvent(opacity, "change", (value) => {
     if (!layerRef.current) return
-    layerRef.current.style.pointerEvents = value > 0.45 ? "auto" : "none"
+    // Style write only when the threshold flips, not on every scroll frame.
+    const next = value > 0.45 ? "auto" : "none"
+    if (layerRef.current.style.pointerEvents !== next) {
+      layerRef.current.style.pointerEvents = next
+    }
   })
 
   return (

@@ -226,6 +226,13 @@
     gap: var(--space-30);
     text-align: center;
   }
+  /* Stacked content (text + graph) is much shorter than the pinned 100vh box,
+   * so centering it leaves a huge gap under the header — anchor to the top
+   * with a small intentional offset instead (halves the header→content gap). */
+  .how-it-works-section.is-scroll .hiw-pin {
+    align-items: flex-start;
+    padding-top: var(--space-30);
+  }
   .how-it-works-section.is-scroll .hiw-graph-col {
     height: auto;
   }

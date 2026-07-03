@@ -12,6 +12,10 @@ const HERO_VISIBLE_MARGIN = 80
  * Hides it again on any downward scroll, and keeps it hidden while the hero
  * section is still on screen.
  *
+ * The hero's bottom edge is cached and re-measured on resize — reading
+ * getBoundingClientRect() inside the scroll handler forced a layout pass on
+ * every scroll event, right between GSAP's per-frame transform writes.
+ *
  * @param {string} heroId - id of the first-screen section to suppress against
  * @returns {boolean} whether the floating element should be visible
  */
@@ -23,15 +27,23 @@ export function useRevealOnScrollUp(heroId = 'hero') {
     let upDistance = 0
     const hero = document.getElementById(heroId)
 
+    // Document-space bottom of the hero; scroll position alone then answers
+    // "is the hero still on screen" without touching layout mid-scroll.
+    let heroBottom = 0
+    function measure() {
+      heroBottom = hero
+        ? hero.getBoundingClientRect().bottom + window.scrollY
+        : window.innerHeight
+    }
+    measure()
+
     function onScroll() {
       const y = window.scrollY
       const delta = y - lastY
       lastY = y
 
       // First screen still in view → suppress (its own nav is showing).
-      const heroVisible = hero
-        ? hero.getBoundingClientRect().bottom > HERO_VISIBLE_MARGIN
-        : y < window.innerHeight
+      const heroVisible = heroBottom - y > HERO_VISIBLE_MARGIN
       if (heroVisible) {
         upDistance = 0
         setIsVisible(false)
@@ -48,8 +60,15 @@ export function useRevealOnScrollUp(heroId = 'hero') {
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', measure)
+    // Late layout shifts (fonts, lazy sections above the fold) settle by load.
+    window.addEventListener('load', measure)
     onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', measure)
+      window.removeEventListener('load', measure)
+    }
   }, [heroId])
 
   return isVisible
