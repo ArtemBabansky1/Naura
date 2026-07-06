@@ -58,9 +58,9 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
             <a href="#ai-agents" className="hero-nav__link">{t('nav.mcp')}</a>
           </nav>
           <div className="hero-nav__actions">
-            <button type="button" className="hero-nav__lang" onClick={toggleLang} aria-label="Switch language">
+            {/* <button type="button" className="hero-nav__lang" onClick={toggleLang} aria-label="Switch language">
               {i18n.language === 'en' ? 'RU' : 'EN'}
-            </button>
+            </button> */}
             <a href={APP_URL} className="hero-nav__btn hero-nav__btn--secondary">{t('nav.signIn')}</a>
             <button type="button" className="hero-nav__btn hero-nav__btn--primary" onClick={openDemo}>{t('nav.getDemo')}</button>
           </div>
