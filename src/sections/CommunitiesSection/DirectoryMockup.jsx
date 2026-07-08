@@ -95,7 +95,7 @@ export default function DirectoryMockup() {
             </motion.div>
             <motion.div className="dir-card__pills" variants={vRow}>
               <motion.span className="dir-pill" variants={vFadeUp}>{m.tag}</motion.span>
-              <motion.span className="dir-pill is-active" variants={vFadeUp}>{t('features.askIntro')}</motion.span>
+              <motion.span className="dir-pill is-active" variants={vFadeUp}>{t('introButton')}</motion.span>
             </motion.div>
           </motion.article>
         ))}

@@ -11,7 +11,7 @@ export default function FooterSection() {
     { key: "home", href: "#hero" },
     { key: "businessCards", href: "#features" },
     { key: "communities", href: "#communities" },
-    { key: "blog", href: "#" },
+    { key: "blog", href: "https://blog.naura.io/" },
   ]
 
   return (
@@ -52,11 +52,20 @@ export default function FooterSection() {
           <nav className="footer-col footer-col--product" aria-label={t("product.heading")}>
             <h3 className="footer-col__heading">{t("product.heading")}</h3>
             <ul className="footer-col__list">
-              {productLinks.map(({ key, href }) => (
-                <li key={key}>
-                  <a href={href} className="footer-link">{t(`product.links.${key}`)}</a>
-                </li>
-              ))}
+              {productLinks.map(({ key, href }) => {
+                const isExternal = href.startsWith("http")
+                return (
+                  <li key={key}>
+                    <a
+                      href={href}
+                      className="footer-link"
+                      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    >
+                      {t(`product.links.${key}`)}
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           </nav>
 

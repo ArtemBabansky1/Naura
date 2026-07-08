@@ -122,6 +122,18 @@
   }
 }
 
+/* Tablet & below: full-width panel with a 10px gutter from the screen edges. */
+@media (max-width: 768px) {
+  .footer-section {
+    padding-inline: var(--space-10);
+  }
+
+  .footer-panel {
+    max-width: none;
+    margin-inline: 0;
+  }
+}
+
 @media (max-width: 480px) {
   .footer-content {
     grid-template-columns: 1fr;

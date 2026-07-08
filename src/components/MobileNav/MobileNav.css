@@ -131,10 +131,28 @@
   flex-direction: column;
   justify-content: space-between;
   gap: var(--space-40);
-  padding: calc(90 * var(--u)) var(--space-30) var(--space-40);
+  padding: var(--space-40) var(--space-30) var(--space-40);
   background: var(--bg-surface);
   border-left: 1px solid var(--border-subtle);
   overflow-y: auto;
+}
+
+/* ── Top group: brand mark above the nav links ─────────────────────────────── */
+.mobile-nav__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.mobile-nav__brand {
+  display: inline-flex;
+  align-self: flex-start;   /* hug the mark, don't stretch across the drawer */
+}
+
+.mobile-nav__logo-img {
+  display: block;
+  width: auto;
+  height: calc(55 * var(--u));
 }
 
 /* ── Links ─────────────────────────────────────────────────────────────────── */

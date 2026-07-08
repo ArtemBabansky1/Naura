@@ -1,7 +1,15 @@
 /* ── Floating nav — fixed, flies in from below on scroll-up ────────────────── */
 .float-nav {
+  /* Pin --u to 1px for the whole floating menu so its padding, gaps, heights and
+   * logo stay at their desktop (1920) size at every width ≥1200 — they no longer
+   * shrink with the viewport as the zoom-range --u does. */
+  --u: 1px;
+
   position: fixed;
   left: 50%;
+  /* Size to content — without this a fixed left:50% element is capped at 50% of
+   * the viewport, which clipped the last link once the nav became desktop-size. */
+  width: max-content;
   bottom: calc(30 * var(--u));
   z-index: 100;
   /* Hidden: pushed fully below the viewport edge. */
@@ -34,9 +42,11 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  gap: var(--navbar-gap);
+  /* Direct calc()s (not the --space/--navbar tokens, which resolve against the
+   * root --u) so the local --u:1px pins them to their desktop size. */
+  gap: calc(40 * var(--u));
   height: var(--float-nav-h);
-  padding: 0 var(--space-40) 0 var(--space-30);
+  padding: 0 calc(40 * var(--u)) 0 calc(30 * var(--u));
   border-radius: var(--radius-pill);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
@@ -45,14 +55,17 @@
 .float-nav__logo {
   position: relative;
   z-index: 1;
+  flex: none;              /* never shrink — keep the mark at full size */
   display: inline-flex;
   align-items: center;
   text-decoration: none;
 }
 
 .float-nav__logo-img {
-  height: calc(18 * var(--u));
-  width: auto;
+  /* Explicit fixed box (43:19 mark). width:auto collapsed to 0 inside the
+   * overflow:hidden flex bar below 1920, so the size is pinned outright. */
+  height: 20px;
+  width: calc(43 / 19 * 20px);   /* ≈ 45px, keeps the aspect ratio */
   display: block;
 }
 
@@ -61,7 +74,7 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: var(--navbar-gap);
+  gap: calc(40 * var(--u));
 }
 
 .float-nav__link {
@@ -88,7 +101,7 @@
   background: var(--bg-surface);
   color: var(--text-primary);
   cursor: pointer;
-  font-size: calc(15 * var(--u));
+  font-size: var(--text-nav);
   font-weight: var(--weight-semibold);
   font-family: inherit;
   line-height: 1;
@@ -104,7 +117,7 @@
   height: var(--float-nav-h);
   padding: 0 calc(28 * var(--u));
   border-radius: var(--radius-pill);
-  font-size: calc(15 * var(--u));
+  font-size: var(--text-nav);
   font-family: inherit;
   font-weight: var(--weight-semibold);
   line-height: 1;

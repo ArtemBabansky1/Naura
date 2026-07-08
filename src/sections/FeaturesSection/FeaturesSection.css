@@ -116,8 +116,10 @@
   flex: 1;                /* fill the card so the desc can sit at the bottom */
 }
 .feature-card--contactGraph .feature-card__desc {
-  font-size: var(--text-h3);          /* match the heading typography */
-  line-height: var(--leading-tight);
+  /* Fluid size: continuously shrinks with the viewport — 30px at 1920 down to
+   * 14px on mobile (smaller screen → smaller font), no per-breakpoint steps. */
+  font-size: clamp(0.875rem, 1.05vw + 0.6rem, 1.875rem);
+  line-height: var(--leading-normal);
   margin-top: auto;                   /* push to the bottom of the card */
   opacity: 0.6;                       /* 60% */
 }
@@ -415,32 +417,20 @@
   }
 }
 
-/* ── 2-column adaptive view (480–1199): art-direct the Telegram + MCP pair ────
- * Swap them so MCP sits in the LEFT column (its Claude mark bleeds off the
- * left, screen-side card edge) and Telegram sits RIGHT. Both decorative
- * graphics go absolute so neither adds height — the two cards then rest at the
- * same min-height and read as equal height. */
+/* ── 2-column adaptive view (480–1199): swap the Telegram + MCP pair so MCP
+ * sits in the LEFT column (its Claude mark bleeds off the left, screen-side
+ * edge) and Telegram sits RIGHT. Image positions are inherited from the desktop
+ * corner-bl / corner-br rules (just scaled by --media-scale), so both graphics
+ * behave exactly like on desktop. */
 @media (min-width: 480px) and (max-width: 1199px) {
   .feature-card--mcpAgents   { grid-column: 1; grid-row: 2; }
   .feature-card--telegramBot { grid-column: 2; grid-row: 2; }
+}
 
-  /* Telegram "2": lift it up close under the copy (≈⅓ the old gap) and let only
-   * a sliver bleed past the right edge, so more of the numeral is visible. */
-  .feature-card--telegramBot .feature-card__media {
-    top: calc(225 * var(--u));
-    bottom: auto;
-    right: calc(-10 * var(--u));
-  }
-
-  /* MCP Claude mark: drop the in-flow corner-bl treatment for an absolute one —
-   * bleed ~30% off the LEFT (screen-side) card edge and lift it toward the top. */
-  .feature-card--mcpAgents .feature-card__media {
-    position: absolute;
-    margin: 0;
-    top: calc(110 * var(--u));
-    left: calc(-70 * var(--u));
-    right: auto;
-    bottom: auto;
+/* ── Tablet (480–768): "Друзья" chip nudged 30px right (mirrors the <480). */
+@media (min-width: 480px) and (max-width: 768px) {
+  .feature-card--reminders .feature-card__chip:first-child {
+    margin-left: var(--space-30);
   }
 }
 
@@ -452,12 +442,6 @@
     min-height: calc(460 * var(--u));
   }
 
-  /* contactGraph desc: drop the desktop "large statement" treatment —
-   * read as a normal card description on mobile. */
-  .feature-card--contactGraph .feature-card__desc {
-    font-size: var(--text-body);
-    line-height: var(--leading-normal);
-  }
 }
 
 /* Phones: a 2-up grid leaves each content-heavy card too narrow — stack to one
@@ -488,6 +472,13 @@
    * edge, to clear the ring graphic underneath it. */
   .feature-card--reminders .feature-card__chip:first-child {
     margin-left: var(--space-30);
+  }
+}
+
+/* Laptop (≤1280): the section subtitle reads at 16px. */
+@media (min-width: 769px) and (max-width: 1280px) {
+  .features-header__subtitle {
+    font-size: 1rem;   /* 16px */
   }
 }
 

@@ -84,7 +84,7 @@
 }
 
 .hero-nav__logo-img {
-  height: calc(18 * var(--u));
+  height: 20px;   /* fixed — never shrinks with --u in the zoom range */
   width: auto;
   display: block;
 }
@@ -108,7 +108,7 @@
 .hero-nav__actions {
   display: flex;
   align-items: center;
-  gap: var(--space-10);
+  gap: 10px;             /* fixed — the button group stays desktop-size ≥1200 */
   justify-self: end;
 }
 
@@ -116,15 +116,15 @@
   background: var(--color-base-white);
   border: 1px solid transparent;
   color: var(--color-base-gray-600);
-  width: calc(45 * var(--u));
-  height: calc(45 * var(--u));
+  width: 45px;           /* fixed — never shrinks with --u in the zoom range */
+  height: 45px;
   padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   cursor: pointer;
-  font-size: calc(15 * var(--u));
+  font-size: var(--text-nav);
   font-weight: var(--weight-semibold);
   font-family: inherit;
   line-height: 1;
@@ -138,9 +138,9 @@
 .hero-nav__btn {
   display: inline-flex;
   align-items: center;
-  padding: calc(14 * var(--u)) calc(24 * var(--u));
+  padding: 14px 24px;    /* fixed — desktop size, unchanged across the zoom range */
   border-radius: var(--radius-pill);
-  font-size: calc(15 * var(--u));
+  font-size: var(--text-nav);
   font-family: inherit;
   font-weight: var(--weight-semibold);
   line-height: 1;
@@ -210,11 +210,12 @@
 .btn-hero {
   display: inline-flex;
   align-items: center;
-  gap: calc(8 * var(--u));
-  padding: var(--btn-cta-py, calc(14 * var(--u))) var(--btn-cta-px, calc(24 * var(--u)));
+  /* Fixed at desktop size — no shrinking with --u in the zoom range (≥1200). */
+  gap: 8px;
+  padding: 15px 20px;
   border-radius: var(--btn-cta-radius, calc(100 * var(--u)));
   font-family: inherit;
-  font-size: calc(15 * var(--u));
+  font-size: 15px;
   font-weight: 600;
   line-height: 1;
   cursor: pointer;

@@ -134,6 +134,15 @@
     padding-block: var(--space-120) var(--space-120);
   }
 
+  /* Headline fills the width (2 lines on wider phones/tablets instead of 4).
+   * width:100% beats the flex shrink-to-fit so it uses the whole container;
+   * container gutter is 20px here, +20px padding = 40px clear of each edge. */
+  .cta-headline {
+    max-width: none;
+    width: 100%;
+    padding-inline: var(--space-20);
+  }
+
   .cta-proof {
     flex-direction: column;
     gap: var(--space-10);

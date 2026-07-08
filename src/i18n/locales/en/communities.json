@@ -15,6 +15,7 @@
     "askIntro": "Members request warm intros from each other.",
     "adminControls": "Roles, invites, branded subdomain."
   },
+  "introButton": "intro",
   "seeProduct": "See the\u00A0product",
   "descriptions": {
     "directory": "A\u00A0searchable, member-facing directory — roles, tags, and\u00A0bios in\u00A0one place. Members find each other without going through you.",
