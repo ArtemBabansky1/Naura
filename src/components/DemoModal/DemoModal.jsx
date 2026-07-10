@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { LocaleLink } from '../LocaleLink/LocaleLink'
 import { FormSelect } from './FormSelect'
 import { lockScroll, unlockScroll } from '../../lib/scrollLock'
+import { submitDemoRequest } from '../../lib/crm'
 import './DemoModal.css'
 
 const INITIAL = { fullName: '', email: '', phone: '', howHeard: '' }
@@ -21,11 +22,11 @@ const CheckIcon = () => (
 /**
  * "Get a demo" pop-up. Form on the left, company pitch on the right, legal links
  * along the bottom. Opened from the "Get a demo" (header) and "See how it works"
- * (hero) triggers via the DemoModal context. Submission is mocked (no backend) —
- * it resolves to a thank-you state.
+ * (hero) triggers via the DemoModal context. Submission posts the lead to the CRM
+ * (n8n webhook) and resolves to a thank-you state.
  */
 export function DemoModal({ open, onClose }) {
-  const { t } = useTranslation('demoForm')
+  const { t, i18n } = useTranslation('demoForm')
   const panelRef = useRef(null)
   const prefersReduced = useReducedMotion()
 
@@ -62,12 +63,17 @@ export function DemoModal({ open, onClose }) {
 
     setStatus('submitting')
     try {
-      // No backend yet — mock the round-trip so the UX is complete.
-      await new Promise((resolve) => setTimeout(resolve, 700))
+      await submitDemoRequest({
+        fullName,
+        email,
+        phone,
+        howHeard: fields.howHeard,
+        locale: i18n.language,
+      })
       setStatus('success')
     } catch {
       setStatus('error')
-      setErrorKey('errorRequired')
+      setErrorKey('errorSubmit')
     }
   }
 

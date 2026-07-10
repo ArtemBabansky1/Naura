@@ -27,6 +27,7 @@
     "consent": "By\u00A0submitting, you agree to\u00A0our Privacy Policy. We'll only use your details to\u00A0reach out\u00A0about a\u00A0demo.",
     "errorRequired": "Please fill in\u00A0all required fields.",
     "errorEmail": "Please enter a\u00A0valid email address.",
+    "errorSubmit": "Something went wrong while sending. Please try again.",
     "successTitle": "Thank you!",
     "successBody": "We've got your request and\u00A0will be in\u00A0touch shortly."
   },
