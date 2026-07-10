@@ -1,0 +1,96 @@
+/* MeetsWhy — light section on the white sheet, same theme as the rest of
+ * the page. Left: eyebrow + headline + bottom note/CTA. Right: 2×2 value
+ * cards with the description pinned to the card bottom. */
+
+.meets-why__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--space-60);
+  align-items: stretch;
+}
+
+/* ── Left column ──────────────────────────────────────────────────────── */
+.meets-why__left {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(500 * var(--u));
+}
+
+.meets-why__title {
+  margin-top: var(--space-15);
+  color: var(--text-primary);
+  max-width: 22ch;
+}
+
+.meets-why__foot {
+  margin-top: auto;
+  padding-top: var(--space-40);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-25);
+}
+
+.meets-why__note {
+  color: var(--text-list);
+  max-width: 40ch;
+}
+
+/* ── Right 2×2 cards ──────────────────────────────────────────────────── */
+.meets-why__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+}
+
+.meets-why__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-30);
+  min-height: calc(240 * var(--u));
+  padding: var(--space-30);
+  border-radius: var(--card-radius);
+  background: var(--bg-card-muted);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.meets-why__card:hover {
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+.meets-why__card-title {
+  color: var(--text-primary);
+  max-width: 18ch;
+}
+
+.meets-why__card-desc {
+  color: var(--text-list);
+  max-width: 32ch;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1023.98px) {
+  .meets-why__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+
+  .meets-why__left {
+    min-height: 0;
+  }
+
+  .meets-why__foot {
+    margin-top: var(--space-30);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .meets-why__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meets-why__card {
+    min-height: calc(180 * var(--u));
+  }
+}

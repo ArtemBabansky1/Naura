@@ -105,7 +105,7 @@ function gradientEnvTexture() {
   return tex
 }
 
-export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135, maxPixelRatio = 2 } = {}) {
+export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135, maxPixelRatio = 2, fitFrac = FIT_FRAC } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' })
   renderer.setClearAlpha(0)
   renderer.outputColorSpace = THREE.SRGBColorSpace
@@ -153,7 +153,7 @@ export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135
   let disposed = false
 
   function fitCamera(height) {
-    const dist = height / (2 * FIT_FRAC * Math.tan(THREE.MathUtils.degToRad(FOV) / 2))
+    const dist = height / (2 * fitFrac * Math.tan(THREE.MathUtils.degToRad(FOV) / 2))
     camera.position.set(0, 0, dist)
     camera.near = Math.max(0.01, dist - height)
     camera.far = dist + height * 2

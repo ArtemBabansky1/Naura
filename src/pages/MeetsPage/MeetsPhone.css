@@ -1,0 +1,107 @@
+/* MeetsPhone — oversized scroll-flying 3D iPhone (light match chat on its
+ * screen) on the LEFT, copy on the right. The phone parallaxes: rises from
+ * below the viewport and exits past its top edge as the section scrolls. */
+
+.meets-phone__grid {
+  display: grid;
+  /* Even halves — the copy column starts at the screen's midpoint. */
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+}
+
+.meets-phone__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.meets-phone__title {
+  color: var(--text-primary);
+  margin-top: var(--space-10);
+  max-width: 20ch;
+}
+
+.meets-phone__desc {
+  color: var(--text-list);
+  margin-top: var(--space-20);
+  max-width: 45ch;
+}
+
+.meets-phone__points {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-40) 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.meets-phone__point {
+  display: flex;
+  align-items: center;
+  gap: var(--space-15);
+  padding-block: var(--space-15);
+  color: var(--text-primary);
+}
+
+.meets-phone__point-dot {
+  flex: none;
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ── Phone stage — canvas the size of a viewport, phone fills it ──────── */
+.meets-phone__fly {
+  min-width: 0;
+  will-change: transform;
+  /* Pull the phone a step further left, toward the page edge. */
+  margin-left: calc(-60 * var(--u));
+}
+
+.meets-phone__stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meets-phone__canvas {
+  position: relative;
+  width: 100%;
+  height: min(calc(1100 * var(--u)), 105vh);
+  display: block;
+}
+
+.meets-phone__img {
+  position: relative;
+  width: min(80%, calc(420 * var(--u)));
+  height: auto;
+  display: block;
+  margin-inline: auto;
+}
+
+@media (max-width: 1023.98px) {
+  .meets-phone__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+
+  .meets-phone__fly {
+    margin-left: 0;
+  }
+
+  /* Copy first on the stacked layout; the flying phone follows it. */
+  .meets-phone__text {
+    order: 1;
+  }
+
+  .meets-phone__fly {
+    order: 2;
+  }
+
+  .meets-phone__canvas {
+    height: min(calc(700 * var(--u)), 85vh);
+  }
+}

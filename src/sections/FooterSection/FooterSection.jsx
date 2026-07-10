@@ -72,7 +72,7 @@ export default function FooterSection() {
           <div className="footer-col footer-col--contacts">
             <h3 className="footer-col__heading">{t("contacts.heading")}</h3>
             <ul className="footer-col__list">
-              <li><a href="mailto:hello@naura.io" className="footer-link">{t("contacts.email")}</a></li>
+              <li><a href="mailto:naura.io@naura.io" className="footer-link">{t("contacts.email")}</a></li>
               <li><a href="https://t.me/naura_sp" className="footer-link">{t("contacts.telegram")}</a></li>
               <li><a href="https://t.me/nauraio_bot" className="footer-link">{t("contacts.bot")}</a></li>
             </ul>

@@ -24,9 +24,7 @@
   width: min(100%, calc(980 * var(--u)));
   margin: auto;
   padding: clamp(var(--space-30), 3vw, var(--space-50));
-  background:
-    radial-gradient(120% 80% at 100% 0%, rgba(134, 66, 255, 0.16), transparent 55%),
-    #0b0b0c;
+  background: var(--bg-page);
   border: 1px solid var(--border-subtle);
   border-radius: var(--card-radius);
   box-shadow: 0 calc(40 * var(--u)) calc(120 * var(--u)) rgba(0, 0, 0, 0.6);

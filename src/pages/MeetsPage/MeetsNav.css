@@ -1,0 +1,109 @@
+/* MeetsNav — static nav inside the hero stage (scrolls away with it),
+ * mirroring the landing's hero-nav grid: logo | centered links | actions. */
+
+.meets-nav {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: var(--space-40) var(--navbar-padding-x) 0;
+}
+
+/* ── Logo ─────────────────────────────────────────────────────────────── */
+.meets-nav__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  color: var(--text-primary);
+  text-decoration: none;
+  justify-self: start;
+}
+
+.meets-nav__logo-mark {
+  display: block;
+  height: 20px;   /* fixed — never shrinks with --u in the zoom range */
+  width: auto;
+}
+
+.meets-nav__logo-text {
+  font-size: var(--text-nav);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  color: var(--accent-primary);
+}
+
+/* ── Links ────────────────────────────────────────────────────────────── */
+.meets-nav__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navbar-gap);
+}
+
+.meets-nav__link {
+  color: var(--text-primary);
+  font-size: var(--text-nav);
+  opacity: 0.8;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: opacity var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-nav__link:hover {
+  opacity: 1;
+}
+
+/* ── Actions ──────────────────────────────────────────────────────────── */
+.meets-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;              /* fixed — button group stays desktop-size ≥1200 */
+  justify-self: end;
+}
+
+.meets-nav__lang {
+  flex: none;
+  width: 45px;            /* fixed — never shrinks with --u in the zoom range */
+  height: 45px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-btn-sm);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-in-out),
+              box-shadow var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-nav__lang:hover {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ── ≤1199 — minimal bar: logo left, lang + sign-in right ─────────────── */
+@media (max-width: 1199.98px) {
+  .meets-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .meets-nav__links,
+  .meets-nav .meets-nav__start {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .meets-nav {
+    padding: var(--space-30) var(--space-20) 0;
+  }
+}

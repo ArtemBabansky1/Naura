@@ -1,0 +1,262 @@
+/* MeetsWeek — pinned scrollytelling. Left column (per the mockup): eyebrow,
+ * left-aligned headline, then the swapping step as a numeral | copy row,
+ * with the CTA below. Right: the 7-segment week wheel that fills to the
+ * active step's weekday. */
+
+/* ── Scroll mode: the content-sized card sits in normal flow (30px sheet
+ * gaps) and pins at the viewport center for the step animation — GSAP's
+ * pin spacer provides the scroll room, so no oversized wrappers here. ──── */
+.meets-week.is-scroll {
+  /* No .section top gap — the wrapper sheet's margin is the visual gap. */
+  padding-top: 0;
+}
+
+/* The white card itself — content-sized, 100px of air above and below the
+ * content; the backdrop shows around it while the screen is pinned. */
+.mweek-panel {
+  width: 100%;
+  background: var(--bg-page);
+  border-radius: var(--radius-40);
+  padding-block: 100px;
+}
+
+.mweek-inner {
+  display: grid;
+  grid-template-columns: minmax(calc(300 * var(--u)), calc(480 * var(--u))) 1fr;
+  align-items: center;
+  gap: var(--space-60);
+}
+
+/* ── Left column: headline → step layers → CTA — centered on Y against
+ * the (taller) wheel column. ──────────────────────────────────────────── */
+.mweek-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mweek-headline {
+  color: var(--text-primary);
+  /* 2× the section h2 scale, then 30% down per the mockup. */
+  font-size: calc(var(--text-h2) * 1.4);
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+/* Step layers share one grid cell — they cross-fade in place. */
+.mweek-layers {
+  display: grid;
+  margin-top: var(--space-50);
+}
+
+.mweek-text {
+  grid-area: 1 / 1;
+  /* Centered in the stack cell: the cell is as tall as the TALLEST step,
+   * so centering splits the spare space evenly — the gap above the visible
+   * step (to the headline) and below it (to the CTA) reads the same. */
+  align-self: center;
+  pointer-events: none;
+  transform-origin: left center;
+}
+
+.mweek-cta {
+  margin-top: var(--space-50);
+}
+
+/* ── Step row: numeral | title + description ──────────────────────────── */
+.mweek-step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-25);
+}
+
+/* Step numeral — solid accent purple. */
+.mweek-num {
+  display: block;
+  flex: none;
+  font-size: clamp(calc(75 * var(--u)), 7.5vw, calc(110 * var(--u)));
+  font-weight: var(--weight-bold);
+  line-height: 0.85;
+  color: var(--accent-primary);
+}
+
+.mweek-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding-top: var(--space-5);
+}
+
+.mweek-title {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.mweek-desc {
+  margin: 0;
+  max-width: calc(320 * var(--u));
+  color: var(--text-list);
+}
+
+/* ── Week wheel ───────────────────────────────────────────────────────── */
+.mweek-wheel-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.mweek-wheel {
+  position: relative;
+  /* Capped so the card (wheel + 2×100px padding) still fits the viewport
+   * while pinned. */
+  width: min(100%, calc(100vh - 300px));
+  aspect-ratio: 1;
+}
+
+.mweek-wheel__svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.mweek-seg {
+  fill: none;
+  stroke: var(--bg-card-muted);
+  stroke-width: calc(40 * var(--u));
+  stroke-linecap: round;
+}
+
+/* Active overlay — pathLength="1" normalizes the dash to the arc length;
+ * the scroll render slides stroke-dashoffset 1 → 0 so each segment fills
+ * along its arc like liquid. */
+.mweek-seg--on {
+  stroke: var(--accent-primary);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 calc(15 * var(--u)) var(--color-base-purple-glow));
+}
+
+.mweek-day {
+  fill: var(--text-muted);
+  font-family: var(--font-primary);
+  font-size: calc(17 * var(--u));
+  font-weight: var(--weight-regular);
+  dominant-baseline: middle;
+  transition: fill var(--duration-base) var(--ease-in-out);
+}
+
+.mweek-day.is-on {
+  fill: var(--accent-primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* Center readout — day name + x/7 */
+.mweek-wheel__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  text-align: center;
+  pointer-events: none;
+}
+
+.mweek-wheel__day {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.mweek-wheel__count {
+  font-size: var(--text-body);
+  color: var(--text-muted);
+}
+
+/* ── Stacked scroll mode (<1024): text above the wheel ────────────────── */
+@media (max-width: 1023.98px) {
+
+  .meets-week.is-scroll .mweek-inner {
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    gap: var(--space-30);
+  }
+
+  .mweek-layers {
+    margin-top: var(--space-40);
+  }
+
+  .mweek-cta {
+    margin-top: var(--space-40);
+  }
+
+  .mweek-panel {
+    /* 2×100px would push the stacked card past the viewport on phones. */
+    padding-block: var(--space-50);
+  }
+
+  .mweek-wheel {
+    width: min(100%, 46vh);
+    margin-inline: auto;
+  }
+}
+
+/* ── Static mode (reduced motion): plain stacked steps ────────────────── */
+.meets-week.is-static {
+  /* The sheet wrapper is transparent for this section — paint the white
+   * card on the section itself in static mode. */
+  background: var(--bg-page);
+  border-radius: var(--radius-40);
+  padding-block: 100px;
+}
+
+.meets-week.is-static .mweek-text {
+  pointer-events: auto;
+}
+
+.mweek-static-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: var(--space-40);
+}
+
+.mweek-static-head .mweek-headline {
+  margin-top: var(--space-15);
+}
+
+.mweek-static-step {
+  display: grid;
+  grid-template-columns: minmax(calc(300 * var(--u)), calc(480 * var(--u))) 1fr;
+  align-items: center;
+  gap: var(--space-60);
+  padding-block: var(--space-80);
+}
+
+.mweek-static-step .mweek-wheel {
+  width: min(100%, calc(460 * var(--u)));
+  margin-inline: auto;
+}
+
+.mweek-static-cta {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 767.98px) {
+  .mweek-static-step {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+    padding-block: var(--space-60);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mweek-text {
+    transform: none !important;
+  }
+}

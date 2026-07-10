@@ -1,0 +1,191 @@
+/* MeetsForm — a rounded "window" in the white sheet: the panel runs the
+ * page-backdrop animation, big white headline + note on the left, white
+ * form card on the right. */
+
+.meets-form__panel {
+  position: relative;
+  display: grid;
+  /* Form column is 30% wider (440u → 570u), growing leftwards. */
+  grid-template-columns: 1fr minmax(calc(415 * var(--u)), calc(570 * var(--u)));
+  gap: var(--space-60);
+  align-items: center;
+  /* Height hugs the form card: the same 40px air on every side of it. */
+  padding: var(--space-40);
+  border-radius: var(--section-radius);
+  overflow: clip;
+  isolation: isolate;
+}
+
+/* The generative canvas fills the window behind the content. */
+.meets-form__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── Left column — headline top, note at mid-height ───────────────────── */
+.meets-form__left {
+  position: relative;
+  z-index: 1;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Oversized white headline over the window (up to 120px on the 1920 grid);
+ * capped at ~12ch so both locales break into two lines. */
+.meets-form__title {
+  color: var(--color-base-white);
+  font-size: clamp(4rem, 5vw + 2.5rem, 7.5rem);
+  /* Half the tight leading's interline gap (1.2 → 1.1). */
+  line-height: 1.1;
+  max-width: 12ch;
+}
+
+/* Note rides at the bottom of the column, per the mockup. */
+.meets-form__desc {
+  color: var(--color-base-white);
+  margin-top: auto;
+  padding-top: var(--space-40);
+  max-width: 30ch;
+  font-size: var(--text-body-lg);
+}
+
+/* ── Form card — white, floating over the panel ───────────────────────── */
+.meets-form__card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border: 1px solid var(--border-default);
+  border-radius: var(--card-radius);
+  padding: var(--space-30);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  background: var(--bg-card);
+  box-shadow: 0 calc(10 * var(--u)) calc(40 * var(--u)) 0 rgba(0, 0, 0, 0.08);
+}
+
+.meets-form__banner {
+  margin: 0;
+  padding: var(--space-10) var(--space-15);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-10);
+  color: var(--accent-primary);
+}
+
+.meets-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.meets-form__label {
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.meets-form__input {
+  width: 100%;
+  padding: var(--space-15) var(--space-20);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-20);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  transition: border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-form__input::placeholder {
+  color: var(--text-muted);
+}
+
+.meets-form__input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.meets-form__textarea {
+  resize: none;
+}
+
+/* ── Consents ─────────────────────────────────────────────────────────── */
+.meets-form__consents {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+}
+
+.meets-form__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10);
+  cursor: pointer;
+  color: var(--text-list);
+}
+
+.meets-form__checkbox {
+  flex: none;
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  margin: 0;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}
+
+.meets-form__consent-link {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: calc(2 * var(--u));
+}
+
+.meets-form__consent-link:hover {
+  opacity: 0.8;
+}
+
+/* ── Submit / success ─────────────────────────────────────────────────── */
+.meets-form__submit {
+  width: 100%;
+}
+
+.meets-form__submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.meets-form__success {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-15);
+  min-height: calc(300 * var(--u));
+}
+
+.meets-form__success-body {
+  color: var(--text-list);
+  max-width: 40ch;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1023.98px) {
+  .meets-form__panel {
+    grid-template-columns: 1fr;
+    /* Stack gap = panel padding, so the card keeps the SAME air on every
+     * side (the top gap used to read bigger than the sides). */
+    gap: var(--space-30);
+    padding: var(--space-30);
+    min-height: 0;
+  }
+
+  .meets-form__desc {
+    margin-top: var(--space-20);
+  }
+}

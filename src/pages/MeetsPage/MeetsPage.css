@@ -1,0 +1,192 @@
+/* MeetsPage — light-theme scope + shared page primitives.
+ *
+ * The landing is dark; this page re-maps the SEMANTIC tokens to a white
+ * theme once, at the page root. Every meets block reads only semantic
+ * tokens, so `.meets-dark` flips a single container back to the dark set
+ * (the "black container" accent block) with zero per-component overrides.
+ * Only existing primitives from tokens.css are referenced — no new colors.
+ */
+
+.meets-page {
+  --bg-page:        var(--color-base-white);
+  --bg-surface:     var(--color-base-white);
+  --bg-card:        var(--color-base-white);
+  /* Page-scoped primary ink: softened near-black (#414141) per design. */
+  --text-primary:   #414141;
+  --text-list:      var(--color-base-gray-600);
+  --text-meta:      var(--color-base-gray-800);
+  --border-default: var(--color-base-gray-800-30);
+  /* Muted card surface — borderless bento cards on the white sheets. */
+  --bg-card-muted:  #f6f6f6;
+
+  color: var(--text-primary);
+  min-height: 100dvh;
+}
+
+/* Generative backdrop canvas — fixed behind the white panels (drawn by
+ * MeetsBackdrop.jsx; the solid green is a first-paint fallback). */
+.meets-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #4c8a33; /* green fallback before the shader boots */
+  pointer-events: none;
+}
+
+/* Content rides above the backdrop. The hero stays full-bleed; the white
+ * column (sheet + footer) is inset 50px so the backdrop shows in the
+ * side gutters below the hero. */
+.meets-page main {
+  position: relative;
+  z-index: 1;
+}
+
+.meets-page .meets-footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 30px;
+  margin-inline: 30px;
+  background: var(--bg-page);
+  border-radius: var(--radius-40) var(--radius-40) 0 0;
+}
+
+/* Selection stays readable on the light page */
+.meets-page ::selection {
+  background-color: var(--accent-primary);
+  color: var(--color-base-white);
+}
+
+/* Dark container accent — restores the root (landing) dark mapping. */
+.meets-dark {
+  --bg-page:        var(--color-base-black);
+  --bg-surface:     var(--color-base-black);
+  --bg-card:        var(--color-base-black);
+  --text-primary:   var(--color-base-white);
+  --text-list:      var(--color-base-gray-100);
+  --text-meta:      var(--color-base-gray-200);
+  --border-default: var(--color-base-gray-800);
+
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* Anchor targets land below the nav bar */
+.meets-page section[id] {
+  scroll-margin-top: var(--space-100);
+}
+
+/* ── Sheets — the white surface is split into stand-alone rounded panels
+ * (50px side gutters, 30px backdrop gaps between panels). ─────────────── */
+.meets-sheet {
+  position: relative;
+  z-index: 2;
+  /* 30px side gutters — the fixed backdrop shows around the white sheet. */
+  margin-inline: 30px;
+  background: var(--bg-page);
+  border-radius: var(--radius-40);
+  /* 100px of air between the content and the panel's top/bottom edges. */
+  padding-block: 100px;
+}
+
+/* The sheet's own 100px already spaces the first section from the edge —
+ * drop that section's .section gap so the two don't stack. */
+.meets-sheet > .section:first-child {
+  padding-top: 0;
+}
+
+/* First sheet rides OVER the hills (the hero stage is 110dvh tall, so the
+ * sheet overlaps its extra 10dvh). */
+.meets-sheet--hero {
+  margin-top: -10dvh;
+}
+
+/* Backdrop gap between neighbouring white panels. */
+.meets-sheet + .meets-sheet {
+  margin-top: 30px;
+}
+
+/* Transparent wrappers (week, form) — the blocks sit right on the backdrop
+ * and paint their own surfaces. */
+.meets-sheet--clear {
+  background: none;
+  border-radius: 0;
+  padding-block: 0;
+}
+
+/* ── Shared CTA buttons (mirrors the hero .btn-hero recipe) ──────────────── */
+.meets-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  padding: var(--btn-cta-py) var(--btn-cta-px);
+  border-radius: var(--btn-cta-radius);
+  font-family: inherit;
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: none;
+  transition: opacity var(--duration-fast) var(--ease-in-out),
+              box-shadow var(--duration-fast) var(--ease-in-out),
+              border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-btn--primary {
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+}
+
+.meets-btn--primary:hover {
+  opacity: 0.88;
+  box-shadow: var(--shadow-glow);
+}
+
+.meets-btn--ghost {
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+.meets-btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+/* ── RevealText — word-by-word mask reveal (see motion.jsx) ──────────────── */
+.m-reveal__mask {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: bottom;
+  /* Room for descenders so «р», «у», g, y aren't shaved by the clip. */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.m-reveal__word {
+  display: inline-block;
+  transform-origin: left bottom;
+  white-space: pre;
+  will-change: transform;
+}
+
+/* ── Shared section header (eyebrow + title + optional description) ─────── */
+.meets-head__eyebrow {
+  display: block;
+}
+
+.meets-head__title {
+  margin-top: var(--space-10);
+  color: var(--text-primary);
+  max-width: 25ch;
+}
+
+.meets-head__desc {
+  margin-top: var(--space-20);
+  max-width: 55ch;
+  color: var(--text-list);
+}

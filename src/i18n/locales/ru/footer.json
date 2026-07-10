@@ -3,6 +3,6 @@
     "heading": "Продукт",
     "links": { "home": "Главная", "businessCards": "Визитки", "communities": "Для\u00A0сообществ", "blog": "Блог" }
   },
-  "contacts": { "heading": "Контакты", "email": "hello@naura.io", "telegram": "TG: @naura_sp", "bot": "@nauraio_bot" },
+  "contacts": { "heading": "Контакты", "email": "naura.io@naura.io", "telegram": "TG: @naura_sp", "bot": "@nauraio_bot" },
   "legal": { "privacy": "Политика конфиденциальности", "terms": "Условия использования", "faq": "FAQ", "support": "Поддержка", "copyright": "© 2026 Naura. Все права защищены." }
 }

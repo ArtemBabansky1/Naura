@@ -1,0 +1,118 @@
+/* MeetsCommunities — bento pairing in the page's card language: problem
+ * (bordered white card) vs. solution (purple accent card) at equal height,
+ * then a row of three bordered benefit cards, same recipe as how/why. */
+
+.meets-communities__title-accent {
+  color: var(--accent-primary);
+}
+
+.meets-communities__grid {
+  margin-top: var(--section-gap-inner);
+  display: grid;
+  /* Solution carries more copy — give it the wider track. */
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--grid-gap);
+  align-items: stretch;
+}
+
+.meets-communities__card-title {
+  color: inherit;
+}
+
+/* ── Problem — muted borderless card ──────────────────────────────────── */
+.meets-communities__problem {
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap-sm);
+  color: var(--text-primary);
+  background: var(--bg-card-muted);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.meets-communities__problem:hover {
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+.meets-communities__problem-desc {
+  color: var(--text-list);
+  max-width: 50ch;
+}
+
+/* ── Solution — purple accent card, glowing like the featured pricing
+ * card on the landing. ────────────────────────────────────────────────── */
+.meets-communities__solution {
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap-sm);
+  background: var(--bg-accent);
+  color: var(--text-on-accent);
+  box-shadow: var(--shadow-glow);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.meets-communities__solution:hover {
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+.meets-communities__solution-desc {
+  max-width: 50ch;
+}
+
+/* ── Benefits — three bordered cards, title top / description bottom ──── */
+.meets-communities__benefits {
+  margin-top: var(--grid-gap);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+  list-style: none;
+  padding: 0;
+}
+
+.meets-communities__benefit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-30);
+  min-height: calc(200 * var(--u));
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  background: var(--bg-card-muted);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.meets-communities__benefit:hover {
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+.meets-communities__benefit-title {
+  margin: 0;
+  color: var(--text-primary);
+  max-width: 16ch;
+}
+
+.meets-communities__benefit-desc {
+  margin: 0;
+  color: var(--text-list);
+  max-width: 36ch;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1023.98px) {
+  .meets-communities__grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-row-gap);
+  }
+
+  .meets-communities__benefits {
+    grid-template-columns: 1fr;
+    gap: var(--grid-row-gap);
+  }
+
+  .meets-communities__benefit {
+    min-height: 0;
+  }
+}

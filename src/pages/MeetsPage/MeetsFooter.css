@@ -1,0 +1,125 @@
+/* MeetsFooter — light counterpart of the landing footer: a bordered panel
+ * with rounded top corners, a giant gradient N mark and accent headings. */
+
+.meets-footer {
+  /* The footer is its own white container now (see MeetsPage.css) — a
+   * compact top padding instead of the old full section gap. */
+  padding-top: var(--space-40);
+  padding-inline: var(--space-40);
+}
+
+.meets-footer__panel {
+  max-width: var(--grid-content);
+  margin-inline: auto;
+  padding: var(--space-80) var(--space-100) var(--space-60);
+  background: var(--bg-page);
+  border-radius: var(--radius-40) var(--radius-40) 0 0;
+}
+
+.meets-footer__content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  column-gap: var(--space-40);
+  row-gap: var(--space-40);
+  align-items: start;
+}
+
+/* ── Brand ────────────────────────────────────────────────────────────── */
+.meets-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+}
+
+.meets-footer__mark {
+  display: block;
+  width: auto;
+  height: calc(120 * var(--u));
+  align-self: flex-start;
+  color: var(--accent-primary);
+}
+
+.meets-footer__wordmark {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.meets-footer__wordmark-accent {
+  color: var(--accent-primary);
+}
+
+.meets-footer__subtitle {
+  color: var(--text-muted);
+}
+
+.meets-footer__copy {
+  margin-top: var(--space-10);
+  color: var(--text-muted);
+}
+
+/* ── Link columns ─────────────────────────────────────────────────────── */
+.meets-footer__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.meets-footer__heading {
+  margin: 0 0 var(--space-25);
+  color: var(--accent-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+}
+
+.meets-footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+}
+
+.meets-footer__link {
+  color: var(--text-meta);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  line-height: 1.3;
+  transition: color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-footer__link:hover {
+  color: var(--accent-primary);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1023.98px) {
+  .meets-footer__panel {
+    padding: var(--space-60) var(--space-40) var(--space-40);
+  }
+
+  .meets-footer__content {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .meets-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .meets-footer__mark {
+    height: calc(80 * var(--u));
+  }
+}
+
+@media (max-width: 479.98px) {
+  .meets-footer {
+    padding-inline: var(--space-20);
+  }
+
+  .meets-footer__content {
+    grid-template-columns: 1fr;
+  }
+}

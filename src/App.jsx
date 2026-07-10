@@ -10,9 +10,11 @@ import { LandingPage } from "./pages/LandingPage/LandingPage"
 const LegalPage = lazy(() => import("./pages/LegalPage/LegalPage").then((m) => ({ default: m.LegalPage })))
 const SupportPage = lazy(() => import("./pages/SupportPage/SupportPage").then((m) => ({ default: m.SupportPage })))
 const FaqPage = lazy(() => import("./pages/FaqPage/FaqPage").then((m) => ({ default: m.FaqPage })))
+const MeetsPage = lazy(() => import("./pages/MeetsPage/MeetsPage").then((m) => ({ default: m.MeetsPage })))
 
 const ROUTES = [
   { path: "/", element: <LandingPage /> },
+  { path: "/meets", element: <MeetsPage /> },
   { path: "/privacy", element: <LegalPage doc="privacy" /> },
   { path: "/terms", element: <LegalPage doc="terms" /> },
   { path: "/support", element: <SupportPage /> },

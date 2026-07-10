@@ -1,0 +1,218 @@
+{
+  "pageTitle": "Naura Meets — random meetings with non-random people",
+  "metaDescription": "A\u00A0service for\u00A0meetings within communities and\u00A0by\u00A0interests. Expand your circle, find your people, get new ideas through regular meetings with interesting people.",
+  "nav": {
+    "how": "How meetings work",
+    "communities": "For\u00A0communities",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "signIn": "Log in",
+    "start": "Start meetings",
+    "ariaLabel": "Naura Meets navigation"
+  },
+  "hero": {
+    "titleAccent": "Random meetings",
+    "titleRest": "with non-random people",
+    "subtitle": "Naura Meets — a\u00A0service for\u00A0meetings within communities and\u00A0by\u00A0interests. Expand your circle, find your people, get new ideas through regular meetings with interesting people.",
+    "ctaStart": "Start meetings",
+    "ctaCommunity": "Connect for\u00A0community →"
+  },
+  "marquee": ["Random Coffee", "1-on-1 meetings", "New connections", "Your own pace", "Warm intros", "Experience exchange"],
+  "stats": [
+    { "value": 10, "suffix": "", "unit": "minutes", "label": "to\u00A0launch for\u00A0a\u00A0community" },
+    { "value": 20, "suffix": "–30", "unit": "minutes", "label": "one conversation lasts" },
+    { "value": 7, "suffix": "", "unit": "days", "label": "one round — one week" },
+    { "value": 1, "suffix": "-on-1", "unit": "", "label": "the\u00A0format of\u00A0every meeting" }
+  ],
+  "phone": {
+    "eyebrow": "Telegram Mini App",
+    "headline": "Meeting people starts in\u00A0Telegram",
+    "description": "Participants fill out\u00A0a\u00A0form and\u00A0get matches in\u00A0the\u00A0Telegram Mini App. No technical integration — just invite them via\u00A0link.",
+    "points": ["Profile and\u00A0matching — in\u00A0one chat", "Reminders and\u00A0check-ins arrive on\u00A0their own", "One-click feedback after the\u00A0meeting"],
+    "chat": {
+      "found": "Match found!",
+      "name": "Max",
+      "role": "Product lead",
+      "msg1": "Hi! We matched this week, when is a\u00A0good time for\u00A0a\u00A0call?",
+      "msg2": "Hey! Nice to\u00A0meet you 🤝 How about Thursday at\u00A07pm?",
+      "msg3": "Perfect, see you then! 👌"
+    }
+  },
+  "how": {
+    "eyebrow": "Rules and\u00A0traditions of\u00A0meetings",
+    "headline": "How meetings work",
+    "description": "Naura Meets is a\u00A0format of\u00A0regular meetings with new people. Every week you decide whether to\u00A0participate or\u00A0skip. If you participate, we match you and\u00A0provide context so\u00A0the\u00A0conversation doesn't start from scratch.",
+    "cards": [
+      {
+        "title": "Context before meeting",
+        "description": "See the\u00A0participant's profile: what they do, what they're looking for, how they can help"
+      },
+      {
+        "title": "Rhythm without pressure",
+        "description": "You decide each time — participate or\u00A0not. No pressure, your pace."
+      },
+      {
+        "title": "Protection from empty meetings",
+        "description": "If you don't connect, we'll find a\u00A0new match. After the\u00A0meeting — feedback that we take into account next time"
+      }
+    ]
+  },
+  "why": {
+    "eyebrow": "What outcome should we get from meetings?",
+    "headline": "What's the\u00A0magic of\u00A0two strangers meeting, who have something to\u00A0discuss?",
+    "note": "Every week \u2014 one new person and\u00A0a\u00A0conversation that doesn't start from scratch. Matching, context and\u00A0feedback are built in\u00A0\u2014 the\u00A0format runs itself.",
+    "cta": "For\u00A0organizers",
+    "cards": [
+      {
+        "title": "Go beyond your circle",
+        "description": "Meet people you wouldn't usually cross paths with"
+      },
+      {
+        "title": "Learn how others solve similar tasks",
+        "description": "Exchange experience with those going through the\u00A0same thing"
+      },
+      {
+        "title": "Find your people in\u00A0a\u00A0new environment",
+        "description": "Meet people from adjacent fields or\u00A0with similar interests"
+      },
+      {
+        "title": "Conversations that change something",
+        "description": "Get a\u00A0fresh perspective, ideas, and\u00A0contacts that remain after the\u00A0meeting"
+      }
+    ]
+  },
+  "week": {
+    "eyebrow": "What fills your week?",
+    "headline": "How the\u00A0week goes",
+    "days": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    "stepDays": ["Saturday", "Monday", "Wednesday", "Saturday"],
+    "steps": [
+      {
+        "title": "Saturday: decide",
+        "description": "Receive an\u00A0invitation to\u00A0the\u00A0round — participate or\u00A0skip"
+      },
+      {
+        "title": "Monday: meet",
+        "description": "See the\u00A0match's profile, write on\u00A0Telegram, arrange a\u00A0meeting"
+      },
+      {
+        "title": "Wednesday: change if needed",
+        "description": "Couldn't connect? We'll find a\u00A0new match for\u00A0this week"
+      },
+      {
+        "title": "Saturday: share experience",
+        "description": "Mark if the\u00A0meeting took place, rate it — we take it into account in\u00A0future rounds"
+      }
+    ],
+    "cta": "Try it"
+  },
+  "communities": {
+    "eyebrow": "Host your meetings in\u00A0the\u00A0Naura space",
+    "note": "Participants get to\u00A0know each other, newcomers integrate faster, activity grows along with community value — without your participation.",
+    "headlineAccent": "Naura Meets",
+    "headlineRest": "for\u00A0your community",
+    "problem": {
+      "title": "Problem",
+      "description": "Participants come to\u00A0events but\u00A0don't know each other. Newcomers get lost. Between meetings — silence. All this eats up\u00A0engagement, and\u00A0the\u00A0community remains formal."
+    },
+    "solution": {
+      "title": "Solution",
+      "description": "Naura Meets launches regular 1-on-1 meetings within your community. People meet themselves, you get a\u00A0tool that works on\u00A0autopilot.",
+      "benefits": [
+        {
+          "title": "Engagement on\u00A0autopilot",
+          "description": "Matching, notifications, meeting control — everything works without you"
+        },
+        {
+          "title": "Clear activity picture",
+          "description": "See who participates, how many meetings took place, what feedback"
+        },
+        {
+          "title": "Customization for\u00A0community",
+          "description": "Meeting format (online/offline), round frequency, access by\u00A0groups"
+        }
+      ]
+    }
+  },
+  "form": {
+    "headline": "Submit application",
+    "description": "Fill out\u00A0the\u00A0form — we will answer and\u00A0help connect meetings for\u00A0your community.",
+    "name": { "label": "Name", "placeholder": "How to\u00A0address you" },
+    "contact": { "label": "Contact", "placeholder": "Telegram / email / phone" },
+    "comment": { "label": "Comment", "placeholder": "Briefly tell about the\u00A0format and\u00A0audience" },
+    "consentPersonal": "I consent to\u00A0the\u00A0processing of\u00A0personal data in\u00A0accordance with the\u00A0<privacy>Privacy Policy</privacy> and\u00A0accept the\u00A0<terms>User Agreement</terms>",
+    "consentMarketing": "I agree to\u00A0receive informational and\u00A0promotional messages from Naura Meets",
+    "submit": "Submit application",
+    "submitting": "Sending…",
+    "successTitle": "Thank you! Your application has been sent.",
+    "successBody": "We will answer and\u00A0help connect meetings for\u00A0your community.",
+    "errorRequired": "Fill in\u00A0your name and\u00A0contact so\u00A0we can get back to\u00A0you."
+  },
+  "faq": {
+    "eyebrow": "Knowledge base",
+    "headline": "Frequently asked questions",
+    "groups": [
+      {
+        "title": "For\u00A0participants",
+        "items": [
+          {
+            "question": "What if the\u00A0match doesn't suit me?",
+            "answer": "If you haven't connected by\u00A0Wednesday, we'll find a\u00A0new match. After the\u00A0meeting, leave feedback, we'll take it into account next time."
+          },
+          {
+            "question": "Can I choose who to\u00A0meet with?",
+            "answer": "No, the\u00A0magic of\u00A0Meets is in\u00A0randomness! At\u00A0the\u00A0same time, we take into account the\u00A0profile context (sphere, interests, goals) to\u00A0select the\u00A0most interesting interlocutors."
+          },
+          {
+            "question": "How often do I need to\u00A0participate?",
+            "answer": "Every week you receive an\u00A0invitation — decide for\u00A0yourself. Skip a\u00A0round — nothing happens, return when convenient."
+          }
+        ]
+      },
+      {
+        "title": "For\u00A0owners",
+        "items": [
+          {
+            "question": "How long does launch take?",
+            "answer": "Setup — 10 minutes. Then everything works automatically."
+          },
+          {
+            "question": "Can I limit participants?",
+            "answer": "Yes, configure access by\u00A0groups, meeting format, round frequency."
+          },
+          {
+            "question": "What if participants don't meet?",
+            "answer": "We monitor this: check-in in\u00A0the\u00A0middle of\u00A0the\u00A0week, possibility of\u00A0replacing a\u00A0pair, feedback after the\u00A0round. You see the\u00A0statistics."
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "subtitle": "Regular 1-on-1 meeting service",
+    "navigation": {
+      "heading": "Navigation",
+      "home": "Naura home",
+      "how": "How meetings work",
+      "communities": "For\u00A0communities",
+      "faq": "FAQ",
+      "blog": "Blog"
+    },
+    "contacts": {
+      "heading": "Contacts",
+      "email": "naura.io@naura.io",
+      "telegram": "Telegram: @naura_sp"
+    },
+    "socials": {
+      "heading": "Socials",
+      "blog": "Telegram blog",
+      "podcast": "Random coffee podcast"
+    },
+    "docs": {
+      "heading": "Documents",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of\u00A0Service"
+    },
+    "copyright": "© 2026 Naura Meets"
+  }
+}

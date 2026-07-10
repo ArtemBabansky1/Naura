@@ -4,7 +4,7 @@
 
 ## Introduction
 
-These Terms of Use are a binding contract between you and Fargus AI Unlimited INC. at www.naura.io ("we", "us", "our"). It contains the rules and restrictions that govern your use of naura.io products and services (referred to below simply as NAURA™). If you have any questions, comments, or concerns regarding these Terms or our products and services, please contact us at [law@naura.io](mailto:law@naura.io).
+These Terms of Use are a binding contract between you and Fargus AI Unlimited INC. at www.naura.io ("we", "us", "our"). It contains the rules and restrictions that govern your use of naura.io products and services (referred to below simply as NAURA™). If you have any questions, comments, or concerns regarding these Terms or our products and services, please contact us at [naura.io@naura.io](mailto:naura.io@naura.io).
 
 Using Naura in any way means that you agree to all of these Terms, and these Terms will remain in effect while you use Naura. These Terms include everything in this document, as well as those in the [Privacy Policy](/privacy). If you don't agree with all of the following, you may not use or access Naura in any manner.
 
@@ -97,13 +97,13 @@ You understand and agree that it may not be possible to completely delete your c
 
 You agree that some of the obligations in these Terms will be in force even after you terminate your account. All of the following terms will survive termination: any obligation you have to pay us or indemnify us, any limitations on our liability, any terms regarding ownership or intellectual property rights, terms regarding disputes between us, and any other terms that, by their nature, should survive termination of these Terms.
 
-If you have deleted your account by mistake, contact us immediately at [dpo@naura.io](mailto:dpo@naura.io) or [law@naura.io](mailto:law@naura.io) – we will try to help, but unfortunately, we can't promise that we can recover or restore anything.
+If you have deleted your account by mistake, contact us immediately at [naura.io@naura.io](mailto:naura.io@naura.io) or [naura.io@naura.io](mailto:naura.io@naura.io) – we will try to help, but unfortunately, we can't promise that we can recover or restore anything.
 
 ## Naura's Privacy
 
 NAURA™ takes your privacy very seriously. For the current Naura [Privacy Policy](/privacy), please review it on our website.
 
-The Children's Online Privacy Protection Act ("COPPA") requires that online service providers obtain parental consent before they knowingly collect personally identifiable information online from children. We do not knowingly collect or solicit personally identifiable information from children under 16; if you are a child under 16, please do not attempt to register for Naura or send any personal information about yourself to us. If we learn we have collected personal information from a child under 16, we will delete that information as quickly as possible. If you believe that a child under 16 may have provided us personal information, please contact us at [dpo@naura.io](mailto:dpo@naura.io).
+The Children's Online Privacy Protection Act ("COPPA") requires that online service providers obtain parental consent before they knowingly collect personally identifiable information online from children. We do not knowingly collect or solicit personally identifiable information from children under 16; if you are a child under 16, please do not attempt to register for Naura or send any personal information about yourself to us. If we learn we have collected personal information from a child under 16, we will delete that information as quickly as possible. If you believe that a child under 16 may have provided us personal information, please contact us at [naura.io@naura.io](mailto:naura.io@naura.io).
 
 ## SMS Messaging
 

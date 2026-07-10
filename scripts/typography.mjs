@@ -29,7 +29,7 @@ const LOCALES_DIR = join(__dirname, '..', 'src', 'i18n', 'locales')
 
 const FILES = [
   'aiAgents', 'common', 'communities', 'cta', 'demoForm', 'faq', 'features',
-  'footer', 'hero', 'howItWorks', 'pricing', 'support', 'telegram',
+  'footer', 'hero', 'howItWorks', 'meets', 'pricing', 'support', 'telegram',
 ]
 
 // Русские предлоги и союзы (1–3 буквы). Однобуквенные склеиваются все —

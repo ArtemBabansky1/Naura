@@ -16,6 +16,7 @@ import enCta from './locales/en/cta.json'
 import enFooter from './locales/en/footer.json'
 import enSupport from './locales/en/support.json'
 import enDemoForm from './locales/en/demoForm.json'
+import enMeets from './locales/en/meets.json'
 
 import ruCommon from './locales/ru/common.json'
 import ruHero from './locales/ru/hero.json'
@@ -30,6 +31,7 @@ import ruCta from './locales/ru/cta.json'
 import ruFooter from './locales/ru/footer.json'
 import ruSupport from './locales/ru/support.json'
 import ruDemoForm from './locales/ru/demoForm.json'
+import ruMeets from './locales/ru/meets.json'
 
 const languageDetector = new LanguageDetector()
 languageDetector.addDetector({
@@ -45,8 +47,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      en: { common: enCommon, hero: enHero, features: enFeatures, howItWorks: enHowItWorks, communities: enCommunities, telegram: enTelegram, aiAgents: enAiAgents, pricing: enPricing, faq: enFaq, cta: enCta, footer: enFooter, support: enSupport, demoForm: enDemoForm },
-      ru: { common: ruCommon, hero: ruHero, features: ruFeatures, howItWorks: ruHowItWorks, communities: ruCommunities, telegram: ruTelegram, aiAgents: ruAiAgents, pricing: ruPricing, faq: ruFaq, cta: ruCta, footer: ruFooter, support: ruSupport, demoForm: ruDemoForm },
+      en: { common: enCommon, hero: enHero, features: enFeatures, howItWorks: enHowItWorks, communities: enCommunities, telegram: enTelegram, aiAgents: enAiAgents, pricing: enPricing, faq: enFaq, cta: enCta, footer: enFooter, support: enSupport, demoForm: enDemoForm, meets: enMeets },
+      ru: { common: ruCommon, hero: ruHero, features: ruFeatures, howItWorks: ruHowItWorks, communities: ruCommunities, telegram: ruTelegram, aiAgents: ruAiAgents, pricing: ruPricing, faq: ruFaq, cta: ruCta, footer: ruFooter, support: ruSupport, demoForm: ruDemoForm, meets: ruMeets },
     },
     fallbackLng: 'en',
     supportedLngs: ['en', 'ru'],

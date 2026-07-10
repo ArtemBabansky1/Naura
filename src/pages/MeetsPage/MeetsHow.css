@@ -1,0 +1,171 @@
+/* MeetsHow — merged how + stats bento (landing FeaturesSection manner):
+ * two rows of mixed-width containers, icons instead of numerals, and one
+ * photo card reusing the hero hills. */
+
+.meets-how__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: calc(760 * var(--u));
+  margin: 0 auto var(--space-75);
+}
+
+.meets-how__title {
+  color: var(--text-primary);
+  margin-top: var(--space-10);
+}
+
+.meets-how__desc {
+  color: var(--text-list);
+  max-width: calc(600 * var(--u));
+  margin-top: var(--space-20);
+}
+
+/* ── Bento rows — Figma 676/676/328 ratio, mirrored on row B ──────────── */
+.meets-how__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-row-gap);
+}
+
+.meets-how__row {
+  display: grid;
+  gap: var(--grid-gap);
+  align-items: stretch;
+}
+
+.meets-how__row--a {
+  grid-template-columns: minmax(0, 676fr) minmax(0, 676fr) minmax(0, 328fr);
+}
+
+.meets-how__row--b {
+  grid-template-columns: minmax(0, 328fr) minmax(0, 676fr) minmax(0, 676fr);
+}
+
+/* ── Cards ────────────────────────────────────────────────────────────── */
+.meets-how__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(340 * var(--u));
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  background: var(--bg-card-muted);
+  overflow: clip;
+  isolation: isolate;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.meets-how__card:hover {
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+.meets-how__icon {
+  width: calc(30 * var(--u));
+  height: calc(30 * var(--u));
+  color: var(--accent-primary);
+  margin-bottom: var(--space-20);
+}
+
+.meets-how__card-title {
+  color: var(--text-primary);
+}
+
+.meets-how__card-desc {
+  color: var(--text-list);
+  margin-top: var(--space-20);
+  max-width: 45ch;
+}
+
+/* In-card stat (7 days inside the rhythm card) — pinned to the bottom. */
+.meets-how__card-stat {
+  margin-top: auto;
+  padding-top: var(--space-30);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-15);
+}
+
+/* ── Stat cards ───────────────────────────────────────────────────────── */
+.meets-how__card--sm {
+  justify-content: flex-end;
+  gap: var(--space-15);
+}
+
+.meets-how__stat-value {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-semibold);
+  line-height: 1.1;
+  color: var(--accent-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Number itself never breaks; the unit may wrap to its own line. */
+.meets-how__stat-num {
+  white-space: nowrap;
+}
+
+.meets-how__stat-unit {
+  font-size: var(--text-h4);
+  color: var(--text-primary);
+}
+
+.meets-how__stat-label {
+  color: var(--text-list);
+  max-width: 28ch;
+  margin: 0;
+}
+
+/* ── Photo card — hero hills as the container background ──────────────── */
+.meets-how__card--photo {
+  border: none;
+  justify-content: flex-start;
+}
+
+.meets-how__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  pointer-events: none;
+}
+
+.meets-how__photo-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-15);
+}
+
+.meets-how__photo-cta {
+  margin-top: var(--space-15);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1199.98px) {
+  .meets-how__row--a,
+  .meets-how__row--b {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .meets-how__card {
+    min-height: calc(260 * var(--u));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .meets-how__row--a,
+  .meets-how__row--b {
+    grid-template-columns: 1fr;
+  }
+
+  .meets-how__card {
+    min-height: calc(200 * var(--u));
+  }
+}

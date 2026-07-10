@@ -1,0 +1,46 @@
+/* MeetsMarquee — hairline-framed strip of looping phrases. */
+
+.meets-marquee {
+  /* No own top spacing — the sheet's 100px padding is the visual gap. */
+  overflow: hidden;
+}
+
+.meets-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.meets-marquee__row {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.meets-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-40);
+  padding-right: var(--space-40);
+}
+
+.meets-marquee__text {
+  /* 2× the h3 scale per the mockup. */
+  font-size: calc(var(--text-h3) * 2);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.meets-marquee__text--accent {
+  color: var(--accent-primary);
+}
+
+.meets-marquee__dot {
+  width: calc(8 * var(--u));
+  height: calc(8 * var(--u));
+  border-radius: 50%;
+  background: var(--accent-primary);
+  opacity: 0.5;
+}
