@@ -1,6 +1,5 @@
-/* MeetsForm — a rounded "window" in the white sheet: the panel runs the
- * page-backdrop animation, big white headline + note on the left, white
- * form card on the right. */
+/* MeetsForm — a rounded panel with the hero hills photo as background,
+ * big white headline + note on the left, white form card on the right. */
 
 .meets-form__panel {
   position: relative;
@@ -16,15 +15,24 @@
   isolation: isolate;
 }
 
-/* The generative canvas fills the window behind the content. */
-.meets-form__bg {
+/* The hills photo fills the panel behind the content; the parallax shift
+ * (framer-motion y + 1.2 scale) stays clipped by the panel's overflow.
+ * The <picture> wrapper must sit OUTSIDE the grid flow — as a grid item it
+ * would claim the first column and shove the real columns around. */
+.meets-form__panel > picture {
   position: absolute;
   inset: 0;
   z-index: 0;
+  display: block;
+  pointer-events: none;
+}
+
+.meets-form__bg {
   width: 100%;
   height: 100%;
   display: block;
-  pointer-events: none;
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 /* ── Left column — headline top, note at mid-height ───────────────────── */
@@ -61,7 +69,6 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  border: 1px solid var(--border-default);
   border-radius: var(--card-radius);
   padding: var(--space-30);
   display: flex;

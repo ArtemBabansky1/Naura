@@ -104,7 +104,8 @@
         "description": "Mark if the\u00A0meeting took place, rate it — we take it into account in\u00A0future rounds"
       }
     ],
-    "cta": "Try it"
+    "cta": "Try it",
+    "ctaSecondary": "For communities"
   },
   "communities": {
     "eyebrow": "Host your meetings in\u00A0the\u00A0Naura space",
@@ -121,7 +122,7 @@
       "benefits": [
         {
           "title": "Engagement on\u00A0autopilot",
-          "description": "Matching, notifications, meeting control — everything works without you"
+          "description": "Matching, notifications, meeting control —\neverything works without you"
         },
         {
           "title": "Clear activity picture",
@@ -129,7 +130,7 @@
         },
         {
           "title": "Customization for\u00A0community",
-          "description": "Meeting format (online/offline), round frequency, access by\u00A0groups"
+          "description": "Meeting format (online/offline), round\nfrequency, access by\u00A0groups"
         }
       ]
     }

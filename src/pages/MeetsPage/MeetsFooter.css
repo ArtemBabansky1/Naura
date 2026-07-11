@@ -1,15 +1,8 @@
-/* MeetsFooter — light counterpart of the landing footer: a bordered panel
- * with rounded top corners, a giant gradient N mark and accent headings. */
-
-.meets-footer {
-  /* The footer is its own white container now (see MeetsPage.css) — a
-   * compact top padding instead of the old full section gap. */
-  padding-top: var(--space-40);
-  padding-inline: var(--space-40);
-}
+/* MeetsFooter — dark (#282828, via .meets-dark) rounded panel with a giant
+ * accent N mark; sits on the same .container band as the other blocks. */
 
 .meets-footer__panel {
-  max-width: var(--grid-content);
+  width: min(100% - 2 * var(--gutter), var(--content-max));
   margin-inline: auto;
   padding: var(--space-80) var(--space-100) var(--space-60);
   background: var(--bg-page);
@@ -115,10 +108,6 @@
 }
 
 @media (max-width: 479.98px) {
-  .meets-footer {
-    padding-inline: var(--space-20);
-  }
-
   .meets-footer__content {
     grid-template-columns: 1fr;
   }

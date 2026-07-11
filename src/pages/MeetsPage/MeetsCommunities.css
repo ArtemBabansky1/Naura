@@ -1,118 +1,171 @@
-/* MeetsCommunities — bento pairing in the page's card language: problem
- * (bordered white card) vs. solution (purple accent card) at equal height,
- * then a row of three bordered benefit cards, same recipe as how/why. */
+/* MeetsCommunities — editorial problem/solution pairing per the mockup:
+ * headline left + small right-aligned note, then two tall cards. The light
+ * card carries the problem copy with a giant dark word at the bottom; the
+ * dark (#282828, via .meets-dark) card holds the benefit chips (tabs), the
+ * active chip's copy and a giant accent word. */
 
 .meets-communities__title-accent {
   color: var(--accent-primary);
 }
 
+/* ── Head — title left, note right, note baseline-aligned to the title's
+ * bottom edge. ────────────────────────────────────────────────────────── */
+.meets-communities__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-60);
+}
+
+.meets-communities__title {
+  color: var(--text-primary);
+  /* Two lines like the mockup: "Naura Meets for your / community". */
+  max-width: 20ch;
+}
+
+.meets-communities__note {
+  margin: 0;
+  max-width: 38ch;
+  text-align: right;
+  color: var(--text-list);
+}
+
+/* ── Cards ────────────────────────────────────────────────────────────── */
 .meets-communities__grid {
-  margin-top: var(--section-gap-inner);
+  /* 50px from the head down to the cards, per the mockup. */
+  margin-top: var(--space-50);
   display: grid;
-  /* Solution carries more copy — give it the wider track. */
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--grid-gap);
   align-items: stretch;
 }
 
-.meets-communities__card-title {
-  color: inherit;
-}
-
-/* ── Problem — muted borderless card ──────────────────────────────────── */
-.meets-communities__problem {
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
+.meets-communities__card {
   display: flex;
   flex-direction: column;
-  gap: var(--card-gap-sm);
-  color: var(--text-primary);
-  background: var(--bg-card-muted);
+  min-height: calc(440 * var(--u));
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  /* The giant word may run wider than the padding box — clip to the card. */
+  overflow: clip;
   transition: transform var(--duration-base) var(--ease-out-expo);
 }
 
-.meets-communities__problem:hover {
+.meets-communities__card:hover {
   transform: translateY(calc(-4 * var(--u)));
 }
 
-.meets-communities__problem-desc {
-  color: var(--text-list);
-  max-width: 50ch;
+.meets-communities__card--problem {
+  background: var(--bg-card-muted);
+  color: var(--text-primary);
+  /* The copy sits in the upper third, like the mockup. */
+  justify-content: flex-start;
 }
 
-/* ── Solution — purple accent card, glowing like the featured pricing
- * card on the landing. ────────────────────────────────────────────────── */
-.meets-communities__solution {
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
+.meets-communities__card--problem .meets-communities__card-desc {
+  margin-top: var(--space-60);
+}
+
+.meets-communities__card--solution {
+  /* .meets-dark supplies the #282828 surface + light text mapping. */
+  justify-content: flex-start;
+}
+
+.meets-communities__card-desc {
+  margin: 0;
+  max-width: 44ch;
+  color: var(--text-list);
+  /* Card copy runs 50% over the base body size per the mockup. */
+  font-size: calc(var(--text-body) * 1.5);
+  /* Honor manual \n line breaks from the locale strings. */
+  white-space: pre-line;
+}
+
+/* ── Benefit chips (tabs) — top row of the dark card ──────────────────── */
+.meets-communities__chips {
   display: flex;
-  flex-direction: column;
-  gap: var(--card-gap-sm);
-  background: var(--bg-accent);
+  flex-wrap: wrap;
+  gap: var(--space-10);
+}
+
+.meets-communities__chip {
+  padding: var(--space-10) var(--space-15);
+  border: 1px solid var(--color-base-white);
+  border-radius: var(--radius-40);
+  background: none;
+  color: var(--color-base-white);
+  font-family: var(--font-primary);
+  font-size: var(--text-body-sm);
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-in-out),
+              background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-communities__chip:hover {
+  border-color: var(--accent-primary);
+}
+
+.meets-communities__chip.is-active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
   color: var(--text-on-accent);
-  box-shadow: var(--shadow-glow);
-  transition: transform var(--duration-base) var(--ease-out-expo);
 }
 
-.meets-communities__solution:hover {
-  transform: translateY(calc(-4 * var(--u)));
+.meets-communities__card--solution .meets-communities__card-desc {
+  margin-top: var(--space-50);
 }
 
-.meets-communities__solution-desc {
-  max-width: 50ch;
-}
-
-/* ── Benefits — three bordered cards, title top / description bottom ──── */
-.meets-communities__benefits {
-  margin-top: var(--grid-gap);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--grid-gap);
-  list-style: none;
-  padding: 0;
-}
-
-.meets-communities__benefit {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-30);
-  min-height: calc(200 * var(--u));
-  padding: var(--card-padding);
-  border-radius: var(--card-radius);
-  background: var(--bg-card-muted);
-  transition: transform var(--duration-base) var(--ease-out-expo);
-}
-
-.meets-communities__benefit:hover {
-  transform: translateY(calc(-4 * var(--u)));
-}
-
-.meets-communities__benefit-title {
-  margin: 0;
+/* ── Giant bottom words — GiantWord (jsx) scales the font so the word
+ * exactly fills the card's content width and pins its ink bottom to 0px
+ * from the card edge (font-size and margin-bottom are set inline by the
+ * fit script; the values here are pre-script fallbacks). */
+.meets-communities__giant {
+  margin: auto 0 calc(-1 * var(--card-padding));
+  padding-top: var(--space-40);
   color: var(--text-primary);
-  max-width: 16ch;
+  font-size: min(calc(175 * var(--u)), 14vw);
+  font-weight: var(--weight-semibold);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
-.meets-communities__benefit-desc {
-  margin: 0;
-  color: var(--text-list);
-  max-width: 36ch;
+/* Inline measuring target for the fit script — inherits everything. */
+.meets-communities__giant-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Zero-size inline-block: its top edge rides the text baseline — the fit
+ * script reads it to locate the baseline in page coordinates. */
+.meets-communities__giant-probe {
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+
+.meets-communities__giant--accent {
+  color: var(--accent-primary);
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */
 @media (max-width: 1023.98px) {
+  .meets-communities__head {
+    flex-direction: column;
+    gap: var(--space-20);
+  }
+
+  .meets-communities__note {
+    text-align: left;
+  }
+
   .meets-communities__grid {
     grid-template-columns: 1fr;
     gap: var(--grid-row-gap);
   }
 
-  .meets-communities__benefits {
-    grid-template-columns: 1fr;
-    gap: var(--grid-row-gap);
-  }
-
-  .meets-communities__benefit {
-    min-height: 0;
+  .meets-communities__card {
+    min-height: calc(320 * var(--u));
   }
 }

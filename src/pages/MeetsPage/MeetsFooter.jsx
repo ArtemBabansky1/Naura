@@ -52,7 +52,7 @@ export default function MeetsFooter() {
 
   return (
     <footer className="meets-footer" data-section="meets-footer">
-      <div className="meets-footer__panel">
+      <div className="meets-footer__panel meets-dark">
         <motion.div className="meets-footer__content" {...contentMotion}>
           <motion.div className="meets-footer__brand" variants={scaleIn}>
             <BigMark />

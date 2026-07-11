@@ -11,10 +11,12 @@
   padding-top: 0;
 }
 
-/* The white card itself — content-sized, 100px of air above and below the
- * content; the backdrop shows around it while the screen is pinned. */
+/* The card itself — content-sized, 100px of air above and below the
+ * content. Horizontally it sits on the same band as every other section
+ * (the .container recipe), so the dark card lines up with the site guides. */
 .mweek-panel {
-  width: 100%;
+  width: min(100% - 2 * var(--gutter), var(--content-max));
+  margin-inline: auto;
   background: var(--bg-page);
   border-radius: var(--radius-40);
   padding-block: 100px;
@@ -27,12 +29,14 @@
   gap: var(--space-60);
 }
 
-/* ── Left column: headline → step layers → CTA — centered on Y against
- * the (taller) wheel column. ──────────────────────────────────────────── */
+/* ── Left column: headline pinned to the top, CTA row to the bottom, the
+ * step layers centered in the space between (stretched to the wheel's
+ * height). ────────────────────────────────────────────────────────────── */
 .mweek-text-col {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  align-self: stretch;
 }
 
 .mweek-headline {
@@ -43,10 +47,12 @@
   text-wrap: balance;
 }
 
-/* Step layers share one grid cell — they cross-fade in place. */
+/* Step layers share one grid cell — they cross-fade in place; the auto
+ * margins center the visible step between the headline and the CTA row. */
 .mweek-layers {
   display: grid;
-  margin-top: var(--space-50);
+  margin-block: auto;
+  padding-block: var(--space-30);
 }
 
 .mweek-text {
@@ -60,7 +66,9 @@
 }
 
 .mweek-cta {
-  margin-top: var(--space-50);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-15);
 }
 
 /* ── Step row: numeral | title + description ──────────────────────────── */
@@ -207,8 +215,10 @@
 
 /* ── Static mode (reduced motion): plain stacked steps ────────────────── */
 .meets-week.is-static {
-  /* The sheet wrapper is transparent for this section — paint the white
-   * card on the section itself in static mode. */
+  /* The sheet wrapper is transparent for this section — paint the dark
+   * card on the section itself in static mode, on the same .container band. */
+  width: min(100% - 2 * var(--gutter), var(--content-max));
+  margin-inline: auto;
   background: var(--bg-page);
   border-radius: var(--radius-40);
   padding-block: 100px;

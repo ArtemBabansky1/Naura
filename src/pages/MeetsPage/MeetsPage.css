@@ -19,26 +19,11 @@
   /* Muted card surface — borderless bento cards on the white sheets. */
   --bg-card-muted:  #f6f6f6;
 
+  background: var(--bg-page);
   color: var(--text-primary);
   min-height: 100dvh;
 }
 
-/* Generative backdrop canvas — fixed behind the white panels (drawn by
- * MeetsBackdrop.jsx; the solid green is a first-paint fallback). */
-.meets-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  background: #4c8a33; /* green fallback before the shader boots */
-  pointer-events: none;
-}
-
-/* Content rides above the backdrop. The hero stays full-bleed; the white
- * column (sheet + footer) is inset 50px so the backdrop shows in the
- * side gutters below the hero. */
 .meets-page main {
   position: relative;
   z-index: 1;
@@ -47,10 +32,9 @@
 .meets-page .meets-footer {
   position: relative;
   z-index: 1;
-  margin-top: 30px;
-  margin-inline: 30px;
+  /* Pairs with the last sheet's 100px bottom padding → 200px block gap. */
+  margin-top: var(--space-100);
   background: var(--bg-page);
-  border-radius: var(--radius-40) var(--radius-40) 0 0;
 }
 
 /* Selection stays readable on the light page */
@@ -59,11 +43,14 @@
   color: var(--color-base-white);
 }
 
-/* Dark container accent — restores the root (landing) dark mapping. */
+/* Dark container accent — the landing dark mapping, but the surface is the
+ * page's dark-container tone (#282828 per design, not the token black).
+ * The muted card tone drops to gray-800 so it reads on the dark surface. */
 .meets-dark {
-  --bg-page:        var(--color-base-black);
-  --bg-surface:     var(--color-base-black);
-  --bg-card:        var(--color-base-black);
+  --bg-page:        #282828;
+  --bg-surface:     #282828;
+  --bg-card:        #282828;
+  --bg-card-muted:  var(--color-base-gray-800);
   --text-primary:   var(--color-base-white);
   --text-list:      var(--color-base-gray-100);
   --text-meta:      var(--color-base-gray-200);
@@ -78,17 +65,14 @@
   scroll-margin-top: var(--space-100);
 }
 
-/* ── Sheets — the white surface is split into stand-alone rounded panels
- * (50px side gutters, 30px backdrop gaps between panels). ─────────────── */
+/* ── Sheets — full-width white panels stacked on the white page. Each sheet
+ * carries 100px of block padding, so every sheet-to-sheet boundary (and the
+ * gaps around the dark week card) totals the site's 200px block gap. ────── */
 .meets-sheet {
   position: relative;
   z-index: 2;
-  /* 30px side gutters — the fixed backdrop shows around the white sheet. */
-  margin-inline: 30px;
   background: var(--bg-page);
-  border-radius: var(--radius-40);
-  /* 100px of air between the content and the panel's top/bottom edges. */
-  padding-block: 100px;
+  padding-block: var(--space-100);
 }
 
 /* The sheet's own 100px already spaces the first section from the edge —
@@ -98,22 +82,20 @@
 }
 
 /* First sheet rides OVER the hills (the hero stage is 110dvh tall, so the
- * sheet overlaps its extra 10dvh). */
+ * sheet overlaps its extra 10dvh) — rounded top edge against the photo.
+ * The marquee sits close under the hero, so this sheet keeps the compact
+ * 100px top padding instead of the 200px block gap. */
 .meets-sheet--hero {
   margin-top: -10dvh;
+  border-radius: var(--radius-40) var(--radius-40) 0 0;
+  padding-top: var(--space-100);
 }
 
-/* Backdrop gap between neighbouring white panels. */
-.meets-sheet + .meets-sheet {
-  margin-top: 30px;
-}
-
-/* Transparent wrappers (week, form) — the blocks sit right on the backdrop
- * and paint their own surfaces. */
+/* Transparent wrapper (week) — the block paints its own dark card; the
+ * 100px here pairs with the neighbour sheets' 100px into the 200px gap. */
 .meets-sheet--clear {
   background: none;
-  border-radius: 0;
-  padding-block: 0;
+  padding-block: var(--space-100);
 }
 
 /* ── Shared CTA buttons (mirrors the hero .btn-hero recipe) ──────────────── */
@@ -154,6 +136,17 @@
 }
 
 .meets-btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+/* On dark containers the ghost button runs white-on-dark: white outline,
+ * white text, no fill. */
+.meets-dark .meets-btn--ghost {
+  color: var(--color-base-white);
+  border-color: var(--color-base-white);
+}
+
+.meets-dark .meets-btn--ghost:hover {
   border-color: var(--accent-primary);
 }
 

@@ -1,21 +1,30 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { fadeUp, staggerContainer, viewportConfig } from "../../lib/framer"
 import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
 import { RevealText } from "./motion"
-import MeetsBackdrop from "./MeetsBackdrop"
+import hillsAvif from "../../assets/meets/hills-bg.avif"
+import hillsWebp from "../../assets/meets/hills-bg.webp"
 import "./MeetsForm.css"
 
 const INITIAL = { name: "", contact: "", comment: "" }
 
-/* "Оставить заявку" — a rounded "window" cut into the white sheet: the
- * panel runs the same generative animation as the page backdrop, so it
- * reads as a see-through hole. White headline + note on the left, the
- * white form card on the right. Submission is mocked (no backend yet). */
+/* "Оставить заявку" — a rounded panel with the hero hills photo as its
+ * background. White headline + note on the left, the white form card on
+ * the right. Submission is mocked (no backend yet). */
 export default function MeetsForm() {
   const { t } = useTranslation("meets")
   const prefersReduced = useReducedMotion()
+  const panelRef = useRef(null)
+
+  // Depth parallax while the panel crosses the viewport: the photo drifts
+  // slower than the page; the 1.2 zoom keeps every edge covered at ±8%.
+  const { scrollYProgress } = useScroll({
+    target: panelRef,
+    offset: ["start end", "end start"],
+  })
+  const bgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"])
 
   const [fields, setFields] = useState(INITIAL)
   const [consentPersonal, setConsentPersonal] = useState(false)
@@ -45,8 +54,22 @@ export default function MeetsForm() {
   return (
     <section id="meets-form" data-section="meets-form" className="meets-form section">
       <div className="container">
-        <div className="meets-form__panel">
-          <MeetsBackdrop className="meets-form__bg" />
+        <div className="meets-form__panel" ref={panelRef}>
+          <picture>
+            <source srcSet={hillsAvif} type="image/avif" />
+            <source srcSet={hillsWebp} type="image/webp" />
+            <motion.img
+              className="meets-form__bg"
+              src={hillsWebp}
+              alt=""
+              aria-hidden="true"
+              width="1864"
+              height="1048"
+              loading="lazy"
+              decoding="async"
+              style={prefersReduced ? undefined : { y: bgY, scale: 1.2 }}
+            />
+          </picture>
           <div className="meets-form__left">
             <h2 className="meets-form__title text-h2">
               <RevealText text={t("form.headline")} />

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next"
 import { PageSeo } from "../../components/PageSeo/PageSeo"
 import { buildFaqJsonLd } from "../../lib/seo"
 import { useSmoothScroll } from "../../hooks/useSmoothScroll"
-import MeetsBackdrop from "./MeetsBackdrop"
 import MeetsHero from "./MeetsHero"
 import MeetsMarquee from "./MeetsMarquee"
 import MeetsHow from "./MeetsHow"
@@ -32,9 +31,6 @@ export const MeetsPage = () => {
 
   return (
     <div className="meets-page">
-      {/* Generative fixed backdrop behind the page — drifting palette blobs
-          that lean toward the cursor; visible in the gutters and gaps. */}
-      <MeetsBackdrop />
       <PageSeo
         title={t("pageTitle")}
         description={t("metaDescription")}
@@ -43,14 +39,12 @@ export const MeetsPage = () => {
       />
       <main>
         <MeetsHero />
-        {/* The white surface is split into stand-alone containers with 30px
-            backdrop gaps between them; the week block gets its own panel. */}
         <div className="meets-sheet meets-sheet--hero">
           <MeetsMarquee />
           <MeetsHow />
         </div>
         {/* Transparent wrapper — the week block paints its own content-sized
-            white card, so the backdrop stays visible while it is pinned. */}
+            white card. */}
         <div className="meets-sheet meets-sheet--clear">
           <MeetsWeek />
         </div>

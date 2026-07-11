@@ -2,6 +2,16 @@
  * screen) on the LEFT, copy on the right. The phone parallaxes: rises from
  * below the viewport and exits past its top edge as the section scrolls. */
 
+/* Half the standard block gap above AND below the phone showcase (the
+ * following section owns the gap below, hence the sibling rule). */
+.meets-phone.section {
+  padding-top: calc(var(--section-gap) / 2);
+}
+
+.meets-phone + .section {
+  padding-top: calc(var(--section-gap) / 2);
+}
+
 .meets-phone__grid {
   display: grid;
   /* Even halves — the copy column starts at the screen's midpoint. */

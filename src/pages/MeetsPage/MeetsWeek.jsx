@@ -259,9 +259,10 @@ export default function MeetsWeek() {
         // Numeric scrub = inertia: progress eases toward the scroll position
         // over ~1.4s instead of tracking it 1:1, smoothing every hand-off.
         scrub: 1.4,
-        // No anticipatePin: it grabs the pin a frame early (offset scales
-        // with scroll velocity) — invisible on a full-screen white panel,
-        // but a visible snap now that the card sits on the open backdrop.
+        // anticipatePin compensates the one-frame pin lag that reads as a
+        // visible snap on the contrasty dark card (its early-grab offset is
+        // invisible against the static white page around the card).
+        anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = self.progress * (STEPS - 1)
@@ -287,20 +288,25 @@ export default function MeetsWeek() {
   )
 
   const cta = (
-    <a
-      href={MEETS_BOT_URL}
-      className="meets-btn meets-btn--primary mweek-cta"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {t("week.cta")}
-    </a>
+    <div className="mweek-cta">
+      <a
+        href={MEETS_BOT_URL}
+        className="meets-btn meets-btn--primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {t("week.cta")}
+      </a>
+      <a href="#meets-form" className="meets-btn meets-btn--ghost">
+        {t("week.ctaSecondary")}
+      </a>
+    </div>
   )
 
   // ── Reduced motion: stacked static steps ────────────────────────────────
   if (staticMode) {
     return (
-      <section id="meets-week" data-section="meets-week" className="meets-week section is-static">
+      <section id="meets-week" data-section="meets-week" className="meets-week section is-static meets-dark">
         <div className="container mweek-static-head">{head}</div>
         {steps.map((step, i) => (
           <div className="mweek-static-step container" key={step.title}>
@@ -325,9 +331,8 @@ export default function MeetsWeek() {
     >
       <div className="mweek-scroller" ref={scrollerRef}>
         <div className="mweek-pin" ref={pinRef}>
-          {/* The white card is content-sized (100px block padding) — during
-              the pinned animation the backdrop stays visible around it. */}
-          <div className="mweek-panel">
+          {/* Dark (#282828) content-sized card — 100px block padding. */}
+          <div className="mweek-panel meets-dark">
             <div className="mweek-inner container">
               <div className="mweek-text-col">
                 {head}
