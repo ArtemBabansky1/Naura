@@ -79,9 +79,14 @@
 
 .meets-phone__canvas {
   position: relative;
-  width: 100%;
+  /* The phone body spans ~0.45× of the canvas height (fitFrac 0.92 × the
+   * model's 0.494 aspect); 0.62× leaves rotation/tilt room while dropping
+   * the transparent side margins the GPU otherwise clears, renders and
+   * composites every frame. */
+  width: min(100%, calc(min(calc(1100 * var(--u)), 105vh) * 0.62));
   height: min(calc(1100 * var(--u)), 105vh);
   display: block;
+  margin-inline: auto;
 }
 
 .meets-phone__img {
@@ -112,6 +117,7 @@
   }
 
   .meets-phone__canvas {
+    width: min(100%, calc(min(calc(700 * var(--u)), 85vh) * 0.62));
     height: min(calc(700 * var(--u)), 85vh);
   }
 }

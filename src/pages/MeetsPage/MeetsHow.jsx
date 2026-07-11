@@ -1,58 +1,25 @@
-import { useRef } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
-import { fadeUp, staggerContainer, viewportConfig } from "../../lib/framer"
+import { gsap, ScrollTrigger } from "../../lib/gsap"
+import { scheduleScrollRefresh } from "../../lib/scrollRefresh"
 import { MEETS_BOT_URL } from "../../lib/urls"
 import { RevealText, Counter } from "./motion"
 import hillsAvif from "../../assets/meets/hills-bg.avif"
 import hillsWebp from "../../assets/meets/hills-bg.webp"
 import "./MeetsHow.css"
 
-/* Card icons — the lucide set the source meets page uses, inlined. */
-function ClipboardIcon() {
-  return (
-    <svg className="meets-how__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-      <path d="M12 11h4" />
-      <path d="M12 16h4" />
-      <path d="M8 11h.01" />
-      <path d="M8 16h.01" />
-    </svg>
-  )
-}
+// Cards visible at once on the pinned desktop layout.
+const CARDS = 4
 
-function CalendarIcon() {
-  return (
-    <svg className="meets-how__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
-      <rect width="18" height="18" x="3" y="4" rx="2" />
-      <path d="M3 10h18" />
-      <path d="M8 14h.01" />
-      <path d="M12 14h.01" />
-      <path d="M16 14h.01" />
-      <path d="M8 18h.01" />
-      <path d="M12 18h.01" />
-      <path d="M16 18h.01" />
-    </svg>
-  )
-}
-
-function ShieldIcon() {
-  return (
-    <svg className="meets-how__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-      <path d="m9 12 2 2 4-4" />
-    </svg>
-  )
-}
-
-const ICONS = [ClipboardIcon, CalendarIcon, ShieldIcon]
+// Touch / reduced-motion get a plain native swipe row instead of the pinned
+// scroll takeover — pinning horizontal scroll fights touch gestures.
+const NATIVE_QUERY = "(max-width: 1023.98px), (prefers-reduced-motion: reduce)"
+const readNative = () =>
+  typeof window !== "undefined" && window.matchMedia(NATIVE_QUERY).matches
 
 function StatValue({ stat }) {
   return (
-    <span className="meets-how__stat-value">
+    <span className="meets-how__stat-value text-h3">
       <span className="meets-how__stat-num">
         <Counter to={stat.value} />
         {stat.suffix}
@@ -62,117 +29,205 @@ function StatValue({ stat }) {
   )
 }
 
-/* "Как устроены встречи" — merged how + stats bento in the landing
- * FeaturesSection manner: two rows of mixed-width containers.
- *   Row A: [how 01][how 02 + 7-days stat][20–30 min stat]
- *   Row B: [10-min stat][how 03][hills-photo card with the 1-on-1 stat] */
+/* "Как устроены встречи" — a horizontal card scroller. On desktop the panel
+ * pins and the card row slides sideways as the page scrolls (same GSAP
+ * mechanic as the landing's product scroller); on touch / reduced motion it is
+ * a native swipe row. Four cards are in view at the start; stat cards put the
+ * accent number in the title slot and the 1-on-1 photo card closes the row. */
 export default function MeetsHow() {
-  const { t } = useTranslation("meets")
-  const prefersReduced = useReducedMotion()
+  const { t, i18n } = useTranslation("meets")
   const cards = t("how.cards", { returnObjects: true })
   const stats = t("stats", { returnObjects: true })
 
-  // Optical parallax inside the photo card: the oversized hills drift against
-  // the scroll behind the clipped card frame (scale covers the travel).
-  const photoCardRef = useRef(null)
-  const { scrollYProgress: photoProgress } = useScroll({
-    target: photoCardRef,
-    offset: ["start end", "end start"],
-  })
-  const photoY = useTransform(photoProgress, [0, 1], ["8%", "-8%"])
+  const sectionRef = useRef(null)
+  const pinRef = useRef(null)
+  const headRef = useRef(null)
+  const trackRef = useRef(null)
+  const barRef = useRef(null)
 
-  const gridMotion = prefersReduced
-    ? {}
-    : {
-        initial: "hidden",
-        whileInView: "visible",
-        viewport: viewportConfig,
-        variants: staggerContainer(0.08),
-      }
+  // Interleave the three how-cards with the stat cards; the 1-on-1 photo
+  // card closes the row.
+  const items = [
+    { key: "context", type: "text", data: cards[0] },
+    { key: "cycle", type: "stat", data: stats[2] },
+    { key: "rhythm", type: "text", data: cards[1] },
+    { key: "duration", type: "stat", data: stats[1] },
+    { key: "protection", type: "text", data: cards[2] },
+    { key: "launch", type: "stat", data: stats[0] },
+    { key: "format", type: "photo", data: stats[3] },
+  ]
 
-  const howCard = (i, extra = null) => {
-    const Icon = ICONS[i]
+  const [nativeMode, setNativeMode] = useState(readNative)
+  useEffect(() => {
+    const mq = window.matchMedia(NATIVE_QUERY)
+    const sync = () => setNativeMode(mq.matches)
+    mq.addEventListener("change", sync)
+    sync()
+    return () => mq.removeEventListener("change", sync)
+  }, [])
+
+  // ── Desktop: pin the panel, translate the row sideways with scroll ──────
+  useLayoutEffect(() => {
+    if (nativeMode) return undefined
+    const track = trackRef.current
+    const pin = pinRef.current
+    const head = headRef.current
+    if (!track || !pin || !head) return undefined
+
+    // Size the cards so exactly four align with the header container, and pad
+    // the full-bleed row so the first/last card land on the container edges.
+    const layout = () => {
+      const rect = head.getBoundingClientRect()
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0
+      const cardW = (rect.width - (CARDS - 1) * gap) / CARDS
+      track.style.setProperty("--card-w", `${cardW}px`)
+      track.style.paddingLeft = `${rect.left}px`
+      track.style.paddingRight = `${rect.left}px`
+    }
+    // How far the row must travel so the last card's right edge reaches the
+    // container's right edge.
+    const distance = () => Math.max(0, track.scrollWidth - window.innerWidth)
+
+    const ctx = gsap.context(() => {
+      layout()
+      gsap.to(track, {
+        x: () => -distance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: pin,
+          start: "top top",
+          end: () => `+=${distance()}`,
+          pin: true,
+          // Hard 1:1 scrub — Lenis already eases the scroll position itself.
+          // A numeric scrub adds a second lag layer: on a fast flick the page
+          // blows past the pin end while the row is still mid-slide, so the
+          // half-finished row scrolls away under the next block.
+          scrub: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefreshInit: layout,
+          onUpdate: (self) => {
+            if (barRef.current) {
+              barRef.current.style.transform = `scaleX(${self.progress})`
+            }
+          },
+        },
+      })
+    }, sectionRef)
+
+    scheduleScrollRefresh()
+    return () => ctx.revert()
+    // i18n.language: RevealText re-renders the headline on language switch.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nativeMode, i18n.language])
+
+  // ── Touch / reduced motion: native swipe row drives the progress bar ────
+  useEffect(() => {
+    if (!nativeMode) return undefined
+    const track = trackRef.current
+    const bar = barRef.current
+    if (!track || !bar) return undefined
+    // Drop any inline sizing left over from the pinned layout.
+    track.style.removeProperty("--card-w")
+    track.style.removeProperty("padding-left")
+    track.style.removeProperty("padding-right")
+
+    let raf = 0
+    const sync = () => {
+      raf = 0
+      const max = track.scrollWidth - track.clientWidth
+      bar.style.transform = `scaleX(${max > 0 ? track.scrollLeft / max : 0})`
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(sync)
+    }
+    sync()
+    track.addEventListener("scroll", onScroll, { passive: true })
+    return () => {
+      track.removeEventListener("scroll", onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [nativeMode])
+
+  const renderCard = (item) => {
+    if (item.type === "stat") {
+      return (
+        <article className="meets-how__card meets-how__card--stat" key={item.key}>
+          <span className="meets-how__badge">{item.data.badge}</span>
+          <StatValue stat={item.data} />
+          <p className="meets-how__stat-label text-body">{item.data.label}</p>
+        </article>
+      )
+    }
+    if (item.type === "photo") {
+      return (
+        <article className="meets-how__card meets-how__card--photo" key={item.key}>
+          <picture>
+            <source srcSet={hillsAvif} type="image/avif" />
+            <source srcSet={hillsWebp} type="image/webp" />
+            <img
+              className="meets-how__photo"
+              src={hillsWebp}
+              alt=""
+              aria-hidden="true"
+              width="1864"
+              height="1048"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+          <span className="meets-how__badge">{item.data.badge}</span>
+          <StatValue stat={item.data} />
+          <p className="meets-how__stat-label text-body">{item.data.label}</p>
+          <a
+            href={MEETS_BOT_URL}
+            className="meets-btn meets-btn--primary meets-how__photo-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t("hero.ctaStart")}
+          </a>
+        </article>
+      )
+    }
     return (
-      <motion.article className="meets-how__card meets-how__card--md" variants={fadeUp}>
-        <Icon />
-        <h3 className="meets-how__card-title text-h3 text-balance">{cards[i].title}</h3>
-        <p className="meets-how__card-desc text-body text-pretty">{cards[i].description}</p>
-        {extra}
-      </motion.article>
+      <article className="meets-how__card" key={item.key}>
+        <span className="meets-how__badge">{item.data.badge}</span>
+        <h3 className="meets-how__card-title text-h3 text-balance">{item.data.title}</h3>
+        <p className="meets-how__card-desc text-body text-pretty">{item.data.description}</p>
+      </article>
     )
   }
 
-  const statCard = (stat) => (
-    <motion.article className="meets-how__card meets-how__card--sm" variants={fadeUp}>
-      <StatValue stat={stat} />
-      <p className="meets-how__stat-label text-body">{stat.label}</p>
-    </motion.article>
-  )
-
   return (
-    <section id="meets-how" data-section="meets-how" className="meets-how section">
-      <div className="container">
-        <header className="meets-how__head">
-          <span className="meets-head__eyebrow text-label">{t("how.eyebrow")}</span>
-          <h2 className="meets-how__title text-h2 text-balance">
-            <RevealText text={t("how.headline")} />
-          </h2>
-          <p className="meets-how__desc text-body-lg text-pretty">{t("how.description")}</p>
-        </header>
+    <section
+      id="meets-how"
+      data-section="meets-how"
+      ref={sectionRef}
+      className={`meets-how section ${nativeMode ? "is-native" : "is-pinned"}`}
+    >
+      <div className="meets-how__pin" ref={pinRef}>
+        <div className="container" ref={headRef}>
+          <header className="meets-how__head">
+            <div className="meets-how__head-main">
+              <span className="meets-head__eyebrow text-label">{t("how.eyebrow")}</span>
+              <h2 className="meets-how__title text-h2 text-balance">
+                <RevealText text={t("how.headline")} />
+              </h2>
+            </div>
+            <p className="meets-how__desc text-body text-pretty">{t("how.description")}</p>
+          </header>
+        </div>
 
-        <motion.div className="meets-how__grid" {...gridMotion}>
-          <div className="meets-how__row meets-how__row--a">
-            {howCard(0)}
-            {howCard(
-              1,
-              <div className="meets-how__card-stat">
-                <StatValue stat={stats[2]} />
-                <span className="meets-how__stat-label text-body">{stats[2].label}</span>
-              </div>,
-            )}
-            {statCard(stats[1])}
+        <div className="meets-how__track" ref={trackRef}>
+          {items.map(renderCard)}
+        </div>
+
+        <div className="container">
+          <div className="meets-how__progress">
+            <span className="meets-how__progress-bar" ref={barRef} />
           </div>
-
-          <div className="meets-how__row meets-how__row--b">
-            {statCard(stats[0])}
-            {howCard(2)}
-
-            {/* Photo card — the hero hills carry the 1-on-1 stat + CTA. */}
-            <motion.article
-              ref={photoCardRef}
-              className="meets-how__card meets-how__card--md meets-how__card--photo"
-              variants={fadeUp}
-            >
-              <picture>
-                <source srcSet={hillsAvif} type="image/avif" />
-                <source srcSet={hillsWebp} type="image/webp" />
-                <motion.img
-                  className="meets-how__photo"
-                  src={hillsWebp}
-                  alt=""
-                  aria-hidden="true"
-                  width="1864"
-                  height="1048"
-                  loading="lazy"
-                  decoding="async"
-                  style={prefersReduced ? undefined : { y: photoY, scale: 1.2 }}
-                />
-              </picture>
-              <div className="meets-how__photo-body">
-                <StatValue stat={stats[3]} />
-                <p className="meets-how__stat-label text-body">{stats[3].label}</p>
-                <a
-                  href={MEETS_BOT_URL}
-                  className="meets-btn meets-btn--primary meets-how__photo-cta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t("hero.ctaStart")}
-                </a>
-              </div>
-            </motion.article>
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

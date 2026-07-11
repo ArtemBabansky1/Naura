@@ -29,21 +29,28 @@ function findScreenMesh(root) {
   return found
 }
 
+// Traces a centred rounded rectangle onto a Shape/Path (used for the screen
+// plane and for the bezel mask ring's contours).
+function traceRoundedRect(path, w, h, r) {
+  const x = -w / 2, y = -h / 2
+  const rr = Math.min(r, w / 2, h / 2)
+  path.moveTo(x + rr, y)
+  path.lineTo(x + w - rr, y)
+  path.absarc(x + w - rr, y + rr, rr, -Math.PI / 2, 0, false)
+  path.lineTo(x + w, y + h - rr)
+  path.absarc(x + w - rr, y + h - rr, rr, 0, Math.PI / 2, false)
+  path.lineTo(x + rr, y + h)
+  path.absarc(x + rr, y + h - rr, rr, Math.PI / 2, Math.PI, false)
+  path.lineTo(x, y + rr)
+  path.absarc(x + rr, y + rr, rr, Math.PI, Math.PI * 1.5, false)
+  return path
+}
+
 // A rounded-rectangle plane (facing +Z) with UVs remapped to 0..1, so the screen
 // carries the phone's rounded corners instead of a hard rectangle.
 function roundedScreenGeometry(w, h, r) {
-  const shape = new THREE.Shape()
+  const shape = traceRoundedRect(new THREE.Shape(), w, h, r)
   const x = -w / 2, y = -h / 2
-  const rr = Math.min(r, w / 2, h / 2)
-  shape.moveTo(x + rr, y)
-  shape.lineTo(x + w - rr, y)
-  shape.absarc(x + w - rr, y + rr, rr, -Math.PI / 2, 0, false)
-  shape.lineTo(x + w, y + h - rr)
-  shape.absarc(x + w - rr, y + h - rr, rr, 0, Math.PI / 2, false)
-  shape.lineTo(x + rr, y + h)
-  shape.absarc(x + rr, y + h - rr, rr, Math.PI / 2, Math.PI, false)
-  shape.lineTo(x, y + rr)
-  shape.absarc(x + rr, y + rr, rr, Math.PI, Math.PI * 1.5, false)
   const geom = new THREE.ShapeGeometry(shape, 16)
   const pos = geom.attributes.position
   const uv = new Float32Array(pos.count * 2)
@@ -106,12 +113,18 @@ function gradientEnvTexture() {
 }
 
 export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135, maxPixelRatio = 2, fitFrac = FIT_FRAC } = {}) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' })
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, maxPixelRatio)
+  // MSAA stays on at every DPR: the white screen against the near-black frame
+  // is the highest-contrast edge on the page, and without MSAA it staircases
+  // even on 2x backing stores.
+  // stencil: false — nothing uses the stencil buffer; skipping it trims the
+  // framebuffer memory/bandwidth that MSAA multiplies.
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, stencil: false, powerPreference: 'high-performance' })
   renderer.setClearAlpha(0)
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.0
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPixelRatio))
+  renderer.setPixelRatio(pixelRatio)
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 1000)
@@ -165,7 +178,9 @@ export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135
     const mesh = findScreenMesh(model)
     const tex = new THREE.CanvasTexture(screenCanvas)
     tex.colorSpace = THREE.SRGBColorSpace
-    tex.anisotropy = renderer.capabilities.getMaxAnisotropy()
+    // 4× aniso is enough for the shallow angles the phone ever reaches; 16×
+    // noticeably raises the per-sample cost on the near-fullscreen quad.
+    tex.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy())
     tex.generateMipmaps = true
     tex.minFilter = THREE.LinearMipmapLinearFilter
     tex.magFilter = THREE.LinearFilter
@@ -185,23 +200,58 @@ export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135
       cx = c.x; cy = c.y; cz = c.z; w = s.x; h = s.y // exact display rect — no frame overlap
       // Keep the display quad as a pure-black backing so the rounded UI's corners
       // read as screen, not see-through. Unlit so it stays true black.
+      // polygonOffset pushes its depth back proportionally to the surface's
+      // screen-space slope: at grazing view angles (phone turned away) the
+      // per-pixel depth step otherwise exceeds the tiny gap to the UI plane
+      // and the backing wins the depth test in stripes — black bands on the
+      // screen. Slope-scaled offset keeps the backing behind at every angle.
       mesh.material?.dispose?.()
-      mesh.material = new THREE.MeshBasicMaterial({ color: 0x000000 })
+      mesh.material = new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        polygonOffset: true,
+        polygonOffsetFactor: 4,
+        polygonOffsetUnits: 4,
+      })
     }
-    // Corner radius matched to the phone body's (R ≈ 0.149·body-width), so the
-    // screen reads as round as the device. Capped to the screen's half-extents.
-    const screenR = Math.min(0.149 * size.x, w * 0.5, h * 0.5)
-    // Rounded screen, coplanar with the display and nudged a hair outward (−Z) to
-    // sit flush in the glass without z-fighting. The 180° spin points it outward
-    // and keeps the UI upright and non-mirrored once the phone faces front.
+    // The model's display rim is messy: the black backing quad and the coarse
+    // bezel-ring polygons sit coplanar at the front face, so wherever that rim
+    // peeks past the UI plane it renders as ragged dark teeth — and a plane
+    // sized to hide it starts painting white over the frame instead. Stop
+    // fitting the plane to the junk: draw the screen boundary ourselves.
+    //
+    // Two of our own layers, both in front of the model:
+    //  1. the chat plane — FULL display rect, corners tucked under the mask;
+    //  2. a black mask ring whose smooth inner arc IS the visible screen
+    //     corner, and whose outer edge lands black-on-black on the bezel.
+    // Every visible boundary is ours (high-tess arcs + MSAA); the model's rim
+    // junk is buried underneath and can't leak at any rotation or tilt.
+    const screenR = Math.min(0.145 * size.x, w * 0.5, h * 0.5)
+    const zBase = cz - size.z * 0.003
     const plane = new THREE.Mesh(
       roundedScreenGeometry(w, h, screenR),
       new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }),
     )
-    plane.position.set(cx, cy, cz - size.z * 0.01)
+    plane.position.set(cx, cy, zBase)
     plane.rotation.y = Math.PI
     plane.renderOrder = 10
     model.add(plane)
+
+    // Mask ring: hole overlaps the plane by `lip` (no gap can open under
+    // tilt); the outer contour reaches `spread` past the display rect — well
+    // over the rim junk, yet still ~3% of body width inside the outer frame
+    // silhouette, so it never pokes out at grazing angles.
+    const lip = size.x * 0.005
+    const spread = size.x * 0.022
+    const maskShape = traceRoundedRect(new THREE.Shape(), w + spread * 2, h + spread * 2, screenR + spread)
+    maskShape.holes.push(traceRoundedRect(new THREE.Path(), w - lip * 2, h - lip * 2, screenR - lip))
+    const mask = new THREE.Mesh(
+      new THREE.ShapeGeometry(maskShape, 32),
+      new THREE.MeshBasicMaterial({ color: 0x000000, toneMapped: false }),
+    )
+    mask.position.set(cx, cy, zBase - size.z * 0.001)
+    mask.rotation.y = Math.PI
+    mask.renderOrder = 11
+    model.add(mask)
   }
 
   async function load(glbUrl, screenCanvas, aspect) {
@@ -231,21 +281,39 @@ export function createPhoneScene(canvas, { faceAngleDeg = 180, turnAwayDeg = 135
     renderer.render(scene, camera)
   }
 
-  function frame() {
+  // Adaptive frame rate: full 60fps only while the phone is actively driven
+  // (scroll rotation / cursor tilt). The idle bob peaks at ~8px/s, so at 20fps
+  // it moves ≤0.4px between frames — sub-pixel, indistinguishable — and idle
+  // is where the phone spends most of its time, so this caps the block's
+  // steady-state GPU load at a third of the driven rate.
+  const FAST_WINDOW_MS = 250
+  const IDLE_FRAME_MS = 50
+  let fastUntil = 0
+  let lastRender = 0
+
+  function frame(now = performance.now()) {
     if (!running) return
+    raf = requestAnimationFrame(frame)
+    const tiltSettled =
+      Math.abs(tiltTarget.x - tiltGroup.rotation.x) < 0.001 &&
+      Math.abs(tiltTarget.y - tiltGroup.rotation.y) < 0.001
+    if (now >= fastUntil && tiltSettled && now - lastRender < IDLE_FRAME_MS) return
+    lastRender = now
     const t = clock.getElapsedTime()
     pivot.rotation.y = baseAngle + Math.sin(t * 0.6) * 0.05
     pivot.position.y = Math.sin(t * 0.9) * phoneHeight * 0.012
     tiltGroup.rotation.x += (tiltTarget.x - tiltGroup.rotation.x) * 0.08
     tiltGroup.rotation.y += (tiltTarget.y - tiltGroup.rotation.y) * 0.08
     renderer.render(scene, camera)
-    raf = requestAnimationFrame(frame)
   }
 
   return {
     load,
     // p: 0 = turned ~75% away … 1 = screen facing the viewer (180°).
-    setProgress(p) { baseAngle = faceAngle - turnAway * (1 - Math.min(1, Math.max(0, p))) },
+    setProgress(p) {
+      baseAngle = faceAngle - turnAway * (1 - Math.min(1, Math.max(0, p)))
+      fastUntil = performance.now() + FAST_WINDOW_MS
+    },
     setTilt(rx, ry) { tiltTarget.x = rx; tiltTarget.y = ry },
     setSize(w, h) {
       renderer.setSize(w, h, false)

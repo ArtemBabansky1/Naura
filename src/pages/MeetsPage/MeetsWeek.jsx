@@ -331,7 +331,7 @@ export default function MeetsWeek() {
     >
       <div className="mweek-scroller" ref={scrollerRef}>
         <div className="mweek-pin" ref={pinRef}>
-          {/* Dark (#282828) content-sized card — 100px block padding. */}
+          {/* Dark (#191919) content-sized card — 100px block padding. */}
           <div className="mweek-panel meets-dark">
             <div className="mweek-inner container">
               <div className="mweek-text-col">

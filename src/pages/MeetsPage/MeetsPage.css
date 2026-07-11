@@ -44,12 +44,12 @@
 }
 
 /* Dark container accent — the landing dark mapping, but the surface is the
- * page's dark-container tone (#282828 per design, not the token black).
+ * page's dark-container tone (#191919 per design, not the token black).
  * The muted card tone drops to gray-800 so it reads on the dark surface. */
 .meets-dark {
-  --bg-page:        #282828;
-  --bg-surface:     #282828;
-  --bg-card:        #282828;
+  --bg-page:        #191919;
+  --bg-surface:     #191919;
+  --bg-card:        #191919;
   --bg-card-muted:  var(--color-base-gray-800);
   --text-primary:   var(--color-base-white);
   --text-list:      var(--color-base-gray-100);

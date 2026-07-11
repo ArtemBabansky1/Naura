@@ -19,10 +19,10 @@
   },
   "marquee": ["Random Coffee", "1-on-1 meetings", "New connections", "Your own pace", "Warm intros", "Experience exchange"],
   "stats": [
-    { "value": 10, "suffix": "", "unit": "minutes", "label": "to\u00A0launch for\u00A0a\u00A0community" },
-    { "value": 20, "suffix": "–30", "unit": "minutes", "label": "one conversation lasts" },
-    { "value": 7, "suffix": "", "unit": "days", "label": "one round — one week" },
-    { "value": 1, "suffix": "-on-1", "unit": "", "label": "the\u00A0format of\u00A0every meeting" }
+    { "badge": "Launch", "value": 10, "suffix": "", "unit": "minutes", "label": "to\u00A0launch for\u00A0a\u00A0community" },
+    { "badge": "Duration", "value": 20, "suffix": "–30", "unit": "minutes", "label": "one conversation lasts" },
+    { "badge": "Cycle", "value": 7, "suffix": "", "unit": "days", "label": "one round — one week" },
+    { "badge": "Format", "value": 1, "suffix": "-on-1", "unit": "", "label": "the\u00A0format of\u00A0every meeting" }
   ],
   "phone": {
     "eyebrow": "Telegram Mini App",
@@ -44,14 +44,17 @@
     "description": "Naura Meets is a\u00A0format of\u00A0regular meetings with new people. Every week you decide whether to\u00A0participate or\u00A0skip. If you participate, we match you and\u00A0provide context so\u00A0the\u00A0conversation doesn't start from scratch.",
     "cards": [
       {
+        "badge": "Context",
         "title": "Context before meeting",
         "description": "See the\u00A0participant's profile: what they do, what they're looking for, how they can help"
       },
       {
+        "badge": "Rhythm",
         "title": "Rhythm without pressure",
         "description": "You decide each time — participate or\u00A0not. No pressure, your pace."
       },
       {
+        "badge": "Protection",
         "title": "Protection from empty meetings",
         "description": "If you don't connect, we'll find a\u00A0new match. After the\u00A0meeting — feedback that we take into account next time"
       }

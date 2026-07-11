@@ -1,7 +1,7 @@
 /* MeetsCommunities — editorial problem/solution pairing per the mockup:
  * headline left + small right-aligned note, then two tall cards. The light
  * card carries the problem copy with a giant dark word at the bottom; the
- * dark (#282828, via .meets-dark) card holds the benefit chips (tabs), the
+ * dark (#191919, via .meets-dark) card holds the benefit chips (tabs), the
  * active chip's copy and a giant accent word. */
 
 .meets-communities__title-accent {
@@ -67,7 +67,7 @@
 }
 
 .meets-communities__card--solution {
-  /* .meets-dark supplies the #282828 surface + light text mapping. */
+  /* .meets-dark supplies the #191919 surface + light text mapping. */
   justify-content: flex-start;
 }
 

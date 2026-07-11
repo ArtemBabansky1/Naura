@@ -1,54 +1,103 @@
-/* MeetsHow — merged how + stats bento (landing FeaturesSection manner):
- * two rows of mixed-width containers, icons instead of numerals, and one
- * photo card reusing the hero hills. */
+/* MeetsHow — "how meetings work" as a horizontal card scroller.
+ *
+ * Desktop (.is-pinned): the panel pins to the viewport and the full-bleed card
+ * row is translated sideways by GSAP as the page scrolls — four cards in view
+ * at the start. Touch / reduced motion (.is-native): a plain native swipe row.
+ * Every card shares one template: a pill badge, a title (an accent number on
+ * stat cards) and a short body pinned to the top. */
 
-.meets-how__head {
+/* ── Pinned takeover fills the viewport; the plain variant flows normally ── */
+.meets-how.is-pinned {
+  padding-block: 0;
+}
+
+.meets-how__pin {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: calc(760 * var(--u));
-  margin: 0 auto var(--space-75);
+  gap: var(--space-40);
+}
+
+.meets-how.is-pinned .meets-how__pin {
+  min-height: 100vh;
+  justify-content: center;
+  padding-block: var(--space-50);
+  /* Clip the max-content row that GSAP slides sideways. */
+  overflow: hidden;
+}
+
+/* ── Header — split band: eyebrow + two-line headline on the left, the
+ * right-aligned description on the right, bottom edges level ───────────── */
+.meets-how__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-60);
 }
 
 .meets-how__title {
   color: var(--text-primary);
   margin-top: var(--space-10);
+  /* Forces the headline onto two lines in both locales. */
+  max-width: 13ch;
 }
 
 .meets-how__desc {
   color: var(--text-list);
-  max-width: calc(600 * var(--u));
-  margin-top: var(--space-20);
+  max-width: calc(420 * var(--u));
+  text-align: right;
 }
 
-/* ── Bento rows — Figma 676/676/328 ratio, mirrored on row B ──────────── */
-.meets-how__grid {
+@media (max-width: 767.98px) {
+  .meets-how__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-20);
+  }
+
+  .meets-how__desc {
+    text-align: left;
+  }
+}
+
+/* ── Card row ─────────────────────────────────────────────────────────── */
+.meets-how__track {
   display: flex;
-  flex-direction: column;
-  gap: var(--grid-row-gap);
-}
-
-.meets-how__row {
-  display: grid;
   gap: var(--grid-gap);
-  align-items: stretch;
 }
 
-.meets-how__row--a {
-  grid-template-columns: minmax(0, 676fr) minmax(0, 676fr) minmax(0, 328fr);
+.meets-how.is-pinned .meets-how__track {
+  width: max-content;
+  align-self: flex-start;
+  will-change: transform;
+  /* padding-inline + --card-w are set from JS so four cards align with the
+   * header container on any viewport width. */
 }
 
-.meets-how__row--b {
-  grid-template-columns: minmax(0, 328fr) minmax(0, 676fr) minmax(0, 676fr);
+.meets-how.is-native .meets-how__track {
+  overflow-x: auto;
+  padding-inline: var(--gutter);
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Room so the hover lift is never clipped. */
+  padding-block: var(--space-10);
+  margin-block: calc(-1 * var(--space-10));
 }
 
-/* ── Cards ────────────────────────────────────────────────────────────── */
+.meets-how.is-native .meets-how__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────── */
 .meets-how__card {
+  flex: 0 0 var(--card-w, 74vw);
+  scroll-snap-align: start;
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: calc(340 * var(--u));
+  align-items: flex-start;
+  height: clamp(calc(300 * var(--u)), 54vh, calc(460 * var(--u)));
   padding: var(--card-padding);
   border-radius: var(--card-radius);
   background: var(--bg-card-muted);
@@ -57,76 +106,83 @@
   transition: transform var(--duration-base) var(--ease-out-expo);
 }
 
+/* Tablet peek, then the four-across desktop fallback (JS overrides --card-w). */
+@media (min-width: 768px) {
+  .meets-how__card {
+    flex-basis: var(--card-w, 42vw);
+  }
+}
+
+@media (min-width: 1024px) {
+  .meets-how__card {
+    flex-basis: var(
+      --card-w,
+      calc((min(100vw - 2 * var(--gutter), var(--content-max)) - 3 * var(--grid-gap)) / 4)
+    );
+  }
+}
+
 .meets-how__card:hover {
   transform: translateY(calc(-4 * var(--u)));
 }
 
-.meets-how__icon {
-  width: calc(30 * var(--u));
-  height: calc(30 * var(--u));
-  color: var(--accent-primary);
-  margin-bottom: var(--space-20);
+.meets-how__badge {
+  padding: var(--space-5) var(--space-15);
+  border-radius: var(--radius-pill);
+  background: var(--color-base-white);
+  color: var(--text-primary);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+  white-space: nowrap;
 }
 
 .meets-how__card-title {
+  margin-top: var(--space-25);
   color: var(--text-primary);
+  font-weight: var(--weight-semibold);
 }
 
 .meets-how__card-desc {
+  margin-top: var(--space-15);
   color: var(--text-list);
-  margin-top: var(--space-20);
-  max-width: 45ch;
+  max-width: 34ch;
 }
 
-/* In-card stat (7 days inside the rhythm card) — pinned to the bottom. */
-.meets-how__card-stat {
-  margin-top: auto;
-  padding-top: var(--space-30);
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-15);
-}
-
-/* ── Stat cards ───────────────────────────────────────────────────────── */
-.meets-how__card--sm {
-  justify-content: flex-end;
-  gap: var(--space-15);
-}
-
+/* ── Stat cards — accent number stands in for the title (same text-h3 size
+ * as the text cards' titles; the number carries the accent color) ──────── */
 .meets-how__stat-value {
-  font-size: var(--text-h2);
+  margin-top: var(--space-25);
   font-weight: var(--weight-semibold);
-  line-height: 1.1;
   color: var(--accent-primary);
   font-variant-numeric: tabular-nums;
 }
 
-/* Number itself never breaks; the unit may wrap to its own line. */
 .meets-how__stat-num {
   white-space: nowrap;
 }
 
 .meets-how__stat-unit {
-  font-size: var(--text-h4);
   color: var(--text-primary);
 }
 
 .meets-how__stat-label {
+  margin-top: var(--space-15);
   color: var(--text-list);
-  max-width: 28ch;
-  margin: 0;
+  max-width: 26ch;
 }
 
-/* ── Photo card — hero hills as the container background ──────────────── */
+/* ── Photo card — 1-on-1 + CTA over the hero hills ────────────────────── */
 .meets-how__card--photo {
   border: none;
-  justify-content: flex-start;
 }
 
+/* Full-bleed image sits behind the normal-flow content (isolate + z-index:-1
+ * keeps it above the card fill but under the text). */
 .meets-how__photo {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -134,38 +190,25 @@
   pointer-events: none;
 }
 
-.meets-how__photo-body {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-15);
-}
-
 .meets-how__photo-cta {
-  margin-top: var(--space-15);
+  margin-top: var(--space-25);
 }
 
-/* ── Responsive ───────────────────────────────────────────────────────── */
-@media (max-width: 1199.98px) {
-  .meets-how__row--a,
-  .meets-how__row--b {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .meets-how__card {
-    min-height: calc(260 * var(--u));
-  }
+/* ── Progress bar (scroll progress, 0 → 1) ────────────────────────────── */
+.meets-how__progress {
+  position: relative;
+  height: var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--border-default);
+  overflow: hidden;
 }
 
-@media (max-width: 767.98px) {
-  .meets-how__row--a,
-  .meets-how__row--b {
-    grid-template-columns: 1fr;
-  }
-
-  .meets-how__card {
-    min-height: calc(200 * var(--u));
-  }
+.meets-how__progress-bar {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: inherit;
+  background: var(--accent-primary);
+  will-change: transform;
 }

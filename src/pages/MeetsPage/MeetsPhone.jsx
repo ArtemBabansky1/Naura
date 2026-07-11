@@ -49,15 +49,77 @@ function PhoneCanvas({ chat }) {
     let io = null
     let tiltFrame = 0
     let onMove = null
+    let screenApi = null
+    let animRaf = 0
+    let animating = false
+    let animStart = 0
+    let wasActive = true
+
+    // Repaint the chat canvas on its own rAF and flag the 3D texture. Uploads
+    // are gated to the animation windows (reveal + loop fade); during the hold
+    // the settled frame is pushed once, then uploads pause to save bandwidth.
+    // Repaints are capped at ~30fps: every flagged frame re-uploads the whole
+    // chat canvas to the GPU and regenerates its mip chain — at 60fps that
+    // upload traffic alone stutters integrated GPUs, and the 340ms-eased chat
+    // reveals look identical at half the rate.
+    const DRAW_INTERVAL = 33
+    // Below this scroll progress the phone is still turned >90° away, so the
+    // screen plane is back-face culled — repainting/uploading its texture
+    // would be pure waste right when the scroll-in should feel smooth.
+    const SCREEN_FACING_PROGRESS = 0.3
+    let screenFacing = false
+    let lastDraw = -Infinity
+    const drawFrame = () => {
+      if (!animating || !scene || !screenApi) return
+      animRaf = requestAnimationFrame(drawFrame)
+      if (!screenFacing) {
+        // Force one settled push when the screen swings back into view.
+        wasActive = true
+        return
+      }
+      const now = performance.now()
+      if (now - lastDraw < DRAW_INTERVAL) return
+      lastDraw = now
+      const t = (now - animStart) % screenApi.cycle
+      const active = t <= screenApi.settled + 100 || t >= screenApi.cycle - 700
+      if (active) {
+        screenApi.draw(t)
+        scene.redrawScreen()
+      } else if (wasActive) {
+        screenApi.draw(screenApi.settled)
+        scene.redrawScreen()
+      }
+      wasActive = active
+    }
+    const startAnim = () => {
+      if (animating || !screenApi) return
+      animating = true
+      animStart = performance.now()
+      wasActive = true
+      drawFrame()
+    }
+    const stopAnim = () => {
+      animating = false
+      cancelAnimationFrame(animRaf)
+    }
 
     const isTouchDevice = window.matchMedia(TOUCH_DEVICE_QUERY).matches
 
     async function init() {
+      // Size the chat texture to what the screen actually occupies on this
+      // device instead of a flat 1100px: the phone spans ~fitFrac of the canvas
+      // height and its screen is ~41% of the phone height wide. A right-sized
+      // canvas cuts every per-frame repaint + GPU upload proportionally (4× on
+      // a 1x-DPR laptop) with zero visible loss — it was oversampled before.
+      const dpr = Math.min(window.devicePixelRatio || 1, isTouchDevice ? 1.5 : 2)
+      const stageH = canvas.getBoundingClientRect().height || 900
+      const texWidth = Math.max(560, Math.min(1100, Math.round(stageH * 0.41 * dpr)))
       const [{ createPhoneScene }, screen] = await Promise.all([
         import("../../lib/three/phoneScene"),
-        createMeetsScreenCanvas({ width: 1100, chat }),
+        createMeetsScreenCanvas({ width: texWidth, chat }),
       ])
       if (cancelled) return
+      screenApi = screen
 
       scene = createPhoneScene(canvas, {
         turnAwayDeg: 135,
@@ -77,24 +139,32 @@ function PhoneCanvas({ chat }) {
 
       sizeToBox()
       scene.start()
+      startAnim()
 
       const section = wrap.closest('[data-section="meets-phone"]') || wrap
+      const applyProgress = (p) => {
+        scene.setProgress(p)
+        screenFacing = p > SCREEN_FACING_PROGRESS
+      }
       st = ScrollTrigger.create({
         trigger: section,
         start: "top 78%",
         end: "center 46%",
         scrub: true,
-        onUpdate: (self) => scene.setProgress(self.progress),
-        onRefresh: (self) => scene.setProgress(self.progress),
+        onUpdate: (self) => applyProgress(self.progress),
+        onRefresh: (self) => applyProgress(self.progress),
       })
       ScrollTrigger.refresh()
-      scene.setProgress(st.progress)
+      applyProgress(st.progress)
 
       ro = new ResizeObserver(sizeToBox)
       ro.observe(canvas)
 
       io = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) scene.start(); else scene.stop() },
+        ([e]) => {
+          if (e.isIntersecting) { scene.start(); startAnim() }
+          else { scene.stop(); stopAnim() }
+        },
         { rootMargin: "200px" },
       )
       io.observe(wrap)
@@ -120,7 +190,9 @@ function PhoneCanvas({ chat }) {
 
     return () => {
       cancelled = true
+      animating = false
       cancelAnimationFrame(tiltFrame)
+      cancelAnimationFrame(animRaf)
       if (onMove) window.removeEventListener("mousemove", onMove)
       st?.kill()
       ro?.disconnect()
