@@ -79,9 +79,11 @@
   justify-content: center;
 }
 
-/* Ghost CTA in the NAV keeps a solid fill ("Войти" on the sky). */
+/* Ghost CTA in the NAV keeps a solid fill ("Войти" on the sky) — the white
+ * pill needs no outline on top of the photo. */
 .meets-hero .meets-btn--ghost {
   background: var(--bg-surface);
+  border-color: transparent;
 }
 
 /* ── White ink over the blue-sky photo ────────────────────────────────── */
@@ -93,6 +95,10 @@
 
 .meets-hero .meets-nav__lang {
   border-color: var(--color-base-white);
+}
+
+.meets-hero .meets-nav__lang:hover {
+  border-color: var(--accent-primary);
 }
 
 .meets-hero__headline,

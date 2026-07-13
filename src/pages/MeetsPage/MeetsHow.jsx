@@ -6,6 +6,8 @@ import { MEETS_BOT_URL } from "../../lib/urls"
 import { RevealText, Counter } from "./motion"
 import hillsAvif from "../../assets/meets/hills-bg.avif"
 import hillsWebp from "../../assets/meets/hills-bg.webp"
+import timeAvif from "../../assets/meets/time-bg.avif"
+import timeWebp from "../../assets/meets/time-bg.webp"
 import "./MeetsHow.css"
 
 // Cards visible at once on the pinned desktop layout.
@@ -95,7 +97,9 @@ export default function MeetsHow() {
         ease: "none",
         scrollTrigger: {
           trigger: pin,
-          start: "top top",
+          // Content-height panel pins at the viewport center (not a full
+          // 100vh takeover), keeping the page's uniform 200u block gaps.
+          start: "center center",
           end: () => `+=${distance()}`,
           pin: true,
           // Hard 1:1 scrub — Lenis already eases the scroll position itself.
@@ -151,11 +155,40 @@ export default function MeetsHow() {
 
   const renderCard = (item) => {
     if (item.type === "stat") {
+      // The cycle card is the accent one: purple fill + a giant digit pinned
+      // to the card's bottom edge (same device as the Communities giants).
+      // The duration card carries the hourglass photo backdrop (white ink).
+      const isAccent = item.key === "cycle"
+      const isTime = item.key === "duration"
       return (
-        <article className="meets-how__card meets-how__card--stat" key={item.key}>
+        <article
+          className={`meets-how__card meets-how__card--stat${isAccent ? " meets-how__card--accent" : ""}${isTime ? " meets-how__card--time" : ""}`}
+          key={item.key}
+        >
+          {isTime && (
+            <picture>
+              <source srcSet={timeAvif} type="image/avif" />
+              <source srcSet={timeWebp} type="image/webp" />
+              <img
+                className="meets-how__photo"
+                src={timeWebp}
+                alt=""
+                aria-hidden="true"
+                width="840"
+                height="1260"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          )}
           <span className="meets-how__badge">{item.data.badge}</span>
           <StatValue stat={item.data} />
           <p className="meets-how__stat-label text-body">{item.data.label}</p>
+          {isAccent && (
+            <span className="meets-how__giant-digit" aria-hidden="true">
+              {item.data.value}
+            </span>
+          )}
         </article>
       )
     }
@@ -170,8 +203,8 @@ export default function MeetsHow() {
               src={hillsWebp}
               alt=""
               aria-hidden="true"
-              width="1864"
-              height="1048"
+              width="1672"
+              height="941"
               loading="lazy"
               decoding="async"
             />

@@ -62,7 +62,9 @@
    * step (to the headline) and below it (to the CTA) reads the same. */
   align-self: center;
   pointer-events: none;
-  transform-origin: left center;
+  /* Bottom origin: the swap scale grows upward, so together with the y
+   * slide the step reads as flying in from BELOW, not from the side. */
+  transform-origin: center bottom;
 }
 
 .mweek-cta {
@@ -130,7 +132,8 @@
 
 .mweek-seg {
   fill: none;
-  stroke: var(--bg-card-muted);
+  /* Translucent gray over the dark card — idle segments stay subtle. */
+  stroke: var(--color-base-gray-800-30);
   stroke-width: calc(40 * var(--u));
   stroke-linecap: round;
 }
@@ -143,13 +146,13 @@
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   opacity: 0;
-  filter: drop-shadow(0 0 calc(15 * var(--u)) var(--color-base-purple-glow));
 }
 
 .mweek-day {
   fill: var(--text-muted);
   font-family: var(--font-primary);
-  font-size: calc(17 * var(--u));
+  /* Scales with the wheel, but never below the page's body-size floor. */
+  font-size: max(calc(17 * var(--u)), var(--text-body));
   font-weight: var(--weight-regular);
   dominant-baseline: middle;
   transition: fill var(--duration-base) var(--ease-in-out);

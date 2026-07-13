@@ -1,0 +1,137 @@
+/*
+ * SHARED CTA HOVER — bottom-up fill.
+ *
+ * Every solid CTA that used to glow (box-shadow) on hover now fills from the
+ * bottom edge and swaps ink: purple buttons fill white (label → accent),
+ * white/outlined ones fill purple (label → white). The old per-component
+ * :hover glow rules are removed in the component stylesheets.
+ *
+ * Deliberately NOT in a @layer: component stylesheets are unlayered, so a
+ * layered rule could never override their base `transition`. The mechanics
+ * selector is doubled via :is(...):is(...) to out-rank the single-class
+ * component rules regardless of the bundler's import order.
+ */
+
+/* Purple buttons → white fill, accent ink */
+:is(
+  .btn-hero--primary,
+  .hero-nav__btn--primary,
+  .float-nav__btn:not(.float-nav__btn--ghost),
+  .telegram-btn--primary,
+  .cta-button,
+  .communities-btn--primary,
+  .pricing-card__cta--primary,
+  .meets-btn--primary
+) {
+  --sweep-fill: var(--color-base-white);
+  --sweep-ink:  var(--accent-primary);
+}
+
+/* White / outlined buttons → purple fill, white ink */
+:is(
+  .hero-nav__btn--secondary,
+  .meets-nav__signin
+) {
+  --sweep-fill: var(--accent-primary);
+  --sweep-ink:  var(--color-base-white);
+}
+
+/* ── Mechanics — a fill layer slides up from the bottom edge, under the
+ * label (isolation + z-index: -1 keeps it above the button background). ── */
+:is(
+  .btn-hero--primary,
+  .hero-nav__btn--primary,
+  .hero-nav__btn--secondary,
+  .float-nav__btn:not(.float-nav__btn--ghost),
+  .telegram-btn--primary,
+  .cta-button,
+  .communities-btn--primary,
+  .pricing-card__cta--primary,
+  .meets-btn--primary,
+  .meets-nav__signin
+):is(
+  .btn-hero--primary,
+  .hero-nav__btn--primary,
+  .hero-nav__btn--secondary,
+  .float-nav__btn:not(.float-nav__btn--ghost),
+  .telegram-btn--primary,
+  .cta-button,
+  .communities-btn--primary,
+  .pricing-card__cta--primary,
+  .meets-btn--primary,
+  .meets-nav__signin
+) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: color var(--duration-base) var(--ease-in-out),
+              border-color var(--duration-base) var(--ease-in-out);
+}
+
+:is(
+  .btn-hero--primary,
+  .hero-nav__btn--primary,
+  .hero-nav__btn--secondary,
+  .float-nav__btn:not(.float-nav__btn--ghost),
+  .telegram-btn--primary,
+  .cta-button,
+  .communities-btn--primary,
+  .pricing-card__cta--primary,
+  .meets-btn--primary,
+  .meets-nav__signin
+)::after {
+  content: "";
+  position: absolute;
+  /* Bleed past the padding box: the fill must run UNDER the 1px border and
+   * the anti-aliased rounding, or a sliver of the old background color shows
+   * between the border and the fill (overflow: hidden clips the excess). */
+  inset: -2px;
+  z-index: -1;
+  background: var(--sweep-fill);
+  transform: translateY(101%);
+  transition: transform var(--duration-base) var(--ease-in-out);
+}
+
+:is(
+  .btn-hero--primary,
+  .hero-nav__btn--primary,
+  .hero-nav__btn--secondary,
+  .float-nav__btn:not(.float-nav__btn--ghost),
+  .telegram-btn--primary,
+  .cta-button,
+  .communities-btn--primary,
+  .pricing-card__cta--primary,
+  .meets-btn--primary,
+  .meets-nav__signin
+):is(
+  .btn-hero--primary,
+  .hero-nav__btn--primary,
+  .hero-nav__btn--secondary,
+  .float-nav__btn:not(.float-nav__btn--ghost),
+  .telegram-btn--primary,
+  .cta-button,
+  .communities-btn--primary,
+  .pricing-card__cta--primary,
+  .meets-btn--primary,
+  .meets-nav__signin
+):hover:not(:disabled) {
+  color: var(--sweep-ink);
+  border-color: var(--sweep-fill);
+  opacity: 1;
+  box-shadow: none;
+}
+
+:is(
+  .btn-hero--primary,
+  .hero-nav__btn--primary,
+  .hero-nav__btn--secondary,
+  .float-nav__btn:not(.float-nav__btn--ghost),
+  .telegram-btn--primary,
+  .cta-button,
+  .communities-btn--primary,
+  .pricing-card__cta--primary,
+  .meets-btn--primary,
+  .meets-nav__signin
+):hover:not(:disabled)::after {
+  transform: translateY(0);
+}

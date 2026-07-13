@@ -18,6 +18,9 @@
   --border-default: var(--color-base-gray-800-30);
   /* Muted card surface — borderless bento cards on the white sheets. */
   --bg-card-muted:  #f6f6f6;
+  /* Page floor: nothing on Meets renders below the body size — the small
+   * tier (badges, chips, notes, footer, consent) is lifted to body. */
+  --text-body-sm:   var(--text-body);
 
   background: var(--bg-page);
   color: var(--text-primary);
@@ -125,10 +128,7 @@
   color: var(--text-on-accent);
 }
 
-.meets-btn--primary:hover {
-  opacity: 0.88;
-  box-shadow: var(--shadow-glow);
-}
+/* Hover: shared bottom-up fill — see styles/buttons.css. */
 
 .meets-btn--ghost {
   color: var(--text-primary);

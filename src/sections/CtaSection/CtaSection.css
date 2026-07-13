@@ -89,10 +89,7 @@
     box-shadow var(--duration-fast) var(--ease-in-out);
 }
 
-.cta-button:hover {
-  opacity: 0.88;
-  box-shadow: var(--shadow-glow);
-}
+/* Hover: shared bottom-up fill — see styles/buttons.css. */
 
 /* ── Social proof — avatar stack + label ──────────────────────────────── */
 .cta-proof {

@@ -1,7 +1,7 @@
 /* AiAgentsSection — "Your contacts, now an API for your AI." (6th block).
  * Two clipped panels side by side:
- *   left  — copy + three glow orbs (Read / Plan / Act) that bleed past the
- *           bottom edge and are cut by the card (overflow: clip).
+ *   left  — copy + three capability cards (Read / Plan / Act) pinned to the
+ *           panel bottom in normal flow.
  *   right — MCP terminal + agent transcript stacked; the transcript bleeds
  *           past the bottom and is clipped by the card.
  * Semantic tokens only; all discrete sizes are multiples of 5.
@@ -31,8 +31,14 @@
 }
 
 /* ── Left panel: copy ─────────────────────────────────────────────────── */
-/* Plain block: only the eyebrow sits in flow, so the headline follows it
- * directly (the privacy block is taken out of flow below). */
+/* Flex column so the capability cards can pin to the bottom via margin-top:
+ * auto while the copy stays at the top. */
+.ai-panel--intro {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .ai-intro__eyebrow {
   display: block;
 }
@@ -85,65 +91,43 @@
   text-wrap: pretty;
 }
 
-/* ── Left panel: capability orbs ──────────────────────────────────────── */
-/* Container is a positioned band near the bottom; orbs are absolutely placed
- * so they overlap horizontally. Lifted enough that every description clears
- * the clipped bottom edge while the glows still kiss it for a subtle bleed. */
-.ai-orbs {
-  position: absolute;
-  inset-inline: 0;
-  bottom: calc(-1 * var(--space-5));
-  height: 60%;
-  pointer-events: none;
-}
-
-.ai-orb {
-  position: absolute;
-  aspect-ratio: 1;
-  margin: 0;
+/* ── Left panel: capability cards ─────────────────────────────────────── */
+/* In-flow row of three bordered rectangles pinned to the panel bottom
+ * (margin-top: auto). Same card language as the rest of the site:
+ * subtle 1px border, radius-20, left-aligned copy. */
+.ai-caps {
+  margin-top: auto;
+  padding-top: var(--space-40);
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-15);
 }
 
-.ai-orb__glow {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  user-select: none;
-}
-
-.ai-orb__text {
-  position: relative;
-  z-index: 1;
+.ai-cap {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  max-width: 68%;
-  text-align: center;
+  gap: var(--space-10);
+  padding: var(--space-20);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-20);
+  text-align: left;
 }
 
-.ai-orb__label {
+.ai-cap__label {
+  margin: 0;
   color: var(--text-primary);
-  font-size: var(--text-body);
-  font-weight: var(--weight-medium);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-tight);
 }
 
-.ai-orb__desc {
-  color: rgba(255, 255, 255, 0.7);
-  /* 3 points smaller than body-sm (12 → 9), scaled with --u like the rest. */
-  font-size: calc(var(--text-body-sm) - calc(3 * var(--u)));
+.ai-cap__desc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-body);
   line-height: var(--leading-normal);
+  text-wrap: pretty;
 }
-
-/* Read (left), Plan (centre, bigger + a hair higher), Act (right).
- * Boxes share their vertical edges (31% and 69%) so the circles just touch
- * but never overlap. */
-.ai-orb--read { width: 31%; left: 0%;  bottom: -8%; }
-.ai-orb--plan { width: 38%; left: 31%; bottom: -5%; }
-.ai-orb--act  { width: 31%; left: 69%; bottom: -8%; }
 
 /* ── Right panel: live terminal chat ──────────────────────────────────── */
 /* The AgentTerminal fills the card edge-to-edge and manages its own insets,
@@ -155,9 +139,7 @@
 /* ── Responsive ───────────────────────────────────────────────────────── */
 
 /* Laptop 2-col (1025–1440): the absolutely-pinned privacy block overlapped the
- * headline, and the bottom orb band overlapped the subtitle. Drop the privacy
- * block into flow (badges in a row, like the ≤768 layout) and grow the panel by
- * 130px so the bottom-pinned orbs clear the copy. */
+ * headline — drop it into flow (badges in a row, like the ≤768 layout). */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .ai-intro__privacy {
     position: static;
@@ -169,13 +151,8 @@
     flex-wrap: wrap;
     gap: var(--space-5) var(--space-20);
   }
-  .ai-panel {
-    min-height: calc(
-      clamp(calc(440 * var(--u)), 34vw, calc(560 * var(--u))) + 130px
-    );
-  }
 
-  /* Bigger terminal type so the finished transcript fills the (taller) panel. */
+  /* Bigger terminal type so the finished transcript fills the panel. */
   .ai-panel--demo .term {
     --t-font: clamp(calc(17 * var(--u)), 1.55vw, calc(22 * var(--u)));
   }
@@ -185,33 +162,6 @@
   .ai-agents-grid {
     grid-template-columns: 1fr;
     gap: var(--grid-row-gap);
-  }
-
-  /* Single column: the panel is now tall and narrow, so the bottom-bleed orb
-   * band would sit *under* the flowing copy and the long (esp. RU) subtitle
-   * collides with the Read/Plan/Act captions. Drop the orbs into normal flow
-   * beneath the subtitle instead — the panel grows to fit both, so nothing
-   * overlaps regardless of copy length. `padding-bottom` (a % of width) gives
-   * the band real height in flow while its children stay absolutely placed. */
-  .ai-orbs {
-    position: relative;
-    inset-inline: auto;
-    bottom: auto;
-    /* Span the full panel width — break out of its 40px side padding so the
-     * circles reach edge to edge (no side gutters). */
-    width: calc(100% + 2 * var(--space-40));
-    max-width: none;
-    height: 0;
-    padding-bottom: 38%;
-    margin: var(--space-40) calc(-1 * var(--space-40)) 0;
-  }
-  /* Orb copy scales optically with the viewport (bigger screen → bigger text);
-   * the vw term drives it across the whole 769–1024 range without pinning. */
-  .ai-orb__label {
-    font-size: clamp(0.875rem, 2vw, 1.5rem);
-  }
-  .ai-orb__desc {
-    font-size: clamp(0.625rem, 1.35vw, 0.9375rem);
   }
 }
 
@@ -244,53 +194,14 @@
     font-size: var(--text-caption);
   }
   /* Heading + subtitle read as one group, 40px clear of the content above and
-   * the Read/Plan/Act row below. */
+   * the Read/Plan/Act cards below. */
   .ai-intro__title {
     max-width: none;
     margin-top: var(--space-40);
   }
 
-  /* Phones: drop the overlapping orb glows and their centred captions. Render
-   * each capability as a plain left-aligned heading + description, stacked in
-   * one column. */
-  .ai-orbs {
-    position: static;
-    width: auto;
-    max-width: none;
-    height: auto;
-    padding-bottom: 0;
-    margin: var(--space-40) 0 0;   /* 40px below the heading/subtitle group */
-    display: flex;
-    flex-direction: row;           /* Read / Plan / Act on one line */
-    flex-wrap: wrap;
-    gap: var(--space-30);
-    pointer-events: auto;
-  }
-  /* One-line capabilities: labels only, descriptions dropped. */
-  .ai-orb__desc {
-    display: none;
-  }
-  /* `.ai-orbs`-scoped so these beat the desktop `.ai-orb--read/plan/act`
-   * width/left/bottom (which otherwise keep the box narrow and the centred
-   * label indented while the description overflows). */
-  .ai-orbs .ai-orb,
-  .ai-orbs .ai-orb--read,
-  .ai-orbs .ai-orb--plan,
-  .ai-orbs .ai-orb--act {
-    position: static;
-    width: auto;
-    left: auto;
-    bottom: auto;
-    aspect-ratio: auto;
-    display: block;
-  }
-  .ai-orb__glow {
-    display: none;
-  }
-  .ai-orbs .ai-orb__text {
-    width: 100%;
-    max-width: none;
-    text-align: left;
-    align-items: flex-start;
+  /* Phones: not enough width for three cards side by side — stack them. */
+  .ai-caps {
+    grid-template-columns: 1fr;
   }
 }

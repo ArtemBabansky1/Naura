@@ -3,7 +3,9 @@
  * below the viewport and exits past its top edge as the section scrolls. */
 
 /* Half the standard block gap above AND below the phone showcase (the
- * following section owns the gap below, hence the sibling rule). */
+ * following section owns the gap below, hence the sibling rule): the tall
+ * fly-canvas already adds its own transparent air around the copy, so a
+ * full 200u pair would read as a double gap. */
 .meets-phone.section {
   padding-top: calc(var(--section-gap) / 2);
 }
@@ -68,6 +70,15 @@
   will-change: transform;
   /* Pull the phone a step further left, toward the page edge. */
   margin-left: calc(-60 * var(--u));
+}
+
+/* The phone body only occupies the canvas centre (~0.45 of its height), so
+ * the canvas' empty top/bottom zones are pulled out of the flow — the copy
+ * and the neighbouring blocks close in while the flight room stays. */
+@media (min-width: 1024px) {
+  .meets-phone__fly {
+    margin-block: calc(-150 * var(--u));
+  }
 }
 
 .meets-phone__stage {

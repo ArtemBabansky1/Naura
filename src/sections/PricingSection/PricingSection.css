@@ -180,14 +180,10 @@
     border-color var(--duration-fast) var(--ease-in-out);
 }
 
-/* purple filled — shadow on hover (from prior blocks) */
+/* purple filled — hover: shared bottom-up fill (styles/buttons.css) */
 .pricing-card__cta--primary {
   background: var(--bg-btn-primary);
   color: var(--text-on-accent);
-}
-
-.pricing-card__cta--primary:hover {
-  box-shadow: var(--shadow-glow);
 }
 
 /* dark/ghost — purple outline on hover */

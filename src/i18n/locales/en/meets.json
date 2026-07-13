@@ -15,14 +15,14 @@
     "titleRest": "with non-random people",
     "subtitle": "Naura Meets — a\u00A0service for\u00A0meetings within communities and\u00A0by\u00A0interests. Expand your circle, find your people, get new ideas through regular meetings with interesting people.",
     "ctaStart": "Start meetings",
-    "ctaCommunity": "Connect for\u00A0community →"
+    "ctaCommunity": "Connect for\u00A0community"
   },
   "marquee": ["Random Coffee", "1-on-1 meetings", "New connections", "Your own pace", "Warm intros", "Experience exchange"],
   "stats": [
     { "badge": "Launch", "value": 10, "suffix": "", "unit": "minutes", "label": "to\u00A0launch for\u00A0a\u00A0community" },
     { "badge": "Duration", "value": 20, "suffix": "–30", "unit": "minutes", "label": "one conversation lasts" },
     { "badge": "Cycle", "value": 7, "suffix": "", "unit": "days", "label": "one round — one week" },
-    { "badge": "Format", "value": 1, "suffix": "-on-1", "unit": "", "label": "the\u00A0format of\u00A0every meeting" }
+    { "badge": "Format", "value": 1, "suffix": "\u00A0on\u00A01", "unit": "", "label": "the\u00A0format of\u00A0every meeting" }
   ],
   "phone": {
     "eyebrow": "Telegram Mini App",

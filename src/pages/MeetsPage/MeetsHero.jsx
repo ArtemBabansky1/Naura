@@ -49,8 +49,8 @@ export default function MeetsHero() {
             src={hillsWebp}
             alt=""
             aria-hidden="true"
-            width="1864"
-            height="1048"
+            width="1672"
+            height="941"
             loading="eager"
             fetchpriority="high"
             decoding="async"

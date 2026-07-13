@@ -170,6 +170,57 @@ export default function HeroGraph() {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ── CTA collision guard ───────────────────────────────────────────────────
+  // The web must never overlap the hero CTA buttons: cards that share the
+  // CTA's horizontal band keep a 30u gap below it, auto-layout style. When
+  // the stage is too short for that, the whole web slides down instead and
+  // the stage's overflow:hidden clips its bottom rows. Side cards are allowed
+  // to rise above the CTA — only horizontally-overlapping cards constrain.
+  useLayoutEffect(() => {
+    const container = containerRef.current
+    const stage = container?.parentElement
+    const cta = stage?.querySelector('.hero-content__cta')
+    if (!container || !stage || !cta) return
+
+    function applyOffset() {
+      const stageRect = stage.getBoundingClientRect()
+      if (!stageRect.width || !stageRect.height) return
+      const ctaRect = cta.getBoundingClientRect()
+      const ctaBottom = ctaRect.bottom - stageRect.top
+      const ctaLeft = ctaRect.left - stageRect.left
+      const ctaRight = ctaRect.right - stageRect.left
+
+      // Topmost edge among cards overlapping the CTA horizontally, at their
+      // FINAL entrance scale (offsetWidth/Height ignore GSAP transforms, so
+      // this is stable even mid-animation).
+      let minCentralTop = Infinity
+      NODES.forEach(n => {
+        const el = nodeEls.current[n.id]
+        if (!el) return
+        const scale = DEPTH_SCALE[n.depth] ?? 1
+        const halfW = (el.offsetWidth * scale) / 2
+        const cardCx = (n.cx / 100) * stageRect.width
+        if (cardCx + halfW < ctaLeft || cardCx - halfW > ctaRight) return
+        const cardTop = (n.cy / 100) * stageRect.height - (el.offsetHeight * scale) / 2
+        minCentralTop = Math.min(minCentralTop, cardTop)
+      })
+      if (minCentralTop === Infinity) return
+
+      // 30u gap — the graph only renders ≥1200, where --u = 1vw/19.2 (tokens.css)
+      const gap = 30 * (window.innerWidth / 1920)
+      const offset = Math.max(0, Math.round(ctaBottom + gap - minCentralTop))
+      container.style.transform = offset ? `translate3d(0, ${offset}px, 0)` : ''
+    }
+
+    applyOffset()
+    const ro = new ResizeObserver(applyOffset)
+    ro.observe(stage)
+    ro.observe(cta)                                  // locale switch resizes the buttons
+    if (cta.parentElement) ro.observe(cta.parentElement) // headline/subtitle rewrap moves the CTA
+    document.fonts?.ready.then(applyOffset).catch(() => {})
+    return () => ro.disconnect()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   // ── Mouse parallax ────────────────────────────────────────────────────────
   useLayoutEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches

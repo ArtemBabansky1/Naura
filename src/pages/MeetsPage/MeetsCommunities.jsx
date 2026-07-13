@@ -14,9 +14,9 @@ const slideFrom = (x) => ({
 
 /* Giant bottom word scaled to exactly fill the card's content width (the
  * card side paddings are the only air) — measured, not guessed, so both
- * locales fit regardless of word length. The word's INK bottom (canvas
- * TextMetrics — RU words have descenders, EN words don't) is then pinned
- * to 0px from the card's bottom edge. Refits on resize and font load. */
+ * locales fit regardless of word length. The word's baseline-letter ink
+ * bottom is then pinned to 0px from the card's bottom edge (descender
+ * tails hang past it and are clipped). Refits on resize and font load. */
 const FIT_BASE_PX = 100
 const measureCtx = document.createElement("canvas").getContext("2d")
 
@@ -45,9 +45,15 @@ function GiantWord({ className, text }) {
       // 2. Bottom: the zero-size inline-block probe sits on the baseline;
       //    canvas metrics give the ink extent below it. Shift the word so
       //    the ink bottom lands exactly on the card's bottom edge.
+      //    Ink bottom is taken from the word's BASELINE letters (smallest
+      //    per-glyph descent), so descender tails — «р» in «Проблема», "p"
+      //    in "Problem" — hang past the card edge (overflow: clip cuts
+      //    them) instead of lifting the whole word off the bottom.
       const style = getComputedStyle(el)
       measureCtx.font = `${style.fontWeight} ${fontSize}px ${style.fontFamily}`
-      const descent = measureCtx.measureText(text).actualBoundingBoxDescent
+      const descent = Math.min(
+        ...[...text].map((ch) => measureCtx.measureText(ch).actualBoundingBoxDescent)
+      )
       const inkBottom = probe.getBoundingClientRect().top + descent
       const cardBottom = card.getBoundingClientRect().bottom
       // Negative margin pulls the word DOWN by the remaining distance so the

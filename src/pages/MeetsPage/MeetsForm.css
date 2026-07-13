@@ -43,16 +43,19 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  /* Size container for the one-line headline below. */
+  container-type: inline-size;
 }
 
-/* Oversized white headline over the window (up to 120px on the 1920 grid);
- * capped at ~12ch so both locales break into two lines. */
+/* Oversized white headline over the window — ONE line in both locales at
+ * any width: the longest headline ("Submit application") measures 9.07em,
+ * so ~10.7cqi fills the column with a small margin; capped at the 120px
+ * design size from the 1920 grid. */
 .meets-form__title {
   color: var(--color-base-white);
-  font-size: clamp(4rem, 5vw + 2.5rem, 7.5rem);
+  font-size: min(10.7cqi, 7.5rem);
   /* Half the tight leading's interline gap (1.2 → 1.1). */
   line-height: 1.1;
-  max-width: 12ch;
 }
 
 /* Note rides at the bottom of the column, per the mockup. */
@@ -136,6 +139,8 @@
   gap: var(--space-10);
   cursor: pointer;
   color: var(--text-list);
+  /* Deliberately below the page's body-size floor (-40%): legal fine print. */
+  font-size: calc(var(--text-body) * 0.6);
 }
 
 .meets-form__checkbox {

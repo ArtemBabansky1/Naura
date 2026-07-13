@@ -148,14 +148,10 @@
     border-color var(--duration-fast) var(--ease-in-out);
 }
 
-/* "Open Bot" — purple shadow behind on hover (from prior blocks) */
+/* "Open Bot" — hover: shared bottom-up fill (styles/buttons.css) */
 .telegram-btn--primary {
   background: var(--bg-btn-primary);
   color: var(--text-on-accent);
-}
-
-.telegram-btn--primary:hover {
-  box-shadow: var(--shadow-glow);
 }
 
 /* "How it stores data" — purple outline on hover */

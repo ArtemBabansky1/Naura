@@ -7,7 +7,11 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: var(--space-40) var(--navbar-padding-x) 0;
+  /* Same band as .container — the nav edges sit on the site grid, aligned
+   * with every other block on the page. */
+  width: min(100% - 2 * var(--gutter), var(--content-max));
+  margin-inline: auto;
+  padding: var(--space-40) 0 0;
 }
 
 /* ── Logo ─────────────────────────────────────────────────────────────── */
@@ -22,15 +26,8 @@
 
 .meets-nav__logo-mark {
   display: block;
-  height: 20px;   /* fixed — never shrinks with --u in the zoom range */
+  height: 80px;   /* fixed — never shrinks with --u in the zoom range */
   width: auto;
-}
-
-.meets-nav__logo-text {
-  font-size: var(--text-nav);
-  font-weight: var(--weight-semibold);
-  line-height: 1;
-  color: var(--accent-primary);
 }
 
 /* ── Links ────────────────────────────────────────────────────────────── */
@@ -44,14 +41,13 @@
 .meets-nav__link {
   color: var(--text-primary);
   font-size: var(--text-nav);
-  opacity: 0.8;
   white-space: nowrap;
   text-decoration: none;
   transition: opacity var(--duration-fast) var(--ease-in-out);
 }
 
 .meets-nav__link:hover {
-  opacity: 1;
+  opacity: 0.75;
 }
 
 /* ── Actions ──────────────────────────────────────────────────────────── */
@@ -75,7 +71,8 @@
   background: transparent;
   color: var(--text-primary);
   font-family: inherit;
-  font-size: var(--text-btn-sm);
+  /* Same type as the neighbouring .meets-btn buttons. */
+  font-size: var(--btn-cta-font);
   font-weight: var(--weight-semibold);
   line-height: 1;
   cursor: pointer;
@@ -85,7 +82,6 @@
 
 .meets-nav__lang:hover {
   border-color: var(--accent-primary);
-  box-shadow: var(--shadow-glow);
 }
 
 /* ── ≤1199 — minimal bar: logo left, lang + sign-in right ─────────────── */
@@ -104,6 +100,6 @@
 
 @media (max-width: 767.98px) {
   .meets-nav {
-    padding: var(--space-30) var(--space-20) 0;
+    padding: var(--space-30) 0 0;
   }
 }

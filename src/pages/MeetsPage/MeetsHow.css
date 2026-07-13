@@ -6,11 +6,9 @@
  * Every card shares one template: a pill badge, a title (an accent number on
  * stat cards) and a short body pinned to the top. */
 
-/* ── Pinned takeover fills the viewport; the plain variant flows normally ── */
-.meets-how.is-pinned {
-  padding-block: 0;
-}
-
+/* ── Pinned panel is content-sized and pins at the viewport center, so the
+ * section keeps the standard 200u block gap above (from .section) and below
+ * (the sheets' 100u+100u pair) — no viewport-height slack around it. ────── */
 .meets-how__pin {
   display: flex;
   flex-direction: column;
@@ -18,9 +16,6 @@
 }
 
 .meets-how.is-pinned .meets-how__pin {
-  min-height: 100vh;
-  justify-content: center;
-  padding-block: var(--space-50);
   /* Clip the max-content row that GSAP slides sideways. */
   overflow: hidden;
 }
@@ -172,6 +167,46 @@
   max-width: 26ch;
 }
 
+/* ── Accent stat card (Cycle) — purple fill, giant digit on the bottom ── */
+.meets-how__card--accent {
+  background: var(--accent-primary);
+}
+
+.meets-how__card--accent .meets-how__stat-value,
+.meets-how__card--accent .meets-how__stat-unit {
+  color: var(--color-base-white);
+}
+
+.meets-how__card--accent .meets-how__stat-label {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Giant digit rides the card's bottom edge: line-height trims the box to
+ * roughly cap height so the glyph bottom = the visual bottom, and the
+ * negative margin pulls it through the card padding onto the edge. */
+.meets-how__giant-digit {
+  margin-top: auto;
+  align-self: flex-end;
+  font-size: calc(300 * var(--u));
+  font-weight: var(--weight-semibold);
+  line-height: 0.72;
+  letter-spacing: -0.03em;
+  color: var(--color-base-white);
+  margin-bottom: calc(-1 * var(--card-padding));
+  /* 40u in from the right edge (the card's own padding line). */
+  margin-right: 0;
+}
+
+/* ── Time stat card — hourglass photo backdrop, white ink on the grass ── */
+.meets-how__card--time .meets-how__stat-value,
+.meets-how__card--time .meets-how__stat-unit {
+  color: var(--color-base-white);
+}
+
+.meets-how__card--time .meets-how__stat-label {
+  color: var(--color-base-white);
+}
+
 /* ── Photo card — 1-on-1 + CTA over the hero hills ────────────────────── */
 .meets-how__card--photo {
   border: none;
@@ -190,8 +225,9 @@
   pointer-events: none;
 }
 
+/* CTA sits on the card's bottom padding line, not under the copy. */
 .meets-how__photo-cta {
-  margin-top: var(--space-25);
+  margin-top: auto;
 }
 
 /* ── Progress bar (scroll progress, 0 → 1) ────────────────────────────── */
@@ -199,7 +235,8 @@
   position: relative;
   height: var(--space-5);
   border-radius: var(--radius-pill);
-  background: var(--border-default);
+  /* Same muted gray as the cards above. */
+  background: var(--bg-card-muted);
   overflow: hidden;
 }
 

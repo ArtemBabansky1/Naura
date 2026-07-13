@@ -136,14 +136,10 @@
     border-color var(--duration-fast) var(--ease-in-out);
 }
 
-/* "For organizers" — purple shadow behind on hover (from Hero primary) */
+/* "For organizers" — hover: shared bottom-up fill (styles/buttons.css) */
 .communities-btn--primary {
   background: var(--bg-btn-primary);
   color: var(--text-on-accent);
-}
-
-.communities-btn--primary:hover {
-  box-shadow: var(--shadow-glow);
 }
 
 /* "See the product" — purple outline appears on hover (from Hero ghost) */

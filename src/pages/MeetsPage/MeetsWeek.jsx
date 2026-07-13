@@ -42,7 +42,7 @@ const labelPos = (j) => polar(j * SPAN_DEG + SPAN_DEG / 2, LABEL_RADIUS)
  * midpoint between steps. A short plateau (0.2 of a step) stretches each
  * transition across most of the inter-step scroll, so swaps read as one
  * long glide instead of a snap. ─────────────────────────────────────────── */
-const SLIDE = 24
+const SLIDE = 40
 const SCALE_REST = 0.96
 const PLATEAU = 0.2
 const EDGE = 0.5
