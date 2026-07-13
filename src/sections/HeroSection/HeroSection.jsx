@@ -23,8 +23,8 @@ function NauraWordmark() {
 }
 
 export default function HeroSection({ menuOpen, onMenuToggle }) {
-  const { t, i18n } = useTranslation('hero')
-  const { localePath, switchLocale } = useLocale()
+  const { t } = useTranslation('hero')
+  const { localePath } = useLocale()
   const { openDemo } = useDemoModal()
 
   // Below the 1200 boundary (tablet + phone) the contact-web "паутина" is
@@ -32,10 +32,6 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
   // ticker + rAF parallax (INP/battery) and avoids the nodes overlapping on a
   // narrower stage. The animated purple background (UnicornScene) still runs.
   const isBelowDesktop = useMediaQuery(BELOW_DESKTOP_QUERY)
-
-  function toggleLang() {
-    switchLocale()
-  }
 
   // Break the headline after the first sentence so "net worth." stays on line one
   const [headlineLead, ...headlineRest] = t('headline').split('. ')
@@ -58,9 +54,6 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
             <a href="#ai-agents" className="hero-nav__link">{t('nav.mcp')}</a>
           </nav>
           <div className="hero-nav__actions">
-            <button type="button" className="hero-nav__lang" onClick={toggleLang} aria-label="Switch language">
-              {i18n.language === 'en' ? 'RU' : 'EN'}
-            </button>
             <a href={APP_URL} className="hero-nav__btn hero-nav__btn--secondary">{t('nav.signIn')}</a>
             <button type="button" className="hero-nav__btn hero-nav__btn--primary" onClick={openDemo}>{t('nav.getDemo')}</button>
           </div>

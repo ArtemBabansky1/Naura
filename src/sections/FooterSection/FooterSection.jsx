@@ -1,10 +1,12 @@
 import { useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
+import { useLocale } from "../../hooks/useLocale"
 import "./FooterSection.css"
 
 export default function FooterSection() {
   const { t } = useTranslation("footer")
+  const { isRu, switchLocale } = useLocale()
   const sectionRef = useRef(null)
 
   const productLinks = [
@@ -85,7 +87,17 @@ export default function FooterSection() {
             <li><LocaleLink to="/terms" className="footer-link">{t("legal.terms")}</LocaleLink></li>
           </ul>
 
-          <p className="footer-copy text-body-sm">{t("legal.copyright")}</p>
+          <div className="footer-meta">
+            <button
+              type="button"
+              className="footer-lang text-body-sm"
+              onClick={switchLocale}
+              aria-label="Switch language"
+            >
+              {isRu ? "EN" : "RU"}
+            </button>
+            <p className="footer-copy text-body-sm">{t("legal.copyright")}</p>
+          </div>
         </div>
       </div>
     </footer>

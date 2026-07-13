@@ -41,7 +41,7 @@
 .footer-col--product { grid-column: 2; grid-row: 1; }
 .footer-col--contacts{ grid-column: 3; grid-row: 1; }
 .footer-legal        { grid-column: 2; grid-row: 2; }
-.footer-copy         { grid-column: 3; grid-row: 2; align-self: end; }
+.footer-meta         { grid-column: 3; grid-row: 2; align-self: end; }
 
 /* ── Brand ────────────────────────────────────────────────────────────── */
 .footer-brand__logo {
@@ -92,6 +92,37 @@
   text-align: left;
 }
 
+/* Language switch + copyright share the bottom-right cell. */
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-15);
+}
+
+/* Circle ghost button — same look as the old header language toggle. */
+.footer-lang {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  transition: border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.footer-lang:hover {
+  border-color: var(--text-primary);
+}
+
 .footer-copy {
   margin: 0;
   color: var(--text-muted);
@@ -115,7 +146,8 @@
   .footer-col--product  { grid-column: 1; grid-row: 2; }
   .footer-col--contacts { grid-column: 2; grid-row: 2; }
   .footer-legal         { grid-column: 1; grid-row: 3; }
-  .footer-copy          { grid-column: 2; grid-row: 3; align-self: start; white-space: normal; }
+  .footer-meta          { grid-column: 2; grid-row: 3; align-self: start; }
+  .footer-copy          { white-space: normal; }
 
   .footer-brand__logo {
     height: calc(100 * var(--u));
@@ -145,7 +177,7 @@
   .footer-col--product,
   .footer-col--contacts,
   .footer-legal,
-  .footer-copy {
+  .footer-meta {
     grid-column: 1;
     grid-row: auto;
   }

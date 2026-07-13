@@ -1,26 +1,20 @@
 import { useTranslation } from 'react-i18next'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
-import { useLocale } from '../../hooks/useLocale'
 import { useDemoModal } from '../DemoModal/DemoModalContext'
 import { APP_URL, MEETS_URL } from '../../lib/urls'
 import './FloatingNav.css'
 
 /**
  * Floating navigation that flies in from below when the user scrolls up.
- * Four separate shapes butted together (0px gap): a left rectangle holding the
- * logo + links, a circular language toggle and two buttons. The lang toggle and
- * "Sign in" are ghost (black + gray border); "Get started" stays solid purple.
+ * Three separate shapes butted together (0px gap): a left rectangle holding the
+ * logo + links and two buttons. "Sign in" is ghost (black + gray border);
+ * "Get started" stays solid purple.
  */
 export default function FloatingNav() {
-  const { t, i18n } = useTranslation('hero')
-  const { switchLocale } = useLocale()
+  const { t } = useTranslation('hero')
   const { openDemo } = useDemoModal()
   const isVisible = useRevealOnScrollUp('hero')
   const tab = isVisible ? 0 : -1
-
-  function toggleLang() {
-    switchLocale()
-  }
 
   return (
     <div
@@ -53,17 +47,6 @@ export default function FloatingNav() {
             <a href="#ai-agents" className="float-nav__link">{t('nav.mcp')}</a>
           </nav>
         </div>
-
-        {/* Circle — language toggle */}
-        <button
-          type="button"
-          className="float-nav__lang"
-          onClick={toggleLang}
-          tabIndex={tab}
-          aria-label="Switch language"
-        >
-          {i18n.language === 'en' ? 'RU' : 'EN'}
-        </button>
 
         {/* Two buttons */}
         <a href={APP_URL} className="float-nav__btn float-nav__btn--ghost" tabIndex={tab}>

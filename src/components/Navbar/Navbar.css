@@ -44,16 +44,6 @@
   gap: var(--space-10);
 }
 
-.navbar__lang {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  padding: var(--btn-nav-py) var(--btn-nav-px);
-  cursor: pointer;
-  transition: color var(--duration-fast) var(--ease-in-out);
-}
-.navbar__lang:hover { color: var(--text-primary); }
-
 .navbar__btn {
   padding: var(--btn-nav-py) var(--btn-nav-px);
   border-radius: var(--btn-nav-radius);

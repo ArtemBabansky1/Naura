@@ -4,12 +4,8 @@ import { APP_URL } from '../../lib/urls'
 import './Navbar.css'
 
 export default function Navbar() {
-  const { t, i18n } = useTranslation('common')
-  const { localePath, switchLocale } = useLocale()
-
-  function toggleLang() {
-    switchLocale()
-  }
+  const { t } = useTranslation('common')
+  const { localePath } = useLocale()
 
   return (
     <header className="navbar" role="banner">
@@ -24,9 +20,6 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar__actions">
-          <button type="button" className="navbar__lang text-body-sm" onClick={toggleLang} aria-label="Switch language">
-            {i18n.language === 'en' ? 'RU' : 'EN'}
-          </button>
           <a href={APP_URL} className="navbar__btn navbar__btn--secondary text-body-sm">{t('cta.signIn')}</a>
           <a href={APP_URL} className="navbar__btn navbar__btn--primary text-body-sm">{t('cta.getStarted')}</a>
         </div>

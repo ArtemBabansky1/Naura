@@ -112,29 +112,6 @@
   justify-self: end;
 }
 
-.hero-nav__lang {
-  background: var(--color-base-white);
-  border: 1px solid transparent;
-  color: var(--color-base-gray-600);
-  width: 45px;           /* fixed — never shrinks with --u in the zoom range */
-  height: 45px;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: var(--text-nav);
-  font-weight: var(--weight-semibold);
-  font-family: inherit;
-  line-height: 1;
-  transition: opacity var(--duration-fast) var(--ease-in-out), box-shadow var(--duration-fast) var(--ease-in-out);
-}
-.hero-nav__lang:hover {
-  opacity: 0.88;
-  box-shadow: 0px 0px calc(30 * var(--u)) 0px rgba(255, 255, 255, 0.35);
-}
-
 .hero-nav__btn {
   display: inline-flex;
   align-items: center;
@@ -151,8 +128,7 @@
 }
 .hero-nav__btn--secondary { color: var(--text-on-light); background: var(--bg-btn-secondary); }
 .hero-nav__btn--primary   { color: var(--text-on-accent); background: var(--bg-btn-primary); }
-.hero-nav__btn--secondary:hover { opacity: 0.88; box-shadow: 0px 0px calc(30 * var(--u)) 0px rgba(255, 255, 255, 0.35); }
-.hero-nav__btn--primary:hover   { opacity: 0.88; box-shadow: var(--shadow-glow); }
+/* Hover on both: shared bottom-up fill — see styles/buttons.css. */
 
 /* ── Hero content ─────────────────────────────────────────────────────────── */
 .hero-content {
@@ -232,10 +208,7 @@
   border-color: transparent;
 }
 
-.btn-hero--primary:hover {
-  opacity: 0.88;
-  box-shadow: var(--shadow-glow);
-}
+/* Hover: shared bottom-up fill — see styles/buttons.css. */
 
 .btn-hero--ghost {
   background: transparent;
@@ -248,6 +221,9 @@
 }
 
 /* ── Graph overlay ────────────────────────────────────────────────────────── */
+/* HeroGraph's CTA collision guard may set an inline translateY on this layer:
+ * on short stages the whole web slides down so its central cards keep a 30u
+ * gap below the CTA buttons; the stage's overflow:hidden clips the bottom. */
 .hero-graph {
   position: absolute;
   inset: 0;
