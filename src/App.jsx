@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { LocaleSync } from "./components/LocaleSync/LocaleSync"
+import { GeoLocaleRedirect } from "./components/GeoLocaleRedirect/GeoLocaleRedirect"
 import { DemoModalProvider } from "./components/DemoModal/DemoModalContext"
 import { LandingPage } from "./pages/LandingPage/LandingPage"
 
@@ -35,6 +36,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <LocaleSync />
+      <GeoLocaleRedirect />
       <DocumentLang />
       <DemoModalProvider>
         <Suspense fallback={null}>
