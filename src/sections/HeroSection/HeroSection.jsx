@@ -5,7 +5,7 @@ import HeroGraph from './HeroGraph'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'
 import BurgerButton from '../../components/MobileNav/BurgerButton'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
-import { APP_URL, MEETS_URL } from '../../lib/urls'
+import { MEETS_URL } from '../../lib/urls'
 import './HeroSection.css'
 
 // Naura wordmark (was naura-logo.svg) — inline so it ships with the JS, no request.
@@ -24,7 +24,7 @@ function NauraWordmark() {
 
 export default function HeroSection({ menuOpen, onMenuToggle }) {
   const { t } = useTranslation('hero')
-  const { localePath } = useLocale()
+  const { localePath, switchLocale, isRu } = useLocale()
   const { openDemo } = useDemoModal()
 
   // Below the 1200 boundary (tablet + phone) the contact-web "паутина" is
@@ -54,7 +54,14 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
             <a href="#ai-agents" className="hero-nav__link">{t('nav.mcp')}</a>
           </nav>
           <div className="hero-nav__actions">
-            <a href={APP_URL} className="hero-nav__btn hero-nav__btn--secondary">{t('nav.signIn')}</a>
+            <button
+              type="button"
+              className="hero-nav__lang"
+              onClick={switchLocale}
+              aria-label="Switch language"
+            >
+              {isRu ? 'EN' : 'RU'}
+            </button>
             <button type="button" className="hero-nav__btn hero-nav__btn--primary" onClick={openDemo}>{t('nav.getDemo')}</button>
           </div>
 
@@ -80,10 +87,7 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
             {t('subtitle')}
           </p>
           <div className="hero-content__cta">
-            <a href={APP_URL} className="btn-hero btn-hero--primary">
-              {t('cta.getStarted')}
-            </a>
-            <button type="button" className="btn-hero btn-hero--ghost" onClick={openDemo}>
+            <button type="button" className="btn-hero btn-hero--primary" onClick={openDemo}>
               {t('cta.seeHowItWorks')}
             </button>
           </div>

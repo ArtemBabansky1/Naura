@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
-import { APP_URL } from '../../lib/urls'
+import { useDemoModal } from '../../components/DemoModal/DemoModalContext'
 import './CtaSection.css'
 
 // Friendly, diverse faces for social proof — optimized AVIF + WebP pairs.
@@ -16,6 +16,7 @@ const AVATARS = [pic(18), pic(23), pic(9), pic(5), pic(3)]
 
 export default function CtaSection() {
   const { t } = useTranslation('cta')
+  const { openDemo } = useDemoModal()
   const sectionRef = useRef(null)
 
   return (
@@ -31,7 +32,7 @@ export default function CtaSection() {
 
         <motion.p className="cta-subtitle text-body" variants={fadeUp}>{t('subtitle')}</motion.p>
 
-        <motion.a href={APP_URL} className="cta-button" variants={fadeUp}>{t('cta')}</motion.a>
+        <motion.button type="button" className="cta-button" variants={fadeUp} onClick={openDemo}>{t('cta')}</motion.button>
 
         <motion.div className="cta-proof" variants={fadeUp}>
           <div className="cta-proof__avatars">

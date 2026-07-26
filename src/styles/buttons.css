@@ -21,7 +21,8 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
-  .meets-btn--primary
+  .meets-btn--primary,
+  .hero-nav__lang
 ) {
   --sweep-fill: var(--color-base-white);
   --sweep-ink:  var(--accent-primary);
@@ -30,7 +31,8 @@
 /* White / outlined buttons → purple fill, white ink */
 :is(
   .hero-nav__btn--secondary,
-  .meets-nav__signin
+  .meets-nav__signin,
+  .hero-nav__lang
 ) {
   --sweep-fill: var(--accent-primary);
   --sweep-ink:  var(--color-base-white);
@@ -48,7 +50,8 @@
   .communities-btn--primary,
   .pricing-card__cta--primary,
   .meets-btn--primary,
-  .meets-nav__signin
+  .meets-nav__signin,
+  .hero-nav__lang
 ):is(
   .btn-hero--primary,
   .hero-nav__btn--primary,
@@ -59,7 +62,8 @@
   .communities-btn--primary,
   .pricing-card__cta--primary,
   .meets-btn--primary,
-  .meets-nav__signin
+  .meets-nav__signin,
+  .hero-nav__lang
 ) {
   position: relative;
   isolation: isolate;
@@ -78,7 +82,8 @@
   .communities-btn--primary,
   .pricing-card__cta--primary,
   .meets-btn--primary,
-  .meets-nav__signin
+  .meets-nav__signin,
+  .hero-nav__lang
 )::after {
   content: "";
   position: absolute;
@@ -102,7 +107,8 @@
   .communities-btn--primary,
   .pricing-card__cta--primary,
   .meets-btn--primary,
-  .meets-nav__signin
+  .meets-nav__signin,
+  .hero-nav__lang
 ):is(
   .btn-hero--primary,
   .hero-nav__btn--primary,
@@ -113,7 +119,8 @@
   .communities-btn--primary,
   .pricing-card__cta--primary,
   .meets-btn--primary,
-  .meets-nav__signin
+  .meets-nav__signin,
+  .hero-nav__lang
 ):hover:not(:disabled) {
   color: var(--sweep-ink);
   border-color: var(--sweep-fill);
@@ -131,7 +138,8 @@
   .communities-btn--primary,
   .pricing-card__cta--primary,
   .meets-btn--primary,
-  .meets-nav__signin
+  .meets-nav__signin,
+  .hero-nav__lang
 ):hover:not(:disabled)::after {
   transform: translateY(0);
 }

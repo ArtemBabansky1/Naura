@@ -7,7 +7,7 @@ import { useLocale } from '../../hooks/useLocale'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
 import { useDemoModal } from '../DemoModal/DemoModalContext'
 import { lockScroll, unlockScroll } from '../../lib/scrollLock'
-import { APP_URL, MEETS_URL } from '../../lib/urls'
+import { MEETS_URL } from '../../lib/urls'
 import BurgerButton from './BurgerButton'
 import './MobileNav.css'
 
@@ -197,9 +197,6 @@ export default function MobileNav({ open, setOpen }) {
                   >
                     {i18n.language === 'en' ? 'RU' : 'EN'}
                   </button>
-                  <a href={APP_URL} className="mobile-nav__btn mobile-nav__btn--ghost" onClick={close}>
-                    {t('nav.signIn')}
-                  </a>
                   <button
                     type="button"
                     className="mobile-nav__btn mobile-nav__btn--primary"

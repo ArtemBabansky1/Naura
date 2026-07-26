@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
 import { useDemoModal } from '../DemoModal/DemoModalContext'
-import { APP_URL, MEETS_URL } from '../../lib/urls'
+import { MEETS_URL } from '../../lib/urls'
 import './FloatingNav.css'
 
 /**
@@ -48,10 +48,6 @@ export default function FloatingNav() {
           </nav>
         </div>
 
-        {/* Two buttons */}
-        <a href={APP_URL} className="float-nav__btn float-nav__btn--ghost" tabIndex={tab}>
-          {t('nav.signIn')}
-        </a>
         <button type="button" className="float-nav__btn" tabIndex={tab} onClick={openDemo}>
           {t('nav.getDemo')}
         </button>
