@@ -1,33 +1,36 @@
 import { useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import { fadeUp, staggerContainer, viewportConfig } from "../../lib/framer"
 import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
+import { submitCommunityRequest } from "../../lib/crm"
 import { RevealText } from "./motion"
-import formBgAvif from "../../assets/meets/form-bg.avif"
-import formBgWebp from "../../assets/meets/form-bg.webp"
+import formBgAvif from "../../assets/meets/form-bg-2.avif"
+import formBgWebp from "../../assets/meets/form-bg-2.webp"
 import "./MeetsForm.css"
 
 const INITIAL = { name: "", contact: "", comment: "" }
 
-/* "Оставить заявку" — a rounded panel with the hero hills photo as its
- * background (its own shot — the empty chair on the meadow). White headline
- * + note on the left, the white form card on the right. Submission is
- * mocked (no backend yet). */
+/* "Оставить заявку" — a rounded panel with its own photo background
+ * (form-bg-2, sourced from form_1.png). White headline
+ * + note on the left, the white form card on the right. Submission goes to
+ * the same CRM webhook as the demo form (src/lib/crm.js), which routes into
+ * the Meets bot; `source` separates the two. */
 export default function MeetsForm() {
-  const { t } = useTranslation("meets")
+  const { t, i18n } = useTranslation("meets")
   const prefersReduced = useReducedMotion()
 
   const [fields, setFields] = useState(INITIAL)
   const [consentPersonal, setConsentPersonal] = useState(false)
   const [consentMarketing, setConsentMarketing] = useState(false)
-  const [status, setStatus] = useState("idle") // idle | submitting | success | error
+  // idle | submitting | success | error (validation) | failed (send)
+  const [status, setStatus] = useState("idle")
   const submitting = status === "submitting"
 
   const update = (key) => (e) => {
     const { value } = e.target
     setFields((prev) => ({ ...prev, [key]: value }))
-    if (status === "error") setStatus("idle")
+    if (status === "error" || status === "failed") setStatus("idle")
   }
 
   const handleSubmit = async (e) => {
@@ -38,9 +41,20 @@ export default function MeetsForm() {
     }
 
     setStatus("submitting")
-    // No backend yet — mock the round-trip so the UX is complete.
-    await new Promise((resolve) => setTimeout(resolve, 700))
-    setStatus("success")
+    try {
+      await submitCommunityRequest({
+        name: fields.name.trim(),
+        contact: fields.contact.trim(),
+        comment: fields.comment.trim(),
+        consentMarketing,
+        locale: i18n.language,
+      })
+      setStatus("success")
+    } catch {
+      // Never a thank-you on a failed send — the visitor has to know the
+      // request did not go through, or the lead is lost in silence.
+      setStatus("failed")
+    }
   }
 
   return (
@@ -84,9 +98,9 @@ export default function MeetsForm() {
               viewport={viewportConfig}
               variants={staggerContainer(0.08)}
             >
-              {status === "error" && (
+              {(status === "error" || status === "failed") && (
                 <p className="meets-form__banner text-body" role="alert">
-                  {t("form.errorRequired")}
+                  {t(status === "failed" ? "form.errorSend" : "form.errorRequired")}
                 </p>
               )}
 

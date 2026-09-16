@@ -1,0 +1,16 @@
+[data-site-nav] a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.site-resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+}
+
+.site-resource-links a {
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import { fadeUp, staggerContainer, viewportConfig, easing } from "../../lib/framer"
 import { RevealText, ParallaxY } from "./motion"
 import "./MeetsWhy.css"
@@ -46,9 +46,6 @@ export default function MeetsWhy() {
 
                 <motion.div className="meets-why__foot" variants={fadeUp}>
                   <p className="meets-why__note text-body">{t("why.note")}</p>
-                  <a href="#meets-form" className="meets-btn meets-btn--primary meets-why__cta">
-                    {t("why.cta")}
-                  </a>
                 </motion.div>
               </div>
 

@@ -16,7 +16,7 @@
 }
 
 /* The hills photo fills the panel behind the content; the parallax shift
- * (framer-motion y + 1.2 scale) stays clipped by the panel's overflow.
+ * (Motion y + 1.2 scale) stays clipped by the panel's overflow.
  * The <picture> wrapper must sit OUTSIDE the grid flow — as a grid item it
  * would claim the first column and shove the real columns around. */
 .meets-form__panel > picture {
@@ -47,13 +47,11 @@
   container-type: inline-size;
 }
 
-/* Oversized white headline over the window — ONE line in both locales at
- * any width: the longest headline ("Submit application") measures 9.07em,
- * so ~10.7cqi fills the column with a small margin; capped at the 120px
- * design size from the 1920 grid. */
+/* Oversized white headline over the window — the container-scaled size
+ * (10.7cqi/7.5rem) pulled down 30% per review. */
 .meets-form__title {
   color: var(--color-base-white);
-  font-size: min(10.7cqi, 7.5rem);
+  font-size: min(7.5cqi, 5.25rem);
   /* Half the tight leading's interline gap (1.2 → 1.1). */
   line-height: 1.1;
 }

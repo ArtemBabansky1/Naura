@@ -1,0 +1,99 @@
+/* The incoming section overlaps the final viewport of the photo's sticky track. */
+.bc2-solutions-sequence {
+  position: relative;
+  isolation: isolate;
+  /* Keep the outgoing photo inside the now content-sized incoming section. */
+  overflow: clip;
+}
+
+.bc2-solutions-sequence .bc2-solutions { position: relative; margin-top: 0; }
+.bc2-solutions__stage { position: relative; }
+.bc2-solutions-sequence .bc2-solutions__mosaic { border-radius: var(--nc-radius); }
+.bc2-solutions-sequence .bc2-solutions__panorama { inset: -24px; }
+.bc2-solutions__panorama > .bc2-solutions__photo--soft {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  filter: blur(16px);
+}
+
+.bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solutions { height: 380svh; }
+.bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solutions__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+  isolation: isolate;
+}
+.bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solutions__mosaic {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  clip-path: inset(5% var(--nc-gutter) round var(--nc-radius));
+}
+.bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solutions__copy {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: center;
+  align-items: stretch;
+  gap: 20px;
+  margin: 0;
+  margin-inline: auto;
+  max-width: 1660px;
+  padding: 48px var(--nc-gutter);
+  pointer-events: none;
+}
+.bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solution-copy {
+  grid-column: auto;
+  min-height: 400px;
+  padding: 35px;
+  pointer-events: auto;
+}
+.bc2-solutions-sequence .bc2-solution-copy__cta { margin-top: 32px; }
+.bc2-solutions-sequence .bc2-solution-copy ul { flex: 1; }
+.bc2-solutions-sequence[data-scene-active="true"] .bc2-solutions__panorama,
+.bc2-solutions-sequence[data-scene-active="true"] .bc2-solution-copy { will-change: transform; }
+
+.bc2-solutions-sequence > .bc2-instant {
+  position: relative;
+  z-index: 3;
+  margin-top: 60px;
+  padding-top: 60px;
+  border-radius: 60px 60px 0 0;
+  background: var(--bc-canvas);
+  /* Bleed past the clip edge so fractional pixels cannot expose the photo. */
+  box-shadow: 0 2px 0 var(--bc-canvas);
+}
+.bc2-solutions-sequence[data-scene-motion="animated"] > .bc2-instant { margin-top: -100svh; }
+
+@media (min-width: 1800px) {
+  .bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solutions__copy {
+    max-width: none;
+  }
+
+  .bc2-solutions-sequence > .bc2-instant {
+    padding-top: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .bc2-solutions-sequence .bc2-solutions__panorama > img { object-position: center; }
+  .bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solutions { height: 480svh; }
+  .bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solutions__copy {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 48px 20px;
+  }
+  .bc2-solutions-sequence[data-scene-motion="animated"] .bc2-solution-copy {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 30px 25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc2-solutions__photo--soft { display: none; }
+}

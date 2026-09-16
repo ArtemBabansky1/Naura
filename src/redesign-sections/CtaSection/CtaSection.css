@@ -1,0 +1,158 @@
+/* CtaSection — "Start managing your network today." (block 9).
+ * Centered content over a large purple glow that bleeds down behind the
+ * footer (block 10). Semantic tokens only; values multiples of 5.
+ */
+
+/* CTA + footer wrapper — clips the glow at the footer's bottom edge so the
+ * page ends exactly at the footer (no purple gap below it). */
+.page-closing {
+  position: relative;
+  overflow: clip;
+}
+
+/* ── Glow — UnicornStudio animation behind the CTA AND footer. The footer panel
+   paints above it (z-index), so it glows under/around the footer. Same full
+   brightness as the hero; only the very top fades so the seam with the section
+   above isn't a hard line. Decorative, never intercepts clicks. */
+.closing-unicorn {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Reveal the animation along a downward arc: lowest at the center (~around the
+     "Start managing" headline), curving up toward the sides. A radial mask makes
+     the transparent→opaque boundary a curve instead of a straight line. */
+  -webkit-mask-image: radial-gradient(75% calc(300 * var(--u)) at 50% calc(100 * var(--u)), transparent 55%, #000 100%);
+  mask-image: radial-gradient(75% calc(300 * var(--u)) at 50% calc(100 * var(--u)), transparent 55%, #000 100%);
+}
+
+.cta-section {
+  position: relative;
+  overflow-x: clip; /* let the glow bleed vertically, no horizontal scroll */
+  padding-block: var(--space-200) var(--space-200);
+  text-align: center;
+}
+
+
+/* ── Content ──────────────────────────────────────────────────────────── */
+.cta-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Headline — mirrors the hero scale for visual consistency.
+ * Fluid clamp at every width, capped at 3.5rem (56px, the 1920 design size),
+ * so it scales with the viewport but never zooms past its design size. */
+.cta-headline {
+  margin: var(--space-30) 0 0;
+  max-width: 14ch;
+  color: var(--text-primary);
+  font-size: clamp(1.6rem, 2.9vw + 0.875rem, 3.5rem);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+}
+
+@media (min-width: 1200px) {
+  .cta-headline {
+    /* Wider on desktop so the headline reads as two balanced lines, not three. */
+    max-width: 20ch;
+    text-wrap: balance;
+  }
+}
+
+.cta-subtitle {
+  margin: var(--space-20) 0 0;
+  color: var(--text-meta);
+}
+
+/* Primary pill button */
+.cta-button {
+  margin-top: var(--space-40);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--btn-cta-py) var(--space-30);
+  border: 1px solid transparent;
+  border-radius: var(--btn-cta-radius);
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+  font-family: inherit;
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--duration-fast) var(--ease-in-out),
+    box-shadow var(--duration-fast) var(--ease-in-out);
+}
+
+/* Hover: shared bottom-up fill — see styles/buttons.css. */
+
+/* ── Social proof — avatar stack + label ──────────────────────────────── */
+.cta-proof {
+  margin-top: var(--space-30);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-15);
+}
+
+.cta-proof__avatars {
+  display: inline-flex;
+  flex-direction: row-reverse;
+}
+
+.cta-proof__pic {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  width: calc(30 * var(--u));
+  height: calc(30 * var(--u));
+}
+
+.cta-proof__pic:not(:first-child) {
+  margin-right: calc(-10 * var(--u));
+}
+
+.cta-proof__avatar {
+  width: calc(30 * var(--u));
+  height: calc(30 * var(--u));
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--bc-paper);
+}
+
+.cta-proof__text {
+  color: var(--text-meta);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  .cta-section {
+    padding-block: var(--space-120) var(--space-120);
+  }
+
+  /* Headline fills the width (2 lines on wider phones/tablets instead of 4).
+   * width:100% beats the flex shrink-to-fit so it uses the whole container;
+   * container gutter is 20px here, +20px padding = 40px clear of each edge. */
+  .cta-headline {
+    max-width: none;
+    width: 100%;
+    padding-inline: var(--space-20);
+  }
+
+  .cta-proof {
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+}
+
+/* Phones: let a long RU CTA label wrap instead of overflowing the viewport. */
+@media (max-width: 479.98px) {
+  .cta-button {
+    white-space: normal;
+    text-align: center;
+  }
+}

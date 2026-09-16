@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
 import { useLocale } from '../../hooks/useLocale'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
 import { useDemoModal } from '../DemoModal/DemoModalContext'
 import { lockScroll, unlockScroll } from '../../lib/scrollLock'
-import { MEETS_URL } from '../../lib/urls'
+import { SiteNavigation } from '../SiteNavigation/SiteNavigation'
 import BurgerButton from './BurgerButton'
 import './MobileNav.css'
 
@@ -31,14 +31,6 @@ function NauraMark() {
     </svg>
   )
 }
-
-// Single source of the nav links — mirrors the desktop hero-nav / FloatingNav.
-const LINKS = [
-  { href: '#features', key: 'nav.businessCards' },
-  { href: '#communities', key: 'nav.communities' },
-  { href: MEETS_URL, key: 'nav.meets' },
-  { href: '#ai-agents', key: 'nav.mcp' },
-]
 
 /**
  * The drawer half of the ≤1199 navigation, plus the FLOATING burger that flies
@@ -175,18 +167,7 @@ export default function MobileNav({ open, setOpen }) {
                     <NauraMark />
                   </a>
 
-                  <nav className="mobile-nav__links" aria-label={t('nav.ariaLabel')}>
-                    {LINKS.map((link) => (
-                      <a
-                        key={link.key}
-                        href={link.href}
-                        className="mobile-nav__link"
-                        onClick={close}
-                      >
-                        {t(link.key)}
-                      </a>
-                    ))}
-                  </nav>
+                  <SiteNavigation className="mobile-nav__links" linkClassName="mobile-nav__link" onNavigate={close} />
                 </div>
 
                 <div className="mobile-nav__actions">

@@ -2,13 +2,59 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { gsap, ScrollTrigger } from "../../lib/gsap"
 import { scheduleScrollRefresh } from "../../lib/scrollRefresh"
-import { MEETS_BOT_URL } from "../../lib/urls"
 import { RevealText, Counter } from "./motion"
-import hillsAvif from "../../assets/meets/hills-bg.avif"
-import hillsWebp from "../../assets/meets/hills-bg.webp"
-import timeAvif from "../../assets/meets/time-bg.avif"
-import timeWebp from "../../assets/meets/time-bg.webp"
+import how1Avif from "../../assets/meets/how-1.avif"
+import how1Webp from "../../assets/meets/how-1.webp"
+import how2Avif from "../../assets/meets/how-2.avif"
+import how2Webp from "../../assets/meets/how-2.webp"
+import how3Avif from "../../assets/meets/how-3.avif"
+import how3Webp from "../../assets/meets/how-3.webp"
+import how4Avif from "../../assets/meets/how-4.avif"
+import how4Webp from "../../assets/meets/how-4.webp"
+import how5Avif from "../../assets/meets/how-5.avif"
+import how5Webp from "../../assets/meets/how-5.webp"
+import how6Avif from "../../assets/meets/how-6.avif"
+import how6Webp from "../../assets/meets/how-6.webp"
+import how7Avif from "../../assets/meets/how-7.avif"
+import how7Webp from "../../assets/meets/how-7.webp"
+import how8Avif from "../../assets/meets/how-8.avif"
+import how8Webp from "../../assets/meets/how-8.webp"
+import how9Avif from "../../assets/meets/how-9.avif"
+import how9Webp from "../../assets/meets/how-9.webp"
+import how10Avif from "../../assets/meets/how-10.avif"
+import how10Webp from "../../assets/meets/how-10.webp"
 import "./MeetsHow.css"
+
+// Card backdrops keyed by card — the 1-on-1 shot opens the row (Format).
+const PHOTOS = {
+  format: { avif: how9Avif, webp: how9Webp },
+  context: { avif: how8Avif, webp: how8Webp },
+  cycle: { avif: how2Avif, webp: how2Webp },
+  duration: { avif: how4Avif, webp: how4Webp },
+  rhythm: { avif: how3Avif, webp: how3Webp },
+  protection: { avif: how10Avif, webp: how10Webp },
+  launch: { avif: how6Avif, webp: how6Webp },
+}
+
+function CardPhoto({ photo }) {
+  if (!photo) return null
+  return (
+    <>
+      <picture>
+        <source srcSet={photo.avif} type="image/avif" />
+        <source srcSet={photo.webp} type="image/webp" />
+        <img
+          className="meets-how__photo"
+          src={photo.webp}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    </>
+  )
+}
 
 // Cards visible at once on the pinned desktop layout.
 const CARDS = 4
@@ -23,7 +69,7 @@ function StatValue({ stat }) {
   return (
     <span className="meets-how__stat-value text-h3">
       <span className="meets-how__stat-num">
-        <Counter to={stat.value} />
+        {typeof stat.value === "number" ? <Counter to={stat.value} /> : stat.value}
         {stat.suffix}
       </span>
       {stat.unit && <span className="meets-how__stat-unit"> {stat.unit}</span>}
@@ -47,16 +93,16 @@ export default function MeetsHow() {
   const trackRef = useRef(null)
   const barRef = useRef(null)
 
-  // Interleave the three how-cards with the stat cards; the 1-on-1 photo
-  // card closes the row.
+  // Wireframe order: Format opens the row (photo card with the bot CTA),
+  // then Context, Cycle, Duration; the original Rhythm / Protection /
+  // Launch cards continue the row.
   const items = [
-    { key: "context", type: "text", data: cards[0] },
-    { key: "cycle", type: "stat", data: stats[2] },
-    { key: "rhythm", type: "text", data: cards[1] },
-    { key: "duration", type: "stat", data: stats[1] },
-    { key: "protection", type: "text", data: cards[2] },
-    { key: "launch", type: "stat", data: stats[0] },
-    { key: "format", type: "photo", data: stats[3] },
+    { key: "format", type: "photo", data: stats[2], photo: PHOTOS.format },
+    { key: "context", type: "text", data: cards[0], photo: PHOTOS.context },
+    { key: "cycle", type: "stat", data: stats[0], photo: PHOTOS.cycle },
+    { key: "duration", type: "stat", data: stats[1], photo: PHOTOS.duration },
+    { key: "rhythm", type: "text", data: cards[1], photo: PHOTOS.rhythm },
+    { key: "protection", type: "text", data: cards[2], photo: PHOTOS.protection },
   ]
 
   const [nativeMode, setNativeMode] = useState(readNative)
@@ -155,76 +201,28 @@ export default function MeetsHow() {
 
   const renderCard = (item) => {
     if (item.type === "stat") {
-      // The cycle card is the accent one: purple fill + a giant digit pinned
-      // to the card's bottom edge (same device as the Communities giants).
-      // The duration card carries the hourglass photo backdrop (white ink).
-      const isAccent = item.key === "cycle"
-      const isTime = item.key === "duration"
       return (
-        <article
-          className={`meets-how__card meets-how__card--stat${isAccent ? " meets-how__card--accent" : ""}${isTime ? " meets-how__card--time" : ""}`}
-          key={item.key}
-        >
-          {isTime && (
-            <picture>
-              <source srcSet={timeAvif} type="image/avif" />
-              <source srcSet={timeWebp} type="image/webp" />
-              <img
-                className="meets-how__photo"
-                src={timeWebp}
-                alt=""
-                aria-hidden="true"
-                width="840"
-                height="1260"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-          )}
+        <article className="meets-how__card meets-how__card--stat" key={item.key}>
+          <CardPhoto photo={item.photo} />
           <span className="meets-how__badge">{item.data.badge}</span>
           <StatValue stat={item.data} />
-          <p className="meets-how__stat-label text-body">{item.data.label}</p>
-          {isAccent && (
-            <span className="meets-how__giant-digit" aria-hidden="true">
-              {item.data.value}
-            </span>
-          )}
+          <p className="meets-how__stat-label text-body text-pretty">{item.data.label}</p>
         </article>
       )
     }
     if (item.type === "photo") {
       return (
         <article className="meets-how__card meets-how__card--photo" key={item.key}>
-          <picture>
-            <source srcSet={hillsAvif} type="image/avif" />
-            <source srcSet={hillsWebp} type="image/webp" />
-            <img
-              className="meets-how__photo"
-              src={hillsWebp}
-              alt=""
-              aria-hidden="true"
-              width="1672"
-              height="941"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
+          <CardPhoto photo={item.photo} />
           <span className="meets-how__badge">{item.data.badge}</span>
           <StatValue stat={item.data} />
-          <p className="meets-how__stat-label text-body">{item.data.label}</p>
-          <a
-            href={MEETS_BOT_URL}
-            className="meets-btn meets-btn--primary meets-how__photo-cta"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t("hero.ctaStart")}
-          </a>
+          <p className="meets-how__stat-label text-body text-pretty">{item.data.label}</p>
         </article>
       )
     }
     return (
       <article className="meets-how__card" key={item.key}>
+        <CardPhoto photo={item.photo} />
         <span className="meets-how__badge">{item.data.badge}</span>
         <h3 className="meets-how__card-title text-h3 text-balance">{item.data.title}</h3>
         <p className="meets-how__card-desc text-body text-pretty">{item.data.description}</p>
@@ -243,7 +241,6 @@ export default function MeetsHow() {
         <div className="container" ref={headRef}>
           <header className="meets-how__head">
             <div className="meets-how__head-main">
-              <span className="meets-head__eyebrow text-label">{t("how.eyebrow")}</span>
               <h2 className="meets-how__title text-h2 text-balance">
                 <RevealText text={t("how.headline")} />
               </h2>

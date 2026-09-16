@@ -1,0 +1,170 @@
+/* CRM capabilities follow the same six-tile composition as the business-card
+ * feature block: an airy, self-contained illustration above copy, with a
+ * deliberately quiet three-by-two rhythm. */
+.features-section {
+  background: var(--bg-page);
+}
+
+.features-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: calc(760 * var(--u));
+  margin: 0 auto var(--space-75);
+  text-align: center;
+}
+
+.features-header__title {
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.features-header__subtitle {
+  color: rgba(var(--theme-ink), 0.6);
+  max-width: calc(560 * var(--u));
+  margin-top: var(--space-20);
+  text-wrap: pretty;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.features-row {
+  display: contents;
+}
+
+.feature-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(210px, 1fr) auto;
+  align-items: stretch;
+  gap: 28px;
+  min-width: 0;
+  min-height: 405px;
+  padding: 30px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 25px;
+  background: #e9e8e3;
+  color: var(--bc-ink);
+  isolation: isolate;
+  will-change: transform, opacity;
+}
+
+.feature-card__media {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 0;
+  place-items: center;
+  pointer-events: none;
+}
+
+.feature-card__media > .nc-feature-art {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  place-items: center;
+}
+
+.feature-card__body {
+  position: relative;
+  z-index: 1;
+  grid-row: 2;
+  align-self: end;
+}
+
+.feature-card__tagline {
+  color: inherit;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1.15;
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+.feature-card__desc {
+  max-width: 34ch;
+  margin-top: 12px;
+  color: #62615d;
+  font-size: 14px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* The alternating ink and paper surfaces are part of the reference's visual
+ * rhythm. The illustrations preserve their CRM-specific meanings. */
+.feature-card--contactGraph,
+.feature-card--reminders {
+  background: var(--bc-ink);
+  color: var(--bc-paper);
+}
+
+.feature-card--contactGraph .feature-card__desc,
+.feature-card--reminders .feature-card__desc {
+  color: #c4c3bd;
+}
+
+.feature-card--contactGraph .nf-guide--ink {
+  stroke: var(--bc-paper);
+  stroke-opacity: .35;
+}
+
+.feature-card--telegramBot,
+.feature-card--workspaces {
+  border: 1px solid var(--bc-line);
+  background: var(--bc-paper);
+}
+
+.feature-card--mcpAgents {
+  background: #e9e8e3;
+}
+
+@media (max-width: 1199px) {
+  .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-card {
+    min-height: 405px;
+  }
+}
+
+@media (max-width: 767px) {
+  .features-header {
+    margin-bottom: var(--space-50);
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    grid-template-rows: 210px auto;
+    gap: 24px;
+    min-height: 370px;
+    padding: 25px;
+  }
+
+  .feature-card__tagline {
+    font-size: 27px;
+  }
+
+  .feature-card__desc {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card {
+    transition: none;
+  }
+}

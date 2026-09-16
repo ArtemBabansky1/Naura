@@ -20,20 +20,38 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://naura.io/meets</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://naura.io/meets" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://naura.io/ru/meets" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://naura.io/meets" />
+    <loc>https://meets.naura.io/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://meets.naura.io/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://meets.naura.io/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://meets.naura.io/" />
     <lastmod>2026-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://naura.io/ru/meets</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://naura.io/meets" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://naura.io/ru/meets" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://naura.io/meets" />
+    <loc>https://meets.naura.io/ru</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://meets.naura.io/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://meets.naura.io/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://meets.naura.io/" />
     <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://naura.io/digital-card</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://naura.io/digital-card" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://naura.io/ru/digital-card" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://naura.io/digital-card" />
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://naura.io/ru/digital-card</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://naura.io/digital-card" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://naura.io/ru/digital-card" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://naura.io/digital-card" />
+    <lastmod>2026-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

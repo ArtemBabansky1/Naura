@@ -47,6 +47,11 @@
   flex-direction: column;
 }
 
+/* Bot CTA below the bullet list (wireframe S8 — «кнопки сейчас нет»). */
+.meets-phone__cta {
+  margin-top: var(--space-40);
+}
+
 .meets-phone__point {
   display: flex;
   align-items: center;

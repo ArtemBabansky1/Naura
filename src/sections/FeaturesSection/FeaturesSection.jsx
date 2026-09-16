@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
 import './FeaturesSection.css'
 

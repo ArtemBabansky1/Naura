@@ -1,0 +1,21 @@
+.scroll-reveal__line {
+  display: block;
+  padding-bottom: .05em;
+}
+
+.scroll-reveal__word {
+  display: inline-flex;
+  vertical-align: baseline;
+}
+
+.scroll-reveal__word > span {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal__word > span {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

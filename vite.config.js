@@ -22,7 +22,7 @@ export default defineConfig({
         // chunk stays out of the initial load and downloads on approach.
         manualChunks: {
           gsap: ['gsap'],
-          framer: ['framer-motion'],
+          motion: ['motion'],
           i18n: ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
           lenis: ['lenis'],
           three: ['three'],

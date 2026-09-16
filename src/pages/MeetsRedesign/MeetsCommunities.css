@@ -1,0 +1,72 @@
+.meets-communities__title-accent { color: var(--accent-primary); }
+.meets-communities__head { text-align: center; }
+.card-site .meets-communities__title { color: var(--text-primary); max-width: 20ch; margin-inline: auto; }
+.card-site .meets-communities__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: var(--grid-gap);
+  margin-top: var(--space-50);
+}
+.meets-communities__card {
+  min-width: 0;
+  padding: var(--space-30);
+  border-radius: var(--nc-radius);
+  color: var(--bc-ink);
+  text-align: left;
+}
+.meets-communities__card--problem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+  background: var(--bc-sand);
+}
+.card-site .meets-communities__card-title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  color: var(--bc-ink);
+}
+.card-site .meets-communities__card-desc {
+  margin: 20px 0 0;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--text-list);
+}
+.card-site .meets-communities__card--problem .meets-communities__card-desc { margin-top: auto; }
+.meets-communities__solution-intro { display: flex; flex-direction: column; gap: var(--space-40); }
+.card-site .meets-communities__solution-intro .meets-communities__card-desc { margin-top: auto; }
+.meets-communities__card--solution {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--space-40);
+  background: var(--bc-paper);
+}
+.card-site .meets-communities__benefits { display: grid; gap: var(--space-15); margin: 0; }
+.meets-communities__benefit { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 110px; padding: var(--space-25); padding-left: calc(125px + var(--space-25) * 2); background: var(--bc-canvas); border-radius: var(--radius-20); }
+.meets-communities__benefit-number { position: absolute; left: var(--space-25); top: 50%; transform: translateY(-50%); display: block; width: auto; height: 75px; max-width: 125px; }
+.meets-communities__benefit-title { font-size: 20px; font-weight: 500; line-height: 1.2; letter-spacing: -.025em; }
+.card-site .meets-communities__benefit-desc { margin: var(--space-10) 0 0; font-size: 16px; line-height: 1.45; color: var(--text-list); }
+@media (max-width: 1199px) {
+  .meets-communities__card { padding: var(--space-25); }
+  .card-site .meets-communities__card-title { font-size: 25px; }
+  .card-site .meets-communities__card-desc { font-size: 16px; }
+  .meets-communities__card--solution { gap: var(--space-25); }
+  .meets-communities__benefit { padding: var(--space-20); padding-left: calc(100px + var(--space-20) * 2); }
+  .meets-communities__benefit-number { left: var(--space-20); height: 60px; max-width: 100px; }
+}
+@media (max-width: 1023px) {
+  .card-site .meets-communities__grid { grid-template-columns: 1fr; }
+  .meets-communities__card--problem { min-height: 250px; }
+  .meets-communities__card--solution { grid-column: auto; }
+}
+@media (max-width: 767px) {
+  .meets-communities__card--solution { grid-template-columns: 1fr; gap: var(--space-30); }
+  .meets-communities__solution-intro { min-height: 200px; }
+  .meets-communities__benefit { padding-left: calc(65px + var(--space-20) + var(--space-15)); }
+  .meets-communities__benefit-number { height: 40px; max-width: 65px; }
+  .meets-communities__card--problem { min-height: 220px; }
+}

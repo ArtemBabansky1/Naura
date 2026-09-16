@@ -1,0 +1,1233 @@
+/* MeetsWeek — five-stage scrollytelling, following the mounted Digital Card
+ * journey pattern: one sticky two-panel composition, scroll-controlled tabs,
+ * and a stage-specific live visual. */
+
+.card-site .meets-sheet--clear {
+  background: var(--bc-paper);
+}
+
+.meets-week {
+  --mweek-surface: var(--bc-paper);
+  position: relative;
+  height: 460svh;
+  padding: 0;
+  background: var(--mweek-surface);
+  color: var(--bc-ink);
+  scroll-margin-top: 0;
+}
+
+.mweek-sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100svh;
+  min-height: 680px;
+  padding: clamp(68px, 8vh, 96px) var(--gutter) clamp(24px, 4vh, 42px);
+}
+
+.mweek-head {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  margin-bottom: var(--space-50);
+  text-align: center;
+}
+
+.mweek-headline {
+  max-width: 18ch;
+  color: var(--bc-ink);
+  text-wrap: balance;
+}
+
+.mweek-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 1;
+  gap: 24px;
+  width: min(100%, var(--content-max));
+  min-height: 0;
+  margin-inline: auto;
+}
+
+.mweek-editorial,
+.mweek-demo {
+  min-width: 0;
+  min-height: 0;
+  border-radius: 30px;
+}
+
+.mweek-editorial {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 2.8vw, 40px);
+  border: 1px solid var(--bc-line);
+  background: var(--color-base-white);
+}
+
+.mweek-editorial > h3 {
+  margin: 0 0 var(--space-30);
+  font-size: clamp(30px, 3vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.052em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.mweek-editorial > h3 > span {
+  display: block;
+  white-space: nowrap;
+}
+
+.mweek-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.mweek-tabs > button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto 10px;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--bc-line);
+  background: transparent;
+  color: var(--bc-stone);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: color 240ms var(--nc-ease);
+}
+
+.mweek-tabs > button > span:first-child {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mweek-tabs > button > span:nth-child(2) {
+  min-width: 0;
+  overflow: hidden;
+  font-size: clamp(18px, 1.55vw, 24px);
+  letter-spacing: -0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mweek-tabs > button > span:nth-child(3) {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.mweek-tabs > button > i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: scale(0);
+  transition: transform 320ms var(--nc-ease);
+}
+
+.mweek-tabs > button[aria-selected="true"] {
+  color: var(--bc-ink);
+}
+
+.mweek-tabs > button[aria-selected="true"] > i {
+  transform: scale(1);
+}
+
+.mweek-tabs > button:focus-visible {
+  z-index: 1;
+  border-radius: 6px;
+  outline: 2px solid var(--bc-rust);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mweek-tabs > button:hover {
+    color: var(--bc-ink);
+  }
+}
+
+.mweek-copy {
+  position: relative;
+  display: grid;
+  min-height: 4.5em;
+  margin-top: var(--space-30);
+  outline: none;
+}
+
+.mweek-copy:focus-visible {
+  border-radius: 6px;
+  outline: 2px solid var(--bc-rust);
+  outline-offset: 4px;
+}
+
+.mweek-copy p {
+  grid-area: 1 / 1;
+  align-self: start;
+  max-width: 44ch;
+  margin: 0;
+  color: color-mix(in srgb, var(--bc-ink) 72%, var(--bc-paper));
+  font-size: 16px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.mweek-copy p[aria-hidden="true"] {
+  pointer-events: none;
+  user-select: none;
+}
+
+.mweek-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.mweek-actions .bc2-button {
+  min-width: 0;
+}
+
+.card-site .mweek-actions .card-button--secondary {
+  --bc-action-icon-bg: rgba(11, 11, 11, 0.08);
+  border: 1px solid var(--bc-line);
+  background: transparent;
+  color: var(--bc-ink);
+}
+
+.card-site .mweek-actions .card-button--secondary .bc2-button__arrow {
+  border: 1px solid var(--bc-line);
+  background: var(--bc-canvas);
+  color: var(--bc-ink);
+}
+
+.card-site .mweek-actions .card-button--secondary:focus-visible {
+  outline: 2px solid var(--bc-ink);
+  outline-offset: 3px;
+}
+
+.card-site .mweek-actions .card-button--secondary:active {
+  border-color: color-mix(in srgb, var(--bc-ink) 30%, transparent);
+  background: var(--bc-sand);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-site .mweek-actions .card-button--secondary:hover {
+    border-color: color-mix(in srgb, var(--bc-ink) 30%, transparent);
+    background: var(--bc-canvas);
+  }
+}
+
+.mweek-demo {
+  position: relative;
+  overflow: hidden;
+  background: #e6e5df;
+  isolation: isolate;
+  transition: background-color 520ms var(--nc-ease), color 520ms var(--nc-ease);
+}
+
+.mweek-demo::before,
+.mweek-demo::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 118%;
+  height: 62%;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mweek-demo::before {
+  top: 10%;
+  left: -18%;
+  transform: rotate(-18deg);
+}
+
+.mweek-demo::after {
+  right: -14%;
+  bottom: 3%;
+  transform: rotate(17deg);
+}
+
+.mweek-demo--0,
+.mweek-demo--4 {
+  background: #e6e5df;
+}
+
+.mweek-demo--1 {
+  background: var(--bc-olive);
+}
+
+.mweek-demo--2 {
+  background: var(--bc-ink);
+  color: var(--bc-paper);
+}
+
+.mweek-demo--3 {
+  background: var(--bc-sand);
+}
+
+.mweek-demo__top {
+  position: absolute;
+  z-index: 5;
+  top: clamp(20px, 2.4vw, 32px);
+  right: clamp(20px, 2.4vw, 32px);
+  left: clamp(20px, 2.4vw, 32px);
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mweek-demo__scene {
+  position: absolute;
+  inset: 58px clamp(20px, 3vw, 44px) clamp(20px, 3vw, 40px);
+  display: grid;
+  place-items: center;
+}
+
+.mweek-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(100%, 440px);
+  margin: 0;
+}
+
+.mweek-profile__card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(20px, 2.4vw, 30px);
+  border-radius: 24px;
+  background: var(--color-base-white);
+  color: var(--bc-ink);
+}
+
+.mweek-profile__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mweek-profile__avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--bc-canvas);
+  color: var(--bc-rust);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.mweek-profile__id {
+  min-width: 0;
+}
+
+.mweek-profile__name,
+.mweek-profile__place {
+  margin: 0;
+}
+
+.mweek-profile__name {
+  overflow: hidden;
+  font-size: clamp(21px, 2vw, 28px);
+  font-weight: 500;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mweek-profile__place {
+  margin-top: 4px;
+  color: var(--bc-stone);
+  font-size: 12px;
+}
+
+.mweek-profile__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mweek-profile__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: color-mix(in srgb, var(--bc-ink) 72%, var(--bc-paper));
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+.mweek-profile__icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: var(--bc-rust);
+}
+
+.mweek-profile__caption {
+  color: var(--bc-stone);
+  font-size: 11px;
+  text-align: center;
+}
+
+.mweek-visual-day {
+  color: var(--bc-stone);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.mweek-invite {
+  width: min(82%, 390px);
+  padding: clamp(24px, 3.2vw, 42px);
+  border-radius: 26px;
+  background: var(--bc-paper);
+  color: var(--bc-ink);
+  box-shadow: 0 22px 50px rgba(11, 11, 11, 0.08);
+}
+
+.mweek-invite h4,
+.mweek-meeting h4,
+.mweek-feedback h4 {
+  margin: 14px 0 0;
+  font-family: var(--bc-display);
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.mweek-invite p {
+  margin: 20px 0 0;
+  color: color-mix(in srgb, var(--bc-ink) 70%, var(--bc-paper));
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.mweek-invite__choices {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.mweek-invite__choices span,
+.mweek-meeting__modes span {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bc-canvas);
+  color: var(--bc-ink);
+  font-size: 22px;
+}
+
+.mweek-invite__choices span:last-child {
+  background: var(--bc-ink);
+  color: var(--bc-paper);
+}
+
+.mweek-introduction {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(84px, 1fr) minmax(220px, 270px);
+  align-items: center;
+  width: min(94%, 540px);
+}
+
+.mweek-introduction__person {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--bc-paper);
+  color: var(--bc-cobalt);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.25);
+}
+
+.mweek-introduction__person svg {
+  width: 34px;
+  height: 34px;
+}
+
+.mweek-introduction__thread {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  height: 70px;
+}
+
+.mweek-introduction__connection {
+  position: absolute;
+  right: -1px;
+  left: -1px;
+  height: 1px;
+  background: color-mix(in srgb, var(--bc-paper) 42%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.mweek-introduction__message {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 54px;
+  height: 42px;
+  border-radius: 20px 20px 20px 8px;
+  background: var(--bc-rust);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.mweek-introduction__message > span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--bc-paper);
+}
+
+.mweek-introduction__match {
+  position: relative;
+  z-index: 2;
+  padding: 22px;
+  border: 1px solid color-mix(in srgb, var(--bc-ink) 10%, transparent);
+  border-radius: 24px;
+  background: var(--bc-paper);
+  color: var(--bc-ink);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.24);
+}
+
+.mweek-introduction__match-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mweek-introduction__match-head > span {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bc-canvas);
+  color: var(--bc-rust);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mweek-introduction__match-head > div {
+  min-width: 0;
+}
+
+.mweek-introduction__match p,
+.mweek-introduction__match small {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mweek-introduction__match p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.mweek-introduction__match small {
+  margin-top: 3px;
+  color: var(--bc-stone);
+  font-size: 10px;
+}
+
+.mweek-introduction__interests {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--bc-line);
+}
+
+.mweek-introduction__interests span {
+  overflow: hidden;
+  color: color-mix(in srgb, var(--bc-ink) 70%, var(--bc-paper));
+  font-size: 11px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mweek-meeting,
+.mweek-feedback {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(88%, 430px);
+  height: min(82%, 390px);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--bc-paper) 78%, transparent);
+  text-align: center;
+}
+
+.mweek-meeting__people {
+  --mweek-person-size: clamp(58px, 7vw, 82px);
+  --mweek-person-gap: clamp(44px, 8vw, 90px);
+  position: relative;
+  display: flex;
+  gap: var(--mweek-person-gap);
+  margin-bottom: 24px;
+}
+
+.mweek-meeting__people > span {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--mweek-person-size);
+  height: var(--mweek-person-size);
+  border-radius: 50%;
+  background: var(--bc-paper);
+  box-shadow: 0 12px 28px rgba(11, 11, 11, 0.1);
+}
+
+.mweek-meeting__people svg {
+  width: 42%;
+  height: 42%;
+  color: var(--bc-rust);
+}
+
+.mweek-meeting__people > span:last-child svg {
+  color: var(--bc-cobalt);
+}
+
+.mweek-meeting__connection {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - var(--mweek-person-size));
+  height: 2px;
+  background: var(--bc-rust);
+  transform: translate(-50%, -50%) scaleX(0);
+  transform-origin: center;
+}
+
+.mweek-meeting__modes {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.mweek-meeting__modes span {
+  width: 40px;
+  height: 40px;
+  background: var(--bc-paper);
+}
+
+.mweek-meeting__modes svg {
+  width: 19px;
+  height: 19px;
+}
+
+.mweek-feedback {
+  background: var(--bc-paper);
+}
+
+.mweek-feedback__check {
+  display: grid;
+  place-items: center;
+  width: clamp(68px, 8vw, 92px);
+  height: clamp(68px, 8vw, 92px);
+  margin: 20px 0 4px;
+  border-radius: 50%;
+  background: var(--bc-rust);
+  color: var(--bc-paper);
+  font-size: clamp(28px, 4vw, 44px);
+}
+
+.mweek-feedback__rating {
+  display: flex;
+  gap: 9px;
+  margin-top: 26px;
+}
+
+.mweek-feedback__rating span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--bc-olive);
+  transform: scale(0);
+}
+
+.mweek-demo__scene--0 .mweek-profile {
+  animation: mweek-card-in 620ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--1 .mweek-invite {
+  animation: mweek-invite-in 620ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--1 .mweek-invite__choices span:last-child {
+  animation: mweek-choice-pulse 900ms 380ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--2 .mweek-introduction__person,
+.mweek-demo__scene--2 .mweek-introduction__message,
+.mweek-demo__scene--2 .mweek-introduction__match {
+  animation: mweek-intro-node-in 520ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--2 .mweek-introduction__connection {
+  animation: mweek-intro-connect 520ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--3 .mweek-meeting__people > span:first-child {
+  animation: mweek-person-left 620ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--3 .mweek-meeting__people > span:last-child {
+  animation: mweek-person-right 620ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--3 .mweek-meeting__connection {
+  animation: mweek-connect 520ms 260ms var(--nc-ease) forwards;
+}
+
+.mweek-demo__scene--4 .mweek-feedback__check {
+  animation: mweek-check-in 560ms var(--nc-ease) both;
+}
+
+.mweek-demo__scene--4 .mweek-feedback__rating span {
+  animation: mweek-rating-in 360ms var(--nc-ease) forwards;
+}
+
+.mweek-demo__scene--4 .mweek-feedback__rating span:nth-child(2) { animation-delay: 80ms; }
+.mweek-demo__scene--4 .mweek-feedback__rating span:nth-child(3) { animation-delay: 140ms; }
+.mweek-demo__scene--4 .mweek-feedback__rating span:nth-child(4) { animation-delay: 200ms; }
+.mweek-demo__scene--4 .mweek-feedback__rating span:nth-child(5) { animation-delay: 260ms; }
+
+@keyframes mweek-card-in {
+  from { opacity: 0; transform: translateY(24px) rotate(-3deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@keyframes mweek-invite-in {
+  from { opacity: 0; transform: translateY(32px) rotate(2deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@keyframes mweek-choice-pulse {
+  from { transform: scale(0.7); box-shadow: 0 0 0 0 rgba(11, 11, 11, 0.2); }
+  to { transform: scale(1); box-shadow: 0 0 0 10px rgba(11, 11, 11, 0); }
+}
+
+@keyframes mweek-intro-node-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes mweek-intro-connect {
+  to { transform: scaleX(1); }
+}
+
+@keyframes mweek-person-left {
+  from { opacity: 0; transform: translateX(-42px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes mweek-person-right {
+  from { opacity: 0; transform: translateX(42px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes mweek-connect {
+  to { transform: translate(-50%, -50%) scaleX(1); }
+}
+
+@keyframes mweek-check-in {
+  from { opacity: 0; transform: scale(0.6) rotate(-8deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes mweek-rating-in {
+  to { transform: scale(1); }
+}
+
+.meets-week.is-reduced {
+  height: auto;
+}
+
+.meets-week.is-reduced .mweek-sticky {
+  position: relative;
+  height: auto;
+  min-height: 0;
+  padding-block: clamp(70px, 8vw, 110px);
+}
+
+@media (max-width: 1199.98px) {
+  .mweek-editorial {
+    padding: 28px;
+  }
+
+  .mweek-editorial > h3 {
+    font-size: 34px;
+  }
+
+  .mweek-tabs > button {
+    min-height: 46px;
+  }
+
+  .mweek-tabs > button > span:nth-child(2) {
+    font-size: 19px;
+  }
+
+  .mweek-actions .bc2-button {
+    min-height: 50px;
+    padding-right: 14px;
+    padding-left: 18px;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 900px) and (max-height: 760px) {
+  .mweek-sticky {
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+
+  .mweek-head {
+    margin-bottom: var(--space-40);
+  }
+
+  .mweek-editorial {
+    padding: 24px;
+  }
+
+  .mweek-editorial > h3 {
+    margin-bottom: var(--space-20);
+    font-size: 30px;
+  }
+
+  .mweek-tabs > button {
+    min-height: 44px;
+    padding-block: 7px;
+  }
+
+  .mweek-copy {
+    min-height: 4.2em;
+    margin-top: var(--space-20);
+  }
+
+  .mweek-actions {
+    padding-top: 12px;
+  }
+
+  .mweek-actions .bc2-button {
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 899.98px) {
+  .mweek-sticky {
+    min-height: 720px;
+    padding: 60px var(--gutter) 12px;
+  }
+
+  .mweek-head {
+    margin-bottom: var(--space-25);
+  }
+
+  .mweek-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 360px minmax(220px, 1fr);
+    gap: 12px;
+  }
+
+  .mweek-editorial,
+  .mweek-demo {
+    border-radius: 25px;
+  }
+
+  .mweek-editorial {
+    padding: 18px 20px;
+  }
+
+  .mweek-editorial > h3 {
+    margin-bottom: var(--space-20);
+    font-size: 25px;
+    line-height: 1.02;
+  }
+
+  .mweek-tabs {
+    flex-direction: row;
+    gap: 8px;
+    margin-inline: -4px;
+    padding: 0 4px 6px;
+    overflow-x: auto;
+    scroll-padding-inline: 4px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .mweek-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mweek-tabs > button {
+    grid-template-columns: 22px minmax(0, 1fr) 7px;
+    grid-template-rows: auto auto;
+    flex: 0 0 150px;
+    gap: 4px 7px;
+    min-height: 68px;
+    padding: 9px 8px;
+    border: 1px solid var(--bc-line);
+    border-radius: 14px;
+    scroll-snap-align: start;
+  }
+
+  .mweek-tabs > button > span:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .mweek-tabs > button > span:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 16px;
+  }
+
+  .mweek-tabs > button > span:nth-child(3) {
+    grid-column: 1 / 4;
+    grid-row: 2;
+    font-size: 9px;
+  }
+
+  .mweek-tabs > button > i {
+    grid-column: 3;
+    grid-row: 1;
+    width: 6px;
+    height: 6px;
+  }
+
+  .mweek-copy {
+    min-height: 3.9em;
+    margin-top: var(--space-20);
+  }
+
+  .mweek-copy p {
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .mweek-actions {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding-top: 10px;
+  }
+
+  .mweek-actions .bc2-button {
+    flex: 1 1 auto;
+    min-height: 44px;
+    padding: 0 8px 0 12px;
+    gap: 6px;
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  .mweek-actions .bc2-button:first-child {
+    flex-basis: 134px;
+  }
+
+  .mweek-actions .bc2-button__arrow {
+    width: 28px;
+    height: 28px;
+    margin-right: -3px;
+  }
+
+  .mweek-demo__top {
+    top: 16px;
+    right: 18px;
+    left: 18px;
+    font-size: 9px;
+  }
+
+  .mweek-demo__scene {
+    inset: 43px 16px 12px;
+  }
+
+  .mweek-profile {
+    gap: 5px;
+    width: min(100%, 330px);
+  }
+
+  .mweek-profile__card {
+    gap: 8px;
+    padding: 10px 13px;
+    border-radius: 16px;
+  }
+
+  .mweek-profile__head {
+    gap: 9px;
+  }
+
+  .mweek-profile__avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 12px;
+  }
+
+  .mweek-profile__name {
+    font-size: 17px;
+  }
+
+  .mweek-profile__place,
+  .mweek-profile__row,
+  .mweek-profile__caption {
+    font-size: 10.5px;
+  }
+
+  .mweek-profile__rows {
+    gap: 4px;
+  }
+
+  .mweek-profile__row:nth-child(n + 3) {
+    display: none;
+  }
+
+  .mweek-profile__row {
+    gap: 6px;
+    line-height: 1.3;
+  }
+
+  .mweek-profile__icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .mweek-invite {
+    width: min(90%, 330px);
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .mweek-invite h4,
+  .mweek-meeting h4,
+  .mweek-feedback h4 {
+    margin-top: 7px;
+    font-size: 27px;
+  }
+
+  .mweek-invite p {
+    margin-top: 10px;
+    font-size: 11px;
+    line-height: 1.32;
+  }
+
+  .mweek-invite__choices {
+    margin-top: 13px;
+  }
+
+  .mweek-invite__choices span {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+
+  .mweek-introduction {
+    grid-template-columns: 52px minmax(54px, 1fr) minmax(148px, 164px);
+    width: 100%;
+  }
+
+  .mweek-introduction__person {
+    width: 52px;
+    height: 52px;
+  }
+
+  .mweek-introduction__person svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .mweek-introduction__thread {
+    height: 48px;
+  }
+
+  .mweek-introduction__message {
+    gap: 3px;
+    width: 36px;
+    height: 29px;
+    border-radius: 14px 14px 14px 6px;
+  }
+
+  .mweek-introduction__message > span {
+    width: 3px;
+    height: 3px;
+  }
+
+  .mweek-introduction__match {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .mweek-introduction__match-head {
+    gap: 8px;
+  }
+
+  .mweek-introduction__match-head > span {
+    width: 36px;
+    height: 36px;
+    font-size: 10px;
+  }
+
+  .mweek-introduction__match p {
+    font-size: 14px;
+  }
+
+  .mweek-introduction__match small {
+    font-size: 8px;
+  }
+
+  .mweek-introduction__interests {
+    gap: 5px;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+
+  .mweek-introduction__interests span {
+    font-size: 9px;
+  }
+
+  .mweek-meeting,
+  .mweek-feedback {
+    width: min(92%, 330px);
+    height: 94%;
+    border-radius: 19px;
+  }
+
+  .mweek-meeting__people {
+    --mweek-person-size: 48px;
+    --mweek-person-gap: 52px;
+    margin-bottom: 10px;
+  }
+
+  .mweek-meeting__people > span {
+    width: var(--mweek-person-size);
+    height: var(--mweek-person-size);
+  }
+
+  .mweek-meeting__modes {
+    margin-top: 12px;
+  }
+
+  .mweek-meeting__modes span {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mweek-feedback__check {
+    width: 55px;
+    height: 55px;
+    margin: 9px 0 0;
+    font-size: 25px;
+  }
+
+  .mweek-feedback__rating {
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 419.98px) {
+  .mweek-sticky {
+    padding-right: var(--gutter);
+    padding-left: var(--gutter);
+  }
+
+  .mweek-editorial {
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 899.98px) and (max-height: 699px) {
+  .mweek-sticky {
+    min-height: 640px;
+    padding-top: 64px;
+    padding-bottom: 12px;
+  }
+
+  .mweek-head {
+    margin-bottom: 12px;
+  }
+
+  .mweek-layout {
+    grid-template-rows: minmax(320px, 1.45fr) minmax(195px, 1fr);
+  }
+
+  .mweek-editorial > h3 {
+    margin-bottom: 7px;
+    font-size: 23px;
+  }
+
+  .mweek-tabs > button {
+    min-height: 62px;
+    padding-block: 7px;
+  }
+
+  .mweek-copy {
+    margin-top: 8px;
+  }
+
+  .mweek-actions {
+    padding-top: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mweek-demo,
+  .mweek-tabs > button,
+  .mweek-tabs > button > i,
+  .mweek-demo *,
+  .mweek-demo *::before,
+  .mweek-demo *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .mweek-meeting__connection,
+  .mweek-introduction__connection,
+  .mweek-feedback__rating span {
+    transform: none;
+  }
+}

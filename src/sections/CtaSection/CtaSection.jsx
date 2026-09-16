@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
 import { useDemoModal } from '../../components/DemoModal/DemoModalContext'
 import './CtaSection.css'

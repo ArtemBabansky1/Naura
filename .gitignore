@@ -20,3 +20,12 @@ dist
 # llm-council session artifacts (not part of the site)
 council-*.html
 council-*.md
+
+# Local caches, backups, and visual verification output
+/.pnpm-store/
+/.playwright-cli/
+/tmp/
+/archive/
+/output/*
+!/output/naura-color-preview/
+!/output/naura-color-strategy/

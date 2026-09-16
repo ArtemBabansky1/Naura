@@ -1,0 +1,61 @@
+/* MeetsMatching — «Подбор идёт под тебя»: headline + intro, then three
+ * muted cards in a row (the same beige card language as the rest of the
+ * page). */
+
+.meets-matching__head {
+  max-width: calc(720 * var(--u));
+}
+
+.meets-matching__title {
+  color: var(--text-primary);
+}
+
+.meets-matching__desc {
+  margin: var(--space-20) 0 0;
+  color: var(--text-list);
+}
+
+.meets-matching__grid {
+  margin-top: var(--space-50);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+}
+
+.meets-matching__card {
+  background: var(--bg-card-muted);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  min-height: calc(220 * var(--u));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-30);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.meets-matching__card:hover {
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+.meets-matching__card-title {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.meets-matching__card-desc {
+  margin: 0;
+  color: var(--text-list);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1023.98px) {
+  .meets-matching__grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-row-gap);
+  }
+
+  .meets-matching__card {
+    min-height: 0;
+  }
+}

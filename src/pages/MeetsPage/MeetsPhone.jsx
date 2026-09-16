@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { fadeUp, staggerContainer, viewportConfig } from "../../lib/framer"
 import { ScrollTrigger } from "../../lib/gsap"
+import { MEETS_BOT_URL } from "../../lib/urls"
 import { TOUCH_DEVICE_QUERY } from "../../hooks/useMediaQuery"
 import { RevealText } from "./motion"
 import { createMeetsScreenCanvas } from "./meetsScreen"
@@ -283,6 +284,16 @@ export default function MeetsPhone() {
               </motion.li>
             ))}
           </ul>
+          <motion.div className="meets-phone__cta" variants={fadeUp}>
+            <a
+              href={MEETS_BOT_URL}
+              className="meets-btn meets-btn--primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t("phone.cta")}
+            </a>
+          </motion.div>
         </motion.div>
       </div>
     </section>

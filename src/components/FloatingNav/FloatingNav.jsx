@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useRevealOnScrollUp } from '../../hooks/useRevealOnScrollUp'
 import { useDemoModal } from '../DemoModal/DemoModalContext'
-import { MEETS_URL } from '../../lib/urls'
+import { SiteNavigation } from '../SiteNavigation/SiteNavigation'
 import './FloatingNav.css'
 
 /**
@@ -20,6 +20,7 @@ export default function FloatingNav() {
     <div
       className={`float-nav${isVisible ? ' float-nav--visible' : ''}`}
       aria-hidden={!isVisible}
+      inert={!isVisible ? '' : undefined}
     >
       <div className="float-nav__row">
         {/* Left rectangle — logo + links */}
@@ -40,12 +41,7 @@ export default function FloatingNav() {
               />
             </svg>
           </a>
-          <nav className="float-nav__links" aria-label={t('nav.ariaLabel')}>
-            <a href="#features" className="float-nav__link">{t('nav.businessCards')}</a>
-            <a href="#communities" className="float-nav__link">{t('nav.communities')}</a>
-            <a href={MEETS_URL} className="float-nav__link">{t('nav.meets')}</a>
-            <a href="#ai-agents" className="float-nav__link">{t('nav.mcp')}</a>
-          </nav>
+          <SiteNavigation className="float-nav__links" linkClassName="float-nav__link" tabIndex={tab} />
         </div>
 
         <button type="button" className="float-nav__btn" tabIndex={tab} onClick={openDemo}>

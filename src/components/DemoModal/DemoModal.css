@@ -202,10 +202,11 @@
 .form-select__chevron {
   flex-shrink: 0;
   color: var(--text-meta);
+  transform: rotate(90deg);
   transition: transform var(--duration-fast) var(--ease-in-out);
 }
 .form-select__button.is-open .form-select__chevron {
-  transform: rotate(180deg);
+  transform: rotate(270deg);
 }
 
 /* Dropdown panel — same rounding + dark surface as the fields. */

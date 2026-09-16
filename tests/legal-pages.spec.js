@@ -39,8 +39,8 @@ test("footer links navigate to legal pages", async ({ page }) => {
   await expect(page.locator(".legal-doc__title")).toContainText("Terms of Use")
 })
 
-test("legal page back link returns home", async ({ page }) => {
+test("legal page shared CRM link returns home", async ({ page }) => {
   await page.goto("/privacy", { waitUntil: "load" })
-  await page.getByRole("link", { name: "Back to home" }).click()
+  await page.locator(".site-header__links").getByRole("link", { name: "CRM", exact: true }).click()
   await expect(page).toHaveURL(/\/$/)
 })

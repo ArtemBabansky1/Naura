@@ -140,13 +140,10 @@
     padding-top: var(--section-gap);
   }
 
-  @media (max-width: 767.98px) {
-    .section { padding-top: var(--space-120); }
-  }
-
-  @media (max-width: 479.98px) {
-    .section { padding-top: var(--space-80); }
-  }
+  /* The 767/479 tiers that used to sit here (120px / 80px) are gone:
+   * --section-gap is fluid now and already bottoms out at 80px, so the tiers
+   * only made the gap SHRINK from 120 at 480 to 80 at 768. Restoring them
+   * means putting the two blocks back with those values. */
 
   /* Communities→Telegram, Telegram→AiAgents, AiAgents→Faq: content-heavy
    * mockups (cards, phone showcase, terminal) sit close to the next

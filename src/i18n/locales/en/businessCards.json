@@ -1,0 +1,434 @@
+{
+  "seo": {
+    "title": "Naura Digital Card — QR Code, Wallet & Contacts",
+    "description": "Create a\u00A0digital business card in\u00A02 minutes. Share your details through a\u00A0QR code, direct link, or\u00A0Wallet Pass and\u00A0update them without reprinting a\u00A0thing.",
+    "ogTitle": "The\u00A0digital business card that never gets lost",
+    "ogDescription": "One QR code and\u00A0Wallet Pass. Every contact detail and\u00A0link in\u00A0one place."
+  },
+  "nav": {
+    "ariaLabel": "Digital business card page navigation",
+    "businessCards": "Digital card",
+    "communities": "For\u00A0communities",
+    "crm": "CRM",
+    "meets": "Meets",
+    "signIn": "Sign in",
+    "start": "Get started",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "menuTitle": "Menu",
+    "language": "Language",
+    "languageShort": "EN"
+  },
+  "hero": {
+    "title": "The\u00A0digital business card that turns introductions into connections",
+    "subtitle": "Create yours in\u00A02 minutes. One QR code and\u00A0Wallet Pass — every contact detail and\u00A0link in\u00A0one place.",
+    "cta": "Create for\u00A0free",
+    "note": "Free · no card required · updates instantly",
+    "news": {
+      "title": "Webinar",
+      "description": "Learn which automation trends are becoming the\u00A0market standard.",
+      "cta": "Learn more",
+      "imageAlt": "People enjoying an\u00A0outdoor event"
+    },
+    "wallet": {
+      "apple": "Add to\u00A0Apple Wallet",
+      "google": "Add to\u00A0Google Wallet"
+    },
+    "profile": {
+      "name": "Aya Kim",
+      "role": "Product designer",
+      "company": "Naura Studio",
+      "email": "aya@naura.io",
+      "website": "naura.io"
+    },
+    "cardLabels": {
+      "identity": "Digital identity",
+      "action": "Save contact",
+      "email": "Email",
+      "phone": "Phone",
+      "website": "Web",
+      "status": "Live profile"
+    },
+    "cardAriaLabel": "Example Naura digital business card",
+    "qrAriaLabel": "QR code that opens the\u00A0digital business card"
+  },
+  "comparison": {
+    "title": "Paper cards get lost. Naura Card stays with you.",
+    "cta": "Start using",
+    "paperVisual": {
+      "lineOne": "BUSINESS",
+      "lineTwo": "CARD"
+    },
+    "sides": [
+      {
+        "id": "paper",
+        "title": "Paper business cards",
+        "items": [
+          "Easy to\u00A0leave at\u00A0home",
+          "Contact details go out\u00A0of\u00A0date",
+          "Cards get lost",
+          "10 links means 10 different cards",
+          "A\u00A0conference leaves you with a\u00A0pile of\u00A0paper",
+          "A\u00A0new role makes the\u00A0whole print run obsolete"
+        ]
+      },
+      {
+        "id": "naura",
+        "title": "Naura Card",
+        "items": [
+          "Always with you, on\u00A0your phone",
+          "Updates instantly",
+          "Every introduction is saved",
+          "Every link in\u00A0one card",
+          "All your contacts organised in\u00A0one place",
+          "Update your profile once — everyone sees the\u00A0latest details"
+        ]
+      }
+    ]
+  },
+  "journey": {
+    "eyebrow": "Start in\u00A02 minutes",
+    "title": "Just 3 simple steps",
+    "steps": [
+      {
+        "id": "create",
+        "number": "01",
+        "title": "Create",
+        "description": "Add your name, photo, contact\ndetails, and\u00A0links."
+      },
+      {
+        "id": "share",
+        "number": "02",
+        "title": "Share",
+        "description": "Show your QR code or\u00A0send a\u00A0direct link\n— at\u00A0events, in\u00A0your email, or\u00A0from your social bio."
+      },
+      {
+        "id": "collect",
+        "number": "03",
+        "title": "Collect",
+        "description": "The\u00A0details of\u00A0people who scan your\ncard are saved automatically."
+      }
+    ],
+    "collectLabels": [
+      "M",
+      "AK",
+      "D"
+    ],
+    "shareCaption": "QR · NFC · LINK",
+    "previous": "Previous step",
+    "next": "Next step"
+  },
+  "features": {
+    "eyebrow": "More than a\u00A0business card",
+    "title": "Tools for\u00A0networking that actually works",
+    "visualLabels": {
+      "links": [
+        "WEB",
+        "TG",
+        "MAIL",
+        "PORTFOLIO"
+      ],
+      "role": "Role",
+      "updated": "Updated",
+      "email": "Email",
+      "live": "Live"
+    },
+    "items": [
+      {
+        "id": "qr",
+        "title": "One QR code",
+        "description": "Change your details whenever you like — the\u00A0QR code stays the\u00A0same."
+      },
+      {
+        "id": "multiple",
+        "title": "Multiple cards",
+        "description": "Create separate cards for\u00A0work, personal meetings, and\u00A0events."
+      },
+      {
+        "id": "links",
+        "title": "Everything in\u00A0one place",
+        "description": "Social profiles, your website, portfolio, Telegram, and\u00A0contact details — all in\u00A0one clean card."
+      },
+      {
+        "id": "autosave",
+        "title": "Automatic contact capture",
+        "description": "When someone scans your QR code, their contact details are saved for\u00A0you automatically."
+      },
+      {
+        "id": "live",
+        "title": "Live updates",
+        "description": "Update your profile once, and\u00A0everyone instantly sees the\u00A0latest details."
+      },
+      {
+        "id": "custom",
+        "title": "Make it yours",
+        "description": "Customize colors, type, and\u00A0photos, or\u00A0start with a\u00A0ready-made template."
+      }
+    ]
+  },
+  "solutions": {
+    "eyebrow": "For\u00A0businesses and\u00A0events",
+    "title": "One technology. Any scale.",
+    "conferenceAlt": "Conference guests networking in\u00A0a\u00A0contemporary venue",
+    "business": {
+      "title": "Business cards for\u00A0teams",
+      "items": [
+        "Create cards for\u00A0employees in\u00A0bulk",
+        "Bring every card on\u00A0brand",
+        "A\u00A0central admin dashboard for\u00A0HR",
+        "Save ₽50K–₽500K a\u00A0year on\u00A0printing"
+      ],
+      "cta": "Request a\u00A0demo"
+    },
+    "events": {
+      "title": "For\u00A0conferences and\u00A0events",
+      "items": [
+        "Digital cards for\u00A0attendees",
+        "Event branding",
+        "Networking analytics",
+        "Contact export"
+      ],
+      "cta": "Discuss an\u00A0event package"
+    }
+  },
+  "instant": {
+    "eyebrow": "Instant access",
+    "title": "Instant connection",
+    "label": "Works like an\u00A0app",
+    "imageAlt": "Guests talking at\u00A0a\u00A0networking event in\u00A0a\u00A0contemporary space",
+    "description": "Naura opens right in\u00A0the\u00A0browser and\u00A0works like an\u00A0app. Add it to\u00A0your home screen and\u00A0your card launches from an\u00A0icon.",
+    "stats": [
+      {
+        "value": "0.5 sec",
+        "label": "Launch from an\u00A0icon"
+      },
+      {
+        "value": "100%",
+        "label": "Offline access"
+      }
+    ],
+    "cta": "Install"
+  },
+  "pricing": {
+    "eyebrow": "Simple pricing",
+    "title": "Start free. Move to\u00A0Pro when you need it.",
+    "billing": {
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "discount": "−17%"
+    },
+    "plans": {
+      "free": {
+        "name": "Free",
+        "price": "0 ₽",
+        "period": "/ forever",
+        "description": "Everything you need to\u00A0get started.",
+        "features": [
+          "1 business card",
+          "QR code",
+          "Links and\u00A0contact details",
+          "Automatic contact capture"
+        ],
+        "cta": "Start for\u00A0free"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "299 ₽",
+        "period": "/ month",
+        "description": "For\u00A0professionals.",
+        "features": [
+          "Up\u00A0to\u00A05 business cards",
+          "Custom design",
+          "No\u00A0Naura branding",
+          "Advanced analytics"
+        ],
+        "cta": "Try it free for\u00A014 days"
+      }
+    },
+    "note": "No\u00A0card required. Cancel in\u00A0one click. Export your data anytime."
+  },
+  "platform": {
+    "badge": "Coming soon",
+    "title": "Your business card is just the\u00A0beginning",
+    "description": "Naura is a\u00A0complete platform for\u00A0managing your network. Your business card is the\u00A0first step.",
+    "cta": "Learn more about Naura CRM",
+    "note": "Early business-card users will receive bonuses\nwhen premium features launch."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Frequently asked questions",
+    "subtitle": "Still have a\u00A0question? Get in\u00A0touch — we'll help.",
+    "items": [
+      {
+        "id": "free",
+        "question": "Is it free?",
+        "answer": "Yes. Free is free forever and\u00A0includes one digital business card, a\u00A0QR code, links, contact details, and\u00A0automatic contact capture. No\u00A0bank card is required. If\u00A0you need more cards, custom design, or\u00A0advanced analytics, you can move to\u00A0Pro."
+      },
+      {
+        "id": "paper-photo",
+        "question": "Why is this better than photographing a\u00A0paper card?",
+        "answer": "A\u00A0photo stays a\u00A0picture in\u00A0your gallery: the\u00A0details have to\u00A0be retyped by\u00A0hand, and\u00A0they go stale along with the\u00A0paper. A\u00A0Naura card opens from a\u00A0link, saves with one tap, and\u00A0the\u00A0introduction stays in\u00A0your base with notes and\u00A0tags."
+      },
+      {
+        "id": "rare-meetings",
+        "question": "What if\u00A0I rarely meet new people?",
+        "answer": "Your card link works everywhere you talk: in\u00A0an\u00A0email signature, in\u00A0a\u00A0chat, in\u00A0your social bio. Even a\u00A0rare introduction is saved in\u00A0full, with its context and\u00A0notes."
+      },
+      {
+        "id": "cancel",
+        "question": "What if\u00A0I change my mind?",
+        "answer": "You can cancel Pro at\u00A0any time, with no\u00A0hidden terms. Your contacts remain yours, and\u00A0you can export them back to\u00A0your phone or\u00A0address book in\u00A0a\u00A0couple of\u00A0clicks."
+      },
+      {
+        "id": "platforms",
+        "question": "Is it a\u00A0website or\u00A0an\u00A0app?",
+        "answer": "Both. Naura runs in\u00A0a\u00A0desktop browser and\u00A0as\u00A0an\u00A0app on\u00A0your phone: add it to\u00A0your home screen and\u00A0everything stays in\u00A0sync instantly."
+      }
+    ],
+    "contact": "Can't find the\u00A0answer? Email us at\u00A0naura.io@naura.io."
+  },
+  "beta": {
+    "eyebrow": "Early access",
+    "title": "Be\u00A0one of\u00A0the\u00A0first to\u00A0try Naura",
+    "description": "Naura is evolving, and\u00A0you can get early access on\u00A0special terms.",
+    "benefits": [
+      "6 months of\u00A0Pro, free",
+      "Access to\u00A0a\u00A0private chat with the\u00A0founders",
+      "A\u00A0place in\u00A0the\u00A0closed beta"
+    ],
+    "accessTitle": "Beta access in\u00A0Telegram",
+    "botCta": "See what the\u00A0Telegram bot can do",
+    "form": {
+      "ariaLabel": "Naura early-access form",
+      "email": "Your email",
+      "telegram": "@username",
+      "consent": "I agree to\u00A0the\u00A0Privacy Policy",
+      "submit": "Get access to\u00A0the\u00A0bot",
+      "submitting": "Sending…",
+      "successTitle": "You're on\u00A0the\u00A0list",
+      "successBody": "We'll send your bot link and\u00A0private-chat invite once we've reviewed your request.",
+      "errorRequired": "Enter your email and\u00A0Telegram username, then confirm your consent.",
+      "errorEmail": "Enter a\u00A0valid email address.",
+      "errorSubmit": "We couldn't send your request. Please try again."
+    },
+    "afterSubmit": "After you submit, we'll send you a\u00A0bot link and\u00A0an\u00A0invite to\u00A0the\u00A0private chat."
+  },
+  "finalCta": {
+    "title": "Ready to\u00A0try it?",
+    "subtitle": "Create your business card in\u00A02 minutes. Free. No\u00A0card required.",
+    "cta": "Create for\u00A0free"
+  },
+  "footer": {
+    "product": {
+      "heading": "Product",
+      "links": {
+        "home": "Home",
+        "businessCards": "Digital card",
+        "communities": "For\u00A0communities",
+        "blog": "Blog"
+      }
+    },
+    "contacts": {
+      "heading": "Contacts",
+      "email": "naura.io@naura.io",
+      "telegram": "TG: @naura_sp",
+      "bot": "@nauraio_bot"
+    },
+    "legal": {
+      "terms": "Terms of\u00A0Use",
+      "privacy": "Privacy Policy",
+      "copyright": "© 2026 Naura. All rights reserved."
+    }
+  },
+  "cinematic": {
+    "heroLines": [
+      "The\u00A0digital business card",
+      "that turns introductions",
+      "into connections"
+    ],
+    "cardHint": "Every connection starts here",
+    "openContacts": "Get in\u00A0touch",
+    "makeConnection": "Sign up",
+    "flip": "Turn the\u00A0card",
+    "demo": "Sample profile and\u00A0decorative QR code",
+    "meeting": "A\u00A0chance encounter.",
+    "opportunity": "A\u00A0new possibility.",
+    "storyLabel": "Beyond exchanging details",
+    "storyTitle": "One introduction.",
+    "storyAccent": "Endless possibilities.",
+    "storyBody": "Keep more than a\u00A0name and\u00A0a\u00A0number. Keep the\u00A0connection — and\u00A0everything it could become.",
+    "discover": "See how it works",
+    "comparisonLead": "Leave paper in\u00A0the\u00A0past.",
+    "stepNotes": [
+      "Your personality. Your color. Your card.",
+      "One QR code. Any device.",
+      "Your connections, always with you."
+    ],
+    "livePreview": "Make it yours",
+    "scanning": "One gesture. A\u00A0new connection.",
+    "contacts": [
+      "Aya Kim · design",
+      "New connection · event",
+      "Contact · community"
+    ],
+    "chooseColor": "Choose your color",
+    "colors": {
+      "paper": "Paper",
+      "olive": "Olive",
+      "rust": "Terracotta"
+    },
+    "saved": "Connection saved",
+    "ribbon": "Connections that stay.",
+    "synced": "ALWAYS UP\u00A0TO\u00A0DATE",
+    "finalLabel": "Your next chapter starts with hello."
+  },
+  "cardStory": {
+    "title": "Tell your story. Give people a\u00A0reason to\u00A0know you better.",
+    "description": "Your photo, role, story and\u00A0ways to\u00A0connect, all on\u00A0one page. People see what makes you interesting before the\u00A0first question.",
+    "connectionDescription": "Someone opens your card and\u00A0saves your contact. They appear in\u00A0your connections book too, with tags, a\u00A0note about your meeting and\u00A0a\u00A0reminder to\u00A0follow up.",
+    "book": {
+      "title": "Connections book",
+      "columns": [
+        "Name",
+        "What they do",
+        "Tags",
+        "Added"
+      ],
+      "people": [
+        {
+          "name": "Nina Lavrova",
+          "role": "Studio founder",
+          "tags": "design · conference",
+          "added": "today"
+        },
+        {
+          "name": "Arthur Kim",
+          "role": "Product lead",
+          "tags": "product · clients",
+          "added": "yesterday"
+        },
+        {
+          "name": "Daria Vetrova",
+          "role": "Fintech marketing",
+          "tags": "marketing",
+          "added": "3 days ago"
+        },
+        {
+          "name": "Pavel Orlov",
+          "role": "Engineering",
+          "tags": "engineers",
+          "added": "a\u00A0week ago"
+        }
+      ],
+      "savedLabel": "In\u00A0your connections book",
+      "tags": [
+        "design",
+        "conference"
+      ],
+      "noteLabel": "Meeting note",
+      "note": "Met at\u00A0a\u00A0conference and\u00A0discussed the\u00A0catalogue redesign",
+      "reminderLabel": "Reminder",
+      "reminder": "Follow up\u00A0in\u00A0two weeks"
+    }
+  }
+}

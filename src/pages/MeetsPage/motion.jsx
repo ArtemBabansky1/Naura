@@ -7,7 +7,7 @@ import {
   useScroll,
   useTransform,
   animate,
-} from "framer-motion"
+} from "motion/react"
 import { easing } from "../../lib/framer"
 
 /* Shared meets-page motion primitives (monolog-style):
@@ -46,6 +46,13 @@ export function RevealText({
 
   return (
     <MotionTag
+      /* Keyed by the copy itself: with `once` the in-view observer detaches
+         after the first reveal, so a locale switch swapped the words while the
+         element stayed parked under its mask — headings vanished mid-page. A
+         new key remounts the element, the observer re-attaches and the fresh
+         words play in. (The hero got this for free: its lines are mapped with
+         the line text as key.) */
+      key={text}
       className={`m-reveal ${className}`}
       aria-label={text}
       initial="hidden"

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion } from 'motion/react'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
 import { APP_URL } from '../../lib/urls'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'
@@ -60,9 +60,6 @@ export default function CommunitiesSection() {
             <div className="communities-actions">
               <a href={APP_URL} className="communities-btn communities-btn--primary">
                 {t('features.forOrganizers')}
-              </a>
-              <a href={APP_URL} className="communities-btn communities-btn--ghost">
-                {t('seeProduct')}
               </a>
             </div>
           </motion.div>

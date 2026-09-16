@@ -1,0 +1,91 @@
+.meets-card-hero { position:relative; min-height:780px; height:calc(100svh - 90px); max-height:1040px; overflow:hidden; display:grid; place-items:center; padding:80px var(--nc-gutter) 160px; }
+.meets-card-hero__content { position:relative; z-index:2; text-align:center; max-width:800px; margin:auto; }
+.meets-card-hero h1 > span { display:block; }
+.meets-card-hero__content > p { max-width:510px; margin:30px auto; font-size:20px; line-height:1.4; color:var(--text-list); }
+.meets-card-hero__content strong { font-weight:500; color:var(--bc-ink); }
+.meets-card-hero__actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.card-site .card-button--secondary { background:var(--bc-paper); color:var(--bc-ink); --bc-action-icon-bg:rgba(11,11,11,.08); }
+.meets-card-hero__photos { position:absolute; inset:0; pointer-events:none; }
+.meets-card-hero__photo { position:absolute; width:16%; max-width:260px; border-radius:15px; overflow:hidden; }
+.meets-card-hero__photo img { width:100%; height:100%; object-fit:cover; }
+.meets-card-hero__photo--1 { left:var(--nc-gutter); top:12%; aspect-ratio:4/5; rotate:-7deg; }
+.meets-card-hero__photo--2 { right:calc(var(--nc-gutter) + 20px); top:8%; width:14%; aspect-ratio:3/2; rotate:7deg; }
+.meets-card-hero__photo--3 { left:calc(var(--nc-gutter) + 120px); bottom:5%; width:14%; aspect-ratio:4/3; rotate:5deg; }
+.meets-card-hero__photo--4 { right:var(--nc-gutter); bottom:10%; aspect-ratio:1; rotate:-5deg; }
+.card-site .meets-sheet--hero { border-radius:60px 60px 0 0; background:var(--bc-paper); padding-top:100px; }
+.card-site .meets-sheet--rounded { border-radius:60px 60px 0 0; }
+.card-site .meets-how__card { --theme-ink:253,253,252; }
+.card-site .meets-how__photo { height:100%; }
+.card-site .meets-how__desc { margin-top:20px; }
+.card-site .meets-how__card-title { margin-top:auto; }
+.card-site .meets-footer { margin-top:0; background:var(--bc-canvas); }
+.card-site .meets-footer__panel { position:relative; overflow:hidden; padding:var(--nc-gutter) 0 54px; border-radius:60px 60px 0 0; }
+.card-site .meets-footer__content { position:relative; width:100%; max-width:none; padding:0 var(--nc-gutter); gap:40px; }
+.card-site .meets-footer__section-links { margin-top:20px; }
+.card-site .meets-footer__brand { gap:20px; align-items:flex-start; }
+.card-site .meets-footer__wordmark { font-weight:500; font-size:30px; text-transform:none; }
+.card-site .meets-footer__wordmark-accent { color:var(--bc-sand); }
+.card-site .meets-footer__col { padding-top:22px; border-top:1px solid rgba(253,253,252,.18); }
+.card-site .meets-footer__heading { font-size:12px; letter-spacing:.03em; text-transform:uppercase; margin-bottom:24px; }
+.card-site .meets-footer__link { font-size:16px; line-height:1.4; font-weight:400; }
+.card-site .meets-footer__subtitle,.card-site .meets-footer__copy { font-size:14px; line-height:1.4; }
+.card-site .meets-footer__panel > .bc2-footer__wordmark { position:relative; padding-inline:var(--nc-gutter); margin-top:92px; }
+.card-site .meets-footer__panel > .bc2-footer__wordmark img { filter:invert(1); }
+.card-site :is(.meets-btn,.support-form__submit) { min-height:56px; padding:16px 24px; border-radius:999px; font-size:15px; font-weight:600; line-height:1.3; white-space:normal; text-align:center; }
+.card-site :is(.meets-btn,.support-form__submit)::before { display:none; }
+.card-site .meets-btn--primary { background:var(--bc-action-bg); color:var(--bc-action-text); }
+.card-site .meets-btn--ghost { background:var(--bc-paper); color:var(--bc-ink); border:1px solid var(--bc-line); }
+.card-site .meets-btn:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+.card-site .meets-btn:disabled { opacity:.4; cursor:not-allowed; }
+.card-site :is(.meets-form__input,.meets-form__textarea) { border-radius:15px; font-size:16px; }
+.card-site .meets-form__consent { font-size:14px; }
+.card-site .meets-matching__desc { margin-top:20px; }
+.card-site .meets-phone__desc { margin-top:20px; }
+.card-site .meets-phone__points { margin-top:30px; }
+@media(min-width:1800px) { .meets-card-hero__content { max-width:880px; } .meets-card-hero__photo { width:14%; } .meets-card-hero__photo--1 { top:8%; } }
+@media(max-width:1199px) {
+  .meets-card-hero { min-height:780px; max-height:none; }
+  .meets-card-hero__content { max-width:580px; }
+  .meets-card-hero__photo { width:19%; }
+  .meets-card-hero__photo--1 { top:5%; left:35px; }
+  .meets-card-hero__photo--2 { top:7%; right:40px; }
+  .meets-card-hero__photo--3 { left:70px; bottom:8%; }
+  .meets-card-hero__photo--4 { bottom:5%; right:40px; }
+}
+@media(max-width:767px) {
+  .meets-card-hero { height:auto; min-height:760px; padding:235px 20px 215px; }
+  .meets-card-hero__content { max-width:450px; }
+  .meets-card-hero__content > p { margin:20px auto 24px; font-size:16px; }
+  .meets-card-hero__actions { gap:10px; }
+  .meets-card-hero__actions .bc2-button { min-width:0; min-height:48px; padding:0 16px 0 20px; gap:15px; font-size:14px; }
+  .meets-card-hero__photo { width:30%; max-width:170px; }
+  .meets-card-hero__photo--1 { left:25px; top:25px; aspect-ratio:1; }
+  .meets-card-hero__photo--2 { right:25px; top:75px; width:29%; }
+  .meets-card-hero__photo--3 { left:35px; bottom:65px; width:32%; }
+  .meets-card-hero__photo--4 { right:30px; bottom:25px; width:30%; }
+  .card-site .meets-sheet--hero { padding-top:60px; border-radius:30px 30px 0 0; }
+  .card-site .meets-sheet--rounded { border-radius:30px 30px 0 0; }
+  .card-site .meets-footer__panel { padding-top:var(--nc-gutter); border-radius:30px 30px 0 0; }
+  .card-site .meets-footer__content { gap:35px; }
+  .card-site .meets-footer__panel > .bc2-footer__wordmark { margin-top:60px; }
+}
+
+/* Equal visual air on either side of the white → linen boundary. The week
+   composition itself is unchanged; its existing bottom inset is mirrored. */
+.meets-redesign { --meets-week-inset: clamp(24px, 4vh, 42px); --meets-transition-radius: 60px; }
+.meets-redesign .meets-sheet--clear { padding-bottom: calc(var(--section-gap) / 2); }
+/* Continue the white sheet behind the linen top corners without changing
+   either side's spacing or the week section's sticky scroll geometry. */
+.meets-redesign .meets-dark-band { background: var(--bc-canvas); border-radius: var(--meets-transition-radius) var(--meets-transition-radius) 0 0; box-shadow: 0 calc(-1 * var(--meets-transition-radius)) 0 var(--bc-paper); }
+.meets-redesign .meets-why.section { padding-top: calc(var(--section-gap) / 2 + var(--meets-week-inset)); }
+@media (min-width: 900px) and (max-height: 760px) { .meets-redesign { --meets-week-inset: 20px; } }
+@media (max-width: 899.98px) { .meets-redesign { --meets-week-inset: 12px; } }
+@media (prefers-reduced-motion: reduce) { .meets-redesign { --meets-week-inset: clamp(70px, 8vw, 110px); } }
+@media (max-width: 767px) { .meets-redesign { --meets-transition-radius: 30px; } }
+.meets-redesign .meets-cta { position: relative; padding-block: var(--space-160); overflow: hidden; text-align: center; }
+.meets-cta__content { position: relative; display: flex; flex-direction: column; align-items: center; }
+.meets-cta__content h2 { max-width: 900px; }
+.card-site .meets-cta__description { max-width: 55ch; margin-top: var(--space-25); font-size: 18px; color: var(--text-list); }
+.meets-cta__content > .bc2-button { margin-top: var(--space-30); }
+.meets-cta > .card-lines svg { width: 100%; height: 100%; left: 0; top: 125px; }
+@media (max-width: 767px) { .meets-redesign .meets-cta { padding-block: var(--space-100); } }

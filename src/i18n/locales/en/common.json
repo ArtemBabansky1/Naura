@@ -1,6 +1,17 @@
 {
   "nav": {
     "ariaLabel": "Main navigation",
+    "crm": "CRM",
+    "meets": "Meets",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "language": "Switch language",
+    "resources": "Useful pages",
+    "communityResources": "Community launch guide",
+    "faq": "FAQ",
+    "support": "Support",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
     "businessCards": "Business Cards",
     "communities": "For\u00A0Communities",
     "blog": "Blog",

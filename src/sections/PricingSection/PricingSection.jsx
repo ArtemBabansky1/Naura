@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion } from 'motion/react'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
 import { APP_URL } from '../../lib/urls'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'

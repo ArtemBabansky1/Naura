@@ -102,6 +102,11 @@
 .feature-card__tagline {
   color: var(--text-primary);
   text-wrap: balance;
+  /* В reset.css стоит глобальный overflow-wrap: break-word. Из-за него длинная
+   * склейка вида «в<nbsp>Берлине?»» рвалась внутри себя, и закрывающая кавычка
+   * уезжала на отдельную строку. Заголовки карточек короткие — разрыв внутри
+   * слова им не нужен. */
+  overflow-wrap: normal;
 }
 
 .feature-card__desc {

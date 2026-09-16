@@ -1,0 +1,76 @@
+/* MeetsMarquee — hairline-framed strip of looping phrases. */
+
+.meets-marquee {
+  /* No own top spacing — the sheet's 100px padding is the visual gap. */
+  overflow: hidden;
+}
+
+.meets-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.meets-marquee__row {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.meets-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  /* Word gap scales with the enlarged type (was 40px + dot at the 2× size). */
+  padding-right: var(--space-80);
+}
+
+.meets-marquee__text {
+  /* 3.4× the h3 scale — the 4× strip read 15% too loud against the hero. */
+  font-family: var(--bc-display);
+  font-size: calc(var(--text-h3) * 3.4);
+  font-weight: var(--weight-regular);
+  /* Room below the baseline — with line-height 1 the strip's overflow clip
+   * shaved descenders (g, у, Д, Щ). */
+  line-height: 1.2;
+  letter-spacing: -0.055em;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.meets-marquee__text--accent {
+  color: var(--accent-primary);
+}
+
+/* ── Narrow screens ───────────────────────────────────────────────────────
+ * The 3.4× multiplier is sized against a desktop measure; at 360 it renders
+ * ~68px type and barely one phrase fits the frame. Step the scale and the
+ * word gap down so the strip keeps reading as a strip. */
+@media (max-width: 1023.98px) {
+  .meets-marquee__text {
+    font-size: calc(var(--text-h3) * 2.4);
+  }
+
+  .meets-marquee__item {
+    padding-right: var(--space-50);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .meets-marquee__text {
+    font-size: calc(var(--text-h3) * 1.8);
+  }
+
+  .meets-marquee__item {
+    padding-right: var(--space-40);
+  }
+}
+
+@media (max-width: 479.98px) {
+  .meets-marquee__text {
+    font-size: calc(var(--text-h3) * 1.5);
+  }
+
+  .meets-marquee__item {
+    padding-right: var(--space-30);
+  }
+}

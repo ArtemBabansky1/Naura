@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import { fadeUp, scaleIn, staggerContainer, viewportConfig } from "../../lib/framer"
-import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
-import { useLocale } from "../../hooks/useLocale"
+import { SiteNavigation } from "../../components/SiteNavigation/SiteNavigation"
 import {
   BLOG_URL,
   PODCAST_URL,
@@ -36,9 +35,8 @@ function BigMark() {
   )
 }
 
-export default function MeetsFooter() {
+export default function MeetsFooter({ meetsPath = "" }) {
   const { t } = useTranslation("meets")
-  const { localePath } = useLocale()
   const prefersReduced = useReducedMotion()
 
   const contentMotion = prefersReduced
@@ -63,20 +61,20 @@ export default function MeetsFooter() {
             <p className="meets-footer__copy text-body-sm">{t("footer.copyright")}</p>
           </motion.div>
 
-          <motion.nav
+          <motion.div
             className="meets-footer__col"
             aria-label={t("footer.navigation.heading")}
             variants={fadeUp}
           >
             <h3 className="meets-footer__heading">{t("footer.navigation.heading")}</h3>
-            <ul className="meets-footer__list">
-              <li><a href={localePath("/")} className="meets-footer__link">{t("footer.navigation.home")}</a></li>
-              <li><a href="#meets-how" className="meets-footer__link">{t("footer.navigation.how")}</a></li>
-              <li><a href="#meets-communities" className="meets-footer__link">{t("footer.navigation.communities")}</a></li>
-              <li><a href="#meets-faq" className="meets-footer__link">{t("footer.navigation.faq")}</a></li>
+            <SiteNavigation className="meets-footer__list" linkClassName="meets-footer__link" />
+            <ul className="meets-footer__list meets-footer__section-links">
+              <li><a href={`${meetsPath}#meets-how`} className="meets-footer__link">{t("footer.navigation.how")}</a></li>
+              <li><a href={`${meetsPath}#meets-communities`} className="meets-footer__link">{t("footer.navigation.communities")}</a></li>
+              <li><a href={`${meetsPath}#meets-faq`} className="meets-footer__link">{t("footer.navigation.faq")}</a></li>
               <li><a href={BLOG_URL} className="meets-footer__link" {...external}>{t("footer.navigation.blog")}</a></li>
             </ul>
-          </motion.nav>
+          </motion.div>
 
           <motion.div className="meets-footer__col" variants={fadeUp}>
             <h3 className="meets-footer__heading">{t("footer.contacts.heading")}</h3>
@@ -90,10 +88,7 @@ export default function MeetsFooter() {
 
           <motion.div className="meets-footer__col" variants={fadeUp}>
             <h3 className="meets-footer__heading">{t("footer.docs.heading")}</h3>
-            <ul className="meets-footer__list">
-              <li><LocaleLink to="/privacy" className="meets-footer__link">{t("footer.docs.privacy")}</LocaleLink></li>
-              <li><LocaleLink to="/terms" className="meets-footer__link">{t("footer.docs.terms")}</LocaleLink></li>
-            </ul>
+            <SiteNavigation resources className="meets-footer__list" linkClassName="meets-footer__link" />
           </motion.div>
         </motion.div>
       </div>

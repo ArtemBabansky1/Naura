@@ -1,0 +1,33 @@
+.meets-phone.section { padding-top: var(--section-gap); }
+.meets-phone__panel { position: relative; overflow: clip; border-radius: var(--nc-radius); isolation: isolate; }
+.meets-phone__panel > .card-lines { color: var(--bc-stone); opacity: .45; }
+.meets-phone__grid { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: var(--grid-gap); min-height: 700px; }
+.meets-phone__text { position: relative; z-index: 1; display: flex; flex-direction: column; padding: var(--space-60) var(--space-60) var(--space-60) 0; }
+.meets-phone__title { color: var(--text-primary); max-width: 17ch; }
+.card-site .meets-phone__desc { color: var(--text-list); margin-top: var(--space-20); max-width: 40ch; }
+.card-site .meets-phone__points { list-style: none; padding: 0; margin: var(--space-30) 0 0; display: flex; flex-direction: column; }
+.meets-phone__cta { margin-top: var(--space-40); }
+.meets-phone__point { display: flex; align-items: center; gap: var(--space-15); padding-block: var(--space-15); color: var(--text-primary); }
+.meets-phone__point-dot { flex: none; width: 5px; height: 5px; border-radius: 50%; background: var(--bc-paper); }
+.meets-phone__fly { min-width: 0; align-self: end; will-change: transform; }
+/* At rest the model fills 92% of its stage. Scaling by 1.5 and translating
+ * down 11% leaves approximately 60% above the panel's clipped lower edge. */
+.meets-phone__stage { position: relative; display: flex; align-items: center; justify-content: center; height: 650px; transform: translateY(11%) scale(1.5); transform-origin: center top; }
+.meets-phone__canvas { position: relative; display: block; width: 100%; height: 650px; }
+.card-site .meets-phone__img { width: min(75%, 350px); height: auto; margin-inline: auto; }
+@media (max-width: 1199px) {
+  .meets-phone__grid { min-height: 600px; }
+  .meets-phone__text { padding: var(--space-40) var(--space-40) var(--space-40) 0; }
+  .meets-phone__stage,.meets-phone__canvas { height: 600px; }
+}
+@media (max-width: 767px) {
+  .meets-page #meets-phone { text-align: left; }
+  .meets-phone__grid { grid-template-columns: 1fr; gap: 0; }
+  .meets-phone__text { order: 1; padding: var(--space-40) var(--space-25) 0; }
+  .meets-phone__fly { order: 2; }
+  .meets-phone__stage,.meets-phone__canvas { height: 500px; }
+  .meets-phone__title { font-size: 35px; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .meets-phone__stage { transform: translateY(29%) scale(1.2); }
+}

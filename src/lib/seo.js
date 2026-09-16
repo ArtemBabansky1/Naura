@@ -1,4 +1,7 @@
 export const SITE_URL = "https://naura.io"
+// Meets lives on its own host — canonical, alternates and og:url for that page
+// must point there, or the two addresses compete in search.
+export const MEETS_URL = "https://meets.naura.io"
 export const SITE_NAME = "Naura"
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`
 export const TWITTER_HANDLE = "@nauraio"
@@ -83,8 +86,9 @@ export const applyPageSeo = ({
   locale = "en",
   noindex = false,
   jsonLd = null,
+  baseUrl = SITE_URL,
 }) => {
-  const url = `${SITE_URL}${path}`
+  const url = `${baseUrl}${path}`
   const enPath = withLocalePath(logicalPath, "en")
   const ruPath = withLocalePath(logicalPath, "ru")
 
@@ -109,9 +113,9 @@ export const applyPageSeo = ({
   upsertMeta("name", "twitter:image", image)
 
   upsertLink("canonical", url)
-  upsertAlternate("en", `${SITE_URL}${enPath}`)
-  upsertAlternate("ru", `${SITE_URL}${ruPath}`)
-  upsertAlternate("x-default", `${SITE_URL}${enPath}`)
+  upsertAlternate("en", `${baseUrl}${enPath}`)
+  upsertAlternate("ru", `${baseUrl}${ruPath}`)
+  upsertAlternate("x-default", `${baseUrl}${enPath}`)
   upsertJsonLd(jsonLd)
 }
 

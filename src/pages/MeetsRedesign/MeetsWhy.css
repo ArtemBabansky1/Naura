@@ -1,0 +1,175 @@
+/* MeetsWhy — a centered heading followed by four photo/benefit pairs. At
+ * desktop the pairs form a true checkerboard; narrower layouts keep the
+ * photos large enough to read as conversations rather than thumbnails. */
+
+.meets-why {
+  overflow: clip;
+}
+
+.meets-why__head {
+  text-align: center;
+}
+
+.card-site .meets-why__title {
+  max-width: 22ch;
+  margin-inline: auto;
+  color: var(--bc-ink);
+  text-wrap: balance;
+}
+
+.card-site .meets-why__note {
+  max-width: 64ch;
+  margin: 20px auto 0;
+  color: var(--bc-stone);
+  font-size: 16px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.meets-why__checkerboard {
+  --why-cell-height: clamp(300px, 25vw, 390px);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gap);
+  margin: 0;
+  padding: clamp(50px, 6vw, 84px) 0 0;
+}
+
+.meets-why__column {
+  display: grid;
+  grid-template-rows: repeat(2, var(--why-cell-height));
+  gap: var(--grid-gap);
+  min-width: 0;
+}
+
+.meets-why__photo,
+.meets-why__card {
+  min-width: 0;
+  min-height: 0;
+  border-radius: var(--nc-radius);
+}
+
+.meets-why__photo {
+  grid-row: 1;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bc-sand);
+}
+
+.meets-why__column:nth-child(even) .meets-why__photo {
+  grid-row: 2;
+}
+
+.meets-why__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meets-why__column:nth-child(1) .meets-why__photo img {
+  object-position: 50% 45%;
+}
+
+.meets-why__column:nth-child(2) .meets-why__photo img {
+  object-position: 50% 50%;
+}
+
+.meets-why__column:nth-child(3) .meets-why__photo img {
+  object-position: 50% 42%;
+}
+
+.meets-why__column:nth-child(4) .meets-why__photo img {
+  object-position: 50% 45%;
+}
+
+.meets-why__card {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  padding: clamp(26px, 2.6vw, 38px);
+  background: var(--bc-paper);
+  color: var(--bc-ink);
+}
+
+.meets-why__column:nth-child(even) .meets-why__card {
+  grid-row: 1;
+}
+
+.meets-why__card-title {
+  max-width: 18ch;
+  color: var(--bc-ink);
+  font-family: var(--bc-display);
+  font-size: clamp(24px, 2vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.meets-why__card-desc {
+  max-width: 32ch;
+  margin: 0;
+  color: var(--bc-stone);
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+@media (max-width: 1199.98px) {
+  .meets-why__checkerboard {
+    --why-cell-height: clamp(300px, 42vw, 390px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .meets-why__title {
+    max-width: 18ch;
+  }
+
+  .meets-why__note {
+    max-width: 42ch;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .meets-why__checkerboard {
+    --why-photo-height: clamp(270px, 104vw, 390px);
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: 44px;
+  }
+
+  .meets-why__column {
+    grid-template-rows: var(--why-photo-height) minmax(250px, auto);
+  }
+
+  .meets-why__column:nth-child(even) {
+    grid-template-rows: minmax(250px, auto) var(--why-photo-height);
+  }
+
+  .meets-why__card {
+    padding: 28px 24px;
+    text-align: left;
+  }
+
+  .meets-why__card-title {
+    font-size: 25px;
+  }
+
+  .meets-why__card-desc {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meets-why__column,
+  .meets-why__photo img {
+    transform: none !important;
+    transition: none !important;
+  }
+}

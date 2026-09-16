@@ -10,6 +10,7 @@ export const PageSeo = ({
   image,
   noindex = false,
   jsonLd = null,
+  baseUrl,
 }) => {
   const { i18n } = useTranslation()
   const { localePath } = useLocale()
@@ -24,8 +25,9 @@ export const PageSeo = ({
       locale: i18n.language,
       noindex,
       jsonLd,
+      ...(baseUrl ? { baseUrl } : {}),
     })
-  }, [title, description, path, image, noindex, jsonLd, i18n.language, localePath])
+  }, [title, description, path, image, noindex, jsonLd, baseUrl, i18n.language, localePath])
 
   return null
 }

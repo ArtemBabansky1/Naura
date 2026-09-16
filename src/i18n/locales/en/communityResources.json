@@ -1,0 +1,167 @@
+{
+  "pageTitle": "How to launch Naura Meets in your community",
+  "metaDescription": "Admin guide: create a room, announce it, pin the link, and optionally enable automatic invites via the bot.",
+  "nav": {
+    "home": "Back to Meets",
+    "ariaLabel": "Guide navigation",
+    "openBot": "Open bot",
+    "lang": "Switch language"
+  },
+  "common": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "openShot": "Open screenshot",
+    "closeShot": "Close"
+  },
+  "hero": {
+    "eyebrow": "For community admins",
+    "title": "How to launch Naura Meets in your community"
+  },
+  "intro": "",
+  "steps": {
+    "title": "Launch in 3 steps",
+    "s1": {
+      "title": "Create a room",
+      "body": "To run meetings in Naura Meets, create your community room using the link from your manager. The wizard has 4 steps:",
+      "substeps": [
+        {
+          "title": "Community template",
+          "body": "Pick a template or keep “Classic Random Coffee” — a weekly 1:1 match inside your community. Other templates include Business Networking (investors ↔ project creators) and Mentorship (mentors ↔ mentees). If you are unsure, use classic Random Coffee."
+        },
+        {
+          "title": "Community name",
+          "body": "Choose a name for the room. This is how it will appear to members in the bot — keep it short and recognizable, the same way people already refer to your community."
+        },
+        {
+          "title": "Language",
+          "body": "Default language for notifications: the bot uses it for member messages (invites, reminders). Pick the language of most of your audience — for example Russian or English. This is not the admin UI language; it is the language people receive."
+        },
+        {
+          "title": "Event schedule",
+          "body": "Set the weekly cycle: day and time for events like Opt-In Reminder, Matching, and Contact Reminder. You can keep the defaults and change them later under the Schedule tab."
+        }
+      ],
+      "afterTitle": "Room created — copy the link",
+      "afterBody": "On the community screen, tap “Copy link” or “Share”. Post that link in your channel or group so members can register and join meetings."
+    },
+    "s2": {
+      "title": "Publish an announcement",
+      "body": "Post the room link in your community. Subscribers or group members use it to register and join meetings with each other.",
+      "extra": "Inside the service, people can also meet members of other communities: there are rooms in Russian and English, and rooms by interest.",
+      "linkBefore": "Ready-to-copy announcement texts are ",
+      "link": "further down this page",
+      "linkAfter": "."
+    },
+    "s3": {
+      "title": "Pin the link",
+      "body": "One announcement is often not enough: some people will see it later, and new members will arrive after launch.",
+      "bullets": [
+        "Pin the post with the room link at the top of the channel or group.",
+        "If your community has a useful-resources list, add the link there.",
+        "You can also post the link with other useful materials in comments under new posts."
+      ],
+      "exampleTitle": "Example “Useful” block in comments",
+      "exampleLead": "A simple way to keep the room link next to other community resources:",
+      "exampleLabel": "Useful:",
+      "exampleCopyHint": "Copy and paste into a Telegram comment. Replace {room link} with your room link.",
+      "exampleCopyText": "**Useful:**\n📖 Channel index — all posts by topic\n☕️ {room link} — random coffee for readers\n🎁 @naura_benefits_bot — tools and finds\n🤝 Naura Meets — channel about introductions and networking",
+      "exampleItems": [
+        {
+          "emoji": "📖",
+          "name": "Channel index",
+          "desc": "all posts by topic"
+        },
+        {
+          "emoji": "☕️",
+          "name": "{room link}",
+          "desc": "random coffee for readers"
+        },
+        {
+          "emoji": "🎁",
+          "name": "@naura_benefits_bot",
+          "desc": "tools and finds"
+        },
+        {
+          "emoji": "🤝",
+          "name": "Naura Meets",
+          "desc": "channel about introductions and networking"
+        }
+      ]
+    }
+  },
+  "announcements": {
+    "title": "Announcement examples",
+    "lead": "Replace {room link} with your room link. If the text includes {community name}, put your Naura Meets room name there.",
+    "items": [
+      {
+        "label": "Main announcement — how it works",
+        "text": "In “{community name}” we’re launching Naura Meets — 1:1 introductions inside our community.\n\nIt’s very simple:\n\n1/ Fill in a short profile in the bot:\n{room link}\n\n2/ Once a week the bot suggests a good match from our community\n\n3/ After that it’s up to you: hop on a call, meet offline for coffee, or just talk\n\n...\nPROFIT!\n\nParticipation is optional. Join the intros in “{community name}”!"
+      },
+      {
+        "label": "Lively chat announcement",
+        "text": "There are so many interesting people in this chat — and almost nobody messages first 😅\n\nSo we are connecting Naura Meets: once a week the bot introduces you to one person from the community. A short 1-on-1 — online or over coffee, whatever works.\n\nHow to join:\n1) open the link and activate the bot\n2) fill in a short profile\n3) choose the community “{community name}”\n\nThen every week you get a new reason to meet someone.\n\n{room link}"
+      },
+      {
+        "label": "Short channel post",
+        "text": "Meeting people in our community just got easier: once a week Naura Meets matches you with someone from the group.\n\nYou choose the format — a call, coffee, or a short chat. Optional, no pressure.\n\nStart here:\n{room link}"
+      },
+      {
+        "label": "About people nearby",
+        "text": "Sometimes the best part of a community is not another post — it is one real conversation with someone inside it.\n\nWe are launching Naura Meets: every week the bot introduces you to someone from “{community name}”. No cold DMs — just a clear reason to start talking.\n\nJoin:\n{room link}"
+      },
+      {
+        "label": "For long-time chat lurkers",
+        "text": "You have been reading the chat for a while, you know the names… and you still barely know anyone in person?\n\nFair. That is why we added Naura Meets — once a week, one new person from the community for a short 1-on-1.\n\nThe profile takes a couple of minutes:\n{room link}"
+      },
+      {
+        "label": "Useful, without the corporate tone",
+        "text": "A new contact, a project idea, work advice, or just a good conversation — these usually start with one introduction, not another feed post.\n\nNaura Meets suggests one person from our community each week. Then you decide: call, coffee, or chat.\n\nJump in:\n{room link}"
+      },
+      {
+        "label": "Light Friday tone",
+        "text": "Friday experiment ☕\n\nWhat if next week you already had a new acquaintance from our community?\n\nNaura Meets keeps it simple: short profile → one match a week → you choose how to continue.\n\nWho is in:\n{room link}"
+      },
+      {
+        "label": "For community newcomers",
+        "text": "Just joined and not sure who to talk to first?\n\nIn “{community name}” we use Naura Meets: the bot gently introduces members one-on-one, so you can start conversations without feeling like you are messaging into the void.\n\nStart here:\n{room link}"
+      }
+    ]
+  },
+  "bot": {
+    "title": "Automatic invites",
+    "leadBefore": "You can add ",
+    "leadAfter": " to the group. Then the bot can publish a weekly invite to join Naura Meets.",
+    "handle": "@CoffeeMeetBot",
+    "userInfoHandle": "@userinfobot",
+    "steps": [
+      "Add @CoffeeMeetBot to the group, or make it an admin if posting requires permissions.",
+      "In the mini app, open broadcast settings.",
+      "Choose the event type: message to the group.",
+      "Paste the group ID and enable the event."
+    ],
+    "addCta": "Add @CoffeeMeetBot",
+    "copyHandle": "Copy @CoffeeMeetBot",
+    "userInfoNote": "How to find the group ID",
+    "userInfoHintBefore": "Forward any message from the group to ",
+    "userInfoHintAfter": " — it will show the chat id. You need the numeric group ID; it usually starts with a minus sign.",
+    "messagesTitle": "Bot message examples",
+    "messageExamples": [
+      {
+        "label": "Weekly invite",
+        "text": "This week you can meet someone from our community again.\n\nOpen Naura Meets and confirm — the bot will match you with a person for a short 1-on-1 conversation."
+      },
+      {
+        "label": "Soft reminder",
+        "text": "Want a match this week? Confirm in Naura Meets.\n\nBusy week? Skip the round — there will be another chance next time."
+      },
+      {
+        "label": "For newcomers",
+        "text": "New here? We use Naura Meets — once a week you can meet someone from the community one-on-one.\n\nParticipation is optional. Start by confirming in @CoffeeMeetBot."
+      }
+    ]
+  },
+  "video": {
+    "title": "Video walkthrough",
+    "lead": "A short video: how to create a room and get the member link."
+  }
+}

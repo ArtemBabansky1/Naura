@@ -1,0 +1,264 @@
+/* Keep the page visible between the two independent navigation surfaces. */
+.bc2-header-shell {
+  min-height: 90px;
+}
+
+.bc2-header,
+.bc2-header.bc2-header--dark {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr);
+  column-gap: 20px;
+  min-height: 90px;
+  padding-inline: clamp(24px, 4vw, 60px);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: color 300ms ease;
+}
+
+@media (min-width: 1800px) {
+  .bc2-header,
+  .bc2-header.bc2-header--dark {
+    padding-inline: var(--nc-gutter);
+  }
+}
+
+/* The inline header scrolls away with the page. After the first upward scroll,
+ * keep the floating layer mounted so entry and exit can reverse smoothly. */
+.bc2-header {
+  position: relative;
+  top: auto;
+}
+
+.bc2-header.bc2-header--floating {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.bc2-header--hidden {
+  pointer-events: none;
+}
+
+.bc2-header .bc2-brand {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  flex: none;
+  width: 240px;
+  height: auto;
+  min-height: 44px;
+  overflow: visible;
+}
+
+.bc2-header .bc2-brand > span {
+  width: 100%;
+  height: auto;
+}
+
+.bc2-header .bc2-brand img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: filter 300ms ease;
+}
+
+.bc2-header__links,
+.bc2-header__actions {
+  width: max-content;
+  min-height: 54px;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid rgba(11, 11, 11, 0.12);
+  border-radius: 999px;
+  background: rgba(253, 253, 252, 0.5);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  backdrop-filter: blur(20px) saturate(130%);
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+/* Equal side tracks keep the menu on the viewport axis in both languages. */
+.bc2-header__links {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  gap: 4px;
+}
+
+.bc2-header__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 13px;
+}
+
+.bc2-header__links a[aria-current],
+.bc2-header__links a:hover {
+  background: rgba(253, 253, 252, 0.88);
+}
+
+.bc2-header__actions {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.bc2-header__actions > button,
+.bc2-header__actions > a:not(.bc2-header__cta) {
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.bc2-header__actions > button {
+  display: inline-flex;
+}
+
+.bc2-header__actions > a:not(.bc2-header__cta) {
+  display: inline-flex;
+}
+
+.bc2-header__actions > button:hover,
+.bc2-header__actions > a:not(.bc2-header__cta):hover {
+  background: rgba(253, 253, 252, 0.88);
+}
+
+.bc2-header__actions .bc2-header__cta {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 17px;
+  font-size: 14px;
+}
+
+.bc2-header--dark .bc2-header__links,
+.bc2-header--dark .bc2-header__actions {
+  border-color: rgba(253, 253, 252, 0.2);
+  background: rgba(25, 25, 25, 0.5);
+  color: var(--bc-paper);
+}
+
+.bc2-header--dark .bc2-header__links a {
+  color: rgba(253, 253, 252, 0.78);
+}
+
+.bc2-header--dark .bc2-header__links a[aria-current],
+.bc2-header--dark .bc2-header__links a:hover,
+.bc2-header--dark .bc2-header__actions > button:hover,
+.bc2-header--dark .bc2-header__actions > a:not(.bc2-header__cta):hover {
+  background: rgba(253, 253, 252, 0.13);
+  color: var(--bc-paper);
+}
+
+@media (max-width: 1199px) {
+  .bc2-header,
+  .bc2-header.bc2-header--dark {
+    display: flex;
+    gap: 12px;
+    padding-inline: 40px;
+  }
+
+  .bc2-header .bc2-brand {
+    margin-right: auto;
+  }
+
+  .bc2-header__links,
+  .bc2-header__actions > a:not(.bc2-header__cta) {
+    display: none;
+  }
+
+  .bc2-header__actions {
+    flex: none;
+    margin: 0;
+  }
+
+  .bc2-header .bc2-menu-toggle {
+    position: relative;
+    top: auto;
+    right: auto;
+    flex: none;
+    width: 54px;
+    height: 54px;
+    border: 1px solid rgba(11, 11, 11, 0.12);
+    background: var(--bc-paper);
+  }
+
+  .bc2-header--dark .bc2-menu-toggle {
+    border-color: rgba(253, 253, 252, 0.2);
+    background: #202020;
+  }
+
+  .bc2-header--dark .bc2-menu-toggle span {
+    background: var(--bc-paper);
+  }
+
+  .bc2-mobile-menu {
+    top: 82px;
+    background: rgba(253, 253, 252, 0.88);
+    -webkit-backdrop-filter: blur(24px) saturate(130%);
+    backdrop-filter: blur(24px) saturate(130%);
+  }
+
+  .bc2-header--dark .bc2-mobile-menu {
+    background: rgba(25, 25, 25, 0.88);
+    color: var(--bc-paper);
+  }
+
+  .bc2-header--dark .bc2-mobile-menu nav a {
+    border-color: rgba(253, 253, 252, 0.18);
+  }
+
+  .bc2-header--dark .bc2-mobile-menu > div button,
+  .bc2-header--dark .bc2-mobile-menu > div a {
+    background: rgba(253, 253, 252, 0.12);
+  }
+}
+
+@media (max-width: 767px) {
+  .bc2-header-shell {
+    min-height: 72px;
+  }
+
+  .bc2-header,
+  .bc2-header.bc2-header--dark {
+    min-height: 72px;
+    gap: 8px;
+    padding-inline: 20px;
+  }
+
+  .bc2-header .bc2-brand {
+    width: clamp(150px, 46vw, 190px);
+  }
+
+  .bc2-header__actions {
+    min-height: 48px;
+    padding: 1px;
+  }
+
+  .bc2-header__actions > button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .bc2-header .bc2-menu-toggle {
+    width: 48px;
+    height: 48px;
+  }
+
+  .bc2-mobile-menu {
+    top: 68px;
+    right: 20px;
+    left: 20px;
+  }
+}

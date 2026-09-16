@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { useTranslation } from "react-i18next"
-import { LocaleLink } from "../../components/LocaleLink/LocaleLink"
+import { SiteNavigation } from "../../components/SiteNavigation/SiteNavigation"
+import { BLOG_URL } from "../../lib/urls"
 import { useLocale } from "../../hooks/useLocale"
 import "./FooterSection.css"
 
@@ -8,13 +9,6 @@ export default function FooterSection() {
   const { t } = useTranslation("footer")
   const { isRu, switchLocale } = useLocale()
   const sectionRef = useRef(null)
-
-  const productLinks = [
-    { key: "home", href: "#hero" },
-    { key: "businessCards", href: "#features" },
-    { key: "communities", href: "#communities" },
-    { key: "blog", href: "https://blog.naura.io/" },
-  ]
 
   return (
     <footer id="footer" data-section="footer" ref={sectionRef} className="footer-section">
@@ -51,25 +45,10 @@ export default function FooterSection() {
             </svg>
           </div>
 
-          <nav className="footer-col footer-col--product" aria-label={t("product.heading")}>
+          <div className="footer-col footer-col--product">
             <h3 className="footer-col__heading">{t("product.heading")}</h3>
-            <ul className="footer-col__list">
-              {productLinks.map(({ key, href }) => {
-                const isExternal = href.startsWith("http")
-                return (
-                  <li key={key}>
-                    <a
-                      href={href}
-                      className="footer-link"
-                      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    >
-                      {t(`product.links.${key}`)}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
+            <SiteNavigation className="footer-col__list" linkClassName="footer-link" after={<a href={BLOG_URL} className="footer-link" target="_blank" rel="noopener noreferrer">{t("product.links.blog")}</a>} />
+          </div>
 
           <div className="footer-col footer-col--contacts">
             <h3 className="footer-col__heading">{t("contacts.heading")}</h3>
@@ -80,12 +59,7 @@ export default function FooterSection() {
             </ul>
           </div>
 
-          <ul className="footer-col__list footer-legal">
-            <li><LocaleLink to="/faq" className="footer-link">{t("legal.faq")}</LocaleLink></li>
-            <li><LocaleLink to="/support" className="footer-link">{t("legal.support")}</LocaleLink></li>
-            <li><LocaleLink to="/privacy" className="footer-link">{t("legal.privacy")}</LocaleLink></li>
-            <li><LocaleLink to="/terms" className="footer-link">{t("legal.terms")}</LocaleLink></li>
-          </ul>
+          <SiteNavigation resources className="footer-col__list footer-legal" linkClassName="footer-link" />
 
           <div className="footer-meta">
             <button

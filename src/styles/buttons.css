@@ -21,8 +21,10 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
+  .bc-button--primary,
   .meets-btn--primary,
-  .hero-nav__lang
+  .hero-nav__lang,
+  .meets-hero__cta .meets-btn--ghost
 ) {
   --sweep-fill: var(--color-base-white);
   --sweep-ink:  var(--accent-primary);
@@ -31,6 +33,7 @@
 /* White / outlined buttons → purple fill, white ink */
 :is(
   .hero-nav__btn--secondary,
+  .bc-button--secondary,
   .meets-nav__signin,
   .hero-nav__lang
 ) {
@@ -49,9 +52,11 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
+  .bc-button,
   .meets-btn--primary,
   .meets-nav__signin,
-  .hero-nav__lang
+  .hero-nav__lang,
+  .meets-hero__cta .meets-btn--ghost
 ):is(
   .btn-hero--primary,
   .hero-nav__btn--primary,
@@ -61,9 +66,11 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
+  .bc-button,
   .meets-btn--primary,
   .meets-nav__signin,
-  .hero-nav__lang
+  .hero-nav__lang,
+  .meets-hero__cta .meets-btn--ghost
 ) {
   position: relative;
   isolation: isolate;
@@ -81,9 +88,11 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
+  .bc-button,
   .meets-btn--primary,
   .meets-nav__signin,
-  .hero-nav__lang
+  .hero-nav__lang,
+  .meets-hero__cta .meets-btn--ghost
 )::after {
   content: "";
   position: absolute;
@@ -106,9 +115,11 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
+  .bc-button,
   .meets-btn--primary,
   .meets-nav__signin,
-  .hero-nav__lang
+  .hero-nav__lang,
+  .meets-hero__cta .meets-btn--ghost
 ):is(
   .btn-hero--primary,
   .hero-nav__btn--primary,
@@ -118,9 +129,11 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
+  .bc-button,
   .meets-btn--primary,
   .meets-nav__signin,
-  .hero-nav__lang
+  .hero-nav__lang,
+  .meets-hero__cta .meets-btn--ghost
 ):hover:not(:disabled) {
   color: var(--sweep-ink);
   border-color: var(--sweep-fill);
@@ -137,9 +150,11 @@
   .cta-button,
   .communities-btn--primary,
   .pricing-card__cta--primary,
+  .bc-button,
   .meets-btn--primary,
   .meets-nav__signin,
-  .hero-nav__lang
+  .hero-nav__lang,
+  .meets-hero__cta .meets-btn--ghost
 ):hover:not(:disabled)::after {
   transform: translateY(0);
 }

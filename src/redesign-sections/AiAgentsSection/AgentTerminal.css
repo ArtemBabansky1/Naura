@@ -1,0 +1,211 @@
+/* AgentTerminal — live terminal chat that fills the AI-agents demo panel.
+ * Title bar (traffic-light dots) + a bottom-anchored log that types itself out.
+ * Syntax palette: accent/dim from tokens; the red/yellow/green dots and the
+ * Claude badge red are carried verbatim from the original Figma SVG mock. */
+.term {
+  --t-red: #ff5f57;
+  --t-yellow: #ffbd2e;
+  --t-green: #28c840;
+  --t-accent: var(--accent-primary);
+  --t-dim: var(--text-muted);
+  --t-claude: #b05e5f;
+  --t-mono: 'SF Mono', 'SFMono-Regular', ui-monospace, 'JetBrains Mono', 'Menlo',
+    'Consolas', monospace;
+  --t-font: clamp(calc(11 * var(--u)), 0.85vw, calc(13 * var(--u)));
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  font-family: var(--t-mono);
+  line-height: var(--leading-normal);
+}
+
+/* ── Title bar ──────────────────────────────────────────────────────────── */
+.term__bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-20) var(--space-25);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.term__dot {
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  border-radius: var(--radius-pill);
+}
+.term__dot--r { background: var(--t-red); }
+.term__dot--y { background: var(--t-yellow); }
+.term__dot--g { background: var(--t-green); }
+
+.term__title {
+  margin-left: var(--space-5);
+  color: var(--t-dim);
+  font-size: var(--t-font);
+}
+
+/* ── Log: bottom-anchored so new lines push older ones up & out the top ──── */
+.term__body {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  /* soften the top clip so lines dissolve rather than hard-cut */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--space-40));
+  mask-image: linear-gradient(to bottom, transparent 0, #000 var(--space-40));
+}
+
+.term__log {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+  padding: var(--space-25);
+  font-size: var(--t-font);
+}
+
+/* Each row fades/rises in once on mount (stable keys ⇒ no replay on retype). */
+.term__row,
+.term__chips,
+.term__label {
+  animation: term-row-in var(--duration-base) var(--ease-out-expo) both;
+}
+
+@keyframes term-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(6 * var(--u)));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.term__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10);
+}
+
+.term__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Command / output rows read as raw terminal lines (no badge). */
+.term__row--output .term__text {
+  color: var(--t-dim);
+  animation: term-fade-in var(--duration-base) var(--ease-in-out) both;
+}
+
+@keyframes term-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Syntax tokens ──────────────────────────────────────────────────────── */
+.tk--prompt { color: var(--t-accent); }
+.tk--red { color: var(--t-red); }
+.tk--green { color: var(--t-green); }
+.tk--accent { color: var(--t-accent); }
+.tk--dim { color: var(--t-dim); }
+.tk--b {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* ── Speaker badges ─────────────────────────────────────────────────────── */
+.term__badge {
+  flex: none;
+  padding: var(--space-5) var(--space-10);
+  border-radius: var(--radius-pill);
+  font-size: calc(var(--t-font) - 1px);
+  line-height: 1;
+  color: var(--text-on-accent);
+}
+.term__badge--you { background: var(--t-accent); }
+.term__badge--claude { background: var(--t-claude); }
+
+/* ── Transcript section label ───────────────────────────────────────────── */
+.term__label {
+  margin-top: var(--space-5);
+  color: var(--t-dim);
+  font-size: calc(var(--t-font) - 1px);
+  letter-spacing: calc(1.5 * var(--u));
+  text-transform: uppercase;
+}
+
+/* ── Action chips ───────────────────────────────────────────────────────── */
+.term__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+  /* align under Claude's text, past the badge column */
+  padding-left: calc(var(--space-10) + 4ch);
+}
+
+.term__chip {
+  padding: var(--space-5) var(--space-15);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  color: var(--text-primary);
+  font-size: calc(var(--t-font) - 1px);
+  white-space: nowrap;
+}
+
+/* ── Typing cursor ──────────────────────────────────────────────────────── */
+.term__cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--t-accent);
+  animation: term-blink 1s steps(2, start) infinite;
+}
+
+@keyframes term-blink {
+  50% { opacity: 0; }
+}
+
+/* ── Claude "thinking" dots ─────────────────────────────────────────────── */
+.term__thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5);
+  height: 1.05em;
+}
+
+.term__dotdot {
+  width: calc(5 * var(--u));
+  height: calc(5 * var(--u));
+  border-radius: var(--radius-pill);
+  background: var(--t-dim);
+  animation: term-pulse 1s var(--ease-in-out) infinite;
+}
+.term__dotdot:nth-child(2) { animation-delay: 0.15s; }
+.term__dotdot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes term-pulse {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(calc(-2 * var(--u))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term__row,
+  .term__chips,
+  .term__label,
+  .term__row--output .term__text,
+  .term__cursor,
+  .term__dotdot {
+    animation: none;
+  }
+}

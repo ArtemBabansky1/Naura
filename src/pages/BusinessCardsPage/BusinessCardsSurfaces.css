@@ -1,0 +1,35 @@
+/* White card surfaces share the free plan's outline, without a drop shadow. */
+.bc2-page {
+  --bc-card-border: 1px solid rgba(11, 11, 11, .08);
+  --bc-card-shadow: none;
+}
+
+.bc2-page :is(
+  .nc-compare--paper,
+  .nc-connection__detail,
+  .nc-journey__editorial,
+  .nc-journey__contacts > div,
+  .nc-identity--paper:not(.nc-identity--profile) .nc-identity__face,
+  .bc2-proof--multiple,
+  .bc2-proof--capture,
+  .bc2-solution-copy,
+  .bc2-plan:not(.bc2-plan--featured),
+  .bc2-beta__form
+) {
+  border: var(--bc-card-border);
+  box-shadow: var(--bc-card-shadow);
+}
+
+.bc2-page .nc-connection__pages { border-radius: var(--nc-radius); }
+/* Reveal the book edge after its expanding folder reaches the final size. */
+.bc2-page .nc-connection__pages::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--bc-card-border);
+  border-radius: inherit;
+  box-shadow: var(--bc-card-shadow);
+  opacity: var(--book-edge, 0);
+  pointer-events: none;
+}
+.nc-hero[data-connection-motion="static"] .nc-connection__pages { --book-edge: 1; }

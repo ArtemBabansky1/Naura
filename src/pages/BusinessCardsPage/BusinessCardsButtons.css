@@ -1,0 +1,101 @@
+/* Actions take their contrast from the surface immediately behind them. */
+.bc2-page {
+  --bc-action-bg: var(--bc-ink);
+  --bc-action-text: var(--bc-paper);
+  --bc-action-icon-bg: rgba(255, 255, 255, 0.12);
+}
+
+.bc2-header--dark,
+.nc-hero__story,
+.nc-connection__copy,
+.nc-compare--live,
+.bc2-instant__panel,
+.bc2-plan--featured,
+.bc2-platform__panel,
+.bc2-beta__panel {
+  --bc-action-bg: var(--bc-paper);
+  --bc-action-text: var(--bc-ink);
+  --bc-action-icon-bg: rgba(11, 11, 11, 0.08);
+}
+
+/* A light panel inside a dark section has its own contrast context. */
+.nc-compare--paper,
+.bc2-beta__form {
+  --bc-action-bg: var(--bc-ink);
+  --bc-action-text: var(--bc-paper);
+  --bc-action-icon-bg: rgba(255, 255, 255, 0.12);
+}
+
+.bc2-page .bc2-button,
+.bc2-page .bc2-beta__form form > button,
+.bc2-page .bc2-header .bc2-mobile-menu > div > a {
+  background: var(--bc-action-bg);
+  color: var(--bc-action-text);
+}
+
+.bc2-page .bc2-button__arrow {
+  flex: none;
+  background: var(--bc-action-icon-bg);
+}
+
+/* Match the primary action component, including the formerly text-only CTAs. */
+.nc-hero__story > .bc2-button {
+  min-width: 0;
+  min-height: 56px;
+  margin-top: 24px;
+  padding: 0 18px 0 24px;
+  gap: 28px;
+  font-size: 15px;
+}
+
+.nc-journey__cta {
+  align-self: flex-start;
+  margin-top: 24px;
+}
+
+.bc2-page .bc2-faq__intro > a,
+.bc2-page .bc2-beta__copy > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 56px;
+  gap: 28px;
+  padding: 0 18px 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bc-action-bg);
+  color: var(--bc-action-text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.bc2-page .bc2-faq__intro > a > span,
+.bc2-page .bc2-beta__copy > a > span {
+  flex: none;
+}
+
+/* The focus ring contrasts with the surrounding surface, not the button fill. */
+.bc2-page .bc2-button:focus-visible,
+.bc2-page .bc2-beta__form form > button:focus-visible,
+.bc2-page .bc2-faq__intro > a:focus-visible,
+.bc2-page .bc2-beta__copy > a:focus-visible,
+.bc2-page .bc2-header .bc2-mobile-menu > div > a:focus-visible {
+  outline-color: var(--bc-action-bg);
+}
+
+@media (max-width: 767px) {
+  .nc-hero__story > .bc2-button {
+    min-height: 48px;
+    margin-top: 20px;
+    padding: 0 16px 0 20px;
+    gap: 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) and (max-height: 740px) {
+  .nc-hero__story > .bc2-button { margin-top: 15px; }
+}

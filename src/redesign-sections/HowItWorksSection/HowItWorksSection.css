@@ -1,0 +1,388 @@
+/* HowItWorksSection — 4-step contact-graph scrollytelling.
+ *
+ * Scroll mode (desktop): the left text track scrolls naturally; each step block
+ * passes through viewport centre. The right graph is sticky and stays centred
+ * while a single contact graph MORPHS between the four states (nodes regroup,
+ * recolor, connect) — its purple core is pinned dead-centre throughout.
+ * Static mode (mobile / reduced-motion): plain stacked steps.
+ * Tokens only — see src/styles/tokens.css.
+ */
+
+.how-it-works-section {
+  position: relative;
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* ── Centered section header (matches other sections) ──────────────────────── */
+.hiw-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: calc(760 * var(--u));
+  margin: 0 auto var(--section-gap-inner);
+}
+.hiw-header__eyebrow {
+  color: var(--text-muted);
+  margin-bottom: var(--space-10);
+}
+.hiw-header__title {
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+/* ── Scroll mode layout ────────────────────────────────────────────────────── */
+/* The header scrolls past first; then .hiw-scroller (4 viewports tall) drives a
+ * pinned .hiw-pin that scrubs the morph across the four states.
+ * (No CSS sticky — body has overflow-x:hidden.) */
+.how-it-works-section.is-scroll {
+  padding-top: var(--section-gap);
+}
+
+.hiw-scroller {
+  height: 400vh;
+}
+
+.hiw-pin {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Also carries .container → its centered band (gutter = calc(100 * var(--u))
+ * on desktop) is the guide every section aligns to. Do NOT set width:100% here:
+ * an unlayered width would beat .container's layered width and slam the grid to
+ * the viewport edge, killing the left gutter. */
+.hiw-inner {
+  height: 100%;
+}
+
+.hiw-stage {
+  position: relative;
+  height: 100%;
+  --hiw-corner-gap: 24px;
+  --hiw-text-width: min(26%, calc(320 * var(--u)));
+}
+
+/* Text blocks share one grid cell and are vertically centred, so every step's
+ * content sits dead-centre regardless of its height (step 01 carries the card). */
+.hiw-text-col {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hiw-text {
+  position: absolute; /* containing block for step 01's floating card */
+  width: var(--hiw-text-width);
+  pointer-events: none;
+}
+.hiw-text:nth-child(1) {
+  top: clamp(32px, 9vh, 96px);
+  left: 0;
+  transform-origin: left top;
+}
+.hiw-text:nth-child(2) {
+  top: clamp(32px, 9vh, 96px);
+  right: 0;
+  transform-origin: right top;
+}
+.hiw-text:nth-child(3) {
+  bottom: clamp(32px, 9vh, 96px);
+  left: 0;
+  transform-origin: left bottom;
+}
+.hiw-text:nth-child(4) {
+  right: 0;
+  bottom: clamp(32px, 9vh, 96px);
+  transform-origin: right bottom;
+}
+
+.hiw-graph-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ── Left column text ──────────────────────────────────────────────────────── */
+.hiw-num {
+  display: block;
+  height: clamp(calc(50 * var(--u)), 5vw, calc(75 * var(--u)));
+  width: auto;
+  /* The numeral fades to black at its lower edge; pull the title up so it sits
+   * tight against the visible glyph instead of its bounding box. */
+  margin-bottom: calc(var(--space-10) * -1);
+}
+
+/* The non-active numeral is entirely beige. Activation only recolours the
+ * upper gradient stop; no transform is applied to the numeral itself. */
+.hiw-num__gradient-top {
+  stop-color: var(--bc-canvas);
+  transition: stop-color 320ms linear;
+}
+.hiw-num-reveal[data-active] .hiw-num__gradient-top {
+  stop-color: var(--bc-olive);
+}
+
+.hiw-title {
+  margin: 0;
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.hiw-desc {
+  margin: var(--space-20) 0 0;
+  max-width: calc(295 * var(--u));
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+}
+
+/* ── Business card (step 01) ───────────────────────────────────────────────── */
+.hiw-card {
+  position: relative;
+  width: 100%;
+  max-width: calc(445 * var(--u));
+  /* Была жёсткая пропорция 445/253 + overflow:hidden — русская должность
+   * («Технический директор, Vortexin») переносится на две строки и не влезала
+   * в фиксированную высоту, карточка обрезалась снизу. Минимальная высота даёт
+   * ту же картинку там, где содержимое помещается, и растёт, когда нужно. */
+  min-height: calc(255 * var(--u));
+  margin-top: var(--space-40);
+  padding: var(--space-30);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  background: var(--bg-card);
+  overflow: hidden;
+}
+
+.hiw-card__head {
+  position: relative;
+  z-index: 1;
+}
+
+.hiw-card__name {
+  margin: 0;
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.hiw-card__role {
+  margin: var(--space-5) 0 0;
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+}
+
+.hiw-card__contacts {
+  position: relative;
+  z-index: 1;
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-20);
+  row-gap: var(--space-15);
+}
+
+.hiw-card__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  min-width: 0;
+}
+
+.hiw-card__dot {
+  flex-shrink: 0;
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  border-radius: var(--radius-pill);
+  background: var(--accent-primary);
+}
+
+.hiw-card__value {
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Graph SVG ─────────────────────────────────────────────────────────────── */
+.hiw-graph-svg {
+  width: min(100%, 72vh);
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+/* Scroll mode: the graph stays in the grid's second column (grid tracks never
+ * overlap, so it can never bleed over the text column) and is EXACTLY one
+ * viewport tall. The SVG's preserveAspectRatio="xMidYMid meet" auto-fits the web
+ * to the SMALLER of its box's width/height — full screen height on wide
+ * viewports, shrinking with the column on narrower ones (never overlapping text).
+ *
+ * The column height is a DEFINITE 100vh (not %): a square SVG sized width:100%
+ * reports a width-derived intrinsic height (= its width), and in an auto grid row
+ * that inflated the row past the viewport on wide/ultrawide screens — pushing the
+ * web taller than 100vh and shoving its centre far below the middle. Pinning the
+ * height to 100vh (+ min-height:0) removes that feedback entirely. */
+.how-it-works-section.is-scroll .hiw-graph-col {
+  height: 100%;
+  min-height: 0;
+}
+
+.how-it-works-section.is-scroll .hiw-graph-svg {
+  width: min(80vh, calc(100% - 2 * (var(--hiw-text-width) + var(--hiw-corner-gap))));
+  height: auto;
+  max-width: none;
+}
+
+/* ── Stacked scroll mode (mobile + portrait tablets, <1024) ────────────────── */
+/* Same pinned scroll-morph as desktop, but the grid collapses to one column so
+ * the text sits ABOVE the morphing web. The whole stack is centred in the pinned
+ * viewport; the web animates through its four stages as you scroll (the point of
+ * the "make it animate on mobile too" fix). Beside-text at these widths would
+ * squeeze the web into a tiny right column — stacking keeps it large and clear. */
+@media (max-width: 1023.98px) {
+  .how-it-works-section.is-scroll .hiw-inner {
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    gap: var(--space-30);
+    text-align: center;
+  }
+  /* Stacked content (text + graph) is much shorter than the pinned 100vh box,
+   * so centering it leaves a huge gap under the header — anchor to the top
+   * with a small intentional offset instead (halves the header→content gap). */
+  .how-it-works-section.is-scroll .hiw-pin {
+    align-items: flex-start;
+    padding-top: var(--space-30);
+  }
+  .how-it-works-section.is-scroll .hiw-graph-col {
+    height: auto;
+  }
+  .how-it-works-section.is-scroll .hiw-graph-svg {
+    width: min(100%, 55vh);
+    height: auto;
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+  .how-it-works-section.is-scroll .hiw-num,
+  .how-it-works-section.is-scroll .hiw-desc {
+    margin-inline: auto;
+  }
+}
+
+/* Step 01's card floats out of flow so the four-corner text layout stays clear
+ * around the graph. It remains visible with the rest of the step content. */
+.how-it-works-section.is-scroll .hiw-card {
+  position: absolute;
+  top: calc(100% + var(--space-40));
+  left: 0;
+  margin-top: 0;
+}
+
+/* Web graph: node fills, edge strokes and glow are all set inline by webGraph.js
+ * (ported verbatim from the prototype) — no CSS overrides here on purpose. */
+
+/* Group labels (step 3). Opacity is driven by scroll in JS; default hidden. */
+.hiw-graph-labels {
+  opacity: 0;
+}
+.hiw-graph-labels text {
+  fill: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: calc(17 * var(--u));
+  font-weight: var(--weight-regular);
+  dominant-baseline: middle;
+}
+
+/* ── Static mode (mobile / reduced-motion) ─────────────────────────────────── */
+.how-it-works-section.is-static {
+  padding-block: var(--space-120);
+}
+
+.hiw-static-step {
+  display: grid;
+  grid-template-columns: minmax(calc(244 * var(--u)), calc(360 * var(--u))) 1fr;
+  align-items: center;
+  gap: var(--space-60);
+  padding-block: var(--space-80);
+}
+
+/* Static mode renders every step in flow (its own block), so reset the absolute
+ * positioning used by the four-corner scroll composition. */
+.is-static .hiw-text {
+  position: relative;
+  inset: auto;
+  width: auto;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.is-static .hiw-graph-col {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+}
+
+.is-static .hiw-graph-svg {
+  width: min(100%, calc(460 * var(--u)));
+  margin-inline: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hiw-text {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hiw-static-step {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+    padding-block: var(--space-60);
+  }
+  .how-it-works-section.is-static {
+    padding-block: var(--space-80);
+  }
+  .hiw-num {
+    height: calc(50 * var(--u));
+  }
+  /* Centre the stacked mobile steps. */
+  .is-static .hiw-text {
+    text-align: center;
+  }
+  .is-static .hiw-num {
+    margin-inline: auto;
+  }
+  .is-static .hiw-desc {
+    margin-inline: auto;
+  }
+}
+
+/* Below 1200px there isn't room for step 01's floating business card beside the
+ * graph (scroll mode, 768–1199) or in the stacked list (static, <768), so hide
+ * it. The four step layers stay equal-height (text only) either way. */
+@media (max-width: 1199.98px) {
+  .how-it-works-section .hiw-card {
+    display: none;
+  }
+}

@@ -28,7 +28,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const LOCALES_DIR = join(__dirname, '..', 'src', 'i18n', 'locales')
 
 const FILES = [
-  'aiAgents', 'common', 'communities', 'cta', 'demoForm', 'faq', 'features',
+  'businessCards', 'aiAgents', 'common', 'communities', 'cta', 'demoForm', 'faq', 'features',
   'footer', 'hero', 'howItWorks', 'meets', 'pricing', 'support', 'telegram',
 ]
 

@@ -1,0 +1,268 @@
+/* MeetsForm — a rounded panel with the hero hills photo as background,
+ * big white headline + note on the left, white form card on the right. */
+
+.meets-form__panel {
+  position: relative;
+  display: grid;
+  /* Form column is 30% wider (440u → 570u), growing leftwards. */
+  grid-template-columns: 1fr minmax(calc(415 * var(--u)), calc(570 * var(--u)));
+  gap: var(--space-60);
+  align-items: center;
+  /* Height hugs the form card: the same 40px air on every side of it. */
+  padding: var(--space-40);
+  border-radius: var(--section-radius);
+  overflow: clip;
+  isolation: isolate;
+}
+
+/* The hills photo fills the panel behind the content; the parallax shift
+ * (Motion y + 1.2 scale) stays clipped by the panel's overflow.
+ * The <picture> wrapper must sit OUTSIDE the grid flow — as a grid item it
+ * would claim the first column and shove the real columns around. */
+.meets-form__panel > picture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+}
+
+.meets-form__bg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+/* ── Left column — headline top, note at mid-height ───────────────────── */
+.meets-form__left {
+  position: relative;
+  z-index: 1;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Size container for the one-line headline below. */
+  container-type: inline-size;
+}
+
+/* Oversized white headline over the window — the container-scaled size
+ * (10.7cqi/7.5rem) pulled down 30% per review. */
+.meets-form__title {
+  color: var(--color-base-white);
+  font-size: min(7.5cqi, 5.25rem);
+  /* Half the tight leading's interline gap (1.2 → 1.1). */
+  line-height: 1.1;
+}
+
+/* Note rides at the bottom of the column, per the mockup. */
+.meets-form__desc {
+  color: var(--color-base-white);
+  margin-top: auto;
+  padding-top: var(--space-40);
+  max-width: 30ch;
+  font-size: var(--text-body-lg);
+}
+
+/* ── Form card — white, floating over the panel ───────────────────────── */
+.meets-form__card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: var(--card-radius);
+  padding: var(--space-30);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  background: var(--bg-card);
+  box-shadow: 0 calc(10 * var(--u)) calc(40 * var(--u)) 0 rgba(var(--theme-surface), 0.08);
+}
+
+.meets-form__banner {
+  margin: 0;
+  padding: var(--space-10) var(--space-15);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-10);
+  color: var(--accent-primary);
+}
+
+.meets-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.meets-form__label {
+  color: var(--text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.meets-form__input {
+  width: 100%;
+  padding: var(--space-15) var(--space-20);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-20);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  transition: border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-form__input::placeholder {
+  color: var(--text-muted);
+}
+
+.meets-form__input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.meets-form__textarea {
+  resize: none;
+}
+
+/* ── Consents ─────────────────────────────────────────────────────────── */
+.meets-form__consents {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-15);
+}
+
+.meets-form__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10);
+  cursor: pointer;
+  color: var(--text-list);
+  /* Deliberately below the page's body-size floor (-40%): legal fine print. */
+  font-size: calc(var(--text-body) * 0.6);
+}
+
+.meets-form__checkbox {
+  flex: none;
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  margin: 0;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}
+
+.meets-form__consent-link {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: calc(2 * var(--u));
+}
+
+.meets-form__consent-link:hover {
+  opacity: 0.8;
+}
+
+/* ── Submit / success ─────────────────────────────────────────────────── */
+.meets-form__submit {
+  width: 100%;
+}
+
+.meets-form__submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.meets-form__success {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-15);
+  min-height: calc(300 * var(--u));
+}
+
+.meets-form__success-body {
+  color: var(--text-list);
+  max-width: 40ch;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1023.98px) {
+  .meets-form__panel {
+    grid-template-columns: 1fr;
+    /* Stack gap = panel padding, so the card keeps the SAME air on every
+     * side (the top gap used to read bigger than the sides). */
+    gap: var(--space-30);
+    padding: var(--space-30);
+    min-height: 0;
+  }
+
+  .meets-form__desc {
+    margin-top: var(--space-20);
+  }
+}
+
+/* The photo is one continuous conference-hall frame. The form determines
+   the panel height; the photograph never adds empty space to the layout. */
+.card-site .meets-form__panel {
+  --meets-form-inset: var(--space-30);
+  grid-template-columns: minmax(0, 1fr) minmax(415px, 570px);
+  gap: var(--space-40);
+  align-items: stretch;
+  padding: var(--meets-form-inset);
+  border-radius: var(--nc-radius);
+  background: var(--bc-sand);
+  color: var(--bc-paper);
+}
+.meets-form__panel > picture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, color-mix(in srgb, var(--bc-ink) 35%, transparent), transparent 65%);
+}
+.card-site .meets-form__bg { height: 100%; object-position: left center; }
+.card-site .meets-form__left { padding: calc(60px - var(--meets-form-inset)) 0 calc(60px - var(--meets-form-inset)) calc(60px - var(--meets-form-inset)); }
+.card-site .meets-form__title { color: var(--bc-paper); font-size: 45px; max-width: 14ch; }
+.card-site .meets-form__desc { margin-top: var(--space-20); padding-top: 0; max-width: 35ch; font-size: 18px; color: var(--bc-paper); }
+.card-site .meets-form__card {
+  --text-primary: var(--bc-ink);
+  --text-list: var(--bc-ink);
+  --text-muted: var(--bc-stone);
+  --accent-primary: var(--bc-ink);
+  --bc-action-bg: var(--bc-ink);
+  --bc-action-text: var(--bc-paper);
+  --bc-action-icon-bg: color-mix(in srgb, var(--bc-paper) 15%, transparent);
+  justify-content: center;
+  border-radius: calc(var(--nc-radius) - 10px);
+  border: 1px solid color-mix(in srgb, var(--bc-paper) 65%, transparent);
+  background: var(--bc-paper);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: var(--bc-ink);
+  padding: var(--space-30);
+  box-shadow: none;
+}
+.card-site .meets-form__input { background: color-mix(in srgb, var(--bc-paper) 35%, transparent); border: 1px solid color-mix(in srgb, var(--bc-ink) 15%, transparent); color: var(--bc-ink); }
+.card-site .meets-form__input::placeholder { color: color-mix(in srgb, var(--bc-ink) 65%, var(--bc-paper)); }
+.card-site .meets-form__input:focus-visible { outline: 2px solid var(--bc-ink); outline-offset: -1px; }
+.card-site .meets-form__consent { color: var(--bc-ink); font-size: 14px; line-height: 1.45; }
+.card-site .meets-form__checkbox { width: 20px; height: 20px; accent-color: var(--bc-ink); }
+.card-site .meets-form__banner { border-color: var(--bc-ink); color: var(--bc-ink); }
+@media (max-width: 1199px) {
+  .card-site .meets-form__left { padding: calc(40px - var(--meets-form-inset)) 0 calc(40px - var(--meets-form-inset)) calc(40px - var(--meets-form-inset)); }
+  .card-site .meets-form__panel { --meets-form-inset: var(--space-25); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-30); }
+  .card-site .meets-form__title { font-size: 40px; }
+}
+@media (max-width: 1023px) {
+  .card-site .meets-form__panel { grid-template-columns: 1fr; gap: var(--meets-form-inset); }
+  .card-site .meets-form__left { grid-area: 1 / 1; padding: var(--space-30); padding-bottom: 250px; }
+  .meets-form__panel > picture { position: relative; grid-area: 1 / 1; align-self: stretch; overflow: hidden; }
+  .card-site .meets-form__bg { position: absolute; inset: 0; width: 100%; object-position: 25% top; }
+}
+@media (max-width: 767px) {
+  .card-site .meets-form__left { padding: 25px 15px 180px; }
+  .card-site .meets-form__card { padding: var(--space-25); }
+  .card-site .meets-form__title { font-size: 35px; }
+  .card-site .meets-form__desc { font-size: 16px; max-width: 30ch; }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .card-site .meets-form__card { background: var(--bc-paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

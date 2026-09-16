@@ -1,0 +1,297 @@
+/* MeetsPage — light-theme scope + shared page primitives.
+ *
+ * The landing is dark; this page re-maps the SEMANTIC tokens to a white
+ * theme once, at the page root. Every meets block reads only semantic
+ * tokens, so `.meets-dark` flips a single container back to the dark set
+ * (the "black container" accent block) with zero per-component overrides.
+ * Only existing primitives from tokens.css are referenced — no new colors.
+ */
+
+.meets-page {
+  /* ── Meets brand palette (page-scoped, the landing keeps purple) ──────
+   * Linen #ffede3 · Tangelo #fb4d00 (accent) · Chocolate Brown #49261d ·
+   * Botticelli #cae7f7. */
+  --meets-linen:      #ffede3;
+  --meets-tangelo:    #fb4d00;
+  --meets-chocolate:  #49261d;
+  --meets-botticelli: #cae7f7;
+  /* Derived beige — linen deepened by ~10% chocolate, for muted cards that
+   * must read against the linen sheets. */
+  --meets-beige:      #edd9cf;
+
+  /* Accent swap: everything reading the accent/button tokens goes orange. */
+  --accent-primary: var(--meets-tangelo);
+  --bg-btn-primary: var(--meets-tangelo);
+
+  --bg-page:        var(--meets-linen);
+  --bg-surface:     var(--meets-linen);
+  --bg-card:        var(--meets-linen);
+  /* Page-scoped primary ink: chocolate brown per the brand scheme. */
+  --text-primary:   var(--meets-chocolate);
+  --text-list:      rgba(var(--theme-ink), 0.8);
+  --text-meta:      rgba(var(--theme-ink), 0.65);
+  --text-muted:     rgba(var(--theme-ink), 0.55);
+  --border-default: rgba(var(--theme-ink), 0.3);
+  /* Muted card surface — borderless bento cards on the linen sheets. */
+  --bg-card-muted:  var(--meets-beige);
+  /* Page floor: nothing on Meets renders below the body size — the small
+   * tier (badges, chips, notes, footer, consent) is lifted to body. */
+  --text-body-sm:   var(--text-body);
+
+  background: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100dvh;
+}
+
+.meets-page main {
+  position: relative;
+  z-index: 1;
+}
+
+.meets-page .meets-footer {
+  position: relative;
+  z-index: 1;
+  /* Pairs with the last sheet's half-gap padding → one full block gap. */
+  margin-top: calc(var(--section-gap) / 2);
+  background: var(--bg-page);
+}
+
+/* All page and section headings run in caps (the copy in locales stays
+ * sentence-case). Card/item titles (h3+) keep their casing. */
+.meets-page :is(h1, h2) {
+  text-transform: uppercase;
+}
+
+/* Selection stays readable on the light page */
+.meets-page ::selection {
+  background-color: var(--accent-primary);
+  color: var(--color-base-white);
+}
+
+/* Light container accent — Botticelli blue promoted to a container
+ * surface; ink stays chocolate, inner muted cards lift to linen so they
+ * read on the blue. */
+.meets-gray {
+  --bg-page:        var(--meets-botticelli);
+  --bg-surface:     var(--meets-botticelli);
+  --bg-card:        var(--meets-botticelli);
+  --bg-card-muted:  var(--meets-linen);
+  --text-primary:   var(--meets-chocolate);
+  --text-list:      rgba(var(--theme-ink), 0.8);
+  --text-meta:      rgba(var(--theme-ink), 0.65);
+  --border-default: rgba(var(--theme-ink), 0.3);
+
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* Dark container accent — chocolate brown surface with linen ink; muted
+ * cards step one tone lighter so they read on the brown. */
+.meets-dark {
+  --bg-page:        var(--meets-chocolate);
+  --bg-surface:     var(--meets-chocolate);
+  --bg-card:        var(--meets-chocolate);
+  --bg-card-muted:  #242420;
+  --text-primary:   var(--meets-linen);
+  --text-list:      rgba(var(--theme-ink), 0.85);
+  --text-meta:      rgba(var(--theme-ink), 0.7);
+  --text-muted:     rgba(var(--theme-ink), 0.6);
+  --border-default: rgba(var(--theme-ink), 0.3);
+
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* Anchor targets land below the nav bar */
+.meets-page section[id] {
+  scroll-margin-top: var(--space-100);
+}
+
+/* ── Sheets — full-width white panels stacked on the white page. Each sheet
+ * carries 100px of block padding, so every sheet-to-sheet boundary (and the
+ * gaps around the dark week card) totals the site's 200px block gap. ────── */
+.meets-sheet {
+  position: relative;
+  z-index: 2;
+  background: var(--bg-page);
+  /* Half the block gap, so sheet-to-sheet sums to exactly one --section-gap.
+   * Derived rather than the old flat 100px: identical at 1200+ (62.5px) and
+   * it now follows the gap down through the tablet band instead of staying
+   * at a flat 100. */
+  padding-block: calc(var(--section-gap) / 2);
+}
+
+/* The sheet's own 100px already spaces the first section from the edge —
+ * drop that section's .section gap so the two don't stack. */
+.meets-sheet > .section:first-child {
+  padding-top: 0;
+}
+
+/* First sheet under the framed hero. The hero's own 20px frame is part of
+ * the visual gap, so the sheet tops up the remainder — hero→marquee totals
+ * the same --section-gap as every other block boundary (marquee→How is the
+ * next section's standard .section padding). */
+.meets-sheet--hero {
+  border-radius: var(--radius-40) var(--radius-40) 0 0;
+  padding-top: calc(var(--section-gap) - var(--space-20));
+}
+
+
+/* Transparent wrapper (week) — the block paints its own dark card. No
+ * bottom padding: the week takeover ends fullscreen-black and the dark
+ * band below must continue with no white seam. */
+.meets-sheet--clear {
+  background: none;
+  padding-block: calc(var(--section-gap) / 2) 0;
+}
+
+/* ── Dark continuation band (the blocks after the week takeover) ─────────
+ * No own top padding — the first section's .section gap already provides
+ * the site's standard block distance to the takeover above. Extra bottom
+ * padding leaves room for the white sheet's 60px rounded corners. */
+.meets-dark-band {
+  position: relative;
+  z-index: 1;
+  padding-block: 0 calc(var(--section-gap) / 2 + 60 * var(--u));
+}
+
+/* White sheet returning after the dark band — 60px top corners (the
+ * footer's radius) over the black behind it. */
+.meets-sheet--rounded {
+  border-radius: calc(60 * var(--u)) calc(60 * var(--u)) 0 0;
+  margin-top: calc(-60 * var(--u));
+}
+
+/* ── Shared CTA buttons (mirrors the hero .btn-hero recipe) ──────────────── */
+.meets-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  padding: var(--btn-cta-py) var(--btn-cta-px);
+  border-radius: var(--btn-cta-radius);
+  font-family: inherit;
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: none;
+  transition: opacity var(--duration-fast) var(--ease-in-out),
+              box-shadow var(--duration-fast) var(--ease-in-out),
+              border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-btn--primary {
+  background: var(--bg-btn-primary);
+  color: var(--text-on-accent);
+}
+
+/* Hover: shared bottom-up fill — see styles/buttons.css. */
+
+.meets-btn--ghost {
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+.meets-btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+/* On dark containers the ghost button runs white-on-dark: white outline,
+ * white text, no fill. */
+.meets-dark .meets-btn--ghost {
+  color: var(--color-base-white);
+  border-color: var(--color-base-white);
+}
+
+.meets-dark .meets-btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+/* ── RevealText — word-by-word mask reveal (see motion.jsx) ──────────────── */
+.m-reveal__mask {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: bottom;
+  /* Room for descenders so «р», «у», g, y aren't shaved by the clip. */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.m-reveal__word {
+  display: inline-block;
+  transform-origin: left bottom;
+  white-space: pre;
+  will-change: transform;
+}
+
+/* ── Shared section header (eyebrow + title + optional description) ─────── */
+.meets-head__eyebrow {
+  display: block;
+}
+
+.meets-head__title {
+  margin-top: var(--space-10);
+  color: var(--text-primary);
+  max-width: 25ch;
+}
+
+.meets-head__desc {
+  margin-top: var(--space-20);
+  max-width: 55ch;
+  color: var(--text-list);
+}
+
+/* ── Phones — one alignment for the whole page ───────────────────────────
+ * The hero centres its copy on a phone, so every block follows; a page that
+ * switches axis halfway down reads as broken. Two blocks keep their left
+ * edge on purpose: the FAQ rows carry a chevron on the right, and a column
+ * of form fields with centred labels reads wrong. */
+@media (max-width: 767.98px) {
+  .meets-page section[data-section]:not(#meets-faq):not(#meets-form):not(#meets-phone):not(#meets-matching) {
+    text-align: center;
+  }
+
+  /* Flex columns pin their children to the start — re-centre those too. */
+  .meets-page .mweek-text-col,
+  .meets-page .mweek-static-head,
+  .meets-page .meets-how__card,
+  .meets-page .meets-why__card,
+  .meets-page .meets-matching__card {
+    align-items: center;
+  }
+
+  /* The communities card keeps stretch on purpose: its giant bottom word is
+   * sized by script from the block's width, and centring made the block
+   * shrink to its content — font up, block wider, font up again, until the
+   * word ran past the screen. Its rows are centred individually instead. */
+  .meets-page .meets-communities__chips {
+    justify-content: center;
+  }
+
+  /* Rows that pair an icon or numeral with copy stay side by side; only the
+   * row itself gets centred within its box. */
+  .meets-page .mweek-step-row {
+    justify-content: center;
+    text-align: left;
+  }
+
+  .meets-page .meets-note__sign {
+    align-items: center;
+  }
+
+  /* Third exception, with the FAQ and the form: the profile card is a mockup
+   * of an app screen. Its rows pair a left icon with copy, and centring the
+   * copy beside a fixed icon column reads ragged. The caption under the card
+   * stays centred — that one is page copy. */
+  .meets-page .mweek-profile__card {
+    text-align: left;
+  }
+
+  .meets-page .meets-note__panel {
+    text-align: center;
+  }
+}

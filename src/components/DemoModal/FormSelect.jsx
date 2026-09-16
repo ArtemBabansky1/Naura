@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react'
+import { ChevronRight } from '../ChevronRight/ChevronRight'
 
 /**
  * Accessible custom <select> replacement so the dropdown can be styled to match
@@ -113,9 +114,7 @@ export function FormSelect({ id, value, onChange, options, placeholder, disabled
         onKeyDown={onKeyDown}
       >
         <span className="form-select__value">{selected ? selected.label : placeholder}</span>
-        <svg className="form-select__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
-          <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <ChevronRight className="form-select__chevron" />
       </button>
 
       {open && (

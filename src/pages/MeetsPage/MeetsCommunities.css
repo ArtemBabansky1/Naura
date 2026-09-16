@@ -1,7 +1,7 @@
 /* MeetsCommunities — editorial problem/solution pairing per the mockup:
  * headline left + small right-aligned note, then two tall cards. The light
  * card carries the problem copy with a giant dark word at the bottom; the
- * dark (#191919, via .meets-dark) card holds the benefit chips (tabs), the
+ * dark (chocolate #49261d, via .meets-dark) card holds the benefit chips (tabs), the
  * active chip's copy and a giant accent word. */
 
 .meets-communities__title-accent {
@@ -43,6 +43,10 @@
 .meets-communities__card {
   display: flex;
   flex-direction: column;
+  /* Let the 1fr track win over the nowrap giant word's min-content — without
+   * this the card blows out past the viewport on phones and the fit script
+   * locks onto the inflated width. */
+  min-width: 0;
   min-height: calc(440 * var(--u));
   padding: var(--card-padding);
   border-radius: var(--card-radius);
@@ -67,7 +71,7 @@
 }
 
 .meets-communities__card--solution {
-  /* .meets-dark supplies the #191919 surface + light text mapping. */
+  /* .meets-dark supplies the chocolate surface + linen text mapping. */
   justify-content: flex-start;
 }
 
@@ -129,12 +133,19 @@
   line-height: 0.8;
   letter-spacing: -0.03em;
   white-space: nowrap;
+  /* No transitions here EVER: the fit script writes font-size and reads the
+   * rect synchronously — the reduced-motion reset's universal 0.01ms
+   * transition makes that read return stale layout and the fit locks onto
+   * a wrong size. !important outranks the reset's * rule via specificity. */
+  transition: none !important;
 }
 
 /* Inline measuring target for the fit script — inherits everything. */
 .meets-communities__giant-word {
   display: inline-block;
   white-space: nowrap;
+  /* Same as the block above — the measured span must re-layout instantly. */
+  transition: none !important;
 }
 
 /* Zero-size inline-block: its top edge rides the text baseline — the fit
@@ -147,6 +158,11 @@
 
 .meets-communities__giant--accent {
   color: var(--accent-primary);
+}
+
+/* Problem word reads as a cutout — same beige as the page behind the card. */
+.meets-communities__card--problem .meets-communities__giant {
+  color: var(--bg-page);
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */
@@ -167,5 +183,20 @@
 
   .meets-communities__card {
     min-height: calc(320 * var(--u));
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* The 1.5× card copy is oversized for a ~280–400px column. */
+  .meets-communities__card-desc {
+    font-size: calc(var(--text-body) * 1.2);
+  }
+}
+
+/* Touch widths — the 39px chip is under the 44px tap-target floor; the extra
+ * block padding lifts it without touching the desktop rhythm. */
+@media (max-width: 1023.98px) {
+  .meets-communities__chip {
+    padding-block: var(--space-15);
   }
 }

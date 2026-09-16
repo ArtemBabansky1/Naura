@@ -34,10 +34,14 @@ const LocalizedMarkdownLink = ({ href = "", children, ...props }) => {
   )
 }
 
+const heading = (Heading, className) => ({ children, node: _node, ...props }) => (
+  <Heading className={className} {...props}>{children}</Heading>
+)
+
 const COMPONENTS = {
-  h1: (props) => <h1 className="legal-doc__title" {...props} />,
-  h2: (props) => <h2 className="legal-doc__heading" {...props} />,
-  h3: (props) => <h3 className="legal-doc__subheading" {...props} />,
+  h1: heading("h1", "legal-doc__title"),
+  h2: heading("h2", "legal-doc__heading"),
+  h3: heading("h3", "legal-doc__subheading"),
   p: (props) => <p className="legal-doc__p" {...props} />,
   ul: (props) => <ul className="legal-doc__list" {...props} />,
   li: (props) => <li className="legal-doc__item" {...props} />,

@@ -1,0 +1,53 @@
+/* Card and panel headings follow their content's left edge. */
+.bc2-page :is(h1, h2, h3, h4, h5, h6) {
+  margin-inline: 0;
+  text-align: left;
+}
+
+/* Only introductions to an entire section keep the centered axis. */
+.bc2-page .nc-hero__intro h1,
+.bc2-page .bc2-section-intro h2,
+.bc2-page .nc-journey__heading h2,
+.bc2-page .bc2-platform__copy h2,
+.bc2-page .bc2-final__copy h2 {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* The FAQ title follows the left edge of its column. */
+.bc2-page .bc2-faq__intro h2 {
+  margin-left: 0;
+  margin-right: auto;
+  text-align: left;
+}
+
+.bc2-page .nc-comparison__heading h2 {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.bc2-page .bc2-solutions__title h2 {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.bc2-section-intro__title,
+.nc-journey__heading {
+  text-align: center;
+}
+
+.nc-hero__story > .nc-eyebrow {
+  text-align: left;
+}
+
+.nc-comparison__heading {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.nc-comparison__heading > p {
+  max-width: 950px;
+  margin-inline: auto;
+  text-align: center;
+}

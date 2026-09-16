@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion } from 'motion/react'
 import { fadeUp, staggerContainer, viewportConfig } from '../../lib/framer'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
 import PhoneShowcase from './PhoneShowcase'
@@ -68,6 +68,9 @@ export default function TelegramSection() {
         })
       }
 
+      // Creating the trigger can synchronously update it on a deep-link load.
+      // Populate measurements before any of its callbacks can run.
+      measure()
       const st = ScrollTrigger.create({
         trigger: section,
         start: 'top 78%',

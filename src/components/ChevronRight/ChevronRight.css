@@ -1,0 +1,10 @@
+.naura-chevron {
+  display: inline-block;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  pointer-events: none;
+}
+
+.naura-chevron--left { rotate: 180deg; }

@@ -1,0 +1,71 @@
+/* MeetsNote — founders' note inside the dark band, lifted onto a Botticelli
+ * panel (same light card language as the week block). Narrow measure and a
+ * centred column mark the change of voice; the block carries no headline on
+ * purpose, so it reads as a pause between two argued sections. An oversized
+ * quotation mark opens the panel — the note is speech, not page copy. */
+
+.meets-note__panel {
+  margin: 0 auto;
+  max-width: calc(900 * var(--u));
+  padding: var(--space-60);
+  border-radius: var(--section-radius);
+  text-align: center;
+}
+
+/* Decorative only (aria-hidden in the markup): sized off the panel and pulled
+ * tight to the copy, since the glyph's own leading is mostly empty space. */
+.meets-note__mark {
+  display: block;
+  margin-bottom: calc(-1 * var(--space-20));
+  color: var(--accent-primary);
+  font-size: calc(120 * var(--u));
+  font-weight: var(--weight-semibold);
+  line-height: 0.8;
+  user-select: none;
+}
+
+.meets-note__quote {
+  margin: 0 auto;
+  max-width: calc(700 * var(--u));
+}
+
+.meets-note__p {
+  margin: 0;
+  color: var(--text-list);
+  font-size: var(--text-body);
+  line-height: 1.65;
+}
+
+.meets-note__p + .meets-note__p {
+  margin-top: var(--space-20);
+}
+
+/* Opening claim carries the weight — the rest of the note is its evidence. */
+.meets-note__p--lead {
+  color: var(--text-primary);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  line-height: 1.3;
+}
+
+.meets-note__sign {
+  margin-top: var(--space-30);
+  color: var(--text-meta);
+  font-size: var(--text-body-sm);
+  /* Keeps the three names and the product name from splitting badly when the
+   * line wraps on a phone. */
+  text-wrap: balance;
+}
+
+@media (max-width: 767.98px) {
+  .meets-note__panel {
+    padding: var(--space-40) var(--space-25);
+  }
+
+  /* Below the zoom boundary --u is fixed, so the fluid size above would leave
+   * the glyph at its 1200px value on a phone. */
+  .meets-note__mark {
+    font-size: var(--space-60);
+    margin-bottom: calc(-1 * var(--space-10));
+  }
+}

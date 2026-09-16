@@ -1,0 +1,141 @@
+/* FaqSection — "Quick answers." (9th block).
+ * Two columns: left header, right accordion (50% of the screen width).
+ * Single panel open at a time; the "+" rotates 45° into an "×" on open.
+ * Semantic tokens only; values multiples of 5.
+ */
+
+/* ── Layout: header | accordion, each half the width ──────────────────── */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+  align-items: start;
+}
+
+/* ── Left header ──────────────────────────────────────────────────────── */
+.faq-header__eyebrow {
+  display: block;
+}
+
+.faq-header__title {
+  margin-top: var(--space-10);
+  color: var(--text-primary);
+}
+
+.faq-header__contact {
+  margin-top: var(--space-20);
+  max-width: 40ch;
+  color: var(--text-primary);
+}
+
+/* ── Accordion ────────────────────────────────────────────────────────── */
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  border-bottom: var(--card-border-subtle);
+}
+
+.faq-item:first-child {
+  border-top: var(--card-border-subtle);
+}
+
+/* Trigger row — question + plus/cross icon */
+.faq-item__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-20);
+  padding-block: var(--space-20);
+  background: none;
+  border: none;
+  text-align: left;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.faq-item__question {
+  /* flex:1 + min-width:0 lets the (longer) RU question wrap inside the trigger
+   * instead of pushing the +/- icon off the row or overflowing. */
+  flex: 1;
+  min-width: 0;
+  transition: color var(--duration-fast) var(--ease-in-out);
+}
+
+.faq-item__trigger:hover .faq-item__question {
+  color: var(--text-list);
+}
+
+.faq-item__trigger:focus-visible {
+  outline: 1px solid var(--accent-primary);
+  outline-offset: var(--space-5);
+}
+
+/* ── Plus → cross icon (a "+" rotated 45° becomes "×") ────────────────── */
+.faq-item__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  color: var(--text-primary);
+  transition: transform var(--duration-base) var(--ease-out-expo),
+    color var(--duration-fast) var(--ease-in-out);
+}
+
+.faq-item__icon::before,
+.faq-item__icon::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+}
+
+/* horizontal bar */
+.faq-item__icon::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: calc(1.5 * var(--u));
+  transform: translateY(-50%);
+}
+
+/* vertical bar */
+.faq-item__icon::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: calc(1.5 * var(--u));
+  transform: translateX(-50%);
+}
+
+.faq-item__trigger:hover .faq-item__icon {
+  color: var(--accent-primary);
+}
+
+.faq-item.is-open .faq-item__icon {
+  transform: rotate(45deg);
+  color: var(--accent-primary);
+}
+
+/* ── Answer panel ─────────────────────────────────────────────────────── */
+.faq-item__panel {
+  overflow: hidden;
+}
+
+.faq-item__answer {
+  margin: 0;
+  padding-bottom: var(--space-20);
+  max-width: 55ch;
+  color: var(--text-list);
+  line-height: var(--leading-normal);
+}
+
+/* ── Responsive — stack into one column ───────────────────────────────── */
+@media (max-width: 900px) {
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+}

@@ -1,0 +1,104 @@
+/* Product accents are opt-in at the route root. Neutral surfaces, the shared
+ * navigation/footer and the geometry of all animated scenes stay independent. */
+.bc2-page[data-product] .product-accent-word { color: var(--product-display); }
+.bc2-page[data-product] ::selection { background: var(--product-tint); color: var(--bc-ink); }
+
+/* Small, readable color details in otherwise neutral actions. */
+.bc2-page[data-product] :is(main, .page-closing .cta-section) .bc2-button__arrow {
+  background: var(--product-solid);
+  color: var(--color-base-white);
+}
+.bc2-page[data-product] main :is(a, button, input, textarea, summary):focus-visible {
+  outline-color: var(--product-ink);
+}
+.bc2-page[data-product] :is(.card-dark, .meets-dark, .nc-connection__copy) {
+  --product-ink: var(--product-tint);
+}
+
+/* Shared miniature SVGs inherit the host product, including the scenes reused
+ * by CRM. Only avatars, feedback marks and one card surface carry color. */
+.bc2-page[data-product] :is(.nf-fill-olive, .crm-fi-fill--olive) { fill: var(--product-tint); }
+.bc2-page[data-product] .nf-fill-rust { fill: var(--product-solid); }
+.bc2-page[data-product] :is(.nf-fill-sand, .crm-fi-fill--sand) { fill: var(--bc-sand); }
+.bc2-page[data-product] :is(.nf-avatar--olive, .crm-fi-avatar--olive) > circle:first-child { fill: var(--product-accent); }
+.bc2-page[data-product="cards"] .nf-avatar--olive :is(.nf-fill-ink, .nf-stroke-ink) { fill: var(--bc-paper); }
+.bc2-page[data-product] :is(.nf-check, .crm-fi-check) > circle { fill: var(--product-solid); }
+.bc2-page[data-product] :is(.nf-check, .crm-fi-check) > path { stroke: var(--color-base-white); }
+.bc2-page[data-product] :is(.nf-guide--ink, .crm-fi-guide--ink) { stroke: var(--product-ink); stroke-opacity: .65; }
+
+/* CRM: a blue hub, the active step and the selected state of miniature UI. */
+.bc2-page[data-product="crm"] .graph-node--depth-0 {
+  background: var(--product-tint);
+  border-color: var(--product-ink);
+}
+.bc2-page[data-product="crm"] .graph-node--depth-0 .graph-node__name { color: var(--product-ink); }
+.bc2-page[data-product="crm"] .feature-card--contactGraph .nf-guide--ink { stroke: var(--product-accent); }
+.bc2-page[data-product="crm"] .hiw-num-reveal[data-active] .hiw-num__gradient-top { stop-color: var(--product-accent); }
+.bc2-page[data-product="crm"] .hiw-card__dot { background: var(--product-accent); }
+.bc2-page[data-product="crm"] .dir-pill.is-active {
+  background: var(--product-solid);
+  color: var(--color-base-white);
+}
+.bc2-page[data-product="crm"] .ai-intro__accent { color: var(--product-display); }
+.bc2-page[data-product="crm"] .ai-panel--demo { --accent-primary: var(--product-accent); }
+.bc2-page[data-product="crm"] .term__badge--you { background: var(--product-solid); color: var(--color-base-white); }
+.bc2-page[data-product="crm"] .telegram-feature--forwardSave .telegram-feature__title { color: var(--product-ink); }
+.bc2-page[data-product="crm"] .communities-pill { background: var(--product-tint); color: var(--product-ink); }
+
+/* Cards: indigo stays in the product shell; personal card customization and
+ * third-party logos keep their own colors. */
+.bc2-page[data-product="cards"] .nc-journey__tabs > button[aria-selected="true"] { color: var(--product-ink); }
+.bc2-page[data-product="cards"] .nc-journey__meter i { background: var(--product-accent); }
+.bc2-page[data-product="cards"] .nc-journey__success > span { background: var(--product-solid); color: var(--color-base-white); }
+.bc2-page[data-product="cards"] .nc-journey__demo--1 { background: var(--product-tint); }
+.bc2-page[data-product="cards"] .nc-ribbon i { color: var(--product-accent); }
+.bc2-page[data-product="cards"] .nc-compare--live .nc-compare__header-icon { background: var(--product-solid); color: var(--color-base-white); }
+.bc2-page[data-product="cards"] .nc-connection__tags li { background: var(--product-tint); color: var(--product-ink); }
+.bc2-page[data-product="cards"] :is(.nc-card-story, .nc-connection__copy) .product-accent-word { color: var(--product-tint); }
+.bc2-page[data-product="cards"] .bc2-orbit__item.is-chip span::before { background: var(--product-accent); }
+
+/* Meets: the same orange accompanies a match from invitation to feedback. */
+.bc2-page[data-product="meets"] .meets-communities__title-accent { color: var(--product-display); }
+.bc2-page[data-product="meets"] .meets-phone__title .product-accent-word { color: var(--product-accent); }
+.bc2-page[data-product="meets"] .meets-phone__point-dot { background: var(--product-accent); }
+.bc2-page[data-product="meets"] .meets-matching__card:nth-child(3) { background: var(--product-tint); }
+.bc2-page[data-product="meets"] .meets-matching__art-olive { fill: var(--product-tint); }
+.bc2-page[data-product="meets"] .meets-matching__art-avatar > circle:first-child { fill: var(--product-accent); }
+.bc2-page[data-product="meets"] .meets-matching__art-selected { fill: var(--product-solid); }
+.bc2-page[data-product="meets"] .mweek-tabs > button[aria-selected="true"] { color: var(--product-ink); }
+.bc2-page[data-product="meets"] .mweek-tabs > button[aria-selected="true"] > i { background: var(--product-accent); }
+.bc2-page[data-product="meets"] .mweek-demo--1 { background: var(--product-tint); }
+.bc2-page[data-product="meets"] .mweek-profile__avatar { background: var(--product-tint); color: var(--product-ink); }
+.bc2-page[data-product="meets"] :is(.mweek-profile__icon, .mweek-introduction__person) { color: var(--product-ink); }
+.bc2-page[data-product="meets"] :is(.mweek-feedback__check, .mweek-invite__choices span:last-child) {
+  background: var(--product-solid);
+  color: var(--color-base-white);
+}
+.bc2-page[data-product="meets"] :is(.mweek-introduction__connection, .mweek-meeting__connection, .mweek-feedback__rating span) { background: var(--product-accent); }
+.bc2-page[data-product="meets"] .mweek-introduction__interests span { background: var(--product-tint); color: var(--product-ink); }
+.bc2-page[data-product="meets"] .meets-form__consent a { color: var(--product-ink); }
+
+/* Community guide is part of Meets. The orange is concentrated in the step
+ * markers, selected pill and links, rather than every grey/white panel. */
+.bc2-page[data-product="meets"].card-resources .cr-overview a:nth-child(3) { background: var(--product-tint); }
+.bc2-page[data-product="meets"].card-resources .meets-communities__benefit-number stop:first-child { stop-color: var(--product-accent); }
+.bc2-page[data-product="meets"].card-resources .cr-overview a:nth-child(3) .meets-communities__benefit-number stop:last-child { stop-color: var(--product-tint); }
+.bc2-page[data-product="meets"].card-resources :is(.cr-overview__arrow, .cr-bot-steps li::before) { color: var(--product-ink); }
+.bc2-page[data-product="meets"].card-resources .cr-wizard__steps button[aria-pressed="true"] {
+  background: var(--product-solid);
+  color: var(--color-base-white);
+}
+.bc2-page[data-product="meets"].card-resources .cr-wizard__steps button[aria-pressed="true"] > span { color: inherit; }
+.bc2-page[data-product="meets"].card-resources :is(.cr-prose a, .cr-section-head p a, .cr-group-id p a, .cr-useful__name) { color: var(--product-ink); }
+.bc2-page[data-product="meets"].card-resources details[open] > summary { color: var(--product-ink); }
+.bc2-page[data-product="meets"].card-resources .cr-useful__icon { background: var(--product-ink); mask: var(--resource-icon) center / 22px 22px no-repeat; }
+.bc2-page[data-product="meets"].card-resources .cr-useful__icon img { visibility: hidden; }
+
+.bc2-page[data-product="cards"] .nc-identity--profile {
+  --action-bg: var(--product-solid);
+  --action-color: var(--color-base-white);
+  --action-knob-bg: var(--bc-paper);
+  --action-knob-color: var(--product-ink);
+}
+.bc2-page[data-product="meets"] .mweek-introduction__message { background: var(--product-solid); }
+.bc2-page[data-product="meets"] .mweek-introduction__match-head > span { background: var(--product-tint); color: var(--product-ink); }

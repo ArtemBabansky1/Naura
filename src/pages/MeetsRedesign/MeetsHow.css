@@ -1,0 +1,287 @@
+/* MeetsHow — "how meetings work" as a horizontal card scroller.
+ *
+ * Desktop (.is-pinned): the panel pins to the viewport and the full-bleed card
+ * row is translated sideways by GSAP as the page scrolls — four cards in view
+ * at the start. Touch / reduced motion (.is-native): a plain native swipe row.
+ * Every card shares one template: a pill badge on top, then the title (an
+ * accent number on stat cards) and a short body pinned to the bottom-left. */
+
+/* ── Pinned panel is content-sized and pins at the viewport center, so the
+ * section keeps the standard 200u block gap above (from .section) and below
+ * (the sheets' 100u+100u pair) — no viewport-height slack around it. ────── */
+.meets-how__pin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.meets-how.is-pinned .meets-how__pin {
+  /* Clip the max-content row that GSAP slides sideways. */
+  overflow: hidden;
+}
+
+/* ── Header — split band: eyebrow + two-line headline on the left, the
+ * right-aligned description on the right, bottom edges level ───────────── */
+.meets-how__head {
+  display: flex;
+  /* Top alignment, not baseline: the title's words sit in .m-reveal__mask
+   * boxes (overflow: clip), whose synthesized baseline is the box bottom, so
+   * baseline alignment shoved the paragraph a full line-box down. */
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-60);
+}
+
+.meets-how__title {
+  color: var(--text-primary);
+  /* Negative lift, not zero: at the h2 size the line box carries ~20u of
+   * leading above the caps, so a flush top still read a line lower than the
+   * paragraph beside it. Pulls the cap line level with the paragraph's. */
+  margin-top: calc(-1 * var(--space-10));
+  /* Forces the six-word headline onto two lines in both locales. */
+  max-width: 20ch;
+}
+
+.meets-how__desc {
+  color: var(--text-list);
+  /* Sized so the opening definition — "Naura Meets — сервис регулярных
+   * знакомств с интересными людьми." — holds one line, while staying short of
+   * the next word so it does not ride up beside it. */
+  max-width: calc(790 * var(--u));
+  text-align: right;
+}
+
+@media (max-width: 767.98px) {
+  .meets-how__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-20);
+  }
+
+  .meets-how__desc {
+    text-align: left;
+  }
+}
+
+/* ── Card row ─────────────────────────────────────────────────────────── */
+.meets-how__track {
+  display: flex;
+  gap: var(--grid-gap);
+}
+
+.meets-how.is-pinned .meets-how__track {
+  width: max-content;
+  align-self: flex-start;
+  will-change: transform;
+  /* padding-inline + --card-w are set from JS so four cards align with the
+   * header container on any viewport width. */
+}
+
+.meets-how.is-native .meets-how__track {
+  overflow-x: auto;
+  padding-inline: var(--gutter);
+  /* Inset the snapport by the same gutter. Without it `scroll-snap-align:
+   * start` aligns the first card with the raw scrollport edge, so the browser
+   * scrolls the leading padding away on load and the row sits flush against
+   * the screen while the header keeps its gutter. */
+  scroll-padding-inline: var(--gutter);
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Room so the hover lift is never clipped. */
+  padding-block: var(--space-10);
+  margin-block: calc(-1 * var(--space-10));
+}
+
+.meets-how.is-native .meets-how__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────── */
+.meets-how__card {
+  flex: 0 0 var(--card-w, 74vw);
+  /* Let the desktop measurement win over image/text min-content widths.
+   * Otherwise only three cards fit and the track gains a phantom card-length. */
+  min-width: 0;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Portrait card (1000×1300) — the height follows whatever width the
+   * track math gives. */
+  aspect-ratio: 1000 / 1300;
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  background: var(--bg-card-muted);
+  overflow: clip;
+  isolation: isolate;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+/* Tablet peek, then the four-across desktop fallback (JS overrides --card-w). */
+@media (min-width: 768px) {
+  .meets-how__card {
+    flex-basis: var(--card-w, 42vw);
+  }
+}
+
+@media (min-width: 1024px) {
+  .meets-how__card {
+    flex-basis: var(
+      --card-w,
+      calc((min(100vw - 2 * var(--gutter), var(--content-max)) - 3 * var(--grid-gap)) / 4)
+    );
+  }
+}
+
+.meets-how__card:hover {
+  transform: translateY(calc(-4 * var(--u)));
+}
+
+/* Glass pill over the photo — frosted blur, white ink. */
+.meets-how__badge {
+  padding: var(--space-5) var(--space-15);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  backdrop-filter: blur(14px) saturate(1.15);
+  color: var(--color-base-white);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.meets-how__card-title {
+  /* Copy sits on the card's bottom padding line, badge stays on top. */
+  margin-top: auto;
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.meets-how__card .meets-how__card-desc {
+  margin-top: 20px;
+  color: var(--text-list);
+  max-width: 34ch;
+}
+
+/* ── Stat cards — accent number stands in for the title (same text-h3 size
+ * as the text cards' titles; the number carries the accent color) ──────── */
+.meets-how__stat-value {
+  /* Same bottom-pinned copy as the text cards. */
+  margin-top: auto;
+  font-weight: var(--weight-semibold);
+  color: var(--accent-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.meets-how__stat-num {
+  /* Wrapping allowed: the stat slot now carries sentences ("Общение один на
+   * один", "От 30 минут до ∞"), which nowrap pushed past the card edge. What
+   * must hold together is glued with NBSP in the locale instead. */
+  white-space: normal;
+}
+
+.meets-how__stat-unit {
+  color: var(--text-primary);
+}
+
+.meets-how__card .meets-how__stat-label {
+  margin-top: 20px;
+  color: var(--text-list);
+  max-width: 26ch;
+}
+
+/* The picture is a pure backdrop, not a flex item. Keeping it out of the
+ * layout leaves the badge anchored to the card's top padding. */
+.meets-how__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ── Card photo backdrop — full-bleed behind the copy (isolate + z-index:-1
+ * keeps it above the card fill but under text); zooms in on card hover. ── */
+.meets-how__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+  will-change: transform;
+}
+
+.meets-how__card:hover .meets-how__photo {
+  transform: scale(1.06);
+}
+
+/* Scrim over the card photo — the copy is bottom-pinned, so the veil is too:
+ * full strength under the text, clear across the upper half where the badge
+ * carries its own dark pill. Sits between the photo and the copy — same
+ * negative layer as the photo, later in the DOM, so it paints over it while
+ * the (unpositioned) text stays above both. */
+.meets-how__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--color-base-black-50) 0, transparent 60%);
+}
+
+/* All card copy runs white over the photos — including the stat numbers
+ * that would otherwise carry the accent color. */
+.meets-how__card .meets-how__card-title,
+.meets-how__card .meets-how__stat-value,
+.meets-how__card .meets-how__stat-unit {
+  color: var(--color-base-white);
+}
+
+.meets-how__card .meets-how__card-desc,
+.meets-how__card .meets-how__stat-label {
+  color: rgba(var(--theme-ink), 0.9);
+}
+
+/* ── CTA card (1-on-1) — the button follows the bottom-pinned copy and
+ * lights up from a hover anywhere on the card (mirrors the shared sweep
+ * hover from styles/buttons.css). ─────────────────────────────────────── */
+.meets-how__photo-cta {
+  margin-top: var(--space-25);
+}
+
+.meets-how__card--photo:hover .meets-how__photo-cta {
+  color: var(--sweep-ink);
+  border-color: var(--sweep-fill);
+}
+
+.meets-how__card--photo:hover .meets-how__photo-cta::after {
+  transform: translateY(0);
+}
+
+/* ── Progress bar (scroll progress, 0 → 1) ────────────────────────────── */
+.meets-how__progress {
+  position: relative;
+  height: var(--space-5);
+  border-radius: var(--radius-pill);
+  /* Same muted gray as the cards above. */
+  background: var(--bg-card-muted);
+  overflow: hidden;
+}
+
+.meets-how__progress-bar {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: inherit;
+  background: var(--accent-primary);
+  will-change: transform;
+}

@@ -1,0 +1,114 @@
+.crm-redesign .hero-section { background:transparent; padding:40px 0 100px; min-height:0; }
+.crm-redesign .hero-stage { background:transparent; border:0; border-radius:0; height:max(860px,calc(100svh - 130px)); overflow:visible; }
+.crm-redesign .hero-content { padding:40px 0 0; max-width:1000px; }
+.crm-redesign .hero-content__headline { font-size:var(--text-display); font-weight:500; line-height:1.02; letter-spacing:-.055em; margin-bottom:30px; }
+.crm-redesign .hero-content__headline-line { white-space:normal; }
+.crm-redesign .hero-content__subtitle { color:var(--text-list); max-width:600px; font-size:20px; line-height:1.4; margin:0 auto 30px; }
+.crm-redesign .hero-content__cta { justify-content:center; }
+.crm-redesign .graph-node { background:var(--bc-paper); color:var(--bc-ink); border-color:var(--bc-line); box-shadow:none!important; backdrop-filter:none; }
+.crm-redesign .graph-node__name { color:var(--bc-ink); }
+.crm-redesign .graph-node__role { color:#62615d; }
+.crm-redesign .graph-node__avatar { width:30px; height:30px; }
+.crm-redesign .hero-graph { opacity:.9; }
+.crm-redesign .features-section { padding-block:100px 140px; }
+.crm-redesign .features-header__subtitle { color:var(--text-list); margin-top:20px; }
+.crm-redesign .features-header { max-width:1100px; }
+.crm-redesign .features-header__title { max-width:960px; }
+.crm-redesign .feature-card { border:0; background:#e9e8e3; border-radius:var(--nc-radius); }
+.crm-redesign .feature-card__desc { margin-top:20px; }
+.crm-redesign .feature-card--contactGraph .feature-card__body { flex:0 0 auto; }
+.crm-redesign .feature-card--contactGraph .feature-card__desc { margin-top:20px; font-size:var(--text-body); line-height:var(--leading-normal); opacity:1; }
+.crm-redesign :is(.feature-card--telegramBot,.feature-card--workspaces) { background:var(--bc-paper); box-shadow:none; }
+.crm-redesign .feature-card--telegramBot .feature-card__media > svg > path { fill:var(--bc-olive); }
+.crm-redesign :is(.feature-card--contactGraph,.feature-card--reminders) {
+  --theme-ink:253,253,252;
+  --text-primary:var(--bc-paper);
+  --text-muted:#c4c3bd;
+  --text-list:#c4c3bd;
+  --bg-card:var(--bc-paper);
+  background:var(--bc-ink);
+  color:var(--bc-paper);
+}
+.crm-redesign .how-it-works-section { background:transparent; padding-top:40px; }
+.crm-redesign .hiw-card { border:1px solid var(--bc-line); }
+.crm-redesign .hiw-desc { margin-top:20px; }
+.crm-redesign .communities-section { padding-top:140px; }
+.crm-redesign .communities-frame { background:var(--bc-paper); border:1px solid var(--bc-line); padding:60px; }
+.crm-redesign .communities-header__title { margin-top:0; font-size:45px; }
+.crm-redesign .communities-header__subtitle { margin-top:20px; }
+.crm-redesign .communities-pill { background:var(--bc-paper); border:1px solid var(--bc-line); border-radius:15px; }
+.crm-redesign .communities-visual { position:relative; margin:-46px -46px -46px 0; border-radius:20px; }
+.crm-redesign .communities-visual .dir-mock { border-radius:20px; }
+.crm-redesign .dir-mock { background:var(--bc-canvas); border:0; }
+.crm-redesign .dir-card { background:var(--bc-paper); border:0; border-radius:15px; }
+.crm-redesign .dir-card__avatar { width:42px; height:42px; }
+.crm-redesign .dir-pill.is-active { color:var(--bc-ink); }
+.crm-redesign .page-closing { background:var(--bc-canvas); }
+.crm-redesign .cta-section { position:relative; padding-block:160px; overflow:hidden; background:transparent; }
+.crm-redesign .cta-content { position:relative; }
+.crm-redesign .cta-headline { max-width:900px; margin-inline:auto; }
+.crm-redesign .cta-subtitle { color:var(--text-list); margin-top:24px; max-width:650px; }
+.crm-redesign .cta-content > .bc2-button { margin-top:30px; }
+.crm-redesign .cta-section .card-lines { overflow:visible; }
+.crm-redesign .cta-section .card-lines svg { width:100%; height:100%; left:0; top:125px; overflow:visible; }
+.crm-redesign .ai-intro__top { display:flex; justify-content:space-between; gap:20px; }
+.crm-redesign .cta-proof__avatar,.crm-redesign .cta-proof__pic { width:30px; height:30px; }
+.crm-redesign .ai-agents-section { padding-bottom:100px; }
+.crm-redesign .ai-intro__title { font-size:45px; margin-top:20px; }
+.crm-redesign .ai-intro__privacy { position:static; align-self:stretch; margin-bottom:0; }
+.crm-redesign .ai-intro__subtitle { margin-top:20px; }
+.crm-redesign .ai-panel--demo {
+  --bg-card:var(--bc-ink);
+  --text-primary:var(--bc-paper);
+  --text-muted:var(--bc-pebble);
+  --border-default:rgba(253,253,252,.18);
+  --border-subtle:rgba(253,253,252,.14);
+  --accent-primary:var(--bc-olive);
+  background:var(--bc-ink);
+  color:var(--bc-paper);
+}
+.crm-redesign .telegram-header__title { margin:0 auto; }
+.crm-redesign .telegram-feature__desc { margin-top:10px; }
+.crm-redesign .telegram-feature--askGraph { top:24%; right:calc(50% + var(--phone-w) / 2 + var(--space-50)); }
+.crm-redesign .telegram-feature--forwardSave { top:24%; left:calc(50% + var(--phone-w) / 2 + var(--space-50)); }
+.crm-redesign .telegram-feature--voiceNotes { top:60%; right:calc(50% + var(--phone-w) / 2 + var(--space-20)); }
+.crm-redesign .telegram-feature--noAccount { top:60%; left:calc(50% + var(--phone-w) / 2 + var(--space-20)); }
+.crm-redesign .faq-header__title { margin-top:0; }
+.crm-redesign .faq-header__contact { margin-top:20px; }
+.crm-redesign .hiw-card__contacts { margin-top:auto; }
+@media(min-width:1600px) {
+  .crm-redesign .hero-content { max-width:1320px; }
+  .crm-redesign .hero-content__headline-line { white-space:nowrap; }
+}
+@media(min-width:1600px) {
+  /* The visible gap is hero bottom padding + feature top padding, minus the
+   * web's intentional 35px bleed. 66px + 66px yields 97px instead of 165px:
+   * a 41% reduction at Full HD. */
+  .crm-redesign .hero-section { padding-bottom:66px; }
+  .crm-redesign .features-section { padding-top:66px; }
+}
+@media(min-width:1200px) and (max-width:1599px) {
+  /* The shorter laptop hero carries a larger graph offset, so 75px on each
+   * side produces the same visual forty-percent reduction there. */
+  .crm-redesign .hero-section { padding-bottom:75px; }
+  .crm-redesign .features-section { padding-top:75px; }
+}
+@media(max-width:1199px) {
+  .crm-redesign .hero-stage { height:auto; min-height:600px; }
+  .crm-redesign .hero-content { padding-block:60px 100px; }
+  .crm-redesign .communities-frame { padding:40px; }
+  .crm-redesign .communities-visual { margin:-26px -26px -26px 0; }
+  .crm-redesign .features-section { padding-block:40px 100px; }
+  .crm-redesign .communities-section { padding-top:100px; }
+}
+@media(max-width:767px) {
+  .crm-redesign .hero-section { padding-top:20px; }
+  .crm-redesign .hero-stage { min-height:460px; }
+  .crm-redesign .hero-content { padding-block:60px 80px; }
+  .crm-redesign .hero-content__subtitle { font-size:16px; }
+  .crm-redesign .communities-frame { padding:25px; }
+  .crm-redesign .communities-visual { margin:-11px -11px -11px 0; }
+  .crm-redesign .communities-header__title { font-size:40px; }
+  .crm-redesign .communities-section { padding-top:80px; }
+  .crm-redesign .cta-section { padding-block:100px; }
+}

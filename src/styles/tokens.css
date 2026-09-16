@@ -211,7 +211,10 @@
     --bg-btn-secondary: var(--color-base-white);
 
     --text-primary:    var(--color-base-white);
-    --text-muted:      var(--color-base-gray-800);
+    /* Был gray-800 (#535353): на чёрном фоне контраст 2,7:1 при норме 4,5:1 —
+     * подписи и подзаголовки физически плохо читались. gray-200 (#90a1b9)
+     * даёт 8:1. Границы не затронуты: они читают --border-default. */
+    --text-muted:      var(--color-base-gray-200);
     --text-subtle:     var(--color-base-gray-800-30);
     --text-list:       var(--color-base-gray-100);
     --text-meta:       var(--color-base-gray-200);
@@ -269,7 +272,11 @@
      * SEMANTIC TOKENS: LAYOUT RHYTHM
      * ============================================================ */
 
-    --section-gap:        var(--space-200); /* uniform gap between all blocks (200px) */
+    /* Uniform gap between blocks. Fluid below the zoom boundary: --u is a flat
+     * 1px there, so the old flat 200px left a phone with a BIGGER block gap
+     * (200px of a 780px screen) than a 1440 laptop gets (150px). Meets
+     * calc(200*--u) at 1200 (125px) without a step. */
+    --section-gap:        clamp(80px, 10.4vw, 200px);
     --section-gap-inner:  var(--space-75);  /* sub-blocks within section */
     --section-padding-x:  var(--grid-margin); /* horizontal page padding at 1920px */
 
@@ -283,7 +290,11 @@
      *              in the sub-1200 media blocks below.
      * Every section's horizontal alignment derives from .container, which
      * reads ONLY these two tokens — no per-section margins. */
-    --gutter:       var(--space-40);   /* 40px — C tier (1024–1199) */
+    /* Fluid below the zoom boundary. The old stepped ladder (40 / 30 / 20)
+     * gave a tablet ~3.5% of its width against the desktop's 5.2%, so every
+     * block read as pushed against the edges, and 1199→1200 jumped 40→62px.
+     * This tracks the viewport and meets calc(100*--u) at 1200 (62.5px). */
+    --gutter:       clamp(25px, 5vw, 60px);
     --content-max:  var(--bp-laptop);  /* 1200px — relational cap below zoom */
 
     --card-padding:       var(--space-40);  /* inner padding (Figma: 39px → 40px) */
@@ -382,10 +393,7 @@
    *   B tier  768–1023 : 30px
    *   A tier   <768    : 20px
    * ============================================================ */
-  @media (max-width: 1023.98px) {
-    :root { --gutter: var(--space-30); }
-  }
-  @media (max-width: 767.98px) {
-    :root { --gutter: var(--space-20); }
-  }
+  /* The stepped overrides that used to live here are gone: --gutter is fluid
+   * now (see its definition above), so the tiers below 1200 no longer need a
+   * per-tier value. Restoring them means putting back 30px / 20px here. */
 }

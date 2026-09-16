@@ -1,0 +1,98 @@
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  max-width: 36rem;
+}
+
+.support-form__banner {
+  margin: 0;
+  padding: var(--space-15) var(--space-20);
+  border-radius: var(--radius-15);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+}
+
+.support-form__banner--success {
+  color: var(--text-primary);
+  background: rgba(134, 66, 255, 0.12);
+  border: 1px solid rgba(134, 66, 255, 0.35);
+}
+
+.support-form__banner--error {
+  color: var(--text-primary);
+  background: rgba(255, 80, 80, 0.1);
+  border: 1px solid rgba(255, 80, 80, 0.35);
+}
+
+.support-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.support-form__label {
+  color: var(--text-muted);
+}
+
+.support-form__input,
+.support-form__textarea {
+  width: 100%;
+  padding: var(--space-15) var(--space-20);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-15);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  transition: border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.support-form__input:focus,
+.support-form__textarea:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.support-form__input:disabled,
+.support-form__textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.support-form__textarea {
+  resize: vertical;
+  min-height: calc(120 * var(--u));
+}
+
+.support-form__submit {
+  align-self: flex-start;
+  padding: var(--btn-cta-py) var(--btn-cta-px);
+  border: none;
+  border-radius: var(--btn-cta-radius);
+  background: var(--accent-primary);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--btn-cta-font);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--ease-in-out);
+}
+
+.support-form__submit:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.support-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .support-form__input,
+  .support-form__textarea,
+  .support-form__submit {
+    transition: none;
+  }
+}

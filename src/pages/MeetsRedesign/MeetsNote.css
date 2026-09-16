@@ -1,0 +1,42 @@
+/* Four tracks match the benefit cards above: quote in track one,
+   text begins exactly at the second track. */
+.card-site .meets-note__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  padding: var(--space-80) 0;
+  margin: 0;
+  border-radius: var(--nc-radius);
+  overflow: hidden;
+  text-align: left;
+  transform-origin: center bottom;
+}
+.meets-note__panel > .card-lines { color: var(--bc-stone); opacity: .45; }
+.card-site .meets-note__mark {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+  align-self: start;
+  display: block;
+  color: var(--bc-paper);
+  font-size: 150px;
+  line-height: 1;
+}
+.card-site .meets-note__quote { position: relative; grid-column: 2 / -1; padding-right: var(--space-60); margin: 0; }
+.meets-note__p { color: var(--bc-paper); font-size: 18px; line-height: 1.6; }
+.card-site .meets-note__p--lead { max-width: 27ch; font-size: 40px; font-weight: 500; line-height: 1.1; letter-spacing: -.04em; }
+.card-site .meets-note__p + .meets-note__p { max-width: 65ch; margin-top: var(--space-25); }
+.card-site .meets-note__sign { position: relative; grid-column: 2 / -1; margin-top: var(--space-30); padding-right: var(--space-60); color: var(--bc-paper); font-size: 14px; }
+@media (max-width: 1199px) {
+  .card-site .meets-note__panel { padding-block: var(--space-60); }
+  .card-site .meets-note__quote,.card-site .meets-note__sign { padding-right: var(--space-40); }
+}
+@media (max-width: 767px) {
+  .card-site .meets-note__panel { grid-template-columns: 1fr; padding: var(--space-30) var(--space-25); text-align: left; }
+  .card-site .meets-note__mark { grid-column: 1; grid-row: auto; justify-self: start; font-size: 80px; height: 60px; }
+  .card-site .meets-note__quote,.card-site .meets-note__sign { grid-column: 1; padding-right: 0; }
+  .card-site .meets-note__p--lead { font-size: 30px; }
+  .meets-note__p { font-size: 16px; }
+}

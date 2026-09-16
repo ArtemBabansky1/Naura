@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { easing } from "../../lib/framer"
 import "./FaqAccordion.css"
 

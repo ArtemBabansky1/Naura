@@ -1,0 +1,64 @@
+# --- Force HTTPS ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Meets живёт только на meets.naura.io ---
+# Один и тот же файл уезжает на оба сайта, поэтому каждое правило проверяет имя
+# домена. На поддомене корень сам отдаёт страницу Meets (см. App.jsx), поэтому
+# перенаправление тут больше не нужно.
+#
+# На основном сайте старые адреса /meets и /ru/meets уводятся на поддомен
+# постоянным переходом (301): страница переехала, дублирования быть не должно,
+# а накопленные ссылки и позиции переходят на новый адрес.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Основной сайт: старые адреса Meets уходят на поддомен.
+  RewriteCond %{HTTP_HOST} !^meets\. [NC]
+  RewriteRule ^ru/meets/?$ https://meets.naura.io/ru [R=301,L]
+  RewriteCond %{HTTP_HOST} !^meets\. [NC]
+  RewriteRule ^meets/?$ https://meets.naura.io/ [R=301,L]
+
+  # Поддомен: /meets внутри него — тот же дубль, только этажом ниже.
+  # Корень уже отдаёт Meets, поэтому хвост срезается.
+  RewriteCond %{HTTP_HOST} ^meets\. [NC]
+  RewriteRule ^ru/meets/?$ /ru [R=301,L]
+  RewriteCond %{HTTP_HOST} ^meets\. [NC]
+  RewriteRule ^meets/?$ / [R=301,L]
+</IfModule>
+
+# --- Digital Card: permanent redirects from the previous page address ---
+# Query parameters are preserved; put these rules before the SPA fallback.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(ru/)?business-cards/?$ /$1digital-card [R=301,L]
+</IfModule>
+
+# --- SPA fallback: все маршруты отдаём index.html ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# --- Кэширование ---
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(js|css|woff2|avif|webp|png|jpg|jpeg|svg|glb)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# --- Сжатие ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>

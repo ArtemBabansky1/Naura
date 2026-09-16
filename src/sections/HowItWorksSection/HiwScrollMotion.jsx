@@ -1,8 +1,7 @@
 import { useMemo, useRef } from "react"
-// framer-motion (not "motion/react") — the rest of the app already ships
-// framer-motion; importing the same APIs from the "motion" package bundled a
-// second full copy of the animation engine into this section's chunk.
-import { motion, useMotionValue, useMotionValueEvent, useTransform } from "framer-motion"
+// Use the same Motion for React entry point as the rest of the app so the
+// animation runtime is shared across route chunks.
+import { motion, useMotionValue, useMotionValueEvent, useTransform } from "motion/react"
 
 const SLIDE = 24
 const SCALE_REST = 0.96

@@ -1,17 +1,18 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { motion, useMotionValue, useTransform } from "framer-motion"
+import { motion, useMotionValue, useTransform } from "motion/react"
 import { gsap, ScrollTrigger } from "../../lib/gsap"
 import { scheduleScrollRefresh } from "../../lib/scrollRefresh"
 import { MEETS_BOT_URL } from "../../lib/urls"
 import { RevealText } from "./motion"
 import "./MeetsWeek.css"
 
-const STEPS = 4
-/* How many of the 7 (Mon-first) segments are filled at each step. The first
- * Saturday starts the story with an EMPTY wheel; filling begins on step 02
+const STEPS = 5
+/* How many of the 7 (Mon-first) segments are filled at each step. Step 00 is
+ * the one-off profile — it sits OUTSIDE the week, so the wheel stays empty
+ * through it and through the first Saturday; filling begins on step 02
  * (Пн → 1), then Ср → 3, then Сб → 6. */
-const DAY_OF_STEP = [0, 1, 3, 6]
+const DAY_OF_STEP = [0, 0, 1, 3, 6]
 const SEGMENTS = 7
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v))
@@ -92,14 +93,71 @@ function WeekStepLayer({ index, progress, children }) {
 function StepText({ step, index }) {
   return (
     <div className="mweek-step-row">
-      <span className="mweek-num" aria-hidden="true">
-        {String(index + 1).padStart(2, "0")}
-      </span>
+      {/* The profile step carries no numeral — a leading «00» read as a glitch,
+          and dropping it gives its copy the full column. The week itself still
+          counts 01–04. */}
+      {index > 0 && (
+        <span className="mweek-num" aria-hidden="true">
+          {String(index).padStart(2, "0")}
+        </span>
+      )}
       <div className="mweek-step-body">
         <h3 className="mweek-title text-h3">{step.title}</h3>
         <p className="mweek-desc text-body">{step.description}</p>
       </div>
     </div>
+  )
+}
+
+/* ── Profile card — the filled-in questionnaire shown on step 00, standing
+ * where the wheel appears from step 01 on. Fields mirror what a participant
+ * actually sees in the bot: who, where, role, about, looking for, can help.
+ * Copy is fictional and lives in the locale. ──────────────────────────────── */
+const PROFILE_FIELDS = ["role", "about", "looking", "skills"]
+
+const PROFILE_ICONS = {
+  role: "M4 8h16v11H4zM9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2",
+  about: "M12 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM5 20a7 7 0 0 1 14 0",
+  looking: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-4.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z",
+  skills: "M12 3.5 13.9 9l5.6 1.9-5.6 1.9L12 18.5 10.1 12.8 4.5 10.9 10.1 9zM18.5 3.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z",
+}
+
+function ProfileCard({ profile }) {
+  return (
+    <figure className="mweek-profile">
+      <div className="mweek-profile__card">
+        <div className="mweek-profile__head">
+          <span className="mweek-profile__avatar" aria-hidden="true">
+            {profile.initials}
+          </span>
+          <div className="mweek-profile__id">
+            <p className="mweek-profile__name">{profile.name}</p>
+            <p className="mweek-profile__place">{profile.location}</p>
+          </div>
+        </div>
+
+        <ul className="mweek-profile__rows">
+          {PROFILE_FIELDS.map((field) => (
+            <li className="mweek-profile__row" key={field}>
+              <svg
+                className="mweek-profile__icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d={PROFILE_ICONS[field]} />
+              </svg>
+              <span>{profile[field]}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <figcaption className="mweek-profile__caption">{profile.caption}</figcaption>
+    </figure>
   )
 }
 
@@ -172,7 +230,11 @@ function WeekWheel({ dayLabels, stepDays, refs, staticStep }) {
   )
 }
 
-const REDUCED_QUERY = "(prefers-reduced-motion: reduce)"
+/* Static stacking covers short viewports (landscape phones): the panel runs
+ * ~720px there against a ~360px screen, and a pinned block taller than the
+ * viewport puts its lower half out of reach. Portrait phones keep the pinned
+ * step-through — the profile card steps aside there instead (MeetsWeek.css). */
+const REDUCED_QUERY = "(prefers-reduced-motion: reduce), (max-height: 600px)"
 const readStaticMode = () =>
   typeof window !== "undefined" && window.matchMedia(REDUCED_QUERY).matches
 
@@ -181,6 +243,7 @@ export default function MeetsWeek() {
   const steps = t("week.steps", { returnObjects: true })
   const stepDays = t("week.stepDays", { returnObjects: true })
   const dayLabels = t("week.days", { returnObjects: true })
+  const profile = t("week.profile", { returnObjects: true })
 
   const sectionRef = useRef(null)
   const scrollerRef = useRef(null)
@@ -190,6 +253,9 @@ export default function MeetsWeek() {
   const centerRef = useRef(null)
   const centerDayRef = useRef(null)
   const centerCountRef = useRef(null)
+  // Right-column layers: profile card (step 00) and wheel (step 01 on).
+  const cardLayerRef = useRef(null)
+  const wheelLayerRef = useRef(null)
   const progress = useMotionValue(0)
 
   const wheelRefs = {
@@ -216,34 +282,52 @@ export default function MeetsWeek() {
     const pin = pinRef.current
     if (!scroller || !pin) return
 
-    // p ∈ [0, STEPS-1]. The fill HOLDS its value across each step's plateau
-    // (matching the text layers) and flows between the two days only inside
-    // the transition zone — so nothing trickles in while a step is resting.
+    // p ∈ [0, STEPS-1]. The fill flows CONTINUOUSLY with the scroll — one
+    // uninterrupted pour around the ring (no per-step plateau holds); only
+    // the text layers keep their plateau cross-fade.
     const render = (p) => {
       const pc = clamp(p, 0, STEPS - 1)
       const idx = clamp(Math.round(pc), 0, STEPS - 1)
       const lower = Math.floor(pc)
       const upper = Math.min(lower + 1, STEPS - 1)
-      const flow = clamp((pc - lower - PLATEAU) / (1 - 2 * PLATEAU), 0, 1)
+      const flow = clamp(pc - lower, 0, 1)
       const fill = DAY_OF_STEP[lower] + (DAY_OF_STEP[upper] - DAY_OF_STEP[lower]) * flow
 
       segmentRefs.current.forEach((el, j) => {
         if (!el) return
         const amount = clamp(fill - j, 0, 1)
-        // Draw along the arc (water-fill), not a cross-fade. Opacity only
-        // hides the round-cap "dot" a zero-length dash would leave behind.
+        // Draw along the arc (water-fill), not a cross-fade. The round cap
+        // pops in as a full-width "dot" at near-zero dash length, so fade
+        // the segment in over its first stretch instead of a binary toggle —
+        // no snap when the pour hands over to the next segment.
         el.style.strokeDashoffset = String(1 - amount)
-        el.style.opacity = amount > 0.01 ? "1" : "0"
+        el.style.opacity = String(clamp(amount / 0.15, 0, 1))
       })
       dayRefs.current.forEach((el, j) => {
         if (el) el.classList.toggle("is-on", j < Math.round(fill))
       })
       if (centerDayRef.current) centerDayRef.current.textContent = stepDays[idx]
-      if (centerCountRef.current) centerCountRef.current.textContent = `${DAY_OF_STEP[idx]}/7`
+      // The counter tracks the pour itself, not the step anchors.
+      if (centerCountRef.current) centerCountRef.current.textContent = `${Math.round(fill)}/7`
       if (centerRef.current) {
         // Same plateau as the text layers: solid near a step, fading between.
         const away = clamp((Math.abs(pc - idx) - PLATEAU) / (EDGE - PLATEAU), 0, 1)
         centerRef.current.style.opacity = String(1 - away)
+      }
+      // Right column hand-off: the profile card owns step 00, the wheel takes
+      // over from step 01. Same plateau shape as the text layers, so both
+      // columns swap on the same beat.
+      // Below 768 the card is dropped in CSS (the pinned panel cannot hold both
+      // it and the copy on a phone), so the wheel simply stays on from step 00.
+      const cardOn = cardLayerRef.current?.offsetParent != null
+      const toWheel = cardOn ? clamp((pc - PLATEAU) / (EDGE - PLATEAU), 0, 1) : 1
+      if (cardLayerRef.current && cardOn) {
+        cardLayerRef.current.style.opacity = String(1 - toWheel)
+        cardLayerRef.current.style.visibility = toWheel === 1 ? "hidden" : "visible"
+      }
+      if (wheelLayerRef.current) {
+        wheelLayerRef.current.style.opacity = String(toWheel)
+        wheelLayerRef.current.style.visibility = toWheel === 0 ? "hidden" : "visible"
       }
     }
 
@@ -251,17 +335,19 @@ export default function MeetsWeek() {
       ScrollTrigger.create({
         trigger: scroller,
         // The content-sized card pins once its center hits the viewport
-        // center and holds for ~4 viewports of scroll; pinSpacing keeps the
-        // document flow, so the 30px sheet gaps around the block survive.
+        // center and holds for ~4 viewports of scroll; pinSpacing keeps
+        // the document flow.
         start: "center center",
-        end: "+=420%",
+        // 140% of scroll per hand-off — four transitions now that step 00
+        // joined the row (was 420% for three).
+        end: "+=560%",
         pin,
         // Numeric scrub = inertia: progress eases toward the scroll position
         // over ~1.4s instead of tracking it 1:1, smoothing every hand-off.
         scrub: 1.4,
         // anticipatePin compensates the one-frame pin lag that reads as a
-        // visible snap on the contrasty dark card (its early-grab offset is
-        // invisible against the static white page around the card).
+        // visible snap on the contrasty card (its early-grab offset is
+        // invisible against the static page around the card).
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
@@ -306,14 +392,18 @@ export default function MeetsWeek() {
   // ── Reduced motion: stacked static steps ────────────────────────────────
   if (staticMode) {
     return (
-      <section id="meets-week" data-section="meets-week" className="meets-week section is-static meets-dark">
+      <section id="meets-week" data-section="meets-week" className="meets-week section is-static meets-gray">
         <div className="container mweek-static-head">{head}</div>
         {steps.map((step, i) => (
           <div className="mweek-static-step container" key={step.title}>
             <div className="mweek-text">
               <StepText step={step} index={i} />
             </div>
-            <WeekWheel dayLabels={dayLabels} stepDays={stepDays} staticStep={i} />
+            {i === 0 ? (
+              <ProfileCard profile={profile} />
+            ) : (
+              <WeekWheel dayLabels={dayLabels} stepDays={stepDays} staticStep={i} />
+            )}
           </div>
         ))}
         <div className="container mweek-static-cta">{cta}</div>
@@ -331,8 +421,8 @@ export default function MeetsWeek() {
     >
       <div className="mweek-scroller" ref={scrollerRef}>
         <div className="mweek-pin" ref={pinRef}>
-          {/* Dark (#191919) content-sized card — 100px block padding. */}
-          <div className="mweek-panel meets-dark">
+          {/* Botticelli (#cae7f7) content-sized card — 100px block padding. */}
+          <div className="mweek-panel meets-gray">
             <div className="mweek-inner container">
               <div className="mweek-text-col">
                 {head}
@@ -346,8 +436,21 @@ export default function MeetsWeek() {
                 {cta}
               </div>
 
+              {/* Two stacked layers in one cell: the profile card owns step
+                  00, the wheel takes over from step 01. Cross-faded from the
+                  same scroll progress that drives the text layers. */}
               <div className="mweek-wheel-col">
-                <WeekWheel dayLabels={dayLabels} stepDays={stepDays} refs={wheelRefs} />
+                <div className="mweek-visual">
+                  <div
+                    className="mweek-visual__layer mweek-visual__layer--card"
+                    ref={cardLayerRef}
+                  >
+                    <ProfileCard profile={profile} />
+                  </div>
+                  <div className="mweek-visual__layer" ref={wheelLayerRef}>
+                    <WeekWheel dayLabels={dayLabels} stepDays={stepDays} refs={wheelRefs} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

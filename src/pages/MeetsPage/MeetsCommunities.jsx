@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import { fadeUp, staggerContainer, viewportConfig, easing } from "../../lib/framer"
 import { RevealText } from "./motion"
 import "./MeetsCommunities.css"

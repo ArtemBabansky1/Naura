@@ -1,0 +1,120 @@
+/* MeetsFaq — two accordion groups side by side; the plus icon rotates 45°
+ * into a cross on open, exactly like the landing FAQ. */
+
+.meets-faq__grid {
+  margin-top: var(--section-gap-inner);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+  align-items: start;
+}
+
+.meets-faq__group-title {
+  color: var(--text-primary);
+  margin-bottom: var(--space-20);
+}
+
+.meets-faq__accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.meets-faq__item {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.meets-faq__item:first-child {
+  border-top: 1px solid var(--border-default);
+}
+
+/* ── Trigger row ──────────────────────────────────────────────────────── */
+.meets-faq__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-20);
+  padding-block: var(--space-20);
+  background: none;
+  border: none;
+  text-align: left;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.meets-faq__question {
+  flex: 1;
+  min-width: 0;
+  transition: color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-faq__trigger:hover .meets-faq__question {
+  color: var(--text-list);
+}
+
+.meets-faq__trigger:focus-visible {
+  outline: 1px solid var(--accent-primary);
+  outline-offset: var(--space-5);
+}
+
+/* ── Plus → cross icon ────────────────────────────────────────────────── */
+.meets-faq__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  color: var(--text-primary);
+  transition: transform var(--duration-base) var(--ease-out-expo),
+    color var(--duration-fast) var(--ease-in-out);
+}
+
+.meets-faq__icon::before,
+.meets-faq__icon::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.meets-faq__icon::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: calc(1.5 * var(--u));
+  transform: translateY(-50%);
+}
+
+.meets-faq__icon::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: calc(1.5 * var(--u));
+  transform: translateX(-50%);
+}
+
+.meets-faq__trigger:hover .meets-faq__icon,
+.meets-faq__item.is-open .meets-faq__icon {
+  color: var(--accent-primary);
+}
+
+.meets-faq__item.is-open .meets-faq__icon {
+  transform: rotate(45deg);
+}
+
+/* ── Answer panel ─────────────────────────────────────────────────────── */
+.meets-faq__panel {
+  overflow: hidden;
+}
+
+.meets-faq__answer {
+  margin: 0;
+  padding-bottom: var(--space-20);
+  max-width: 55ch;
+  color: var(--text-list);
+}
+
+@media (max-width: 900px) {
+  .meets-faq__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+}

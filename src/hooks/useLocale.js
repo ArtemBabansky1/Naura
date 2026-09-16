@@ -10,7 +10,7 @@ import {
 } from "../lib/locale"
 
 export const useLocale = () => {
-  const { pathname } = useLocation()
+  const { pathname, search, hash } = useLocation()
   const navigate = useNavigate()
   const locale = getLocaleFromPath(pathname)
 
@@ -21,8 +21,8 @@ export const useLocale = () => {
 
   const switchLocale = useCallback(() => {
     const next = locale === DEFAULT_LOCALE ? LOCALE_PREFIX : DEFAULT_LOCALE
-    navigate(switchLocalePath(pathname, next))
-  }, [locale, navigate, pathname])
+    navigate({ pathname: switchLocalePath(pathname, next), search, hash })
+  }, [locale, navigate, pathname, search, hash])
 
   return {
     locale,

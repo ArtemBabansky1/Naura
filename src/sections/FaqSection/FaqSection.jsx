@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { fadeUp, staggerContainer, viewportConfig, easing } from '../../lib/framer'
 import './FaqSection.css'
 

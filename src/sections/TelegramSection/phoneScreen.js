@@ -69,18 +69,16 @@ function circleImage(ctx, img, cx, cy, d) {
   ctx.restore()
 }
 
-function arrowUpRight(ctx, x, y, size, color) {
+function chevronRight(ctx, x, y, size, color) {
   ctx.save()
   ctx.strokeStyle = color
-  ctx.lineWidth = size * 0.12
+  ctx.lineWidth = size * (1.5 / 24)
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
   ctx.beginPath()
-  ctx.moveTo(x, y + size)
-  ctx.lineTo(x + size, y)
-  ctx.moveTo(x + size * 0.28, y)
-  ctx.lineTo(x + size, y)
-  ctx.lineTo(x + size, y + size * 0.72)
+  ctx.moveTo(x + size * (9 / 24), y + size * (18 / 24))
+  ctx.lineTo(x + size * (15 / 24), y + size * (12 / 24))
+  ctx.lineTo(x + size * (9 / 24), y + size * (6 / 24))
   ctx.stroke()
   ctx.restore()
 }
@@ -286,7 +284,7 @@ function drawDirectoryScreen(ctx, W, H, photos) {
     ctx.fillStyle = C.muted
     ctx.fillText(m.role, tx, y + ip + 98 * s)
 
-    // "Ask for intro ↗" — right side, aligned to the name row
+    // "Ask for intro" with the site's right chevron, aligned to the name row.
     ctx.font = `500 ${28 * s}px ${FONT}`
     const askLabel = 'Ask for intro'
     const askTw = ctx.measureText(askLabel).width
@@ -300,7 +298,7 @@ function drawDirectoryScreen(ctx, W, H, photos) {
     ctx.textAlign = 'left'
     ctx.textBaseline = 'middle'
     ctx.fillText(askLabel, askX + 30 * s, askY + askH / 2 + 1 * s)
-    arrowUpRight(ctx, askX + 30 * s + askTw + 16 * s, askY + askH / 2 - arrowSz / 2, arrowSz, C.list)
+    chevronRight(ctx, askX + 30 * s + askTw + 16 * s, askY + askH / 2 - arrowSz / 2, arrowSz, C.list)
 
     // tag chip — bottom-left
     ctx.font = `500 ${27 * s}px ${FONT}`

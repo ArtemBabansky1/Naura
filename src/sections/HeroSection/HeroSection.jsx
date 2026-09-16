@@ -5,7 +5,7 @@ import HeroGraph from './HeroGraph'
 import UnicornScene from '../../components/UnicornScene/UnicornScene'
 import BurgerButton from '../../components/MobileNav/BurgerButton'
 import { useMediaQuery, BELOW_DESKTOP_QUERY } from '../../hooks/useMediaQuery'
-import { MEETS_URL } from '../../lib/urls'
+import { SiteNavigation } from '../../components/SiteNavigation/SiteNavigation'
 import './HeroSection.css'
 
 // Naura wordmark (was naura-logo.svg) — inline so it ships with the JS, no request.
@@ -47,12 +47,7 @@ export default function HeroSection({ menuOpen, onMenuToggle }) {
           <a href={localePath('/')} className="hero-nav__logo" aria-label="Naura home">
             <NauraWordmark />
           </a>
-          <nav className="hero-nav__links" aria-label={t('nav.ariaLabel')}>
-            <a href="#features" className="hero-nav__link">{t('nav.businessCards')}</a>
-            <a href="#communities" className="hero-nav__link">{t('nav.communities')}</a>
-            <a href={MEETS_URL} className="hero-nav__link">{t('nav.meets')}</a>
-            <a href="#ai-agents" className="hero-nav__link">{t('nav.mcp')}</a>
-          </nav>
+          <SiteNavigation className="hero-nav__links" linkClassName="hero-nav__link" />
           <div className="hero-nav__actions">
             <button
               type="button"
